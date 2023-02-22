@@ -1,0 +1,18 @@
+
+/* Usefull selectors examples:
+
+  [custom-atribute="CustomValue"] {}
+
+  a[href*="aLinkHere"] {}
+
+*/
+
+/* First Sigarra breakpoint at 1100px */
+@media only screen and (min-width: 900px) and (max-width: 1100px) {
+
+}
+
+/* Second Sigarra breakpoint at 900px */
+@media only screen and (max-width: 900px) {
+
+}
