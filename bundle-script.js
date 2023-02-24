@@ -164,7 +164,7 @@ rl.on("close", () => {
   process.exit(0);
 });
 
-const generateSafariProjectCommand = `xcrun safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Sigarra Extension' --bundle-identifier 'com.niaefeup.sigarra-extension'`;
+const generateSafariProjectCommand = `xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Sigarra Extension' --bundle-identifier 'com.niaefeup.sigarra-extension'`;
 
 // The first command currently ignores the full --bundle-identifier flag (it still take the company name), so a replace is required to make sure it matches our bundle identifier
 const fixBundleIdentifierCommand = `find "bundle/safari/Sigarra Extension" \\( -name "*.swift" -or -name "*.pbxproj" \\) -type f -exec sed -i '' 's/com.niaefeup.sigarra-extension/com.niaefeup.sigarra-extension/g' {} +`;
