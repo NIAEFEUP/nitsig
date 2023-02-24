@@ -2,7 +2,11 @@
 
 First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) installed.
 
-`bundle-script.js` bundles and zips everything. `Run yarn && yarn bundle` at the root directory and you'll get a [bundle](../bundle) directory that looks like this:
+Run
+```sh
+yarn && yarn bundle
+```
+at the root directory and you'll get a bundle directory that looks like this:
 
 ```
 📂 bundle
@@ -13,7 +17,6 @@ First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) in
 └ 🗄️ firefox.zip
 └ 🗄️ safari.zip
 ```
-<br>
 
 ## Popup
 
@@ -25,7 +28,6 @@ cd popup
 yarn # to install the dependencies
 yarn build # to build and export Next.js app
 ```
-<br>
 
 ## Content Scripts
 
@@ -40,8 +42,6 @@ yarn watch # watch for changes and build automatically
 ```
 
 After you have built both `popup` and `content-scripts` you can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
-
-<br>
 
 ## Load Extension
 
@@ -77,4 +77,4 @@ After you have built both `popup` and `content-scripts` you can bundle the exten
 	</tr>
 </table>
 
-### This respository was based on the [typefully/minimal-twitter](https://github.com/typefully/minimal-twitter) extension repository
+#### This respository was based on the [typefully/minimal-twitter](https://github.com/typefully/minimal-twitter) extension repository
