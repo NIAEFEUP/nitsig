@@ -2,8 +2,8 @@
   "name": "sigarra-extension",
   "type": "module",
   "scripts": {
-    "build": "node ./bundle-extension.js",
-    "bundle": "node ./bundle-extension.js"
+    "build": "node ./bundle-script.js",
+    "bundle": "node ./bundle-script.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.0",

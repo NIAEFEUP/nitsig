@@ -2,7 +2,7 @@
 
 First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) installed.
 
-`bundle-extension.js` bundles and zips everything. `Run yarn && yarn bundle` at the root directory and you'll get a [bundle](../bundle) directory that looks like this:
+`bundle-script.js` bundles and zips everything. `Run yarn && yarn bundle` at the root directory and you'll get a [bundle](../bundle) directory that looks like this:
 
 ```
 📂 bundle

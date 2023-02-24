@@ -1,5 +1,5 @@
 {
-  "name": "minimal-twitter-content-scripts",
+  "name": "sigarra-extension-content-scripts",
   "source": "src/index.js",
   "main": "dist/main.js",
   "scripts": {
