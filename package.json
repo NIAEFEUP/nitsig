@@ -3,7 +3,8 @@
   "type": "module",
   "scripts": {
     "build": "node ./bundle-script.js",
-    "bundle": "node ./bundle-script.js"
+    "bundle": "node ./bundle-script.js",
+    "watch": "node ./watch-script.js"
   },
   "dependencies": {
     "fs-extra": "^11.1.0",
@@ -11,6 +12,8 @@
     "zip-local": "^0.3.5"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13"
+    "@types/fs-extra": "^9.0.13",
+    "watch": "^1.0.2",
+    "ws": "^8.12.1"
   }
 }
