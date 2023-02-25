@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 
 import { getStorage, setStorage } from "../../utilities/chromeStorage"
 
-export default function CheckboxControl({
+function CheckboxControl({
   label,
   storageKey,
   defaultState = false
@@ -70,3 +70,5 @@ const StyledCheckbox = styled(CheckboxPrimitive.Root, {
     border: "2px solid var(--twitter-accent-one)"
   }
 })
+
+export default CheckboxControl

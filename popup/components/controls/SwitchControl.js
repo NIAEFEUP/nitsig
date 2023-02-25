@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 import { getStorage, setStorage } from "../../utilities/chromeStorage"
 
-export default function SwitchControl({
+function SwitchControl({
   label,
   storageKey,
   defaultState = false
@@ -76,3 +76,5 @@ const StyledThumb = styled(SwitchPrimitive.Thumb, {
     transform: "translateX(20px)"
   }
 })
+
+export default SwitchControl
