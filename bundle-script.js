@@ -106,7 +106,7 @@ const processArguments = async () => {
     }
     var option = process.argv[2].toLowerCase();
     var debugMode = true;
-    if(process.argv.length > 4){
+    if(process.argv.length >= 4){
       if(!(process.argv[3] === "release" || process.argv[3] === "debug")){
         console.log("Error: 2nd argument should be either release or debug");
         printUsageAndExit();
@@ -115,9 +115,11 @@ const processArguments = async () => {
     }
 
     const firefoxDebug = async (bundleDirectory) => {
-      await appendFile(`${bundleDirectory}/background.js`, 
-        await (await readFile('dev/firefox/background.js')).toString()
-      );
+      if(debugMode){
+        await appendFile(`${bundleDirectory}/background.js`, 
+          await (await readFile('dev/firefox/background.js')).toString()
+        );
+      }
     };
     switch (option) {
       case "all":
@@ -128,12 +130,13 @@ const processArguments = async () => {
         }
         await bundle(manifest, "bundle/chrome",
         async (bundleDirectory) => {
-          await appendFile(`${bundleDirectory}/background.js`, 
-            await (await readFile('dev/chrome/background.js')).toString()
-          );
-          await copyFile('dev/chrome/watch.html', `${bundleDirectory}/watch.html`);
-          await copyFile('dev/chrome/watch.js', `${bundleDirectory}/watch.js`);
-
+          if(debugMode){
+            await appendFile(`${bundleDirectory}/background.js`, 
+              await (await readFile('dev/chrome/background.js')).toString()
+            );
+            await copyFile('dev/chrome/watch.html', `${bundleDirectory}/watch.html`);
+            await copyFile('dev/chrome/watch.js', `${bundleDirectory}/watch.js`);
+          }
         });
         if(option != "all") break;
 

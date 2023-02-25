@@ -9,12 +9,12 @@ const wss = new WebSocketServer({port: 8069});
 
 
 wss.on('connection', (stream) => {
-    console.log("A new client connected...");
+    console.log("⭐ The extension started listening for changes");
 });
 
 if(argv.length != 3){
-    console.log("Error: didn't provide a target...");
-    console.log("Usage: yarn watch firefox|chrome|safari");
+    console.log("❌ Error: didn't provide a target...");
+    console.log("🧳 Usage: yarn watch firefox|chrome|safari");
     exit(1);
 }
 
@@ -31,17 +31,17 @@ watch.watchTree(".", {
             && !(path.includes("bundle") || path.includes('out') || path.includes('node_modules'));
     }},
     async (f, curr, prev)  => {
-        console.log("File %s changed... building bundle again...", f);
+        console.log("🔃 File %s changed... building bundle again...", f);
         const command = spawn('yarn', ['bundle', argv[2]]);
         command.stdout.on('data', (data) => {
-            console.log("Build stdout: %s", data);
+            console.log("Build output: %s", data);
         })
         command.stderr.on('data', (data) => {
-            console.log("Build stderr: %s", data);
+            console.log("❌ Build error: %s", data);
         })
         command.on('exit', (code) => {
             if(code == 0){
-                console.log("Reloading clients...");
+                console.log("🔃 Reloading clients...");
                 wss.clients.forEach((client) => {
                     client.send("reload");
                 })

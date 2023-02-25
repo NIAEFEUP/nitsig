@@ -4,7 +4,8 @@
   "scripts": {
     "build": "node ./bundle-script.js",
     "bundle": "node ./bundle-script.js",
-    "watch": "node ./watch-script.js"
+    "watch": "node ./watch-script.js",
+    "release": "yarn bundle all release"
   },
   "dependencies": {
     "fs-extra": "^11.1.0",
