@@ -134,13 +134,11 @@ const processArguments = async () => {
         if(option != "all") break;
 
       case "safari":
-        if(process.platform === "darwin"){
-          await bundle(MANIFEST_FIREFOX, "bundle/firefox");
-          await runCommand(generateSafariProjectCommand, true);
-          await runCommand(fixBundleIdentifierCommand, true);
-        } else{
+        if(process.platform !== "darwin"){
           console.log("Skipping safari build since we are not on MacOS...");
-        }
+          break;
+        } 
+        await bundle(MANIFEST_FIREFOX, "bundle/firefox");
 
         let intervalId;
         let spinner = "\\";
@@ -155,7 +153,8 @@ const processArguments = async () => {
         };
 
         startBuilding();
-
+        await runCommand(generateSafariProjectCommand, true);
+        await runCommand(fixBundleIdentifierCommand, true);
 
 
         clearInterval(intervalId);
