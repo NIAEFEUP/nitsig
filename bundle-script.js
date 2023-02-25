@@ -133,6 +133,7 @@ rl.question(
         if(option != "all") break;
 
       case "safari":
+        break;
         await bundle(MANIFEST_FIREFOX, "bundle/firefox");
 
         let intervalId;
