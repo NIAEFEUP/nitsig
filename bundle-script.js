@@ -1,8 +1,7 @@
 import { exec } from "child_process";
 import { copy } from "fs-extra";
-import { copyFile, rm, writeFile } from "fs/promises";
+import { copyFile, rm, writeFile, appendFile, readFile} from "fs/promises";
 import process, { argv } from "process";
-import readline from "readline";
 import zipper from "zip-local";
 import { MANIFEST_CHROME, MANIFEST_FIREFOX } from "./manifest.js";
 
@@ -17,7 +16,7 @@ const runCommand = (command, yes) =>
     });
   });
 
-const bundle = async (manifest, bundleDirectory) => {
+const bundle = async (manifest, bundleDirectory, browserFunc) => {
   try {
     // Remove old bundle directory
     await rm(bundleDirectory, { recursive: true, force: true }); // requires node 14+
@@ -27,27 +26,11 @@ const bundle = async (manifest, bundleDirectory) => {
     const runBuildScript = (directory) => {
       return new Promise(async (resolve, reject) => {
         let intervalId;
-        let spinner = "\\";
-        const startBuilding = () => {
-          let P = ["\\", "|", "/", "-"];
-          intervalId = setInterval(() => {
-            process.stdout.clearLine();
-            process.stdout.cursorTo(0);
-            spinner = P[P.indexOf(spinner) + 1] || P[0];
-            process.stdout.write(
-              `${spinner}   Building popup and content scripts...`
-            );
-          }, 250);
-        };
-
-        startBuilding();
 
         try {
           await runCommand(`cd ./${directory} && yarn && yarn build`);
-          clearInterval(intervalId);
           resolve();
         } catch (error) {
-          clearInterval(intervalId);
           console.error(
             `Error running build script for ${directory}: ${error}`
           );
@@ -59,8 +42,6 @@ const bundle = async (manifest, bundleDirectory) => {
     await runBuildScript("popup");
     await runBuildScript("content-scripts");
 
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
     console.log("🔥  Built popup and content scripts.");
 
     // Bundle popup Next.js export
@@ -94,6 +75,8 @@ const bundle = async (manifest, bundleDirectory) => {
       "utf8"
     );
 
+    await browserFunc(bundleDirectory);
+
     // Done.
     console.log(`📦  Bundled \`${bundleDirectory}\`.`);
 
@@ -117,58 +100,78 @@ const bundle = async (manifest, bundleDirectory) => {
 
 
 const processArguments = async () => {
-    if(process.argv.length != 3){
+    if(process.argv.length < 3){
       console.log("Error: didn't supply a build option...");
-      console.log("Usage: yarn bundle all | firefox | chrome | safari");
-      process.exit(1);
+      printUsageAndExit();
     }
     var option = process.argv[2].toLowerCase();
+    var debugMode = true;
+    if(process.argv.length > 4){
+      if(!(process.argv[3] === "release" || process.argv[3] === "debug")){
+        console.log("Error: 2nd argument should be either release or debug");
+        printUsageAndExit();
+      }
+      debugMode = argv[3] === "debug";
+    }
+
+    const firefoxDebug = async (bundleDirectory) => {
+      await appendFile(`${bundleDirectory}/background.js`, 
+        await (await readFile('dev/firefox/background.js')).toString()
+      );
+    };
     switch (option) {
       case "all":
       case "chrome":
-        await bundle(MANIFEST_CHROME, "bundle/chrome");
+        var manifest = MANIFEST_CHROME;
+        if(debugMode){
+          manifest.permissions = [...manifest.permissions, "offscreen", "tabs"];
+        }
+        await bundle(manifest, "bundle/chrome",
+        async (bundleDirectory) => {
+          await appendFile(`${bundleDirectory}/background.js`, 
+            await (await readFile('dev/chrome/background.js')).toString()
+          );
+          await copyFile('dev/chrome/watch.html', `${bundleDirectory}/watch.html`);
+          await copyFile('dev/chrome/watch.js', `${bundleDirectory}/watch.js`);
+
+        });
         if(option != "all") break;
 
       case "firefox":
-        await bundle(MANIFEST_FIREFOX, "bundle/firefox");
+        var manifest = MANIFEST_FIREFOX;
+        if(debugMode){
+          manifest.background.persistent = true;
+        }
+        await bundle(manifest, "bundle/firefox",firefoxDebug);
         if(option != "all") break;
 
       case "safari":
+        var manifest = MANIFEST_FIREFOX;
+        if(debugMode){
+          manifest.background.persistent = true;
+        }
         if(process.platform !== "darwin"){
           console.log("Skipping safari build since we are not on MacOS...");
           break;
         } 
-        await bundle(MANIFEST_FIREFOX, "bundle/firefox");
+        if(option != "all") await bundle(MANIFEST_FIREFOX, "bundle/firefox");
 
-        let intervalId;
-        let spinner = "\\";
-        const startBuilding = () => {
-          let P = ["\\", "|", "/", "-"];
-          intervalId = setInterval(() => {
-            process.stdout.clearLine();
-            process.stdout.cursorTo(0);
-            spinner = P[P.indexOf(spinner) + 1] || P[0];
-            process.stdout.write(`${spinner}   Bundling Safari...`);
-          }, 250);
-        };
-
-        startBuilding();
         await runCommand(generateSafariProjectCommand, true);
         await runCommand(fixBundleIdentifierCommand, true);
 
-
-        clearInterval(intervalId);
         break;
     }
 };
 
 
 
-
-const generateSafariProjectCommand = `xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Sigarra Extension' --bundle-identifier 'com.niaefeup.sigarra-extension'`;
-
+const generateSafariProjectCommand = `xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Sigarra Extension' --bundle-identifier 'pt.up.fe.ni.sigarra-extension'`;
 // The first command currently ignores the full --bundle-identifier flag (it still take the company name), so a replace is required to make sure it matches our bundle identifier
-const fixBundleIdentifierCommand = `find "bundle/safari/Sigarra Extension" \\( -name "*.swift" -or -name "*.pbxproj" \\) -type f -exec sed -i '' 's/com.niaefeup.sigarra-extension/com.niaefeup.sigarra-extension/g' {} +`;
-
+const fixBundleIdentifierCommand = `find "bundle/safari/Sigarra Extension" \\( -name "*.swift" -or -name "*.pbxproj" \\) -type f -exec sed -i '' 's/pt.up.fe.ni.sigarra-extension/pt.up.fe.ni.sigarra-extension/g' {} +`;
 
 await processArguments();
+
+function printUsageAndExit() {
+  console.log("Usage: yarn bundle all | firefox | chrome | safari <release|debug>");
+  process.exit(1);
+}
