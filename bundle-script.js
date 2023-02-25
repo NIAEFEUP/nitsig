@@ -1,7 +1,7 @@
 import { exec } from "child_process";
 import { copy } from "fs-extra";
 import { copyFile, rm, writeFile } from "fs/promises";
-import process from "process";
+import process, { argv } from "process";
 import readline from "readline";
 import zipper from "zip-local";
 import { MANIFEST_CHROME, MANIFEST_FIREFOX } from "./manifest.js";
@@ -114,17 +114,18 @@ const bundle = async (manifest, bundleDirectory) => {
   }
 };
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 
-rl.question(
-  "Which browser would you like to bundle for? [All / Chrome / Firefox / Safari] ",
-  async (option) => {
-    option = option.toLowerCase();
+
+const processArguments = async () => {
+    if(process.argv.length != 3){
+      console.log("Error: didn't supply a build option...");
+      console.log("Usage: yarn bundle all | firefox | chrome | safari");
+      process.exit(1);
+    }
+    var option = process.argv[2].toLowerCase();
     switch (option) {
-      case "all" || "chrome":
+      case "all":
+      case "chrome":
         await bundle(MANIFEST_CHROME, "bundle/chrome");
         if(option != "all") break;
 
@@ -133,7 +134,13 @@ rl.question(
         if(option != "all") break;
 
       case "safari":
-        await bundle(MANIFEST_FIREFOX, "bundle/firefox");
+        if(process.platform === "darwin"){
+          await bundle(MANIFEST_FIREFOX, "bundle/firefox");
+          await runCommand(generateSafariProjectCommand, true);
+          await runCommand(fixBundleIdentifierCommand, true);
+        } else{
+          console.log("Skipping safari build since we are not on MacOS...");
+        }
 
         let intervalId;
         let spinner = "\\";
@@ -149,23 +156,20 @@ rl.question(
 
         startBuilding();
 
-        await runCommand(generateSafariProjectCommand, true);
-        await runCommand(fixBundleIdentifierCommand, true);
+
 
         clearInterval(intervalId);
         break;
     }
+};
 
-    rl.close();
-  }
-);
 
-rl.on("close", () => {
-  process.exit(0);
-});
+
 
 const generateSafariProjectCommand = `xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Sigarra Extension' --bundle-identifier 'com.niaefeup.sigarra-extension'`;
 
 // The first command currently ignores the full --bundle-identifier flag (it still take the company name), so a replace is required to make sure it matches our bundle identifier
 const fixBundleIdentifierCommand = `find "bundle/safari/Sigarra Extension" \\( -name "*.swift" -or -name "*.pbxproj" \\) -type f -exec sed -i '' 's/com.niaefeup.sigarra-extension/com.niaefeup.sigarra-extension/g' {} +`;
 
+
+await processArguments();
