@@ -1,0 +1,29 @@
+/* Página: Inscrições nas Turmas */
+
+ul[id^="list_"]{
+    opacity: 0;
+    visibility: hidden;
+    height: 0px;
+    margin: 0;
+    display: block;
+    transition: all 1.0s ease 0s;
+}
+
+ul[id^="list_"] ul{
+    padding: 0;
+    flex-wrap: wrap;
+    padding-top: 0.4rem;
+}
+
+ul[id^="list_"] ul br{
+    display: none;
+}
+
+ul[id^="list_"] ul li{
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    cursor: pointer;
+    padding-left: 1em;
+}

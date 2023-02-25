@@ -23,17 +23,22 @@ chrome.storage.onChanged.addListener((changes) => {
 --*/
 const init = async () => {
   // Adds main stylesheet and any additional stylesheets
-  addStylesheets();
+  //addStylesheets();
 
   // Start MutationObserver
-  observe();
+  //observe();
 
   // Watch for resize events
-  addResizeListener();
+  //addResizeListener();
 
   // Inject user preferences
-  const data = await getStorage(userPreferences);
-  injectAllChanges(data);
+  //const data = await getStorage(userPreferences);
+  //injectAllChanges(data);
+
+  // Append override-functions.js to the page
+  const script = document.createElement("script");
+  script.src = chrome.runtime.getURL("js/override-functions.js");
+  document.body.appendChild(script);
 };
 
 init();
