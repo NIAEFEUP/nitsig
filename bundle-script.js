@@ -1,9 +1,31 @@
 import { exec } from "child_process";
-import { copy } from "fs-extra";
+import { copy, pathExists } from "fs-extra";
 import { copyFile, rm, writeFile, appendFile, readFile} from "fs/promises";
 import process, { argv } from "process";
 import zipper from "zip-local";
 import { MANIFEST_CHROME, MANIFEST_FIREFOX } from "./manifest.js";
+import klaw from "klaw";
+
+const CHANGES_FILENAME = ".changes.json"
+
+
+var lastChangedFiles = new Map();
+const loadLastChangedFiles = async () => {
+  if(await pathExists(CHANGES_FILENAME)){
+    lastChangedFiles = new Map(Object.entries(
+      JSON.parse(
+        (await readFile(CHANGES_FILENAME)).toString()
+      )
+    ));
+  }
+}
+
+var newChangedFiles = new Map();
+const writeNewChangedFiles = async () => {
+  await writeFile(CHANGES_FILENAME, JSON.stringify(Object.fromEntries(newChangedFiles)));
+}
+
+
 
 const runCommand = (command, yes) =>
   new Promise((resolve, reject) => {
@@ -26,21 +48,51 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
     const runBuildScript = (directory) => {
       return new Promise(async (resolve, reject) => {
         let intervalId;
+        let files = new Map();
+        klaw(directory, {filter: (path) => {
+          return !(path.includes("out") 
+            || path.includes("node_modules") || path.includes(".next") || path.includes(".parcel-cache"));
+        }})
+        .on("data", (item) => {
+          if(!files.has(item.path) && !item.stats.isDirectory()) files.set(item.path, item.stats.mtimeMs);
+        })
+        .on("end", async () => {
+          let shouldRunBool = false;
+          for(var file of files.entries()){
+            if(!lastChangedFiles.has(file[0])){
+              shouldRunBool = true;
+              break;
+            } else if(lastChangedFiles.get(file[0]) < file[1]){
+              shouldRunBool = true;
+              break;
+            }
+          }
+          newChangedFiles = new Map([...newChangedFiles, ...files]);
+          if(!shouldRunBool){
+            console.log(`⏭️ Skipping building of ${directory} because there are no modifications...`);
+            resolve();
+            return;
+          }
+          console.log(`🏗️ Building ${directory} after modifications...`);
+          try {
+            await runCommand(`cd ./${directory} && yarn && yarn build`);
+            resolve();
+          } catch (error) {
+            console.error(
+              `Error running build script for ${directory}: ${error}`
+            );
+            reject(error);
+          }
+        });
 
-        try {
-          await runCommand(`cd ./${directory} && yarn && yarn build`);
-          resolve();
-        } catch (error) {
-          console.error(
-            `Error running build script for ${directory}: ${error}`
-          );
-          reject(error);
-        }
+
       });
     };
 
+    await loadLastChangedFiles();
     await runBuildScript("popup");
     await runBuildScript("content-scripts");
+    await writeNewChangedFiles();
 
     console.log("🔥  Built popup and content scripts.");
 

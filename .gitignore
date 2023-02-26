@@ -13,6 +13,9 @@
 *.ruby-version
 *.rbenv-version
 
+#build changes file
+.changes.json
+
 # OS or Editor folders
 ._*
 .cache

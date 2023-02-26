@@ -9,6 +9,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/klaw@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/klaw/-/klaw-3.0.3.tgz#68c02ecfe6b313ef5b93876d44ac5266808c6a01"
+  integrity sha512-mXlRDFbTLpVysvxahXUQav0hFctgu3Fqr2xmSrpf/ptO/FwOp7SFEGsJkEihwshMbof3/BIiVJ/o42cuOOuv6g==
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*":
   version "18.14.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.1.tgz#90dad8476f1e42797c49d6f8b69aaf9f876fc69f"
@@ -55,6 +62,11 @@ jszip@^2.6.1:
   integrity sha512-JIsRKRVC3gTRo2vM4Wy9WBC3TRcfnIZU8k65Phi3izkvPH975FowRYtKGT6PxevA0XnJ/yO8b0QwV0ydVyQwfw==
   dependencies:
     pako "~1.0.2"
+
+klaw@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/klaw/-/klaw-4.1.0.tgz#5df608067d8cb62bbfb24374f8e5d956323338f3"
+  integrity sha512-1zGZ9MF9H22UnkpVeuaGKOjfA2t6WrfdrJmGjy16ykcjnKQDmHVX+KI477rpbGevz/5FD4MC3xf1oxylBgcaQw==
 
 merge@^1.2.0:
   version "1.2.1"
