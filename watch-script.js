@@ -28,7 +28,10 @@ watch.watchTree(".", {
             path.includes("css") ||
             path.includes("images") ||
             path.includes("dev"))
-            && !(path.includes("bundle") || path.includes('out') || path.includes('node_modules'));
+            && !(path.includes("bundle") 
+                || path.includes('out') || 
+                path.includes('node_modules') || 
+                path.includes('dist'));
     }},
     async (f, curr, prev)  => {
         console.log("🔃 File %s changed... building bundle again...", f);
