@@ -15,6 +15,8 @@
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
     "watch": "^1.0.2",
-    "ws": "^8.12.1"
+    "ws": "^8.12.1",
+    "klaw": "^4.1.0",
+    "@types/klaw": "^3.0.3"
   }
 }
