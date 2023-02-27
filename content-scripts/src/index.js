@@ -1,6 +1,5 @@
 import {
   addResizeListener,
-  addStylesheets,
   observe,
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
@@ -22,11 +21,8 @@ chrome.storage.onChanged.addListener((changes) => {
 - Get Chrome Storage and inject respective styles
 --*/
 const init = async () => {
-  // // Adds main stylesheet and any additional stylesheets
-  // addStylesheets();
-
   // // Start MutationObserver
-  // observe();
+  //observe();
 
   // // Watch for resize events
   // addResizeListener();
