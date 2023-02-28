@@ -34,10 +34,7 @@ const init = async () => {
 
   changeProfileLink();
   
-  // Append override-functions.js to the page
-  const script = document.createElement("script");
-  script.src = chrome.runtime.getURL("js/override-functions.js");
-  document.body.appendChild(script);
+  injectOverrideFunctions();
 };
 
 init();

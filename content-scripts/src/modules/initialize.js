@@ -72,7 +72,7 @@ export const observe = () => {
   });
 };
 
-// On resize, remove and re-add the sidebar buttons, because their original
+// Resize Listener
 export const addResizeListener = () => {
   window.addEventListener(
     "resize",
@@ -85,3 +85,10 @@ export const addResizeListener = () => {
     }, 1000)
   );
 };
+
+// Append override-functions.js to the page
+export const injectOverrideFunctions = () => {
+  const script = document.createElement("script");
+  script.src = chrome.runtime.getURL("js/override-functions.js");
+  document.body.appendChild(script);
+}
