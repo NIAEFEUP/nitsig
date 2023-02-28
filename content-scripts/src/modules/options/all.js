@@ -1,14 +1,12 @@
 import {
-  changeBasedOnPreference1,
-} from "./options_of_something";
+  hideShortcuts,
+} from "./some_options";
 
 // Array of user preferences, passed to `injectAllChanges`
 export const userPreferences = [
-  "preference1",
+  "shortcuts",
 ];
 
 export const injectAllChanges = (data) => {
-  /*
-  changeBasedOnPreference1(data?.preference1); // Timeline Width
-  */
+  hideShortcuts(data?.shortcuts); 
 };

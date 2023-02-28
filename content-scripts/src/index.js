@@ -12,6 +12,7 @@ import { changeProfileLink } from "./modules/links";
 - Inject styles in respond to changes
 --*/
 chrome.storage.onChanged.addListener((changes) => {
+  console.log(changes);
   const newChangesData = constructNewData(changes);
   injectAllChanges(newChangesData);
 });
@@ -27,9 +28,9 @@ const init = async () => {
   // // Watch for resize events
   // addResizeListener();
 
-  // // Inject user preferences
-  // const data = await getStorage(userPreferences);
-  // injectAllChanges(data);
+  // Inject user preferences
+  const data = await getStorage(userPreferences);
+  injectAllChanges(data);
 
   changeProfileLink();
 };
