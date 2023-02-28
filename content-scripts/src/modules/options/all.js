@@ -1,6 +1,3 @@
-import {
-  changeBasedOnPreference1,
-} from "./options_of_something";
 
 // Array of user preferences, passed to `injectAllChanges`
 export const userPreferences = [
