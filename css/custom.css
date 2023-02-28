@@ -14,7 +14,7 @@ ul[id^="list_"]{
     padding: 0;
     margin: 0;
 
-    transition: opacity 0.5s ease-in, height 0.2s ease-out;
+    transition: opacity 0.3s ease-in, height 0.2s ease-out;
 }
 
 ul[id^="list_"] br{
