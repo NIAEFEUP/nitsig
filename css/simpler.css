@@ -17,6 +17,192 @@
 
 }
 
+
+/* ----------------- HOMEPAGE ----------------- */
+
 #barralocalizacao {
-    display: none;
+  display: none;
+}
+
+#colunaextra img {
+  display: none;
+}
+
+img.sama {
+  display: none !important;
+}
+
+.container-fluid .destacar-menor {
+  display: none;
+}
+
+.container-fluid .encaixar100.portlet-banner-new {
+  display: none;
+}
+
+p.flex-caption a {
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  word-spacing: 1em;
+}
+
+
+/* News Section */
+
+.col-md-7 {
+  padding-top: 1em;
+  background: #f0f0f0;
+  border-radius: 1em;
+}
+
+.col-md-7 h2 {
+  margin: 0 !important;
+  font-size: 2em !important;
+  border-bottom: 2px solid rgb(140,45,25);
+}
+
+.col-md-7 h3 {
+  margin: revert !important;
+}
+
+.mais-noticias a {
+  color: white !important;
+  background-color: rgb(140,45,25) !important;
+  display: block;
+}
+
+.mais-noticias a:link {
+  color: white;
+  font-weight: bold;
+}
+
+p.mais-noticias {
+  text-transform: uppercase;
+  text-align: center !important;
+}
+
+p.mais-noticias a:hover {
+  background-color: white !important;
+  transition: 0.5s;
+  color: rgb(140,45,25) !important;
+}
+
+
+/* Calendar and Events*/
+
+.col-md-5 {
+  padding-top: 1em;
+}
+
+.col-md-5 h2 {
+  margin: 0 !important;
+  font-size: 2em !important;
+  border-bottom: 2px solid rgb(140,45,25);
+}
+
+.mais-eventos a {
+  color: white !important;
+  background-color: rgb(140,45,25) !important;
+  display: block;
+}
+
+.calendario-inicio {
+  padding-top: 1em;
+}
+
+.calendario-inicio table {
+  width: 100%;
+}
+
+p.mais-eventos {
+  text-transform: uppercase;
+  text-align: center !important;
+  padding-left: 1em;
+}
+
+.mais-eventos a:link {
+  color: white;
+  font-weight: bold;
+}
+
+.col-md-7.col-sm-6 a:link {
+  text-decoration: none;
+}
+
+p.mais-eventos a:link, p.mais-eventos a:visited {
+  text-decoration: none !important;
+}
+
+ul.agenda li {
+  border-left: 6px solid rgb(140,45,25) !important;
+  background-color: #f0f0f0 !important;
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
+
+p.mais-eventos a:hover {
+  background-color: #f0f0f0 !important;
+  transition: 0.5s;
+  color: rgb(140,45,25) !important;
+}
+
+.calendario-inicio form {
+  display: flex;
+  gap: 1em;
+}
+
+.calendario-inicio input[type="submit"] {
+  width: 30%;
+  margin: 0;
+  background: rgb(140,45,25) !important;
+  text-transform: uppercase;
+  color: white !important;
+}
+
+.calendario-inicio input[type="submit"]:hover {
+  color: rgb(140,45,25) !important;
+  background: #f0f0f0 !important;
+  transition: 0.5s;
+}
+
+.calendario-inicio select {
+  width: 70%;
+  padding: 12px 14px ;
+  margin: 0;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendtable td.calendevent {
+  border-bottom: 2px solid rgb(140,45,25) !important;
+}
+
+
+.calendevent a:link {
+  text-decoration: none !important;
+}
+
+.calendevent a:hover {
+  color: white !important;
+  font-weight: bold;
+}
+
+.calendtable tbody {
+  line-height: 2em;
+}
+/* Footer */
+
+.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12 {
+  display: none;
+}
+
+.col-md-3 {
+  padding-top: 1em;
+}
+
+#rodape {
+  display: none;
 }

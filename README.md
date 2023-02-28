@@ -4,7 +4,7 @@ First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) in
 
 Run
 ```sh
-yarn && yarn bundle
+yarn && yarn bundle [all | firefox | chrome | safari]
 ```
 at the root directory and you'll get a bundle directory that looks like this:
 
@@ -18,32 +18,17 @@ at the root directory and you'll get a bundle directory that looks like this:
 └ 🗄️ safari.zip
 ```
 
-## Popup
+## Watch for changes
 
 ```sh
-cd popup
+yarn watch [firefox | chrome | safari]
 ```
 
-```sh
-yarn # to install the dependencies
-yarn build # to build and export Next.js app
-```
-
-## Content Scripts
-
-```sh
-cd content-scripts
-```
-
-```sh
-yarn # to install the dependencies
-yarn build # to build the content_scripts
-yarn watch # watch for changes and build automatically
-```
-
-After you have built both `popup` and `content-scripts` you can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
+If you don't see ```⭐ The extension started listening for changes``` in the terminal reload the extension in the browser.
 
 ## Load Extension
+
+You can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
 
 <table>
 	<tr>
