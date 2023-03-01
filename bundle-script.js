@@ -112,6 +112,10 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
     await copy("css", `${bundleDirectory}/css`);
     console.log(`🚗  Moved css to bundle.`);
 
+    // Bundle js
+    await copy("js", `${bundleDirectory}/js`);
+    console.log(`🚗  Moved js to bundle.`);
+
     // Bundle custom fonts
     // await copy("fonts", `${bundleDirectory}/fonts`);
     // console.log(`🚗  Moved fonts to bundle.`);
