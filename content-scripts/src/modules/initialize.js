@@ -1,6 +1,6 @@
 import {
-  changeBasedOnPreference1,
-} from "./options/options_of_something";
+  hideShortcuts,
+} from "./options/some_options";
 
 import removeElement from "./utilities/removeElement";
 import { getStorage } from "./utilities/storage";
@@ -21,7 +21,7 @@ export const observe = () => {
         "communitiesButton",
         "topicsButton",
         "circlesButton",
-        "twitterBlueButton",
+        "blueButton",
         "typefullyGrowTab",
         "followingTimeline",
         "trendsHomeTimeline",
@@ -42,7 +42,7 @@ export const observe = () => {
       if (data?.communitiesButton === "on") addCommunitiesButton();
       if (data?.topicsButton === "on") addTopicsButton();
       if (data?.circlesButton === "on") addCirclesButton();
-      if (data?.twitterBlueButton === "on") addTwitterBlueButton();
+      if (data?.blueButton === "on") addblueButton();
       if (data?.typefullyGrowTab === "on") {
         clearTimeout(mt);
         mt = setTimeout(() => {

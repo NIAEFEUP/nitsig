@@ -206,3 +206,34 @@ p.mais-eventos a:hover {
 #rodape {
   display: none;
 }
+
+/* ----------------- POPUP ----------------- */
+
+.popup > table > tbody > tr:first-child, .popup > table > tbody > tr:last-child{
+  display: none;
+}
+
+.popup td.b{
+  display: none;
+}
+.popup td.body{
+  border-radius: 8px;
+  padding: 1.5rem !important;
+  border: 1px solid #b0b0b0;
+  box-shadow: 0px 25px 102px -44px rgb(87 87 87);
+}
+.popup td.body > .content > h2{
+  margin: 0 0 1em 0;
+}
+.popup td.body > .footer{
+  display: none;
+}
+#facebox{
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+}
+#facebox_overlay{
+  opacity: 0.3 !important;
+}

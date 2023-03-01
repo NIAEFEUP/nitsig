@@ -58,7 +58,7 @@ const StyledSwitch = styled(SwitchPrimitive.Root, {
   display: "flex",
   alignItems: "center",
   cursor: "pointer",
-  '&[data-state="checked"]': { backgroundColor: "#6bc9fb" }
+  '&[data-state="checked"]': { backgroundColor: "#c24a4a" }
 })
 
 const StyledThumb = styled(SwitchPrimitive.Thumb, {
@@ -72,7 +72,7 @@ const StyledThumb = styled(SwitchPrimitive.Thumb, {
   transform: "translateX(0px)",
   willChange: "transform",
   '&[data-state="checked"]': {
-    backgroundColor: "#1d9bf0",
+    backgroundColor: "#993333",
     transform: "translateX(20px)"
   }
 })

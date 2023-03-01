@@ -73,7 +73,7 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
             resolve();
             return;
           }
-          console.log(`🏗️ Building ${directory} after modifications...`);
+          console.log(`🏗️  Building ${directory} after modifications...`);
           try {
             await runCommand(`cd ./${directory} && yarn && yarn build`);
             resolve();
