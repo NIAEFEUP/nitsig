@@ -72,7 +72,7 @@ export const MANIFEST_FIREFOX = {
         css: ["css/simpler.css", "css/custom.css"],
         },
         {
-        run_at: "document_start",
+        run_at: "document_end",
         matches: ["https://sigarra.up.pt/feup/*"],
         js: ["dist/main.js"],
         },
