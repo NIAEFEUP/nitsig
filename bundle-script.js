@@ -73,7 +73,7 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
             resolve();
             return;
           }
-          console.log(`🏗️ Building ${directory} after modifications...`);
+          console.log(`🏗️  Building ${directory} after modifications...`);
           try {
             await runCommand(`cd ./${directory} && yarn && yarn build`);
             resolve();
@@ -111,6 +111,10 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
     // Bundle css
     await copy("css", `${bundleDirectory}/css`);
     console.log(`🚗  Moved css to bundle.`);
+
+    // Bundle js
+    await copy("js", `${bundleDirectory}/js`);
+    console.log(`🚗  Moved js to bundle.`);
 
     // Bundle custom fonts
     // await copy("fonts", `${bundleDirectory}/fonts`);
