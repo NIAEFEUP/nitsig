@@ -1,22 +1,17 @@
 import { spawn } from "child_process";
 import { argv, exit, stderr } from "process";
-
+import httpsLocalhost from "https-localhost";
+import https from "https";
 import watch from "watch";
-import { WebSocketServer } from "ws"
 
-
-const wss = new WebSocketServer({port: 8069});
-
-
-wss.on('connection', (stream) => {
-    console.log("⭐ The extension started listening for changes");
-});
 
 if(argv.length != 3){
     console.log("❌ Error: didn't provide a target...");
     console.log("🧳 Usage: yarn watch firefox|chrome|safari");
     exit(1);
 }
+
+var hasUpdate = false;
 
 watch.watchTree(".", {
     ignoreDotFiles:true, 
@@ -27,7 +22,8 @@ watch.watchTree(".", {
             path.includes("popup") ||
             path.includes("css") ||
             path.includes("images") ||
-            path.includes("dev"))
+            path.includes("dev") ||
+            path.includes("html"))
             && !(path.includes("bundle") 
                 || path.includes('out') || 
                 path.includes('node_modules') || 
@@ -44,12 +40,25 @@ watch.watchTree(".", {
         })
         command.on('exit', (code) => {
             if(code == 0){
-                console.log("🔃 Reloading clients...");
-                wss.clients.forEach((client) => {
-                    client.send("reload");
-                })
+                console.log("🔃 Reloading Clients...");
             }
+            hasUpdate = true;
         })
 
 });
+
+const certs = await httpsLocalhost().getCerts();
+const server = https.createServer(certs,(req, res) => {
+    if(req.method == "GET" && req.url == "/hasUpdate"){
+        res.writeHead(200, {"Access-Control-Allow-Origin":"*"});
+        res.end(JSON.stringify({update: hasUpdate}));
+        if(hasUpdate){
+            hasUpdate = false;
+        }
+        return;
+    }
+    res.writeHead(500);
+    res.end();
+}).listen(8069, "0.0.0.0");
+
 
