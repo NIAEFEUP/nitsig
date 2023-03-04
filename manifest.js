@@ -37,7 +37,8 @@ export const MANIFEST_CHROME = {
             "css/main.css",
             "css/custom.css",
             "css/simpler.css",
-            "js/override-functions.js"
+            "js/override-functions.js",
+            "js/si-calendar.js"
         ],
         matches: ["https://sigarra.up.pt/*"],
         },
@@ -81,7 +82,8 @@ export const MANIFEST_FIREFOX = {
         "css/main.css",
         "css/simpler.css",
         "css/custom.css",
-        "js/override-functions.js"
+        "js/override-functions.js",
+        "js/si-calendar.js"
     ],
     browser_action: {
         default_icon: {

@@ -18,5 +18,6 @@ export const addResizeListener = () => {
 export const injectOverrideFunctions = () => {
   const script = document.createElement("script");
   script.src = chrome.runtime.getURL("js/override-functions.js");
+  script.src = chrome.runtime.getURL("js/si-calendar.js");
   document.body.appendChild(script);
 }
