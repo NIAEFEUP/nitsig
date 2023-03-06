@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
 /* Usefull selectors examples:
 
@@ -46,6 +47,7 @@ p.flex-caption a {
   font-weight: bold;
   text-align: center;
   word-spacing: 1em;
+  font-family: 'Kanit', sans-serif !important;
 }
 
 
@@ -69,8 +71,10 @@ p.flex-caption a {
 
 .mais-noticias a {
   color: white !important;
-  background-color: rgb(140,45,25) !important;
   display: block;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
 }
 
 .mais-noticias a:link {
@@ -79,15 +83,19 @@ p.flex-caption a {
 }
 
 p.mais-noticias {
+  width: 40%;
+  margin: 0 auto;
+  padding-bottom: 2em;
   text-transform: uppercase;
   text-align: center !important;
 }
 
 p.mais-noticias a:hover {
-  background-color: white !important;
-  transition: 0.5s;
-  color: rgb(140,45,25) !important;
+  color: white !important;
+  background-position: 0 -100%;
 }
+
+
 
 
 /* Calendar and Events*/
@@ -99,13 +107,15 @@ p.mais-noticias a:hover {
 .col-md-5 h2 {
   margin: 0 !important;
   font-size: 2em !important;
-  border-bottom: 2px solid rgb(140,45,25);
+  border-bottom: 2px solid rgb(140,40,25);
 }
 
 .mais-eventos a {
   color: white !important;
-  background-color: rgb(140,45,25) !important;
   display: block;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
 }
 
 .calendario-inicio {
@@ -143,9 +153,8 @@ ul.agenda li {
 }
 
 p.mais-eventos a:hover {
-  background-color: #f0f0f0 !important;
-  transition: 0.5s;
-  color: rgb(140,45,25) !important;
+  background-position: 0 -100%;
+  color: white !important;
 }
 
 .calendario-inicio form {
@@ -156,15 +165,15 @@ p.mais-eventos a:hover {
 .calendario-inicio input[type="submit"] {
   width: 30%;
   margin: 0;
-  background: rgb(140,45,25) !important;
   text-transform: uppercase;
   color: white !important;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25)) !important;
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
 }
 
 .calendario-inicio input[type="submit"]:hover {
-  color: rgb(140,45,25) !important;
-  background: #f0f0f0 !important;
-  transition: 0.5s;
+  background-position: 0 -100%;
 }
 
 .calendario-inicio select {
