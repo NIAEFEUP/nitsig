@@ -11,7 +11,7 @@ if(argv.length != 3){
     exit(1);
 }
 
-var hasUpdate = false;
+let hasUpdate = false;
 
 watch.watchTree(".", {
     ignoreDotFiles:true, 

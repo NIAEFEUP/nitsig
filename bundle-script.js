@@ -9,7 +9,7 @@ import klaw from "klaw";
 const CHANGES_FILENAME = ".changes.json"
 
 
-var lastChangedFiles = new Map();
+let lastChangedFiles = new Map();
 const loadLastChangedFiles = async () => {
   if(await pathExists(CHANGES_FILENAME)){
     lastChangedFiles = new Map(Object.entries(
@@ -20,7 +20,7 @@ const loadLastChangedFiles = async () => {
   }
 }
 
-var newChangedFiles = new Map();
+let newChangedFiles = new Map();
 const writeNewChangedFiles = async () => {
   await writeFile(CHANGES_FILENAME, JSON.stringify(Object.fromEntries(newChangedFiles)));
 }
@@ -58,7 +58,7 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
         })
         .on("end", async () => {
           let shouldRunBool = false;
-          for(var file of files.entries()){
+          for(let file of files.entries()){
             if(!lastChangedFiles.has(file[0])){
               shouldRunBool = true;
               break;
@@ -164,8 +164,8 @@ const processArguments = async () => {
       console.log("Error: didn't supply a build option...");
       printUsageAndExit();
     }
-    var option = process.argv[2].toLowerCase();
-    var debugMode = true;
+    let option = process.argv[2].toLowerCase();
+    let debugMode = true;
     if(process.argv.length >= 4){
       if(!(process.argv[3] === "release" || process.argv[3] === "debug")){
         console.log("Error: 2nd argument should be either release or debug");
@@ -175,7 +175,7 @@ const processArguments = async () => {
     }
     const allBrowserDebug = (bundleDirectory) => {
       return new Promise((resolve) => {
-        var allBrowserFiles = []
+        let allBrowserFiles = []
         klaw("dev", {depthLimit: 1})
         .on("data", (item) => {
           if(!item.stats.isDirectory()){
@@ -183,7 +183,7 @@ const processArguments = async () => {
           }
         })
         .on("end", async () => {
-          for(var file of allBrowserFiles){
+          for(let file of allBrowserFiles){
             await appendFile(`${bundleDirectory}/${file.split("/").pop()}`, await (await readFile(file)).toString());
           }
           resolve();
