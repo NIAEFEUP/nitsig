@@ -50,7 +50,9 @@ p.flex-caption a {
   font-family: 'Kanit', sans-serif !important;
 }
 
-
+.ajuda-contextual {
+  display: none !important;
+}
 /* News Section */
 
 .col-md-7 {
