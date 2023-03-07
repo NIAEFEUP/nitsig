@@ -237,3 +237,32 @@ p.mais-eventos a:hover {
 #facebox_overlay{
   opacity: 0.3 !important;
 }
+
+/* ----------------- COOKIES BAR ----------------- */
+
+#cookie-bar.fixed{
+  padding: 0.8rem;
+  background: #111111d9;
+}
+
+#cookie-bar a.cb-enable{
+  background: #842918;
+  padding: 0.3rem 0.7rem;
+  margin-left: 20px;
+}
+
+#cookie-bar a.cb-enable:hover{
+  background: #9d3c29;
+  color: white !important;
+}
+
+#cookie-bar a.cb-policy{
+  background: #2b2b2b;
+  padding: 0.3rem 0.7rem;
+  margin-left: 15px;
+}
+
+#cookie-bar a.cb-policy:hover{
+  background: #353535;
+  color: white !important;
+}
