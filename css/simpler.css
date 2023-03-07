@@ -277,6 +277,7 @@ p.mais-eventos a:hover {
   border: none !important;
   background: none !important;
   border-radius: 8px !important;
+  transition: all 0.2s ease-out;
 }
 .yui-skin-sam .yui-calendar td.calcell:hover{
   background: #1A1A1A !important;
