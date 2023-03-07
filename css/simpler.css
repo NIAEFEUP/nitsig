@@ -187,16 +187,21 @@ p.mais-eventos a:hover {
   cursor: pointer;
 }
 
-.calendtable td.calendevent {
+table.calendtable td.calendevent {
   border-bottom: 2px solid rgb(140,45,25) !important;
 }
 
-
-.calendevent a:link {
-  text-decoration: none !important;
+table.calendtable td.calendeventsel {
+  background-color: rgb(140,45,25) !important;
+  border-color: rgb(140,45,25) !important;
 }
 
-.calendevent a:hover {
+.calendevent a:link, .calendeventsel a:link {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.calendevent a:hover, .calendeventsel a:hover, .calendeventsel a:visited {
   color: white !important;
   font-weight: bold;
 }
