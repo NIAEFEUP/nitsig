@@ -7,5 +7,9 @@ chrome.runtime.onInstalled.addListener((object) => {
         chrome.tabs.reload(tab.id);
       });
     });
+    chrome.tabs.create({
+      url:chrome.runtime.getURL("html/install.html")
+    });
   }
 });
+
