@@ -17,7 +17,11 @@ let manifest = {
         {
         run_at: "document_start",
         matches: ["https://sigarra.up.pt/feup/*"],
-        css: ["css/simpler.css", "css/custom.css"],
+        css: [
+            "css/simpler.css",
+            "css/custom.css",
+            "css/icons.css"
+        ],
         },
         {
         run_at: "document_end",
@@ -32,6 +36,7 @@ let manifest = {
             "css/custom.css",
             "css/simpler.css",
             "js/override-functions.js",
+            "css/icons.css"
         ],
         matches: ["https://sigarra.up.pt/*"],
         },

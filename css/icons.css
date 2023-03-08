@@ -1,0 +1,36 @@
+.se-icon {
+    font-size: 24px;
+    line-height: 1 !important;
+    display: inline-block;
+    vertical-align: middle !important;
+    background: none !important;
+    width: 1em !important;
+    height: 1em !important;
+    text-decoration: none !important;
+}
+
+.se-icon::before {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+}
+
+.se-hidden-icon {
+    display: none !important;
+}
+
+#infopessoalh:not(.expandido) .colapsar {
+    display: none
+}
+
+#infopessoalh.expandido .expandir {
+    display: none
+}
+
+div.info, div.alerta {
+    background-image: none;
+    display: flex;
+    align-items: center;
+    gap: .5em;
+    padding-left: .5em;
+}

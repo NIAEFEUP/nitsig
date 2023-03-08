@@ -1,3 +1,4 @@
+import * as icons from "./modules/icons";
 import {
   addResizeListener,
   injectOverrideFunctions
@@ -22,6 +23,11 @@ chrome.storage.onChanged.addListener((changes) => {
 - Get Chrome Storage and inject respective styles
 --*/
 const init = async () => {
+  icons.addCSS();
+  icons.replaceImages();
+  icons.replaceFA();
+  icons.replaceBanners();
+
   // // Watch for resize events
   // addResizeListener();
 
