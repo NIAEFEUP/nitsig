@@ -17,6 +17,87 @@
 
 }
 
+/* ----------------- ALL PAGES ---------------- */
+
+body {
+    padding: 0;
+    background: white;
+}
+
+div#cabecalho {
+    margin: 0;
+    background-color: rgb(140,45,25); /* TODO: variables */
+    display: flex;
+    flex-direction: row;
+    padding: 1em;
+    height: unset;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: stretch;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+div.logotipo-alternativo {
+    margin: 0;
+    margin-right: auto;
+    display: inline-block;
+    height: 44px;
+}
+
+div.logotipo-alternativo *, img#logotipo {
+    display: inline-block;
+    height: 100%;
+    width: auto;
+}
+
+a#toggle-coluna-principal,
+a#toggle-coluna-secundaria {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: .5em;
+    margin: 0;
+    height: unset;
+}
+
+div.autenticacao {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    padding-left: 1em;
+}
+
+div.autenticacao .terminar-sessao {
+    margin: 0;
+    padding: 0;
+}
+
+div.autenticacao .terminar-sessao::before {
+    content: "\eed8";
+    font: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+div.autenticacao a.nome {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+}
+
+div.autenticacao a.fotografia {
+    height: 100%;
+    width: fit-content;
+}
+
+div.autenticacao a.fotografia img {
+    height: 44px;
+    width: auto;
+}
 
 /* ----------------- HOMEPAGE ----------------- */
 

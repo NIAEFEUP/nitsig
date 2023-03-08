@@ -5,6 +5,7 @@ import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
+import * as header from "./modules/layout/header";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -31,6 +32,8 @@ const init = async () => {
   changeProfileLink();
   
   injectOverrideFunctions();
+
+  header.changeLayout();
 };
 
 init();
