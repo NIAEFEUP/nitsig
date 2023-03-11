@@ -21,37 +21,38 @@ export const MANIFEST_CHROME = {
     },
     content_scripts: [
         {
-        run_at: "document_start",
-        matches: ["https://sigarra.up.pt/feup/*"],
-        css: ["css/simpler.css", "css/custom.css"],
+            run_at: "document_start",
+            matches: ["https://sigarra.up.pt/feup/*"],
+            css: ["css/simpler.css", "css/custom.css"],
         },
         {
-        run_at: "document_end",
-        matches: ["https://sigarra.up.pt/feup/*"],
-        js: ["dist/main.js"],
+            run_at: "document_end",
+            matches: ["https://sigarra.up.pt/feup/*"],
+            js: ["dist/main.js"],
         },
     ],
     web_accessible_resources: [
         {
-        resources: [
-            "css/main.css",
-            "css/custom.css",
-            "css/simpler.css",
-            "js/override-functions.js"
-        ],
-        matches: ["https://sigarra.up.pt/*"],
+            resources: [
+                "html/navbar.html",
+                "css/main.css",
+                "css/custom.css",
+                "css/simpler.css",
+                "js/override-functions.js"
+            ],
+            matches: ["https://sigarra.up.pt/*"],
         },
     ],
     action: {
         default_icon: {
-        16: "images/logo/logo-16.png",
-        32: "images/logo/logo-32.png",
-        48: "images/logo/logo-48.png",
+            16: "images/logo/logo-16.png",
+            32: "images/logo/logo-32.png",
+            48: "images/logo/logo-48.png",
         },
         default_title: "Sigarra extension",
         default_popup: "index.html",
     },
-    };
+};
 
 export const MANIFEST_FIREFOX = {
     ...manifest,
@@ -67,14 +68,14 @@ export const MANIFEST_FIREFOX = {
     },
     content_scripts: [
         {
-        run_at: "document_start",
-        matches: ["https://sigarra.up.pt/feup/*"],
-        css: ["css/simpler.css", "css/custom.css"],
+            run_at: "document_start",
+            matches: ["https://sigarra.up.pt/feup/*"],
+            css: ["css/simpler.css", "css/custom.css"],
         },
         {
-        run_at: "document_start",
-        matches: ["https://sigarra.up.pt/feup/*"],
-        js: ["dist/main.js"],
+            run_at: "document_start",
+            matches: ["https://sigarra.up.pt/feup/*"],
+            js: ["dist/main.js"],
         },
     ],
     web_accessible_resources: [
@@ -85,9 +86,9 @@ export const MANIFEST_FIREFOX = {
     ],
     browser_action: {
         default_icon: {
-        16: "images/logo/logo-16.png",
-        32: "images/logo/logo-32.png",
-        48: "images/logo/logo-48.png",
+            16: "images/logo/logo-16.png",
+            32: "images/logo/logo-32.png",
+            48: "images/logo/logo-48.png",
         },
         default_title: "Sigarra extension",
         default_popup: "index.html",

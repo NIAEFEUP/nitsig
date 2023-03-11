@@ -1,0 +1,102 @@
+<div id="navbar">
+    <div class="navbar-inner">
+        <div>
+            <div class="navbar-item">Estudantes</div>
+            <div id="dropdown-students" class="mhide dropdown">
+                <div class="dropdown-content">
+                    <div class="dropdown-item"><a href="it_geral.ver_insc">Escolher Turma</a></div>
+                    <div class="dropdown-item"><a
+                            href="web_base.gera_pagina?p_pagina=página%20estática%20genérica%20106">Calendário</a></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="navbar-item">Serviços</div>
+            <div id="dropdown-services" class="mhide dropdown">
+                <div class="dropdown-content">
+                    <div class="dropdown-item"><a href="cantina.ementashow">Ementas</a></div>
+                    <div class="dropdown-item"><a
+                            href="web_base.gera_pagina?p_pagina=matrículas/inscrições%20ano%20corrente">Matrículas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="navbar-item">Faculdade</div>
+            <div id="dropdown-faculty" class="mhide dropdown">
+                <div class="dropdown-content">
+                    <div class="dropdown-item"><a href="web_base.gera_pagina?p_pagina=1827">I&D e Inovação</a></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="navbar-item">Pesquisa</div>
+            <div id="dropdown-search" class="mhide dropdown">
+                <div class="dropdown-content">
+                    <div class="dropdown-item"><a href="fest_geral.fest_query">Estudantes</a></div>
+                    <div class="dropdown-item"><a href="func_geral.formquery">Pessoal</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #navbar a:link,
+    #navbar a:visited,
+    #navbar a:active {
+        color: inherit !important;
+        text-decoration: inherit !important;
+        cursor: inherit !important;
+    }
+
+    .dropdown {
+        position: absolute;
+        display: block;
+        background-color: black;
+        color: white;
+        padding: 0.5em 0.5em;
+        font-size: medium;
+        width: fit-content;
+        z-index: 10;
+    }
+
+    .mhide {
+        display: none;
+    }
+
+    #navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: black;
+        color: white;
+        padding: 0.5em 0.5em;
+        font-size: medium;
+    }
+
+    .navbar-inner {
+        display: flex;
+    }
+
+    .navbar-item {
+        padding: 0 0.5em;
+        border-radius: 0.5em;
+    }
+
+    .dropdown-item {
+        padding: 0 0.5em;
+        margin: 0.5em 0;
+        border-radius: 0.5em;
+    }
+
+    .dropdown-item:hover {
+        background-color: #181818;
+        cursor: pointer;
+    }
+
+    .navbar-item:hover {
+        background-color: #181818;
+        cursor: pointer;
+    }
+</style>

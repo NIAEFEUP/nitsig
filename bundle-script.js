@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 import { copy, pathExists } from "fs-extra";
-import { copyFile, rm, writeFile, appendFile, readFile} from "fs/promises";
+import { copyFile, rm, writeFile, appendFile, readFile } from "fs/promises";
 import process, { argv } from "process";
 import zipper from "zip-local";
 import { MANIFEST_CHROME, MANIFEST_FIREFOX } from "./manifest.js";
@@ -11,7 +11,7 @@ const CHANGES_FILENAME = ".changes.json"
 
 var lastChangedFiles = new Map();
 const loadLastChangedFiles = async () => {
-  if(await pathExists(CHANGES_FILENAME)){
+  if (await pathExists(CHANGES_FILENAME)) {
     lastChangedFiles = new Map(Object.entries(
       JSON.parse(
         (await readFile(CHANGES_FILENAME)).toString()
@@ -49,41 +49,43 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
       return new Promise(async (resolve, reject) => {
         let intervalId;
         let files = new Map();
-        klaw(directory, {filter: (path) => {
-          return !(path.includes("out") 
-            || path.includes("node_modules") || path.includes(".next") || path.includes(".parcel-cache"));
-        }})
-        .on("data", (item) => {
-          if(!files.has(item.path) && !item.stats.isDirectory()) files.set(item.path, item.stats.mtimeMs);
+        klaw(directory, {
+          filter: (path) => {
+            return !(path.includes("out")
+              || path.includes("node_modules") || path.includes(".next") || path.includes(".parcel-cache"));
+          }
         })
-        .on("end", async () => {
-          let shouldRunBool = false;
-          for(var file of files.entries()){
-            if(!lastChangedFiles.has(file[0])){
-              shouldRunBool = true;
-              break;
-            } else if(lastChangedFiles.get(file[0]) < file[1]){
-              shouldRunBool = true;
-              break;
+          .on("data", (item) => {
+            if (!files.has(item.path) && !item.stats.isDirectory()) files.set(item.path, item.stats.mtimeMs);
+          })
+          .on("end", async () => {
+            let shouldRunBool = false;
+            for (var file of files.entries()) {
+              if (!lastChangedFiles.has(file[0])) {
+                shouldRunBool = true;
+                break;
+              } else if (lastChangedFiles.get(file[0]) < file[1]) {
+                shouldRunBool = true;
+                break;
+              }
             }
-          }
-          newChangedFiles = new Map([...newChangedFiles, ...files]);
-          if(!shouldRunBool){
-            console.log(`⏭️ Skipping building of ${directory} because there are no modifications...`);
-            resolve();
-            return;
-          }
-          console.log(`🏗️  Building ${directory} after modifications...`);
-          try {
-            await runCommand(`cd ./${directory} && yarn && yarn build`);
-            resolve();
-          } catch (error) {
-            console.error(
-              `Error running build script for ${directory}: ${error}`
-            );
-            reject(error);
-          }
-        });
+            newChangedFiles = new Map([...newChangedFiles, ...files]);
+            if (!shouldRunBool) {
+              console.log(`⏭️ Skipping building of ${directory} because there are no modifications...`);
+              resolve();
+              return;
+            }
+            console.log(`🏗️  Building ${directory} after modifications...`);
+            try {
+              await runCommand(`cd ./${directory} && yarn && yarn build`);
+              resolve();
+            } catch (error) {
+              console.error(
+                `Error running build script for ${directory}: ${error}`
+              );
+              reject(error);
+            }
+          });
 
 
       });
@@ -111,6 +113,10 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
     // Bundle css
     await copy("css", `${bundleDirectory}/css`);
     console.log(`🚗  Moved css to bundle.`);
+
+    // Bundle html
+    await copy("html", `${bundleDirectory}/html`);
+    console.log(`🚗  Moved html to bundle.`);
 
     // Bundle js
     await copy("js", `${bundleDirectory}/js`);
@@ -156,70 +162,70 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
 
 
 const processArguments = async () => {
-    if(process.argv.length < 3){
-      console.log("Error: didn't supply a build option...");
+  if (process.argv.length < 3) {
+    console.log("Error: didn't supply a build option...");
+    printUsageAndExit();
+  }
+  var option = process.argv[2].toLowerCase();
+  var debugMode = true;
+  if (process.argv.length >= 4) {
+    if (!(process.argv[3] === "release" || process.argv[3] === "debug")) {
+      console.log("Error: 2nd argument should be either release or debug");
       printUsageAndExit();
     }
-    var option = process.argv[2].toLowerCase();
-    var debugMode = true;
-    if(process.argv.length >= 4){
-      if(!(process.argv[3] === "release" || process.argv[3] === "debug")){
-        console.log("Error: 2nd argument should be either release or debug");
-        printUsageAndExit();
-      }
-      debugMode = argv[3] === "debug";
-    }
+    debugMode = argv[3] === "debug";
+  }
 
-    const firefoxDebug = async (bundleDirectory) => {
-      if(debugMode){
-        await appendFile(`${bundleDirectory}/background.js`, 
-          await (await readFile('dev/firefox/background.js')).toString()
-        );
+  const firefoxDebug = async (bundleDirectory) => {
+    if (debugMode) {
+      await appendFile(`${bundleDirectory}/background.js`,
+        await (await readFile('dev/firefox/background.js')).toString()
+      );
+    }
+  };
+  switch (option) {
+    case "all":
+    case "chrome":
+      var manifest = MANIFEST_CHROME;
+      if (debugMode) {
+        manifest.permissions = [...manifest.permissions, "offscreen", "tabs"];
       }
-    };
-    switch (option) {
-      case "all":
-      case "chrome":
-        var manifest = MANIFEST_CHROME;
-        if(debugMode){
-          manifest.permissions = [...manifest.permissions, "offscreen", "tabs"];
-        }
-        await bundle(manifest, "bundle/chrome",
+      await bundle(manifest, "bundle/chrome",
         async (bundleDirectory) => {
-          if(debugMode){
-            await appendFile(`${bundleDirectory}/background.js`, 
+          if (debugMode) {
+            await appendFile(`${bundleDirectory}/background.js`,
               await (await readFile('dev/chrome/background.js')).toString()
             );
             await copyFile('dev/chrome/watch.html', `${bundleDirectory}/watch.html`);
             await copyFile('dev/chrome/watch.js', `${bundleDirectory}/watch.js`);
           }
         });
-        if(option != "all") break;
+      if (option != "all") break;
 
-      case "firefox":
-        var manifest = MANIFEST_FIREFOX;
-        if(debugMode){
-          manifest.background.persistent = true;
-        }
-        await bundle(manifest, "bundle/firefox",firefoxDebug);
-        if(option != "all") break;
+    case "firefox":
+      var manifest = MANIFEST_FIREFOX;
+      if (debugMode) {
+        manifest.background.persistent = true;
+      }
+      await bundle(manifest, "bundle/firefox", firefoxDebug);
+      if (option != "all") break;
 
-      case "safari":
-        var manifest = MANIFEST_FIREFOX;
-        if(debugMode){
-          manifest.background.persistent = true;
-        }
-        if(process.platform !== "darwin"){
-          console.log("Skipping safari build since we are not on MacOS...");
-          break;
-        } 
-        if(option != "all") await bundle(MANIFEST_FIREFOX, "bundle/firefox");
-
-        await runCommand(generateSafariProjectCommand, true);
-        await runCommand(fixBundleIdentifierCommand, true);
-
+    case "safari":
+      var manifest = MANIFEST_FIREFOX;
+      if (debugMode) {
+        manifest.background.persistent = true;
+      }
+      if (process.platform !== "darwin") {
+        console.log("Skipping safari build since we are not on MacOS...");
         break;
-    }
+      }
+      if (option != "all") await bundle(MANIFEST_FIREFOX, "bundle/firefox");
+
+      await runCommand(generateSafariProjectCommand, true);
+      await runCommand(fixBundleIdentifierCommand, true);
+
+      break;
+  }
 };
 
 
