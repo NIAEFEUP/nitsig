@@ -42,11 +42,11 @@ img.sama {
 }
 
 p.flex-caption a {
-  letter-spacing: 0.5em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
-  word-spacing: 1em;
+  word-spacing: 0.7em;
   font-family: 'Kanit', sans-serif !important;
 }
 
@@ -69,6 +69,41 @@ p.flex-caption a {
 
 .col-md-7 h3 {
   margin: revert !important;
+}
+
+.col-md-7 .fa.fa-plus-circle::before {
+  font-size: 0.5em;
+  content: "\f055  Ler Mais" !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.col-md-7 .fa.fa-plus-circle {
+  display: block;
+  color: white !important;
+  padding: 0.35em 0.5em 0.5em 0.5em !important;
+  border-radius: 0.5em;
+  width: auto;
+  max-width: 14% !important;
+  position: absolute;
+  text-align: center;
+  top: 3%;
+  right: 3%;;
+}
+
+.col-md-7 .novo-portlet-noticias p {
+  width: 85%;
+}
+
+.col-md-7 .novo-portlet-noticias p a > span{
+  float: right;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
+}
+
+.col-md-7 .novo-portlet-noticias p a > span:hover {
+  background-position: 0 -100%;
 }
 
 .mais-noticias a {
@@ -191,24 +226,64 @@ table.calendtable td.calendevent {
   border-bottom: 2px solid rgb(140,45,25) !important;
 }
 
-table.calendtable td.calendeventsel {
+table.calendtable .calendeventsel {
   background-color: rgb(140,45,25) !important;
   border-color: rgb(140,45,25) !important;
+  color: white !important;
 }
 
-.calendevent a:link, .calendeventsel a:link {
+.calendevent a {
   text-decoration: none !important;
+  color: black !important;
+}
+
+.calendeventsel a {
   color: white !important;
+  text-decoration: none !important;
+  font-weight: bold;
 }
 
 .calendevent a:hover, .calendeventsel a:hover, .calendeventsel a:visited {
-  color: white !important;
+  color: black !important;
   font-weight: bold;
 }
 
 .calendtable tbody {
   line-height: 2em;
 }
+
+
+table.calendtable {
+  background-color: rgb(240, 240, 240) !important;
+  border: 10px solid rgb(240, 240, 240) !important;
+  font-family: sans-serif;
+}
+
+table.calendtable td {
+  color: black !important;
+  background-color: rgb(240, 240, 240) !important;
+}
+
+table.calendtable th {
+  color: black !important;
+  background-color: rgb(240, 240, 240) !important;
+}
+
+table.calendtable tbody {
+  line-height: 2em;
+}
+
+table.calendtable .calendfdssel {
+  text-align: center !important;
+}
+
+table.calendtable:first-child tr:first-child > td:nth-child(2) {
+  /* Aligns calendar year */
+  text-align: center !important;
+}
+
+
+
 /* Footer */
 
 .col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12 {
