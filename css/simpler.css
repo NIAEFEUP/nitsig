@@ -73,7 +73,7 @@ p.flex-caption a {
 
 .col-md-7 .fa.fa-plus-circle::before {
   font-size: 0.5em;
-  content: "\f055  Ler Mais" !important;
+  content: "Ler Mais" !important;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -82,7 +82,7 @@ p.flex-caption a {
   display: block;
   color: white !important;
   padding: 0.35em 0.5em 0.5em 0.5em !important;
-  border-radius: 0.5em;
+  border-radius: 8px;
   width: auto;
   max-width: 14% !important;
   position: absolute;
@@ -97,7 +97,7 @@ p.flex-caption a {
 
 .col-md-7 .novo-portlet-noticias p a > span{
   float: right;
-  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
+  background-image: linear-gradient(rgb(110,110,110), rgb(130,130,130));
   background-size: 100% 200%;
   transition: background-position 0.3s;
 }
@@ -112,6 +112,8 @@ p.flex-caption a {
   background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
   background-size: 100% 200%;
   transition: background-position 0.3s;
+  border-radius: 8px !important;
+  
 }
 
 .mais-noticias a:link {
@@ -207,6 +209,7 @@ p.mais-eventos a:hover {
   background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25)) !important;
   background-size: 100% 200%;
   transition: background-position 0.3s;
+  border-radius: 8px; 
 }
 
 .calendario-inicio input[type="submit"]:hover {
