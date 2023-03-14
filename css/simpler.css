@@ -212,6 +212,9 @@ p.mais-eventos a:hover {
   background-size: 100% 200%;
   transition: background-position 0.3s;
   border-radius: 8px; 
+  border: none;
+  font-family: "NoticiaText", serif !important;
+  font-weight: bold;
 }
 
 .calendario-inicio input[type="submit"]:hover {
