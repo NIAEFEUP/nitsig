@@ -9,7 +9,7 @@ import klaw from "klaw";
 const CHANGES_FILENAME = ".changes.json"
 
 
-var lastChangedFiles = new Map();
+let lastChangedFiles = new Map();
 const loadLastChangedFiles = async () => {
   if(await pathExists(CHANGES_FILENAME)){
     lastChangedFiles = new Map(Object.entries(
@@ -20,7 +20,7 @@ const loadLastChangedFiles = async () => {
   }
 }
 
-var newChangedFiles = new Map();
+let newChangedFiles = new Map();
 const writeNewChangedFiles = async () => {
   await writeFile(CHANGES_FILENAME, JSON.stringify(Object.fromEntries(newChangedFiles)));
 }
@@ -58,7 +58,7 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
         })
         .on("end", async () => {
           let shouldRunBool = false;
-          for(var file of files.entries()){
+          for(let file of files.entries()){
             if(!lastChangedFiles.has(file[0])){
               shouldRunBool = true;
               break;
@@ -124,6 +124,10 @@ const bundle = async (manifest, bundleDirectory, browserFunc) => {
     await copy("images", `${bundleDirectory}/images`);
     console.log(`🚗  Moved images to bundle.`);
 
+    // Bundle html
+    await copy("html", `${bundleDirectory}/html`);
+    console.log(`🚗  Moved extension pages to bundle.`);
+
     // Create manifest
     await writeFile(
       `${bundleDirectory}/manifest.json`,
@@ -160,8 +164,8 @@ const processArguments = async () => {
       console.log("Error: didn't supply a build option...");
       printUsageAndExit();
     }
-    var option = process.argv[2].toLowerCase();
-    var debugMode = true;
+    let option = process.argv[2].toLowerCase();
+    let debugMode = true;
     if(process.argv.length >= 4){
       if(!(process.argv[3] === "release" || process.argv[3] === "debug")){
         console.log("Error: 2nd argument should be either release or debug");
@@ -169,12 +173,28 @@ const processArguments = async () => {
       }
       debugMode = argv[3] === "debug";
     }
+    const allBrowserDebug = (bundleDirectory) => {
+      return new Promise((resolve) => {
+        let allBrowserFiles = []
+        klaw("dev", {depthLimit: 1})
+        .on("data", (item) => {
+          if(!item.stats.isDirectory()){
+            allBrowserFiles.push(item.path)
+          }
+        })
+        .on("end", async () => {
+          for(let file of allBrowserFiles){
+            await appendFile(`${bundleDirectory}/${file.split("/").pop()}`, await (await readFile(file)).toString());
+          }
+          resolve();
+        });
+      })
+
+    }
 
     const firefoxDebug = async (bundleDirectory) => {
       if(debugMode){
-        await appendFile(`${bundleDirectory}/background.js`, 
-          await (await readFile('dev/firefox/background.js')).toString()
-        );
+        await allBrowserDebug(bundleDirectory);
       }
     };
     switch (option) {
@@ -182,16 +202,13 @@ const processArguments = async () => {
       case "chrome":
         var manifest = MANIFEST_CHROME;
         if(debugMode){
-          manifest.permissions = [...manifest.permissions, "offscreen", "tabs"];
+          manifest.host_permissions = [...manifest.host_permissions, "https://localhost:8069/*"]
+          manifest.permissions = [...manifest.permissions, "alarms"];
         }
         await bundle(manifest, "bundle/chrome",
         async (bundleDirectory) => {
           if(debugMode){
-            await appendFile(`${bundleDirectory}/background.js`, 
-              await (await readFile('dev/chrome/background.js')).toString()
-            );
-            await copyFile('dev/chrome/watch.html', `${bundleDirectory}/watch.html`);
-            await copyFile('dev/chrome/watch.js', `${bundleDirectory}/watch.js`);
+            await allBrowserDebug(bundleDirectory);
           }
         });
         if(option != "all") break;
@@ -199,7 +216,8 @@ const processArguments = async () => {
       case "firefox":
         var manifest = MANIFEST_FIREFOX;
         if(debugMode){
-          manifest.background.persistent = true;
+          manifest.host_permissions = [...manifest.host_permissions, "https://localhost:8069/*"]
+          manifest.permissions = [...manifest.permissions, "alarms"]
         }
         await bundle(manifest, "bundle/firefox",firefoxDebug);
         if(option != "all") break;
@@ -207,7 +225,8 @@ const processArguments = async () => {
       case "safari":
         var manifest = MANIFEST_FIREFOX;
         if(debugMode){
-          manifest.background.persistent = true;
+          manifest.host_permissions = [...manifest.host_permissions, "https://localhost:8069/*"]
+          manifest.permissions = [...manifest.permissions, "alarms"]
         }
         if(process.platform !== "darwin"){
           console.log("Skipping safari build since we are not on MacOS...");
