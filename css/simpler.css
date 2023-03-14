@@ -80,8 +80,9 @@ p.flex-caption a {
 
 .col-md-7 .fa.fa-plus-circle {
   display: block;
+  font-family: "NoticiaText", serif !important;
   color: white !important;
-  padding: 0.35em 0.5em 0.5em 0.5em !important;
+  padding: 0.2em 0.5em 0.5em 0.5em !important;
   border-radius: 8px;
   width: auto;
   max-width: 14% !important;
@@ -157,11 +158,12 @@ p.mais-noticias a:hover {
   transition: background-position 0.3s;
 }
 
-.calendario-inicio {
+.calendario-inicio table {
   padding-top: 1em;
+  border-spacing: 1em 0 !important;
 }
 
-.calendario-inicio table {
+.calendario-inicio table{
   width: 100%;
 }
 
@@ -226,7 +228,7 @@ p.mais-eventos a:hover {
 }
 
 table.calendtable td.calendevent {
-  border-bottom: 2px solid rgb(140,45,25) !important;
+  border-bottom: 0.2em solid rgb(140,45,25) !important;
 }
 
 table.calendtable .calendeventsel {
