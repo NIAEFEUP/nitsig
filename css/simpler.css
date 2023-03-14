@@ -158,8 +158,11 @@ p.mais-noticias a:hover {
   transition: background-position 0.3s;
 }
 
-.calendario-inicio table {
-  padding-top: 1em;
+.calendario-inicio {
+  margin-top: 1em;
+}
+
+.calendario-inicio .calendtable {
   border-spacing: 1em 0 !important;
 }
 
