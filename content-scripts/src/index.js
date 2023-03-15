@@ -1,5 +1,6 @@
 import {
-  injectOverrideFunctions,
+  addResizeListener,
+  injectOverrideFunctions
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
