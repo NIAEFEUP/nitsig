@@ -8,6 +8,7 @@ import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
+import { improveSchedule } from "./modules/schedule";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -37,6 +38,7 @@ const init = async () => {
   injectOverrideFunctions();
 
   replaceIcons();
+  improveSchedule();
 };
 
 init();

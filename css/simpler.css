@@ -511,3 +511,86 @@ div.yui-cal-nav{
 .yui-skin-sam .yui-calcontainer .yui-cal-nav-yc{
   width: 7.5rem !important;
 }
+
+/* ----------------- SCHEDULE ----------------- */
+
+.horario {
+    table-layout: fixed !important;
+    width: 100% !important;
+    height: fit-content;
+    border-collapse: collapse !important;
+    border: solid 1px #b5b5b5 !important;
+}
+
+.horario tr {
+    height: fit-content;
+}
+
+.horario :is(td, th) {
+    border: none !important;
+    background: unset !important;
+    color: unset !important;
+    height: 100%;
+}
+
+.horario tbody :is(td, th) {
+    border-inline: solid 1px #b5b5b5 !important;
+}
+
+.horario thead {
+    border-bottom: solid 1px #b5b5b5 !important;
+    background-color: white !important;
+}
+
+.horario thead th:first-of-type {
+    width: 6ch;
+}
+
+.horario tbody tr:nth-child(even) {
+    background-image: linear-gradient(to bottom, #b5b5b5, 1px, transparent 1px);
+}
+
+.horario :is(.TP, .TE, .OT, .PL) > * {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
+    grid-auto-rows: 1fr;
+    place-items: center;
+    gap: 4px;
+    border-radius: 4px;
+    padding: 4px;
+    height: 100%;
+}
+
+.horario :is(.TP, .TE, .OT, .PL) a {
+    color: white !important;
+    text-decoration: none !important;
+    font-weight: bold !important;
+}
+
+.horario :is(.TP, .TE, .OT, .PL) a:hover {
+    text-decoration: underline !important;
+}
+
+.horario .TP > * {
+    background-color: darkgoldenrod;
+}
+
+.horario .TE > * {
+    background-color: darkviolet;
+}
+
+.horario .OT > * {
+    background-color: dodgerblue;
+}
+
+.horario .PL > * {
+    background-color: seagreen;
+}
+
+.horario .almoco {
+    background-color: wheat !important;
+}
+
+.horario .today {
+    background-color: azure;
+}
