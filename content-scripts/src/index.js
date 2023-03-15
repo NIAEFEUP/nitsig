@@ -1,5 +1,7 @@
 import {
   injectOverrideFunctions,
+  reverseDateDirection,
+  currentAccountPage
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
@@ -31,6 +33,10 @@ const init = async () => {
   changeProfileLink();
   
   injectOverrideFunctions();
+
+  reverseDateDirection(); //o sort deixou de dar por causa disto
+
+  currentAccountPage();
 };
 
 init();

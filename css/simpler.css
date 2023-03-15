@@ -237,3 +237,133 @@ p.mais-eventos a:hover {
 #facebox_overlay{
   opacity: 0.3 !important;
 }
+
+/* ----------------- Conta Corrente Page ----------------- */
+
+section.entidade {
+  display: none;
+}
+
+section.entidade ~ .formulario{
+  display: none;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW ~ .alerta{
+  display: none;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW{
+  border: none;
+  padding: 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > div.ui-tabs-panel{
+  padding: 1rem 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav{
+  background: none;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding: 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW .ui-tabs-anchor{
+  width: 100%;
+  text-align: center;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav::before,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav::after{
+  content: "";
+  flex: 1 0 100%;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav > li{
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav > li > a{
+  outline-color: #8e2915 !important;
+  outline-width: 5px !important;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > .ui-tabs-nav > li > a > em{
+  font-style: normal;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active{
+  background: #8c2d19;
+  color: white;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active:hover a:hover,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active a:active,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active a:focus{
+  color: white !important;
+  cursor: pointer;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW  #tab7 .data{
+  color:rgb(112, 112, 112);
+}
+
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 table {
+  border-spacing: 0 !important;
+  width: 100%;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 th {
+  color: #676767;
+  background: none;
+  text-align: left;
+}
+
+/*
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr{
+  display: grid;
+  grid-template-columns: 100px 350px 100px;
+}*/
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 > table > tbody > tr.i,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 > table > tbody > tr.p
+{
+  background: none;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 .positive {
+  color: #81cb01;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 .negative {
+  color: #8e2915;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 th,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 td {
+  padding: 0.6rem 1rem !important;
+  border-bottom: 1.4px solid #f3f3f3;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr td:first-child,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr th:first-child{
+  padding-left: 0 !important;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr td:last-child,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr th:last-child{
+  padding-right: 0 !important;
+  text-align: right;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 thead tr th{
+  font-weight: 400;
+}
