@@ -524,6 +524,7 @@ div.yui-cal-nav{
 
 .horario tr {
     height: fit-content;
+    position: relative;
 }
 
 .horario :is(td, th) {
@@ -546,11 +547,17 @@ div.yui-cal-nav{
     width: 6ch;
 }
 
-.horario tbody tr:nth-child(even) {
-    background-image: linear-gradient(to bottom, #b5b5b5, 1px, transparent 1px);
+.horario .k::after {
+    content: "";
+    position: absolute;
+    background-color: #b5b5b5;
+    height: 1px;
+    left: 6ch;
+    right: 0;
+    bottom: 0;
 }
 
-.horario :is(.TP, .TE, .OT, .PL) > * {
+.horario :is(.TP, .TE, .OT, .PL)>* {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
     grid-auto-rows: 1fr;
@@ -559,6 +566,8 @@ div.yui-cal-nav{
     border-radius: 4px;
     padding: 4px;
     height: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .horario :is(.TP, .TE, .OT, .PL) a {
@@ -571,57 +580,62 @@ div.yui-cal-nav{
     text-decoration: underline !important;
 }
 
-.horario .TP > * , #new-legend #TP{
+.horario .TP>*,
+#new-legend #TP {
     background-color: darkgoldenrod;
 }
 
-.horario .TE > * , #new-legend #TE{
+.horario .TE>*,
+#new-legend #TE {
     background-color: darkviolet;
 }
 
-.horario .OT > * , #new-legend #OT{
+.horario .OT>*,
+#new-legend #OT {
     background-color: dodgerblue;
 }
 
-.horario .PL > * , #new-legend #PL{
+.horario .PL>*,
+#new-legend #PL {
     background-color: seagreen;
 }
 
-.horario .almoco , #new-legend #almoco{
-    background-color: wheat !important;
+.horario .almoco,
+#new-legend #almoco {
+    background-color: rgba(255, 100, 100, 10%) !important;
 }
 
 #new-legend #P {
-  background-color: black;
+    background-color: black;
 }
 
 .horario .today {
-    background-color: azure;
+    background-color: rgba(100, 100, 255, 10%);
 }
 
 .legend-class-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  border-radius: 5px;
-  width: 100%;
-  color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    color: white;
 }
 
 #new-legend {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  flex-direction: row;
-  gap: 20px;
-  width: 100%;
-  white-space: nowrap;
-  padding-bottom: 10px;
-  margin-right: 20px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    white-space: nowrap;
+    padding-bottom: 10px;
+    margin-right: 20px;
 }
 
 p[id^="legend-abbrv-"] {
-  margin: 0px;
+    margin: 0px;
 }
