@@ -18,6 +18,18 @@
 
 }
 
+/* Fix accessibility not being actually accessible <.< */
+.acessibilidade, .acs {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    display: unset !important;
+}
+
 
 /* ----------------- HOMEPAGE ----------------- */
 
@@ -535,7 +547,11 @@ div.yui-cal-nav{
 }
 
 .horario tbody :is(td, th) {
-    border-inline: solid 1px #b5b5b5 !important;
+    padding: 4px !important;
+}
+
+.horario .column-start {
+    border-left: solid 1px #b5b5b5 !important;
 }
 
 .horario thead {
@@ -547,14 +563,23 @@ div.yui-cal-nav{
     width: 6ch;
 }
 
-.horario .k::after {
+.horario [data-se-hour-rule]::before {
+    content: attr(data-se-hour-rule);
+    position: absolute;
+    left: 0;
+    width: 6ch;
+    top: 0;
+    transform: translateY(-50%);
+}
+
+.horario [data-se-hour-rule]::after {
     content: "";
     position: absolute;
     background-color: #b5b5b5;
     height: 1px;
     left: 6ch;
     right: 0;
-    bottom: 0;
+    top: 0;
 }
 
 .horario :is(.TP, .TE, .OT, .PL)>* {
