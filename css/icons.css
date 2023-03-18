@@ -19,6 +19,21 @@
     display: none !important;
 }
 
+.se-remove-icon {
+    background-image: none !important;
+    width: unset !important;
+    height: unset !important;
+    text-indent: unset !important;
+}
+
+.se-remove-icon::before {
+    display: none;
+    background-image: none !important;
+    content: none !important;
+    width: unset !important;
+    height: unset !important;
+}
+
 #infopessoalh:not(.expandido) .colapsar {
     display: none
 }
@@ -27,7 +42,8 @@
     display: none
 }
 
-div.info, div.alerta {
+div.info,
+div.alerta {
     background-image: none;
     display: flex;
     align-items: center;

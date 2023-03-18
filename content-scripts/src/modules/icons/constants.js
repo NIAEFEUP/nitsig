@@ -119,6 +119,14 @@ export const IMG_ICON_MAP = Object.freeze({
     "atalho_tomada.gif": "plug",
     "FEST-Selecionar": "checkbox-blank-circle",
     "FEST-Selecionado": "radio-button",
+    "EstadoSem1": "checkbox-circle",
+    "EstadoSem1_off": "arrow-up-circle",
+    "EstadoSem2": "arrow-down-circle",
+    "EstadoSem3": "refresh",
+    "EstadoSem4": "close-circle",
+    "Erro": "error-warning",
+    "Alerta": "alert",
+    "LegendaSemaforos": "traffic-light",
 });
 
 export const FA_ICON_MAP = Object.freeze({
@@ -134,4 +142,12 @@ export const FA_ICON_MAP = Object.freeze({
 export const BANNER_ICON_MAP = Object.freeze({
     "info": "information",
     "alerta": "alert",
+});
+
+export const BG_IMAGE_ICON_MAP = Object.freeze({
+    ".EmAprovacao-28-14": "indeterminate-circle",
+    ".limpar": "eraser",
+    ".eliminar": "close-circle",
+    ".adicionar": "add-circle",
+    ".adicionar-elemento": "add-circle",
 });

@@ -1,4 +1,3 @@
-import * as icons from "./modules/icons";
 import {
   addResizeListener,
   injectOverrideFunctions
@@ -7,6 +6,7 @@ import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
+import { replaceIcons } from "./modules/icons";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -23,11 +23,6 @@ chrome.storage.onChanged.addListener((changes) => {
 - Get Chrome Storage and inject respective styles
 --*/
 const init = async () => {
-  icons.addCSS();
-  icons.replaceImages();
-  icons.replaceFA();
-  icons.replaceBanners();
-
   // // Watch for resize events
   // addResizeListener();
 
@@ -38,6 +33,8 @@ const init = async () => {
   changeProfileLink();
   
   injectOverrideFunctions();
+
+  replaceIcons();
 };
 
 init();
