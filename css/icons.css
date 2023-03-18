@@ -1,7 +1,7 @@
 .se-icon {
     font-size: 24px;
     line-height: 1 !important;
-    display: inline-block;
+    display: inline-block !important;
     vertical-align: middle !important;
     background: none !important;
     width: 1em !important;

@@ -137,6 +137,7 @@ export const FA_ICON_MAP = Object.freeze({
     "envelope-o": "mail",
     "ellipsis-v": "more-2",
     "bars": "menu",
+    "unlock": "login-circle",
 });
 
 export const BANNER_ICON_MAP = Object.freeze({
@@ -150,4 +151,5 @@ export const BG_IMAGE_ICON_MAP = Object.freeze({
     ".acao.eliminar": "close-circle",
     ".acao.adicionar": "add-circle",
     ".acao.adicionar-elemento": "add-circle",
+    ".terminar-sessao": "logout-circle",
 });
