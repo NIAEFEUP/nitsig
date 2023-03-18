@@ -9,7 +9,7 @@ let manifest = {
         48: "images/logo/logo-48.png",
         128: "images/logo/logo-128.png",
     },
-    permissions: ["storage"],
+    permissions: ["storage", "tabs"],
 };
 
 export const MANIFEST_CHROME = {

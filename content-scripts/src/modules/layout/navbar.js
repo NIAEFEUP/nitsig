@@ -1,3 +1,11 @@
+export const hideSideBars = () => {
+    console.log("Hiding sidebars");
+    const rightNav = document.querySelector("#colunaextra");
+    const leftNav = document.querySelector("#colunaprincipal");
+    rightNav.style = "display: none";
+    leftNav.style = "display: none";
+}
+
 export const injectNavBar = () => {
     console.log("Injecting navbar");
     const breadcrumb_bar = document.querySelector("#barralocalizacao");

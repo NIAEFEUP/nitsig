@@ -6,7 +6,7 @@ import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
 import * as header from "./modules/layout/header";
-import { injectNavBar } from "./modules/layout/navbar";
+import { hideSideBars, injectNavBar } from "./modules/layout/navbar";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -36,7 +36,11 @@ const init = async () => {
 
   header.changeLayout();
 
-  injectNavBar();
+  const navBarIsEnabled = await getStorage("injectNavBar");
+  if (navBarIsEnabled === "on") {
+    hideSideBars();
+    injectNavBar();
+  }
 };
 
 init();
