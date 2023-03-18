@@ -126,7 +126,7 @@ export const IMG_ICON_MAP = Object.freeze({
     "EstadoSem4": "close-circle",
     "Erro": "error-warning",
     "Alerta": "alert",
-    "LegendaSemaforos": "traffic-light",
+    "LegendaSemaforos": "question",
 });
 
 export const FA_ICON_MAP = Object.freeze({
@@ -146,8 +146,8 @@ export const BANNER_ICON_MAP = Object.freeze({
 
 export const BG_IMAGE_ICON_MAP = Object.freeze({
     ".EmAprovacao-28-14": "indeterminate-circle",
-    ".limpar": "eraser",
-    ".eliminar": "close-circle",
-    ".adicionar": "add-circle",
-    ".adicionar-elemento": "add-circle",
+    ".acao.limpar": "eraser",
+    ".acao.eliminar": "close-circle",
+    ".acao.adicionar": "add-circle",
+    ".acao.adicionar-elemento": "add-circle",
 });
