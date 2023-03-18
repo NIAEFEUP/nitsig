@@ -582,7 +582,7 @@ div.yui-cal-nav{
     top: 0;
 }
 
-.horario :is(.TP, .TE, .OT, .PL)>* {
+.horario :is(.TP, .TE, .OT, .PL, .TC, .S)>* {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
     grid-auto-rows: 1fr;
@@ -595,13 +595,13 @@ div.yui-cal-nav{
     z-index: 1;
 }
 
-.horario :is(.TP, .TE, .OT, .PL) a {
+.horario :is(.TP, .TE, .OT, .PL, .TC, .S) a {
     color: white !important;
     text-decoration: none !important;
     font-weight: bold !important;
 }
 
-.horario :is(.TP, .TE, .OT, .PL) a:hover {
+.horario :is(.TP, .TE, .OT, .PL, .TC, .S) a:hover {
     text-decoration: underline !important;
 }
 
@@ -623,6 +623,16 @@ div.yui-cal-nav{
 .horario .PL>*,
 #new-legend #PL {
     background-color: seagreen;
+}
+
+.horario .TC>*,
+#new-legend #TC {
+    background-color: sienna;
+}
+
+.horario .S>*,
+#new-legend #S {
+    background-color: darksalmon;
 }
 
 .horario .almoco,
@@ -652,8 +662,7 @@ div.yui-cal-nav{
 
 #new-legend {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    flex-direction: row;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 20px;
     width: 100%;
     white-space: nowrap;

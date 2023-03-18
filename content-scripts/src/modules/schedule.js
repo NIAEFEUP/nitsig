@@ -9,15 +9,19 @@ const CLASS_TYPE_TO_ABBR = {
     "Laboratório": "PL",
     "Orientação Tutorial": "OT",
     "Prática Laboratorial": "PL",
+    "Trabalho de Campo": "TC",
+    "Seminário": "S",
     "Almoço": "almoco",
 };
 const CLASS_TYPE_TO_ABBR_OVERLAPPING = {
-    "Teórica": "T",
-    "Teórico-Prática": "TP",
-    "Prática": "P",
-    "Laboratório": "PL",
+    "Teóricas": "T",
+    "Teórico-Práticas": "TP",
+    "Práticas": "P",
+    "Laboratórios": "PL",
     "Orientação Tutorial": "OT",
-    "Prática Laboratorial": "PL"
+    "Práticas Laboratoriais": "PL",
+    "Trabalho de Campo": "TC",
+    "Seminários": "S",
 };
 const CLASS_ABBR_TO_ABBR = {
     "T": "TE",
@@ -25,15 +29,21 @@ const CLASS_ABBR_TO_ABBR = {
     "P": "P",
     "PL": "PL",
     "OT": "OT",
-    "PL": "PL"
+    "PL": "PL",
+    "TC": "TC",
+    "S": "S",
 };
 
-const improveSchedule = () => {
+export const improveSchedule = () => {
     /** @type {HTMLTableElement} */
     const scheduleElem = document.querySelector(".horario");
 
     // Not on the schedule page, abort
     if (!scheduleElem) return;
+
+    createWeekDropdown();
+    createLegend();
+    createYearPeriodDropdown();
 
     const layout = document.querySelector("#conteudoinner");
     /** @type {HTMLTableElement} */
@@ -152,7 +162,7 @@ const createClass = (name, clazz, room, teacher) => {
 const fixClasses = (table) => {
     // TODO: Check if any class types are missing
     /** @type {NodeListOf<HTMLTableCellElement>} */
-    const classes = table.querySelectorAll("td:is(.TP, .TE, .OT, .PL)");
+    const classes = table.querySelectorAll("td:is(.TP, .TE, .OT, .PL, .TC, .S)");
 
     classes.forEach((e) => {
         const className = e.querySelector("b a");
@@ -181,7 +191,7 @@ const getClassDuration = async (url) => {
         (/** @type {HTMLTableRowElement} */ e) => {
             const type =
                 CLASS_TYPE_TO_ABBR_OVERLAPPING[
-                    e.cells[0].innerText.trim().replace(/s?:$/, "")
+                    e.cells[0].innerText.trim().replace(":", "")
                 ];
             const time = parseFloat(e.cells[1].innerText.replace(",", "."));
             ret[type] = time;
@@ -394,11 +404,4 @@ const createYearPeriodDropdown = async () => {
     oldForm.replaceWith(div);
     removeElement('#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select');
 
-}
-
-export const changeSchedule = async () => {
-    createWeekDropdown();
-    createLegend();
-    createYearPeriodDropdown();
-    improveSchedule();
 }
