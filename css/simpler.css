@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
 
 /* Usefull selectors examples:
 
@@ -41,14 +42,17 @@ img.sama {
 }
 
 p.flex-caption a {
-  letter-spacing: 0.5em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
-  word-spacing: 1em;
+  word-spacing: 0.7em;
+  font-family: 'Kanit', sans-serif !important;
 }
 
-
+.ajuda-contextual {
+  display: none !important;
+}
 /* News Section */
 
 .col-md-7 {
@@ -67,10 +71,50 @@ p.flex-caption a {
   margin: revert !important;
 }
 
+.col-md-7 .fa.fa-plus-circle::before {
+  font-size: 0.5em;
+  content: "Ler Mais" !important;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.col-md-7 .fa.fa-plus-circle {
+  display: block;
+  font-family: "NoticiaText", serif !important;
+  color: white !important;
+  padding: 0.2em 0.5em 0.5em 0.5em !important;
+  border-radius: 8px;
+  width: auto;
+  max-width: 14% !important;
+  position: absolute;
+  text-align: center;
+  top: 3%;
+  right: 3%;;
+}
+
+.col-md-7 .novo-portlet-noticias p {
+  width: 85%;
+}
+
+.col-md-7 .novo-portlet-noticias p a > span{
+  float: right;
+  background-image: linear-gradient(rgb(110,110,110), rgb(130,130,130));
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
+}
+
+.col-md-7 .novo-portlet-noticias p a > span:hover {
+  background-position: 0 -100%;
+}
+
 .mais-noticias a {
   color: white !important;
-  background-color: rgb(140,45,25) !important;
   display: block;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
+  border-radius: 8px !important;
+  
 }
 
 .mais-noticias a:link {
@@ -79,15 +123,19 @@ p.flex-caption a {
 }
 
 p.mais-noticias {
+  width: 40%;
+  margin: 0 auto;
+  padding-bottom: 2em;
   text-transform: uppercase;
   text-align: center !important;
 }
 
 p.mais-noticias a:hover {
-  background-color: white !important;
-  transition: 0.5s;
-  color: rgb(140,45,25) !important;
+  color: white !important;
+  background-position: 0 -100%;
 }
+
+
 
 
 /* Calendar and Events*/
@@ -99,20 +147,26 @@ p.mais-noticias a:hover {
 .col-md-5 h2 {
   margin: 0 !important;
   font-size: 2em !important;
-  border-bottom: 2px solid rgb(140,45,25);
+  border-bottom: 2px solid rgb(140,40,25);
 }
 
 .mais-eventos a {
   color: white !important;
-  background-color: rgb(140,45,25) !important;
   display: block;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25));
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
 }
 
 .calendario-inicio {
-  padding-top: 1em;
+  margin-top: 1em;
 }
 
-.calendario-inicio table {
+.calendario-inicio .calendtable {
+  border-spacing: 1em 0 !important;
+}
+
+.calendario-inicio table{
   width: 100%;
 }
 
@@ -143,9 +197,8 @@ ul.agenda li {
 }
 
 p.mais-eventos a:hover {
-  background-color: #f0f0f0 !important;
-  transition: 0.5s;
-  color: rgb(140,45,25) !important;
+  background-position: 0 -100%;
+  color: white !important;
 }
 
 .calendario-inicio form {
@@ -156,15 +209,19 @@ p.mais-eventos a:hover {
 .calendario-inicio input[type="submit"] {
   width: 30%;
   margin: 0;
-  background: rgb(140,45,25) !important;
   text-transform: uppercase;
   color: white !important;
+  background-image: linear-gradient(rgb(140,45,25), rgb(165,45,25)) !important;
+  background-size: 100% 200%;
+  transition: background-position 0.3s;
+  border-radius: 8px; 
+  border: none;
+  font-family: "NoticiaText", serif !important;
+  font-weight: bold;
 }
 
 .calendario-inicio input[type="submit"]:hover {
-  color: rgb(140,45,25) !important;
-  background: #f0f0f0 !important;
-  transition: 0.5s;
+  background-position: 0 -100%;
 }
 
 .calendario-inicio select {
@@ -176,23 +233,68 @@ p.mais-eventos a:hover {
   cursor: pointer;
 }
 
-.calendtable td.calendevent {
-  border-bottom: 2px solid rgb(140,45,25) !important;
+table.calendtable td.calendevent {
+  border-bottom: 0.2em solid rgb(140,45,25) !important;
 }
 
-
-.calendevent a:link {
-  text-decoration: none !important;
-}
-
-.calendevent a:hover {
+table.calendtable .calendeventsel {
+  background-color: rgb(140,45,25) !important;
+  border-color: rgb(140,45,25) !important;
   color: white !important;
+}
+
+.calendevent a {
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.calendeventsel a {
+  color: white !important;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
+.calendevent a:hover, .calendeventsel a:hover, .calendeventsel a:visited {
+  color: black !important;
   font-weight: bold;
 }
 
 .calendtable tbody {
   line-height: 2em;
 }
+
+
+table.calendtable {
+  background-color: rgb(240, 240, 240) !important;
+  border: 10px solid rgb(240, 240, 240) !important;
+  font-family: sans-serif;
+}
+
+table.calendtable td {
+  color: black !important;
+  background-color: rgb(240, 240, 240) !important;
+}
+
+table.calendtable th {
+  color: black !important;
+  background-color: rgb(240, 240, 240) !important;
+}
+
+table.calendtable tbody {
+  line-height: 2em;
+}
+
+table.calendtable .calendfdssel {
+  text-align: center !important;
+}
+
+table.calendtable:first-child tr:first-child > td:nth-child(2) {
+  /* Aligns calendar year */
+  text-align: center !important;
+}
+
+
+
 /* Footer */
 
 .col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12 {
@@ -265,4 +367,120 @@ p.mais-eventos a:hover {
 #cookie-bar a.cb-policy:hover{
   background: #353535;
   color: white !important;
+
+/* ----------------- DATE INPUT ----------------- */
+
+.yui-skin-sam table{
+  border-spacing: 0.8rem 0.2rem !important;
+}
+
+.yui-skin-sam .yui-calcontainer{
+  background-color: #fbfbfb !important;
+  border: 1px solid #c8c8c8 !important;
+  padding: 1rem !important;
+  border-radius: 8px;
+  box-shadow: 1px 1px 10px #00000014;
+}
+
+.yui-skin-sam .yui-calcontainer .title{
+  margin: 0 !important;
+  background: none !important;
+  border-bottom: none !important;
+  padding: 0 !important;
+}
+
+.yui-skin-sam .yui-calendar a.calnav{
+  color: #1A1A1A !important;
+  border: none !important;
+}
+.yui-skin-sam .yui-calendar a.calnav:hover{
+  background: none !important;
+}
+
+.yui-skin-sam .yui-calendar .calweekdaycell{
+  background-color: none !important;
+  background: none;
+  color: #575757 !important;
+}
+.yui-skin-sam .yui-calendar td.calcell{
+  border: none !important;
+  background: none !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease-out;
+}
+.yui-skin-sam .yui-calendar td.calcell:hover{
+  background: #1A1A1A !important;
+}
+.yui-skin-sam .yui-calendar td.calcell:hover a{
+  color: #FFFFFF !important;
+}
+.yui-skin-sam .yui-calendar td.calcell a {
+  color: #1A1A1A !important;
+  background: none !important;
+}
+
+.yui-skin-sam .yui-calendar td.calcell.oom{
+  color: #BABABA !important;
+  background: none !important;
+}
+
+.yui-skin-sam .yui-calendar td.calcell.today{
+  background: #F2F2F2 !important;
+}
+.yui-skin-sam .yui-calendar td.calcell.today a{
+  color: #1A1A1A !important;
+}
+
+.yui-skin-sam .yui-calcontainer .yui-cal-nav{
+  background-color: #f5f5f5 !important;
+  border-radius: 8px;
+  border: 1px solid #a0a0a0;
+  width: fit-content !important;
+  align-items: center;
+  margin-left: -20% !important;
+}
+
+.yui-skin-sam .yui-calcontainer .yui-cal-nav-mc {
+  width: auto;
+}
+div.yui-cal-nav{
+  padding: 0.5rem !important;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.5rem;
+}
+
+.yui-cal-nav-m, .yui-cal-nav-y, .yui-cal-nav-b{
+  padding: 0 !important;
+}
+.yui-cal-nav-y{
+  margin: 0.5rem 0;
+}
+.yui-cal-nav-b{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.yui-cal-nav-b{
+  grid-column: 1/3;
+}
+.yui-skin-sam .yui-calcontainer .yui-cal-nav label{
+  display: none !important;
+}
+.yui-skin-sam .yui-calcontainer .yui-cal-nav .yui-cal-nav-btn.yui-default button{
+  background: #1A1A1A !important;
+}
+.yui-skin-sam .yui-calcontainer .yui-cal-nav .yui-cal-nav-btn {
+  border: none !important;
+  background: none !important;  
+  margin: 0 !important;
+}
+
+.yui-skin-sam .yui-calcontainer .yui-cal-nav .yui-cal-nav-btn:hover{
+  background: none !important;
+}
+
+.yui-skin-sam .yui-calcontainer .yui-cal-nav-yc{
+  width: 7.5rem !important;
 }
