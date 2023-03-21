@@ -18,6 +18,7 @@ watch.watchTree(".", {
     filter:(path, stat)=>{
         //TODO (luisd): rewrite this lmao
         return (path.includes("background.js") || 
+            path.includes("manifest.js") ||
             path.includes("content-scripts") || 
             path.includes("popup") ||
             path.includes("css") ||

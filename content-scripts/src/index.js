@@ -6,7 +6,7 @@ import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
-
+import { rememberLogin } from "./modules/login";
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
 - Listen to Chrome Storage changes
@@ -14,6 +14,7 @@ import { changeProfileLink } from "./modules/links";
 --*/
 chrome.storage.onChanged.addListener((changes) => {
   const newChangesData = constructNewData(changes);
+  rememberLogin();
   injectAllChanges(newChangesData);
 });
 
@@ -25,10 +26,10 @@ const init = async () => {
   // // Watch for resize events
   // addResizeListener();
 
-  // Inject user preferences
-  const data = await getStorage(userPreferences);
-  injectAllChanges(data);
-
+  // // Inject user preferences
+  // const data = await getStorage(userPreferences);
+  // injectAllChanges(data);
+  rememberLogin();
   changeProfileLink();
   
   injectOverrideFunctions();
