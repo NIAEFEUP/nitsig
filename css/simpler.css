@@ -311,59 +311,55 @@ section.entidade ~ .formulario{
   cursor: pointer;
 }
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW  #tab7 .data{
-  color:rgb(112, 112, 112);
+#tab_extracto_geral .positive {
+  color: #81cb01;
 }
 
+#tab_extracto_geral .negative {
+  color: #8e2915;
+}
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 table {
+/* TABLES DESIGN */
+
+.tabela {
   border-spacing: 0 !important;
   width: 100%;
 }
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 th {
+.tabela .data{
+  color:rgb(112, 112, 112);
+}
+
+
+.tabela th {
   color: #676767;
   background: none;
   text-align: left;
 }
 
-/*
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr{
-  display: grid;
-  grid-template-columns: 100px 350px 100px;
-}*/
-
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 > table > tbody > tr.i,
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 > table > tbody > tr.p
+.tabela > tbody > tr.i,
+.tabela > tbody > tr.p
 {
   background: none;
 }
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 .positive {
-  color: #81cb01;
-}
-
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 .negative {
-  color: #8e2915;
-}
-
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 th,
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 td {
+.tabela th,
+.tabela td {
   padding: 0.6rem 1rem !important;
   border-bottom: 1.4px solid #f3f3f3;
 }
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr td:first-child,
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr th:first-child{
+.tabela tr td:first-child,
+.tabela tr th:first-child{
   padding-left: 0 !important;
 }
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr td:last-child,
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 tr th:last-child{
+.tabela tr td:last-child,
+.tabela tr th:last-child{
   padding-right: 0 !important;
   text-align: right;
 }
 
-#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW #tab7 thead tr th{
+.tabela th{
   font-weight: 400;
 }

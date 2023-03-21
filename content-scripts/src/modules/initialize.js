@@ -33,7 +33,6 @@ export const reverseDateDirection = () => {
 }
 
 export const currentAccountPage = () => {
-  console.log(getPath())
   if(getPath() != "gpag_ccorrente_geral.conta_corrente_view") return;
 
   const saldo = document.querySelector(".formulario #span_saldo_total");
@@ -41,6 +40,53 @@ export const currentAccountPage = () => {
 
   const contaCorrente = document.getElementById("GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW");
   if(contaCorrente){
+
+    // merge "Crédito" and "Débito" collumns
+    contaCorrente.querySelectorAll(".tab").forEach(tab => {
+      let savedColumnIndex;
+      if(tab.id == "tab7") return // Don't execute in Extrato Geral
+      console.log(tab.id)
+
+      rows =  [...(tab.querySelectorAll("tbody > tr"))];
+
+      headers = rows[0].querySelectorAll("th");
+      headers.forEach((th, index) => {
+        if(th.innerHTML == "Débito"){
+          th.innerHTML = "Valor";
+        }else if(th.innerHTML == "Crédito"){
+          savedColumnIndex = index + headers[0].colSpan; // Because there are colspan
+          th.remove()
+        }
+      });
+
+      if(savedColumnIndex){
+        rows.shift();
+
+        rows.forEach((row, index) => {
+          cells = [...row.querySelectorAll("td")]
+          if(cells[savedColumnIndex-1].innerHTML == "&nbsp;"){
+            cells[savedColumnIndex-1].innerHTML = cells[savedColumnIndex].innerHTML;
+            cells[savedColumnIndex-1].classList.add("n");
+          }
+          cells[savedColumnIndex].remove();
+
+          if(cells[0].classList.contains("credito")){ //remove "Multibanco - SIBS" row
+            //adicionar data a pago em
+            //TODO: 
+            
+            //change the last cell of the last row to the value of the last cell of the current row
+            lastRowCells = rows[index-1].querySelectorAll("td")
+
+            document_file = cells[cells.length - 1].querySelector("a")
+            console.log(document_file)
+            lastRowCells[lastRowCells.length - 2].innerHTML = "";
+            lastRowCells[lastRowCells.length - 2].appendChild(document_file)
+
+            row.remove();
+          }
+        });
+      }
+    })
 
     // remove "Movimentos" h2
     contaCorrente.previousElementSibling.remove()
