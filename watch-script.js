@@ -15,6 +15,7 @@ let hasUpdate = false;
 
 watch.watchTree(".", {
     ignoreDotFiles:true, 
+    interval: 0.5,
     filter:(path, stat)=>{
         //TODO (luisd): rewrite this lmao
         return (path.includes("background.js") || 
