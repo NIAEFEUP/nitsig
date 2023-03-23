@@ -112,7 +112,8 @@ const replaceBanners = () => {
             i.innerText = "";
 
             const icon = document.createElement("span");
-            icon.classList.add("se-icon", `ri-${v}-line`);
+            icon.classList.add("se-icon", `ri-${v}-fill`);
+            icon.style.fontSize = "1.5em";
 
             i.append(icon, span);
         });

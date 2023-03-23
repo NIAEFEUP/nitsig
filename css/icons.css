@@ -41,12 +41,3 @@
 #infopessoalh.expandido .expandir {
     display: none
 }
-
-div.info,
-div.alerta {
-    background-image: none;
-    display: flex;
-    align-items: center;
-    gap: .5em;
-    padding-left: .5em;
-}
