@@ -3,35 +3,35 @@ import { lcmAll } from "./utilities/math";
 import removeElement from "./utilities/removeElement";
 
 const CLASS_TYPE_TO_ABBR = {
-    "Teórica": "TE",
+    Teórica: "TE",
     "Teórico-Prática": "TP",
-    "Prática": "P",
-    "Laboratório": "PL",
+    Prática: "P",
+    Laboratório: "PL",
     "Orientação Tutorial": "OT",
     "Prática Laboratorial": "PL",
     "Trabalho de Campo": "TC",
-    "Seminário": "S",
-    "Almoço": "almoco",
+    Seminário: "S",
+    Almoço: "almoco",
 };
 const CLASS_TYPE_TO_ABBR_OVERLAPPING = {
-    "Teóricas": "T",
+    Teóricas: "T",
     "Teórico-Práticas": "TP",
-    "Práticas": "P",
-    "Laboratórios": "PL",
+    Práticas: "P",
+    Laboratórios: "PL",
     "Orientação Tutorial": "OT",
     "Práticas Laboratoriais": "PL",
     "Trabalho de Campo": "TC",
-    "Seminários": "S",
+    Seminários: "S",
 };
 const CLASS_ABBR_TO_ABBR = {
-    "T": "TE",
-    "TP": "TP",
-    "P": "P",
-    "PL": "PL",
-    "OT": "OT",
-    "PL": "PL",
-    "TC": "TC",
-    "S": "S",
+    T: "TE",
+    TP: "TP",
+    P: "P",
+    PL: "PL",
+    OT: "OT",
+    PL: "PL",
+    TC: "TC",
+    S: "S",
 };
 
 export const improveSchedule = () => {
@@ -80,8 +80,7 @@ const fixScheduleTable = (table) => {
     for (let i = 0; i < 7; ++i) {
         const col = document.createElement("col");
 
-        if (today.getDay() == i)
-            col.classList.add("today");
+        if (today.getDay() == i) col.classList.add("today");
 
         colgroup.append(col);
     }
@@ -131,19 +130,18 @@ const fixScheduleTable = (table) => {
         const timeHeader = document.createElement("th");
         timeHeader.scope = "row";
 
-        const hour = String(Math.floor((i + 1)/2) + 7).padStart(2, "0");
-        const minute = i%2 ? "00" : "30";
+        const hour = String(Math.floor((i + 1) / 2) + 7).padStart(2, "0");
+        const minute = i % 2 ? "00" : "30";
 
         const span = document.createElement("span");
         span.innerText = `${hour}:${minute}`;
         span.classList.add("acs");
         timeHeader.append(span);
-        
-        if (minute == "00") 
-            timeHeader.dataset.seHourRule = `${hour}:${minute}`;
+
+        if (minute == "00") timeHeader.dataset.seHourRule = `${hour}:${minute}`;
 
         e.insertBefore(timeHeader, e.firstElementChild);
-    })
+    });
 
     // Add borders between columns before adding overlapping classes
     body.querySelectorAll("td").forEach((e) => e.classList.add("column-start"));
@@ -162,7 +160,9 @@ const createClass = (name, clazz, room, teacher) => {
 const fixClasses = (table) => {
     // TODO: Check if any class types are missing
     /** @type {NodeListOf<HTMLTableCellElement>} */
-    const classes = table.querySelectorAll("td:is(.TP, .TE, .OT, .PL, .TC, .S)");
+    const classes = table.querySelectorAll(
+        "td:is(.TP, .TE, .OT, .PL, .TC, .S)"
+    );
 
     classes.forEach((e) => {
         const className = e.querySelector("b a");
@@ -170,8 +170,10 @@ const fixClasses = (table) => {
         const classRoom = e.querySelector("table td:first-of-type a");
         const classTeacher = e.querySelector("table td:last-of-type a");
 
-        e.replaceChildren(createClass(className, classClass, classRoom, classTeacher));
-    })
+        e.replaceChildren(
+            createClass(className, classClass, classRoom, classTeacher)
+        );
+    });
 };
 
 const getClassDuration = async (url) => {
@@ -183,18 +185,25 @@ const getClassDuration = async (url) => {
     const text = decoder.decode(await r.arrayBuffer());
 
     const parser = new DOMParser();
-    const html = parser.parseFromString(text, "text/html");
+    let html = parser.parseFromString(text, "text/html");
 
-    const ret = {};
+    const a = html.querySelector("#conteudoinner > li > a");
 
-    html.querySelectorAll(".horas .formulario tr").forEach(
-        (/** @type {HTMLTableRowElement} */ e) => {
-            const type =
-                CLASS_TYPE_TO_ABBR_OVERLAPPING[
-                    e.cells[0].innerText.trim().replace(":", "")
-                ];
-            const time = parseFloat(e.cells[1].innerText.replace(",", "."));
-            ret[type] = time;
+    if (a) {
+        const r = await fetch(a.href);
+        const text = decoder.decode(await r.arrayBuffer());
+        html = parser.parseFromString(text, "text/html");
+    }
+
+    const ret = new Map();
+
+    html.querySelectorAll(".horario :is(.TP, .TE, .OT, .PL, .TC, .S)").forEach(
+        (/** @type {HTMLTableCellElement} */ e) => {
+            const className = e.querySelector("b a").innerText;
+            const classClass = e.querySelector("span > a").innerText;
+            const classType = e.className;
+
+            ret.set(`${className},${classType},${classClass}`, e.rowSpan);
         }
     );
 
@@ -207,16 +216,14 @@ const getClassDuration = async (url) => {
  */
 const fixOverlappingClasses = async (table, overlapping) => {
     // I hate sigarra so much
-    /** @type {Record<string, Record<string, number>>} */
-    const durationCache = {};
+    /** @type {Map<any, number>} */
+    const durationCache = new Map();
 
     /** @type {Record<string, number} */
     const weekdays = {};
     /** @type {NodeListOf<HTMLTableCellElement>} */
     const headers = table.querySelectorAll("thead th");
     headers.forEach((e, i) => (weekdays[e.innerText.trim()] = i));
-
-    console.log(weekdays);
 
     for (const e of overlapping.querySelectorAll("tr")) {
         // Skip "headers"
@@ -229,20 +236,32 @@ const fixOverlappingClasses = async (table, overlapping) => {
             e.querySelector("[headers=t1]").innerText
         )[1];
         /** @type {string} */
-        const weekday = weekdays[e.querySelector("[headers=t2]").innerText.trim()];
+        const weekday =
+            weekdays[e.querySelector("[headers=t2]").innerText.trim()];
         /** @type {string} */
         const startingTime = e.querySelector("[headers=t3]").innerText;
         const classRoom = e.querySelector("[headers=t4] a");
         const classTeacher = e.querySelector("[headers=t5] a");
         const classClass = e.querySelector("[headers=t6] a");
 
-        const classDuration = (durationCache[className] ??=
-            await getClassDuration(className.href))[classType] * 2;
+        let classDuration = durationCache.get(
+            `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`
+        );
+
+        if (!classDuration) {
+            (await getClassDuration(classClass.href)).forEach((duration, k) =>
+                durationCache.set(k, duration)
+            );
+            classDuration = durationCache.get(
+                `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`
+            );
+        }
 
         const row =
-            (parseInt(startingTime.slice(0, startingTime.indexOf(":"))) - 7) *
+            (parseInt(startingTime.slice(0, startingTime.indexOf(":"))) - 8) *
                 2 +
-            (startingTime.slice(startingTime.indexOf(":")) == "30");
+            (startingTime.slice(startingTime.indexOf(":") + 1) == "30") +
+            1;
 
         // Create class cell with the right info and insert it
         const cell = document.createElement("td");
@@ -262,7 +281,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
 
         for (let i = weekday + 1; i < 7; ++i) {
             next = tr.querySelector(`[data-se-weekday="${i}"]`);
-            if (next) break; 
+            if (next) break;
         }
 
         tr.insertBefore(cell, next);
@@ -272,7 +291,9 @@ const fixOverlappingClasses = async (table, overlapping) => {
     const set = new Set();
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
-            const o = table.querySelectorAll(`[data-se-weekday="${i}"][data-se-rows~="${j}"]`);
+            const o = table.querySelectorAll(
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+            );
             set.add(o.length);
         }
     }
@@ -282,23 +303,29 @@ const fixOverlappingClasses = async (table, overlapping) => {
     // Resize columns to the right size
     headers.forEach((e, i) => i && (e.colSpan = span));
     table.querySelectorAll("col").forEach((e, i) => i && (e.span = span));
-    table.querySelectorAll("[data-se-weekday][data-se-rows]").forEach((e) => e.colSpan = span);
+    table
+        .querySelectorAll("[data-se-weekday][data-se-rows]")
+        .forEach((e) => (e.colSpan = span));
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
-            const o = table.querySelectorAll(`[data-se-weekday="${i}"][data-se-rows~="${j}"]`);
-            o.forEach((c) => c.colSpan = Math.min(span/o.length, c.colSpan));
+            const o = table.querySelectorAll(
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+            );
+            o.forEach(
+                (c) => (c.colSpan = Math.min(span / o.length, c.colSpan))
+            );
         }
     }
 
     // Insert spaces where needed
-    // FIXME: Still not perfect, in this page the space in row 4 should be inserted first, not last
-    // https://sigarra.up.pt/feup/pt/HOR_GERAL.UCURR_VIEW?pv_ocorrencia_id=501662&pv_ano_lectivo=2022&pv_periodos=2
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
-            const o = table.querySelectorAll(`[data-se-weekday="${i}"][data-se-rows~="${j}"]`);
+            const o = table.querySelectorAll(
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+            );
             let s = 0;
-            o.forEach((c) => s += c.colSpan);
-            
+            o.forEach((c) => (s += c.colSpan));
+
             if (s < span) {
                 const space = document.createElement("td");
                 space.colSpan = span - s;
@@ -307,7 +334,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
                 let next = null;
                 for (let k = i + 1; k < 7; ++k) {
                     next = tr.querySelector(`[data-se-weekday="${k}"]`);
-                    if (next) break; 
+                    if (next) break;
                 }
 
                 tr.insertBefore(space, next);
@@ -317,25 +344,25 @@ const fixOverlappingClasses = async (table, overlapping) => {
 };
 
 const createWeekDropdown = async () => {
-    const blocks  = document.querySelectorAll('td.sem-quebra > a');
+    const blocks = document.querySelectorAll("td.sem-quebra > a");
 
-    const inputWrapper = document.createElement('div');
-    const label = document.createElement('label', {
-        for: 'semanas-select',
+    const inputWrapper = document.createElement("div");
+    const label = document.createElement("label", {
+        for: "semanas-select",
     });
-    const select = document.createElement('select', {
-        name: 'semanas-select',
+    const select = document.createElement("select", {
+        name: "semanas-select",
     });
-    
-    inputWrapper.className = 'dropdown-wrapper';
-    label.textContent = 'Semanas ';
-    select.name = 'semanas-select';
-    label.for = 'semanas-select';
-    
+
+    inputWrapper.className = "dropdown-wrapper";
+    label.textContent = "Semanas ";
+    select.name = "semanas-select";
+    label.for = "semanas-select";
+
     blocks.forEach((block) => {
         let content = block.textContent;
         let href = block.href;
-        let opt = document.createElement('option');
+        let opt = document.createElement("option");
         opt.value = href;
         opt.innerText = content;
         if (window.location.href == href) {
@@ -344,24 +371,23 @@ const createWeekDropdown = async () => {
         select.appendChild(opt);
     });
 
-    select.addEventListener('change', (event) => {
+    select.addEventListener("change", (event) => {
         window.location.replace(event.target.value);
     });
 
     inputWrapper.appendChild(label);
     inputWrapper.appendChild(select);
 
-    const dropdown = document.querySelector('table.tabela ~ h3');
+    const dropdown = document.querySelector("table.tabela ~ h3");
     dropdown.replaceWith(inputWrapper);
-
-}
+};
 
 const createLegend = async () => {
-    const oldLegend = document.querySelector('#conteudoinner > table.tabela');
-    
-    const newLegend = document.createElement('div');
-    newLegend.id = 'new-legend';
-    
+    const oldLegend = document.querySelector("#conteudoinner > table.tabela");
+
+    const newLegend = document.createElement("div");
+    newLegend.id = "new-legend";
+
     for (const type of Object.keys(CLASS_TYPE_TO_ABBR)) {
         const classDiv = document.createElement("div");
         classDiv.className = "legend-class-item";
@@ -376,32 +402,36 @@ const createLegend = async () => {
         classDiv.appendChild(abbrv);
         newLegend.appendChild(classDiv);
     }
-    
-    oldLegend.replaceWith(newLegend);
 
-}
+    oldLegend.replaceWith(newLegend);
+};
 
 const createYearPeriodDropdown = async () => {
-    const yearsSelect = document.querySelector('#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select');
-    const periodSelect = document.querySelector('#conteudoinner > form > table > tbody > tr:nth-child(2) > td:nth-child(2) > select');
-    const oldForm = document.querySelector('#conteudoinner > form');
-    const div = document.createElement('div');
+    const yearsSelect = document.querySelector(
+        "#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select"
+    );
+    const periodSelect = document.querySelector(
+        "#conteudoinner > form > table > tbody > tr:nth-child(2) > td:nth-child(2) > select"
+    );
+    const oldForm = document.querySelector("#conteudoinner > form");
+    const div = document.createElement("div");
     const url = new URL(window.location.href);
-    div.id = 'year-period';
+    div.id = "year-period";
     div.appendChild(yearsSelect);
     div.appendChild(periodSelect);
-    yearsSelect.addEventListener('change', (event) => {
-        url.searchParams.set('pv_ano_lectivo', event.target.value)
+    yearsSelect.addEventListener("change", (event) => {
+        url.searchParams.set("pv_ano_lectivo", event.target.value);
         console.log(url);
         window.location.replace(url);
     });
-    periodSelect.addEventListener('change', (event) => {
-        url.searchParams.set('pv_periodos', event.target.value)
+    periodSelect.addEventListener("change", (event) => {
+        url.searchParams.set("pv_periodos", event.target.value);
         console.log(url);
         window.location.replace(url);
     });
 
     oldForm.replaceWith(div);
-    removeElement('#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select');
-
-}
+    removeElement(
+        "#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select"
+    );
+};
