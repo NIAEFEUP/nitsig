@@ -31,7 +31,7 @@ let manifest = {
             "css/main.css",
             "css/custom.css",
             "css/simpler.css",
-            "js/override-functions.js"
+            "js/override-functions.js",
         ],
         matches: ["https://sigarra.up.pt/*"],
         },
