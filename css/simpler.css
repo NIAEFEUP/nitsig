@@ -423,3 +423,19 @@ section.entidade ~ .formulario{
 .tabela i{
   font-style: normal;
 }
+
+/* ----------------- Generic New Components ----------------- */
+
+.card{
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: #f6f6f6;
+  width: fit-content;
+  padding: 1rem 2rem;
+}
+
+.card > h3, .card > p{
+  margin: 0;
+}

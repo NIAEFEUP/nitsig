@@ -35,9 +35,6 @@ export const reverseDateDirection = () => {
 export const currentAccountPage = () => {
   if(getPath() != "gpag_ccorrente_geral.conta_corrente_view") return;
 
-  const saldo = document.querySelector(".formulario #span_saldo_total");
-  const nif =  Array.from(document.querySelectorAll(".formulario .formulario-legenda")).filter(el => el.innerHTML.includes("N.I.F."))[0].nextElementSibling.innerHTML.split(" ")[1];
-
   const contaCorrente = document.getElementById("GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW");
   if(contaCorrente){
 
@@ -183,12 +180,36 @@ export const currentAccountPage = () => {
     // remove "Movimentos" h2
     contaCorrente.previousElementSibling.remove()
 
-    // Show amount and nif
-    const saldoElement = document.createElement("div");
-    saldoElement.innerHTML = `Saldo: ${saldo.textContent} | NIF: ${nif}`;
-    saldoElement.style = "font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;";
-    contaCorrente.insertBefore(saldoElement, contaCorrente.firstChild);
+    // Balance and NIF cards
+    const saldo = document.querySelector(".formulario #span_saldo_total").textContent;
+    const saldoCard = document.createElement("div");
+    saldoCard.classList.add("card");
+    const title = document.createElement("p");
+    title.innerHTML = "Saldo";
+    const saldoValue = document.createElement("h3");
+    saldoValue.innerHTML = saldo + "€";
+    saldoCard.appendChild(title);
+    saldoCard.appendChild(saldoValue);
     
+    const nif =  Array.from(document.querySelectorAll(".formulario .formulario-legenda")).filter(el => el.innerHTML.includes("N.I.F."))[0].nextElementSibling.innerHTML;
+    const nifCard = document.createElement("div");
+    nifCard.classList.add("card");
+    const nifTitle = document.createElement("p");
+    nifTitle.innerHTML = "NIF";
+    const nifValue = document.createElement("h3");
+    nifValue.innerHTML = nif;
+    nifCard.appendChild(nifTitle);
+    nifCard.appendChild(nifValue);
+    
+    accountDetails = document.createElement("div");
+    accountDetails.style.display = "flex";
+    accountDetails.style.gap = "1rem";
+    accountDetails.style.marginBottom = "0.5rem";
+
+    accountDetails.appendChild(saldoCard);
+    accountDetails.appendChild(nifCard);
+    contaCorrente.insertBefore(accountDetails, contaCorrente.firstChild);
+
     // Extrato Geral
     const tab7 = contaCorrente.querySelector("#tab7");
     if(!tab7) return;
