@@ -165,13 +165,14 @@ export const currentAccountPage = () => {
         if(cells.length == 0) return;
 
         // get title atriuibute from the first cell
-        cellStatus = cells[0].querySelector("img").getAttribute("title");
+        const cellStatus = cells[0].querySelector("img").getAttribute("title");
 
         //create a div with the status
         statusDiv = document.createElement("div");
         statusDiv.innerHTML = statusProperties[cellStatus].text
         statusDiv.classList.add("badge");
         statusDiv.classList.add("badge-" + statusProperties[cellStatus].class);
+        statusDiv.title = cellStatus;
 
         cells[0].innerHTML = statusDiv.outerHTML;
       })

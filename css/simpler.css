@@ -294,6 +294,11 @@ p.mais-eventos a:hover {
   background: #fc6a44;
 }
 
+abbr[title]{
+  text-decoration: none;
+  border: none !important;
+}
+
 section.entidade {
   display: none;
 }
