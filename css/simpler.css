@@ -347,19 +347,25 @@ section.entidade ~ .formulario{
 .tabela td {
   padding: 0.6rem 1rem !important;
   border-bottom: 1.4px solid #f3f3f3;
+  text-align: left !important;
 }
 
 .tabela tr td:first-child,
 .tabela tr th:first-child{
+  text-align: left;
   padding-left: 0 !important;
 }
 
 .tabela tr td:last-child,
 .tabela tr th:last-child{
+  text-align: right !important;
   padding-right: 0 !important;
-  text-align: right;
 }
 
 .tabela th{
   font-weight: 400;
+}
+
+.tabela i{
+  font-style: normal;
 }

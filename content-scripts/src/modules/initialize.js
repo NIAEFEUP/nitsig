@@ -41,51 +41,101 @@ export const currentAccountPage = () => {
   const contaCorrente = document.getElementById("GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW");
   if(contaCorrente){
 
-    // merge "Crédito" and "Débito" collumns
-    contaCorrente.querySelectorAll(".tab").forEach(tab => {
-      let savedColumnIndex;
+    tabs = contaCorrente.querySelectorAll(".tab")
+
+    // merge "Crédito" and "Débito" collumns and remove collumns
+    tabs.forEach((tab, tab_index) => {
+      let creditColumnIndex;
+      let columnsToRemove = [];
       if(tab.id == "tab7") return // Don't execute in Extrato Geral
-      console.log(tab.id)
 
       rows =  [...(tab.querySelectorAll("tbody > tr"))];
 
-      headers = rows[0].querySelectorAll("th");
-      headers.forEach((th, index) => {
+      headerCells = rows[0].querySelectorAll("th");
+      headerCells.forEach((th, index) => {
         if(th.innerHTML == "Débito"){
           th.innerHTML = "Valor";
         }else if(th.innerHTML == "Crédito"){
-          savedColumnIndex = index + headers[0].colSpan; // Because there are colspan
+          creditColumnIndex = index + headerCells[0].colSpan; // Because there are colspan
           th.remove()
+        }
+
+        if(th.innerHTML == "Valor Pago"){
+          columnsToRemove.push(index + headerCells[0].colSpan - 1);
+          th.remove()
+        }
+
+        if(th.innerHTML == "Valor em Falta"){
+          th.innerHTML = "";
+          th.colSpan = 1;
+          columnsToRemove.push(index + headerCells[0].colSpan - 1);
+        }
+
+        if(th.innerHTML == "Juros de Mora"){
+          th.innerHTML = "Juros";
+          if(tab_index == 2){ // Juros de mora Proprinas
+            columnsToRemove.push(index + headerCells[0].colSpan - 1);
+            th.remove()
+          }
+        }
+
+        if(th.innerHTML == "Débito em Falta"){
+          columnsToRemove.push(index + headerCells[0].colSpan - 1);
+          th.remove()
+        }
+
+        if(th.innerHTML == "Documento"){
+          th.colSpan = 1;
+          columnsToRemove.push(index + headerCells[0].colSpan - 1);
+        }
+
+        if(th.innerHTML == "Estado"){
+          columnsToRemove.push(index + headerCells[0].colSpan - 1);
+          th.remove();
         }
       });
 
-      if(savedColumnIndex){
-        rows.shift();
+      rows.shift();
 
+      rows.forEach(row => {
+        cells = [...row.querySelectorAll("td")]
+        columnsToRemove.forEach(columnIndex => {
+          if(!cells[0].classList.contains("credito")){
+            cells[columnIndex].remove();
+          }
+        })
+      })
+
+      if(creditColumnIndex){
         rows.forEach((row, index) => {
           cells = [...row.querySelectorAll("td")]
-          if(cells[savedColumnIndex-1].innerHTML == "&nbsp;"){
-            cells[savedColumnIndex-1].innerHTML = cells[savedColumnIndex].innerHTML;
-            cells[savedColumnIndex-1].classList.add("n");
+          if(cells[creditColumnIndex-1].innerHTML == "&nbsp;"){
+            cells[creditColumnIndex-1].innerHTML = cells[creditColumnIndex].innerHTML;
+            cells[creditColumnIndex-1].classList.add("n");
           }
-          cells[savedColumnIndex].remove();
+          cells[creditColumnIndex].remove();
 
           if(cells[0].classList.contains("credito")){ //remove "Multibanco - SIBS" row
-            //adicionar data a pago em
-            //TODO: 
+            //TODO: adicionar data a "pago em"
             
             //change the last cell of the last row to the value of the last cell of the current row
             lastRowCells = rows[index-1].querySelectorAll("td")
 
             document_file = cells[cells.length - 1].querySelector("a")
-            console.log(document_file)
-            lastRowCells[lastRowCells.length - 2].innerHTML = "";
-            lastRowCells[lastRowCells.length - 2].appendChild(document_file)
+            lastRowCells[lastRowCells.length - 1].innerHTML = "";
+            lastRowCells[lastRowCells.length - 1].appendChild(document_file)
+            lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
 
             row.remove();
           }
         });
       }
+    })
+
+    tabs[0].querySelectorAll("tbody > tr").forEach(row => {
+      cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
+      len = cells.length;
+      row.insertBefore(cells[len - 1], cells[len - 2]);
     })
 
     // remove "Movimentos" h2
