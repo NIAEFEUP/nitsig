@@ -240,6 +240,60 @@ p.mais-eventos a:hover {
 
 /* ----------------- Conta Corrente Page ----------------- */
 
+/* Status badges */
+.badge{
+  padding: 0.2rem 0.5rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+}
+.badge::before{
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.badge.badge-success{
+  border-color: #cce6d5;
+  background: #effdf4;
+  color: #368e50;
+}
+.badge.badge-success::before{
+  background: #0cb143;
+}
+
+.badge.badge-pending{
+  border-color: #f0eac6;
+  background: #fefde9;
+  color: #956e30;
+}
+.badge.badge-pending::before{
+  background: #f2bc30;
+}
+
+.badge.badge-cancelled{
+  border-color: #e3e5e6;
+  background: #f9fafc;
+  color: #4d535d;
+}
+.badge.badge-cancelled::before{
+  background: #8f8f9c;
+}
+
+.badge.badge-danger{
+  border-color: #e3c3b9;
+  background: #fef7f9;
+  color: #b25943;
+}
+.badge.badge-danger::before{
+  background: #fc6a44;
+}
+
 section.entidade {
   display: none;
 }

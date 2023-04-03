@@ -132,10 +132,52 @@ export const currentAccountPage = () => {
       }
     })
 
+    // Switch "Refência" action button to the right
     tabs[0].querySelectorAll("tbody > tr").forEach(row => {
       cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
       len = cells.length;
       row.insertBefore(cells[len - 1], cells[len - 2]);
+    })
+
+    statusProperties = {
+      "Pago":{
+        class: "success",
+        text: "Pago"
+      },
+      "Não pago mas prazo ainda não foi excedido":{
+        class: "pending",
+        text: "Pendente"
+      },
+      "Anulado":{
+        class:"cancelled",
+        text: "Anulado"
+      },
+      "Prazo excedido": {
+        class: "danger",
+        text: "Excedido"
+      }
+    }
+
+    // For each tabs, except the last one (Extrato Geral), switch the first cell content
+    tabs.forEach((tab, index) => {
+      if(index == tabs.length - 1) return;
+
+      // loop rows
+      tab.querySelectorAll("tbody > tr").forEach(row => {
+        cells = [...row.querySelectorAll("td")]
+        if(cells.length == 0) return;
+
+        // get title atriuibute from the first cell
+        cellStatus = cells[0].querySelector("img").getAttribute("title");
+
+        //create a div with the status
+        statusDiv = document.createElement("div");
+        statusDiv.innerHTML = statusProperties[cellStatus].text
+        statusDiv.classList.add("badge");
+        statusDiv.classList.add("badge-" + statusProperties[cellStatus].class);
+
+        cells[0].innerHTML = statusDiv.outerHTML;
+      })
     })
 
     // remove "Movimentos" h2
