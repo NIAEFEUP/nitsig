@@ -660,6 +660,16 @@ div.yui-cal-nav{
     color: white;
 }
 
+.schedule-form {
+    display: flex;
+    gap: 1em;
+    margin-block: 1em;
+}
+
+.schedule-form select {
+    flex: 1;
+}
+
 #new-legend {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

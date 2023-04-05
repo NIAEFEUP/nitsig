@@ -41,9 +41,8 @@ export const improveSchedule = () => {
     // Not on the schedule page, abort
     if (!scheduleElem) return;
 
-    createWeekDropdown();
     createLegend();
-    createYearPeriodDropdown();
+    fixForm();
 
     const layout = document.querySelector("#conteudoinner");
     /** @type {HTMLTableElement} */
@@ -158,7 +157,6 @@ const createClass = (name, clazz, room, teacher) => {
  * @param {HTMLTableElement} table
  */
 const fixClasses = (table) => {
-    // TODO: Check if any class types are missing
     /** @type {NodeListOf<HTMLTableCellElement>} */
     const classes = table.querySelectorAll(
         "td:is(.TP, .TE, .OT, .PL, .TC, .S)"
@@ -343,45 +341,6 @@ const fixOverlappingClasses = async (table, overlapping) => {
     }
 };
 
-const createWeekDropdown = async () => {
-    const blocks = document.querySelectorAll("td.sem-quebra > a");
-
-    const inputWrapper = document.createElement("div");
-    const label = document.createElement("label", {
-        for: "semanas-select",
-    });
-    const select = document.createElement("select", {
-        name: "semanas-select",
-    });
-
-    inputWrapper.className = "dropdown-wrapper";
-    label.textContent = "Semanas ";
-    select.name = "semanas-select";
-    label.for = "semanas-select";
-
-    blocks.forEach((block) => {
-        let content = block.textContent;
-        let href = block.href;
-        let opt = document.createElement("option");
-        opt.value = href;
-        opt.innerText = content;
-        if (window.location.href == href) {
-            opt.selected = true;
-        }
-        select.appendChild(opt);
-    });
-
-    select.addEventListener("change", (event) => {
-        window.location.replace(event.target.value);
-    });
-
-    inputWrapper.appendChild(label);
-    inputWrapper.appendChild(select);
-
-    const dropdown = document.querySelector("table.tabela ~ h3");
-    dropdown.replaceWith(inputWrapper);
-};
-
 const createLegend = async () => {
     const oldLegend = document.querySelector("#conteudoinner > table.tabela");
 
@@ -406,32 +365,77 @@ const createLegend = async () => {
     oldLegend.replaceWith(newLegend);
 };
 
-const createYearPeriodDropdown = async () => {
-    const yearsSelect = document.querySelector(
-        "#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select"
-    );
-    const periodSelect = document.querySelector(
-        "#conteudoinner > form > table > tbody > tr:nth-child(2) > td:nth-child(2) > select"
-    );
-    const oldForm = document.querySelector("#conteudoinner > form");
-    const div = document.createElement("div");
-    const url = new URL(window.location.href);
-    div.id = "year-period";
-    div.appendChild(yearsSelect);
-    div.appendChild(periodSelect);
-    yearsSelect.addEventListener("change", (event) => {
-        url.searchParams.set("pv_ano_lectivo", event.target.value);
-        console.log(url);
-        window.location.replace(url);
-    });
-    periodSelect.addEventListener("change", (event) => {
-        url.searchParams.set("pv_periodos", event.target.value);
-        console.log(url);
-        window.location.replace(url);
+const fixForm = async () => {
+    /** @type {HTMLFormElement} */
+    const form = document.querySelector("#conteudoinner > form");
+    /** @type {HTMLSelectElement} */
+    const years = form.querySelector("select[name=pv_ano_lectivo]");
+    /** @type {HTMLSelectElement} */
+    const period = form.querySelector("select[name=pv_periodos]");
+
+    const week = document.createElement("select");
+    week.name = "p_semana_inicio";
+
+    document.querySelectorAll(".horario-semanas td.sem-quebra").forEach((e) => {
+        const a = e.querySelector("a");
+        const url = new URL(a.href);
+
+        const option = document.createElement("option");
+        option.value = url.searchParams.get("p_semana_inicio");
+        option.innerText = e.innerText;
+        option.selected = e.classList.contains("bloco-select");
+        option.dataset.seWeekEnd = url.searchParams.get("p_semana_fim");
+        week.appendChild(option);
     });
 
-    oldForm.replaceWith(div);
-    removeElement(
-        "#conteudoinner > form > table > tbody > tr:nth-child(1) > td:nth-child(2) > select"
-    );
+    week.addEventListener("change", (e) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "p_semana_fim";
+        input.value = e.target.selectedOptions[0].dataset.seWeekEnd;
+        form.appendChild(input);
+    });
+
+    [years, period, week].forEach((e) => {
+        e.id = e.name;
+        e.querySelector("option:empty")?.remove();
+
+        e.addEventListener("change", (_) => form.submit());
+    });
+
+    const yearsLabel = document.createElement("label");
+    yearsLabel.htmlFor = years.id;
+    yearsLabel.innerText = "Ano Letivo";
+    yearsLabel.className = "acs";
+
+    const periodLabel = document.createElement("label");
+    periodLabel.htmlFor = period.id;
+    periodLabel.innerText = "Período";
+    periodLabel.className = "acs";
+
+    const weekLabel = document.createElement("label");
+    weekLabel.htmlFor = week.id;
+    weekLabel.innerText = "Semana";
+    weekLabel.className = "acs";
+
+    form.method = "get";
+    form.classList.add("schedule-form")
+    form.replaceChildren(yearsLabel, years, periodLabel, period, weekLabel, week);
+
+    new URLSearchParams(window.location.search).forEach((value, key) => {
+        if (
+            key == "pv_ano_lectivo" ||
+            key == "pv_periodos" ||
+            key == "p_semana_inicio" ||
+            key == "p_semana_fim"
+        )
+            return;
+
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+
+        form.appendChild(input);
+    });
 };
