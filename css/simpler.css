@@ -71,14 +71,16 @@ p.flex-caption a {
   margin: revert !important;
 }
 
-.col-md-7 .fa.fa-plus-circle::before {
+.col-md-7 .ri-add-circle-line::before {
   font-size: 0.5em;
   content: "Ler Mais" !important;
   font-weight: bold;
   text-transform: uppercase;
+  width: unset !important;
+  height: unset !important;
 }
 
-.col-md-7 .fa.fa-plus-circle {
+.col-md-7 .ri-add-circle-line {
   display: block;
   font-family: "NoticiaText", serif !important;
   color: white !important;
@@ -89,7 +91,9 @@ p.flex-caption a {
   position: absolute;
   text-align: center;
   top: 3%;
-  right: 3%;;
+  right: 3%;
+  width: unset !important;
+  height: unset !important;
 }
 
 .col-md-7 .novo-portlet-noticias p {
@@ -98,13 +102,14 @@ p.flex-caption a {
 
 .col-md-7 .novo-portlet-noticias p a > span{
   float: right;
-  background-image: linear-gradient(rgb(110,110,110), rgb(130,130,130));
-  background-size: 100% 200%;
+  background-image: linear-gradient(rgb(110,110,110), rgb(130,130,130)) !important;
+  background-size: 100% 200% !important;
+  background-position: initial !important;
   transition: background-position 0.3s;
 }
 
 .col-md-7 .novo-portlet-noticias p a > span:hover {
-  background-position: 0 -100%;
+  background-position: 0 -100% !important;
 }
 
 .mais-noticias a {
