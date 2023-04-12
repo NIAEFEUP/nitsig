@@ -10,6 +10,9 @@ const LayoutContent = () => (
                 <SwitchControl 
                     label="Esconder atalhos" 
                     storageKey="shortcuts" />
+                <SwitchControl
+                    label="Relembrar utilizador"
+                    storageKey="autoLogin"/>
             </div>
         </div>
     </form>

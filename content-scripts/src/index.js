@@ -27,9 +27,9 @@ const init = async () => {
   // addResizeListener();
 
   // // Inject user preferences
-  // const data = await getStorage(userPreferences);
-  // injectAllChanges(data);
-  rememberLogin();
+  const data = await getStorage(userPreferences);
+  injectAllChanges(data);
+  rememberLogin(data);
   changeProfileLink();
   
   injectOverrideFunctions();
