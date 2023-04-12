@@ -3,7 +3,17 @@ import { argv, exit, stderr } from "process";
 import httpsLocalhost from "https-localhost";
 import https from "https";
 import watch from "watch";
+import * as pathParser from 'node:path';
+import { stat } from "fs";
 
+const directoriesRegex=/(.*)(node_modules|out|bundle|dist)(.*)/;
+
+const whitelistedFileTypes = [
+    ".js",
+    ".css",
+    ".html",
+    ".png"   
+]
 
 if(argv.length != 3){
     console.log("❌ Error: didn't provide a target...");
@@ -16,20 +26,15 @@ let hasUpdate = false;
 watch.watchTree(".", {
     ignoreDotFiles:true, 
     interval: 0.5,
-    filter:(path, stat)=>{
-        //TODO (luisd): rewrite this lmao
-        return (path.includes("background.js") || 
-            path.includes("manifest.js") ||
-            path.includes("content-scripts") || 
-            path.includes("popup") ||
-            path.includes("css") ||
-            path.includes("images") ||
-            path.includes("dev") ||
-            path.includes("html"))
-            && !(path.includes("bundle") 
-                || path.includes('out') || 
-                path.includes('node_modules') || 
-                path.includes('dist'));
+    filter:(path, stats)=>{
+        const parsedPath = pathParser.parse(path);
+        if(parsedPath.dir == '' && stats.isDirectory()) return true;
+        if(directoriesRegex.test(parsedPath.dir)) return false;
+        console.log(parsedPath.dir);
+        if(!stats.isDirectory()){
+            return whitelistedFileTypes.includes(parsedPath.ext);
+        }
+        return true;
     }},
     async (f, curr, prev)  => {
         console.log("🔃 File %s changed... building bundle again...", f);
