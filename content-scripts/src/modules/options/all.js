@@ -5,6 +5,7 @@ import {
 // Array of user preferences, passed to `injectAllChanges`
 export const userPreferences = [
   "shortcuts",
+  "autoLogin"
 ];
 
 export const injectAllChanges = (data) => {
