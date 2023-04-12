@@ -7,6 +7,8 @@ import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
 import { rememberLogin } from "./modules/login";
+import { replaceIcons } from "./modules/icons";
+
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
 - Listen to Chrome Storage changes
@@ -33,6 +35,8 @@ const init = async () => {
   changeProfileLink();
   
   injectOverrideFunctions();
+
+  replaceIcons();
 };
 
 init();
