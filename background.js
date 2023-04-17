@@ -1,4 +1,3 @@
-// Used by the manifest v3 extension
 const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
 chrome.runtime.onInstalled.addListener((object) => {
@@ -9,7 +8,7 @@ chrome.runtime.onInstalled.addListener((object) => {
       });
     });
     chrome.tabs.create({
-      url: chrome.runtime.getURL("html/install.html")
+      url: chrome.runtime.getURL("html/autorize.html")
     });
   }
 });
@@ -30,6 +29,9 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     message.auto_login.verifed = true;
     await chrome.storage.local.set({ auto_login: message.auto_login });
     chrome.tabs.reload(sender.tab.id);
-
   }
+});
+
+chrome.permissions.onRemoved.addListener((permissions) => {
+  //TODO:
 });
