@@ -607,41 +607,42 @@ div.yui-cal-nav{
 
 .horario .TP>*,
 #new-legend #TP {
-    background-color: darkgoldenrod;
+    background-color: #D3944C;
+}
+
+.horario .P>*,
+#new-legend #P {
+    background-color: #AB4D39;
 }
 
 .horario .TE>*,
 #new-legend #TE {
-    background-color: darkviolet;
+    background-color: #FBD56C;
 }
 
 .horario .OT>*,
 #new-legend #OT {
-    background-color: dodgerblue;
+    background-color: #7CA5B8;
 }
 
 .horario .PL>*,
 #new-legend #PL {
-    background-color: seagreen;
+    background-color: #769C87;
 }
 
 .horario .TC>*,
 #new-legend #TC {
-    background-color: sienna;
+    background-color: #CDBEB1;
 }
 
 .horario .S>*,
 #new-legend #S {
-    background-color: darksalmon;
+    background-color: #917C9B;
 }
 
 .horario .almoco,
 #new-legend #almoco {
-    background-color: rgba(255, 100, 100, 10%) !important;
-}
-
-#new-legend #P {
-    background-color: black;
+    background-color: #FFBCB5 !important;
 }
 
 .horario .today {
