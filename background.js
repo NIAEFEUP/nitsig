@@ -7,9 +7,16 @@ chrome.runtime.onInstalled.addListener((object) => {
         chrome.tabs.reload(tab.id);
       });
     });
-    chrome.tabs.create({
-      url: chrome.runtime.getURL("html/autorize.html")
-    });
+
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+      chrome.tabs.create({
+        url: chrome.runtime.getURL("html/autorize.html")
+      });
+    }else{
+      chrome.tabs.create({
+        url: chrome.runtime.getURL("html/installed.html")
+      });
+    }
   }
 });
 
