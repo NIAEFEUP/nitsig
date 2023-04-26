@@ -19,6 +19,18 @@
 }
 
 
+/* Smoother scroll */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Disable smooth scrolling when users have prefers-reduced-motion enabled */
+ @media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
 /* ----------------- HOMEPAGE ----------------- */
 
 #barralocalizacao {
@@ -366,7 +378,8 @@ select{
 input:active, input:focus, select:active, select:focus{
   outline-color: #dc8877 !important;
   outline-width: 5px !important;
-  
+}
+
 /* ----------------- COOKIES BAR ----------------- */
 
 #cookie-bar.fixed{
@@ -394,6 +407,7 @@ input:active, input:focus, select:active, select:focus{
 #cookie-bar a.cb-policy:hover{
   background: #353535;
   color: white !important;
+}
 
 /* ----------------- DATE INPUT ----------------- */
 
