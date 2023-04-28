@@ -8,6 +8,7 @@ import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
+import { teacherPage } from "./pages/teacher_page";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -33,6 +34,7 @@ const init = async () => {
   injectAllChanges(data);
   rememberLogin(data);
   changeProfileLink();
+  teacherPage();
   
   injectOverrideFunctions();
 

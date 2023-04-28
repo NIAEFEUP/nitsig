@@ -1,0 +1,44 @@
+.teacherTitleBar > h1{
+    
+    margin: 0 !important;
+    padding: 0em;
+}
+
+.teacherTitleBar > h3{
+    margin: 0;
+    padding-left: 1em;
+}
+.teacherTitleBar{
+    display: flex;
+    align-items: center;
+}
+
+.informacao-pessoal-dados-foto > img{
+    border-radius: 8px;
+}
+
+.publicationWebsiteButton {
+    background-color: #F4F4F4;
+    width: fit-content; 
+    height: fit-content;
+    padding: 5px 10px;
+    margin-bottom: 0.5em;
+    border-radius: 8px;
+}
+
+.publicationWebsiteButton:active{
+    background-color: #dddada;
+
+}
+
+.publicationWebsiteButton > img{
+    display: inline-block;
+    height: 20px;
+}
+.publicationWebsiteButton > p {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    padding-left: 1em;
+
+}
