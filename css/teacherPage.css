@@ -1,5 +1,6 @@
+
+
 .teacherTitleBar > h1{
-    
     margin: 0 !important;
     padding: 0em;
 }
@@ -13,6 +14,11 @@
     align-items: center;
 }
 
+
+.informacao-pessoal-dados-foto{
+    float: none !important;
+}
+
 .informacao-pessoal-dados-foto > img{
     border-radius: 8px;
 }
@@ -22,8 +28,9 @@
     width: fit-content; 
     height: fit-content;
     padding: 5px 10px;
-    margin-bottom: 0.5em;
+    margin-bottom: 1em;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .publicationWebsiteButton:active{
@@ -33,10 +40,11 @@
 
 .publicationWebsiteButton > img{
     display: inline-block;
-    height: 20px;
+    height: 25px;
 }
 .publicationWebsiteButton > p {
     display: inline-block;
+    font-size: medium;
     padding: 0;
     margin: 0;
     padding-left: 1em;
@@ -44,6 +52,7 @@
 }
 
 .informacao-pessoal-apresentacao{
+    margin-top: 2em;
     box-shadow: none !important;
     border: none !important;
     margin-left: 0 !important;
@@ -59,7 +68,7 @@
     margin: 1em 0em;
 }
 
-.informacao-pessoal-funcoes > div:nth-child(1){
+.roles{
     background-color: #F4F4F4;
     border-radius: 8px;
 }
@@ -68,6 +77,7 @@
     float: none !important;
     background-color: #F4F4F4;
     border-radius: 8px;
+    margin-top: 2em;
 
 }
 
@@ -76,6 +86,7 @@
     width: fit-content; 
     height: fit-content;
     border-radius: 8px;
+    cursor: pointer;
 
 }
 
@@ -86,5 +97,56 @@
 
 .websiteButton:active{
     background-color: #dddada;
+
+}
+
+.contact-info{
+    background-color: #F4F4F4;
+    border-radius: 8px;
+
+}
+
+:is(.contact-info, .roles, .informacao-pessoal-outras) > h3{
+    margin: 0em !important;
+    padding: 0.5em 1em;
+}
+
+:is(.contact-info, .roles, .informacao-pessoal-outras) .formulario-legenda{
+    text-align: left !important;
+}
+
+.keyPairTable{
+    padding: 0em 2em 1em 2em;
+}
+
+.keyPairTable p{
+    margin: 0 !important;
+}
+
+.keyPairTable .highlightedPart{
+    font-weight: bold;
+}
+
+.keyPairTable .contentPart{
+    padding-left: 0.5em;
+}
+
+/* Main page Layout **/
+
+.mainInfoRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1em;
+    margin-top: 1em;
+
+}
+
+.extaInformationRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1em;
+    margin-top: 2em;
 
 }
