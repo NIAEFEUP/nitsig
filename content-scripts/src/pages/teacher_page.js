@@ -41,14 +41,14 @@ export const teacherPage = () => {
 
     //i hate sigarra, for some reason it nests one table inside each other
     const rolesTable = document.querySelector(".roles > table > tbody > tr > td > table");
-    if(rolesTable !== undefined){
+    if(rolesTable !== null){
         document.querySelector(".roles > table").remove();
         document.querySelector(".roles").appendChild(rolesTable);
         removeTwoColumnTable(".roles > table", true);
     }
 
     const investigationTable = document.querySelector(".informacao-pessoal-outras > table > tbody > tr > td > table");
-    if(investigationTable !== undefined){
+    if(investigationTable !== null){
         document.querySelector(".informacao-pessoal-outras > table").remove();
         document.querySelector(".informacao-pessoal-outras").appendChild(investigationTable);
         removeTwoColumnTable(".informacao-pessoal-outras > table", true);
@@ -62,7 +62,7 @@ export const teacherPage = () => {
 
 function removeTwoColumnTable(tableSelector, inverted=false){
     const table = document.querySelector(tableSelector);
-    if(table === undefined || table.tagName !== "TABLE") 
+    if(table === null || table.tagName !== "TABLE") 
         throw Error("Couldnt find table with " + tableSelector +  " selector");
     const tbody = table.children[0];
     const div = document.createElement("div");
@@ -117,18 +117,18 @@ function removeTwoColumnTable(tableSelector, inverted=false){
 
 
 function groupChildrenBySelector(childSelectors, classList){
-    if(childSelectors === undefined) return;
+    if(childSelectors === null) return;
     if(childSelectors.length === 0) return;
     const parent = document.querySelector(childSelectors[0]).parentElement;
 
     const groupElement = document.createElement("div");
 
     parent.insertBefore(groupElement, document.querySelector(childSelectors[0]));
-    if(classList !== undefined) groupElement.classList.add(...classList);
+    if(classList !== null) groupElement.classList.add(...classList);
 
     childSelectors.forEach((childSelector) => {
         const child = document.querySelector(childSelector);
-        if(child === undefined) return;
+        if(child === null) return;
         child.remove();
         groupElement.appendChild(child);
     });
@@ -137,11 +137,11 @@ function groupChildrenBySelector(childSelectors, classList){
 
 function tagGroupedElements(){
     const contacts = document.querySelector(".informacao-pessoal-dados-dados > div");
-    if(contacts !== undefined){
+    if(contacts !== null){
         contacts.classList.add("contact-info")
     }
     const roles = document.querySelector(".informacao-pessoal-funcoes");
-    if(roles !== undefined){
+    if(roles !== null){
         if(roles.childElementCount === 1){
             roles.children[0].classList.add("roles");
         } else if (roles.childElementCount > 1){
@@ -167,7 +167,7 @@ function makeWebsiteButtonIfExists(){
     const websiteIcon = document
         .querySelector(".informacao-pessoal-dados-dados > table > tbody > tr:nth-child(1) > td:nth-child(2) > a");
     const informationElement = document.querySelector(".informacao-pessoal-dados-dados")
-    if(websiteIcon === undefined) return;
+    if(websiteIcon === null) return;
 
     const websiteLink = websiteIcon.href;
     const websiteButton = document.createElement("div");
