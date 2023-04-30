@@ -21,14 +21,8 @@ let manifest = {
             "css/simpler.css",
             "css/custom.css",
             "css/icons.css",
+            "css/teacherPage.css"
         ],
-        },
-        {
-            run_at: "document_start",
-            matches: ["https://sigarra.up.pt/feup/pt/func_geral.FormView*"],
-            css: [
-                "css/teacherPage.css"
-            ]
         },
         {
         run_at: "document_end",

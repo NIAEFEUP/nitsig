@@ -9,22 +9,44 @@ const publicationWebsites = {
 
 
 export const teacherPage = () => {
-    if (!document.location.href.includes("func_geral.FormView")) {
+    if (!document.location.href.toLowerCase().includes("func_geral.formview")) {
         return;
     }
     makeTitleBar();
     moveResearchSection();
     makePublicationWebsiteButtons();
-    groupSectionTitleAndContent();
-
+    groupSectionTitleAndContent(".informacao-pessoal-funcoes");
+    groupSectionTitleAndContent(".informacao-pessoal-dados-dados");
+    makeWebsiteButtonIfExistis();
 
 
 };
 
-function groupSectionTitleAndContent() {
+function makeWebsiteButtonIfExistis(){
+    const websiteIcon = document
+        .querySelector(".informacao-pessoal-dados-dados > table > tbody > tr:nth-child(1) > td:nth-child(2) > a");
+    const informationElement = document.querySelector(".informacao-pessoal-dados-dados")
+    if(websiteIcon === undefined) return;
+
+    const websiteLink = websiteIcon.href;
+    const websiteButton = document.createElement("div");
+    websiteButton.classList.add("websiteButton");
+    websiteButton.onclick = () => {location.href = websiteLink};
+
+    const websiteText = document.createElement("p");
+    websiteText.textContent = "Website";
+    websiteButton.appendChild(websiteText);
+
+    informationElement.append(websiteButton);
+    websiteIcon.remove();
+
+
+}
+
+function groupSectionTitleAndContent(selector) {
     //this detects if an element is an h3 and groups 
     //with the next element until the next h3 appears, if any
-    const outerElement = document.querySelector(".informacao-pessoal-funcoes");
+    const outerElement = document.querySelector(selector);
     var elementList = [];
     const listOfRows = [...outerElement.children]
     for (const row of listOfRows) {

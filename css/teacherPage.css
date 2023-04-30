@@ -42,3 +42,49 @@
     padding-left: 1em;
 
 }
+
+.informacao-pessoal-apresentacao{
+    box-shadow: none !important;
+    border: none !important;
+    margin-left: 0 !important;
+    background-color: #F4F4F4 !important;
+    border-radius: 8px;
+}
+
+.informacao-pessoal-adicional{
+    width: 100% !important;
+}
+
+.informacao-pessoal-apresentacao > h3{
+    margin: 1em 0em;
+}
+
+.informacao-pessoal-funcoes > div:nth-child(1){
+    background-color: #F4F4F4;
+    border-radius: 8px;
+}
+
+.informacao-pessoal-outras{
+    float: none !important;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+
+}
+
+.websiteButton{
+    background-color: #F4F4F4;
+    width: fit-content; 
+    height: fit-content;
+    border-radius: 8px;
+
+}
+
+.websiteButton > p {
+    padding: 0.5em 1em;
+    font-size: medium;
+}
+
+.websiteButton:active{
+    background-color: #dddada;
+
+}
