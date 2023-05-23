@@ -378,6 +378,7 @@ select{
 input:active, input:focus, select:active, select:focus{
   outline-color: #dc8877 !important;
   outline-width: 5px !important;
+}
   
 /* ----------------- COOKIES BAR ----------------- */
 
@@ -406,6 +407,7 @@ input:active, input:focus, select:active, select:focus{
 #cookie-bar a.cb-policy:hover{
   background: #353535;
   color: white !important;
+}
 
 /* ----------------- DATE INPUT ----------------- */
 
