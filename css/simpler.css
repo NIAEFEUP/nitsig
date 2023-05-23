@@ -554,6 +554,10 @@ div.yui-cal-nav{
     border-left: solid 1px #b5b5b5 !important;
 }
 
+.horario tfoot {
+    border-top: solid 1px #b5b5b5; 
+}
+
 .horario thead {
     border-bottom: solid 1px #b5b5b5 !important;
     background-color: white !important;
@@ -582,7 +586,7 @@ div.yui-cal-nav{
     top: 0;
 }
 
-.horario :is(.TP, .TE, .OT, .PL, .TC, .S)>* {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S)>* {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
     grid-auto-rows: 1fr;
@@ -595,53 +599,63 @@ div.yui-cal-nav{
     z-index: 1;
 }
 
-.horario :is(.TP, .TE, .OT, .PL, .TC, .S) a {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S) a {
     color: white !important;
     text-decoration: none !important;
     font-weight: bold !important;
 }
 
-.horario :is(.TP, .TE, .OT, .PL, .TC, .S) a:hover {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S) a:hover {
     text-decoration: underline !important;
 }
 
+.horario:not(:has(.TP)) #new-legend #TP,
+.horario:not(:has(.TE)) #new-legend #TE,
+.horario:not(:has(.P)) #new-legend #P,
+.horario:not(:has(.OT)) #new-legend #OT,
+.horario:not(:has(.PL)) #new-legend #PL,
+.horario:not(:has(.TC)) #new-legend #TC,
+.horario:not(:has(.S)) #new-legend #S {
+    display: none !important;
+}
+
 .horario .TP>*,
-#new-legend #TP {
+#new-legend #TP::before {
     background-color: #D3944C;
 }
 
 .horario .P>*,
-#new-legend #P {
+#new-legend #P::before {
     background-color: #AB4D39;
 }
 
 .horario .TE>*,
-#new-legend #TE {
+#new-legend #TE::before {
     background-color: #FBD56C;
 }
 
 .horario .OT>*,
-#new-legend #OT {
+#new-legend #OT::before {
     background-color: #7CA5B8;
 }
 
 .horario .PL>*,
-#new-legend #PL {
+#new-legend #PL::before {
     background-color: #769C87;
 }
 
 .horario .TC>*,
-#new-legend #TC {
+#new-legend #TC::before {
     background-color: #CDBEB1;
 }
 
 .horario .S>*,
-#new-legend #S {
+#new-legend #S::before {
     background-color: #917C9B;
 }
 
 .horario .almoco,
-#new-legend #almoco {
+#new-legend #almoco::before {
     background-color: #FFBCB5 !important;
 }
 
@@ -649,16 +663,19 @@ div.yui-cal-nav{
     background-color: rgba(100, 100, 255, 10%);
 }
 
-.legend-class-item {
+.legend-item {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-    color: white;
+    gap: 8px;
+    font-size: 1.25em;
+}
+
+.legend-item::before {
+    content: "";
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
 }
 
 .schedule-form {
@@ -672,13 +689,12 @@ div.yui-cal-nav{
 }
 
 #new-legend {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 8px;
     width: 100%;
-    white-space: nowrap;
-    padding-bottom: 10px;
-    margin-right: 20px;
 }
 
 p[id^="legend-abbrv-"] {

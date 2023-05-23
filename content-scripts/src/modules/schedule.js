@@ -13,16 +13,6 @@ const CLASS_TYPE_TO_ABBR = {
     Seminário: "S",
     Almoço: "almoco",
 };
-const CLASS_TYPE_TO_ABBR_OVERLAPPING = {
-    Teóricas: "T",
-    "Teórico-Práticas": "TP",
-    Práticas: "P",
-    Laboratórios: "PL",
-    "Orientação Tutorial": "OT",
-    "Práticas Laboratoriais": "PL",
-    "Trabalho de Campo": "TC",
-    Seminários: "S",
-};
 const CLASS_ABBR_TO_ABBR = {
     T: "TE",
     TP: "TP",
@@ -41,13 +31,12 @@ export const improveSchedule = () => {
     // Not on the schedule page, abort
     if (!scheduleElem) return;
 
-    createLegend();
-    fixForm();
-
     const layout = document.querySelector("#conteudoinner");
     /** @type {HTMLTableElement} */
     const overlapping = document.querySelector("table.dados");
-
+    
+    fixForm();
+    
     layout
         .querySelectorAll(":scope > :is(h2, h3, table)")
         .forEach((e) => e.remove());
@@ -56,6 +45,7 @@ export const improveSchedule = () => {
 
     fixClasses(scheduleElem);
     fixScheduleTable(scheduleElem);
+    createLegend(scheduleElem);
     fixOverlappingClasses(scheduleElem, overlapping);
 };
 
@@ -159,7 +149,7 @@ const createClass = (name, clazz, room, teacher) => {
 const fixClasses = (table) => {
     /** @type {NodeListOf<HTMLTableCellElement>} */
     const classes = table.querySelectorAll(
-        "td:is(.TP, .TE, .OT, .PL, .TC, .S)"
+        "td:is(.TP, .TE, .P, .OT, .PL, .TC, .S)"
     );
 
     classes.forEach((e) => {
@@ -314,6 +304,9 @@ const fixOverlappingClasses = async (table, overlapping) => {
             );
         }
     }
+    debugger;
+    table.querySelector("tfoot tr td").colSpan = span * 6 + 1;
+    console.log(table.querySelector("tfoot tr td"));
 
     // Insert spaces where needed
     for (let i = 1; i < 7; ++i) {
@@ -341,28 +334,31 @@ const fixOverlappingClasses = async (table, overlapping) => {
     }
 };
 
-const createLegend = async () => {
-    const oldLegend = document.querySelector("#conteudoinner > table.tabela");
-
+/**
+ * @param {HTMLTableElement} table
+ */
+const createLegend = async (table) => {
     const newLegend = document.createElement("div");
     newLegend.id = "new-legend";
 
     for (const type of Object.keys(CLASS_TYPE_TO_ABBR)) {
         const classDiv = document.createElement("div");
-        classDiv.className = "legend-class-item";
+        classDiv.className = "legend-item";
 
-        const abbrv = document.createElement("p");
         classDiv.innerHTML = type;
         classDiv.id = CLASS_TYPE_TO_ABBR[type];
-        if (type != "Almoço") {
-            abbrv.innerHTML = CLASS_TYPE_TO_ABBR[type];
-        }
 
-        classDiv.appendChild(abbrv);
         newLegend.appendChild(classDiv);
     }
 
-    oldLegend.replaceWith(newLegend);
+    const cell = document.createElement("td");
+    cell.colSpan = 7;
+    cell.appendChild(newLegend);
+    const row = document.createElement("tr");
+    row.appendChild(cell);
+    const foot = document.createElement("tfoot");
+    foot.appendChild(row);
+    table.appendChild(foot);
 };
 
 const fixForm = async () => {
