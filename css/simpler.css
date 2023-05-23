@@ -30,6 +30,17 @@
     display: unset !important;
 }
 
+/* Smoother scroll */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Disable smooth scrolling when users have prefers-reduced-motion enabled */
+ @media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
 
 /* ----------------- HOMEPAGE ----------------- */
 
@@ -336,10 +347,10 @@ table.calendtable:first-child tr:first-child > td:nth-child(2) {
   display: none;
 }
 .popup td.body{
-  border-radius: 8px;
   padding: 1.5rem !important;
   border: 1px solid #b0b0b0;
   box-shadow: 0px 25px 102px -44px rgb(87 87 87);
+  border: 0;
 }
 .popup td.body > .content > h2{
   margin: 0 0 1em 0;
@@ -352,9 +363,19 @@ table.calendtable:first-child tr:first-child > td:nth-child(2) {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%);
+
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 8px;
+}
+#facebox table{
+  border-spacing: 0 !important;
 }
 #facebox_overlay{
   opacity: 0.3 !important;
+}
+body:has(#facebox_overlay){
+  overflow-y: hidden;
 }
 
 /* ----------------- INPUT ----------------- */
@@ -379,7 +400,7 @@ input:active, input:focus, select:active, select:focus{
   outline-color: #dc8877 !important;
   outline-width: 5px !important;
 }
-  
+
 /* ----------------- COOKIES BAR ----------------- */
 
 #cookie-bar.fixed{
