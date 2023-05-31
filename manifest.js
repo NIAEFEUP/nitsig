@@ -51,7 +51,7 @@ let manifest = {
         default_title: "Sigarra extension",
         default_popup: "index.html",
     },
-    permissions: ["storage", "tabs"],
+    permissions: ["storage", "tabs", "cookies"],
 };
 
 export const MANIFEST_CHROME = {

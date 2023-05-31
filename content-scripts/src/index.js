@@ -8,6 +8,7 @@ import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
+import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
 
 /*--
@@ -17,6 +18,7 @@ import { replaceIcons } from "./modules/icons";
 --*/
 chrome.storage.onChanged.addListener((changes) => {
   const newChangesData = constructNewData(changes);
+  rememberLogin();
   injectAllChanges(newChangesData);
 });
 
@@ -28,10 +30,10 @@ const init = async () => {
   // // Watch for resize events
   // addResizeListener();
 
-  // Inject user preferences
+  // // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
-
+  rememberLogin(data);
   changeProfileLink();
   
   injectOverrideFunctions();
