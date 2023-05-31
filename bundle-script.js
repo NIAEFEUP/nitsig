@@ -5,6 +5,7 @@ import process, { argv } from "process";
 import zipper from "zip-local";
 import { MANIFEST_CHROME, MANIFEST_FIREFOX } from "./manifest.js";
 import klaw from "klaw";
+import * as path from 'path';
 
 const CHANGES_FILENAME = ".changes.json"
 
@@ -184,7 +185,7 @@ const processArguments = async () => {
         })
         .on("end", async () => {
           for(let file of allBrowserFiles){
-            await appendFile(`${bundleDirectory}/${file.split("/").pop()}`, await (await readFile(file)).toString());
+            await appendFile(`${bundleDirectory}/${path.basename(file)}`, await (await readFile(file)).toString());
           }
           resolve();
         });
