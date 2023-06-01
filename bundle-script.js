@@ -219,7 +219,7 @@ const processArguments = async () => {
           manifest.host_permissions = [...manifest.host_permissions, "https://localhost:8069/*"]
           manifest.permissions = [...manifest.permissions, "alarms"]
         }
-        await bundle(manifest, "bundle/firefox",firefoxDebug);
+        await bundle(manifest, "bundle/firefox", firefoxDebug);
         if(option != "all") break;
 
       case "safari":
