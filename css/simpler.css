@@ -609,7 +609,7 @@ div.yui-cal-nav{
     top: 0;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S)>* {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O)>* {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
     grid-auto-rows: 1fr;
@@ -622,13 +622,13 @@ div.yui-cal-nav{
     z-index: 1;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S) a {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) a {
     color: white !important;
     text-decoration: none !important;
     font-weight: bold !important;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S) a:hover {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) a:hover {
     text-decoration: underline !important;
 }
 
@@ -638,7 +638,8 @@ div.yui-cal-nav{
 .horario:not(:has(.OT)) #new-legend #OT,
 .horario:not(:has(.PL)) #new-legend #PL,
 .horario:not(:has(.TC)) #new-legend #TC,
-.horario:not(:has(.S)) #new-legend #S {
+.horario:not(:has(.S)) #new-legend #S,
+.horario:not(:has(.O)) #new-legend #O {
     display: none !important;
 }
 
@@ -675,6 +676,11 @@ div.yui-cal-nav{
 .horario .S>*,
 #new-legend #S::before {
     background-color: #917C9B;
+}
+
+.horario .O>*,
+#new-legend #O::before {
+    background-color: #b3b3b3;
 }
 
 .horario .almoco,

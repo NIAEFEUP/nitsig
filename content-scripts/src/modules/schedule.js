@@ -12,6 +12,7 @@ const CLASS_TYPE_TO_ABBR = {
     "Trabalho de Campo": "TC",
     Seminário: "S",
     Almoço: "almoco",
+    Outra: "O"
 };
 const CLASS_ABBR_TO_ABBR = {
     T: "TE",
@@ -22,6 +23,7 @@ const CLASS_ABBR_TO_ABBR = {
     PL: "PL",
     TC: "TC",
     S: "S",
+    O: "O"
 };
 
 export const improveSchedule = () => {
