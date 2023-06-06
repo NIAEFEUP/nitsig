@@ -1,6 +1,4 @@
-import { injectOverrideFunctions } from "./initialize";
 import { lcmAll } from "./utilities/math";
-import removeElement from "./utilities/removeElement";
 
 const CLASS_TYPE_TO_ABBR = {
     Teórica: "TE",
@@ -151,7 +149,7 @@ const createClass = (name, clazz, room, teacher) => {
 const fixClasses = (table) => {
     /** @type {NodeListOf<HTMLTableCellElement>} */
     const classes = table.querySelectorAll(
-        "td:is(.TP, .TE, .P, .OT, .PL, .TC, .S)"
+        "td:is(.TP, .TE, .P, .O, .OT, .PL, .TC, .S)"
     );
 
     classes.forEach((e) => {
@@ -187,7 +185,7 @@ const getClassDuration = async (url) => {
 
     const ret = new Map();
 
-    html.querySelectorAll(".horario :is(.TP, .TE, .OT, .PL, .TC, .S)").forEach(
+    html.querySelectorAll(".horario :is(.TP, .TE, .O, .OT, .PL, .TC, .S)").forEach(
         (/** @type {HTMLTableCellElement} */ e) => {
             const className = e.querySelector("b a").innerText;
             const classClass = e.querySelector("span > a").innerText;
