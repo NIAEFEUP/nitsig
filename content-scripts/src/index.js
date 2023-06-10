@@ -1,8 +1,7 @@
 import {
   injectOverrideFunctions,
   reverseDateDirection,
-  currentAccountPage,
-  injectOverrideFunctions
+  currentAccountPage
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
@@ -38,7 +37,7 @@ const init = async () => {
   
   injectOverrideFunctions();
 
-  reverseDateDirection(); //o sort deixou de dar por causa disto
+  reverseDateDirection(); //TO FIX: the sort funcionality stop working because of this
   currentAccountPage();
   replaceIcons();
 };

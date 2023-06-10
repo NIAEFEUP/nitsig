@@ -28,7 +28,10 @@ export const injectOverrideFunctions = () => {
  */
 export const reverseDateDirection = () => {
   document.querySelectorAll(".data").forEach(date => {
-      date.innerHTML = date.innerHTML.split('-').reverse().join('-');
+      const dateObj = new Date(date.innerHTML);
+      if(dateObj instanceof Date && !isNaN(dateObj)){
+        date.innerHTML = date.innerHTML.split('-').reverse().join('-');
+      }
   });
 }
 
@@ -130,11 +133,13 @@ export const currentAccountPage = () => {
     })
 
     // Switch "Refência" action button to the right
-    tabs[0].querySelectorAll("tbody > tr").forEach(row => {
-      cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
-      len = cells.length;
-      row.insertBefore(cells[len - 1], cells[len - 2]);
-    })
+    if(tabs.length > 0){
+      tabs[0].querySelectorAll("tbody > tr").forEach(row => {
+        cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
+        len = cells.length;
+        row.insertBefore(cells[len - 1], cells[len - 2]);
+      })
+    }
 
     statusProperties = {
       "Pago":{
@@ -165,7 +170,8 @@ export const currentAccountPage = () => {
         if(cells.length == 0) return;
 
         // get title atriuibute from the first cell
-        const cellStatus = cells[0].querySelector("img").getAttribute("title");
+        const cellStatus = cells[0].querySelector("img")?.getAttribute("title") ?? null;
+        if(cellStatus == null) return;
 
         //create a div with the status
         statusDiv = document.createElement("div");
@@ -236,8 +242,6 @@ export const currentAccountPage = () => {
         cells[2].classList.add('negative');
       }
       cells[3].remove();
-
-
     })
   }
 }
