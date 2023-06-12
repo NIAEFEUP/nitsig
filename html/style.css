@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body#autorize{
+    background-image: url("./images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-position: center center;
+    animation: shrink 6s infinite alternate;
+}
+
+body{
+    font-family: 'Lexend Deca', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    color: rgb(236, 226, 226);
+    background: #231012;
+}
+
+@keyframes shrink {
+    0% {
+        background-size: 100% 100%;
+    }
+    100% {
+        background-size: 110% 110%;
+    }
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0.95);
+    }
+}
+
+h1{
+    font-size: 7rem;
+    font-weight: 100;
+    text-shadow: 0 10px 20px #000000d0;
+    animation: zoom 6s infinite alternate;
+}
+
+h3{
+    font-size: 2rem;
+    font-weight: 300;
+    text-shadow: 0 10px 20px #000000d0;
+    animation: zoom 6s infinite alternate;
+}
+
+#permissions{
+    background-color: #518886;
+    padding: 0.7rem 2rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 2rem;
+    margin-top: 2rem;
+    font-weight: 300;
+    box-shadow: 0 10px 50px #0000007e;
+    transition: all 0.3s ease;
+}
+
+#permissions:hover{
+    background-color: #3a6463;
+    box-shadow: 0 10px 50px #0000004c;
+    transform: translateY(-5px) scale(1.01);
+}
+
+#ready{
+    background: rgba(153, 51, 51, 0.3);
+    padding: 1.2rem;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    animation: 0.5s ease-in-out 0s 1 slideInFromDown;
+}
+#ready > img{
+    height: 50px;
+}
+
+@keyframes slideInFromDown {
+    0% {
+      transform: translatey(10%);
+      opacity: 0.2;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }

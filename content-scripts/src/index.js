@@ -9,7 +9,7 @@ import { changeProfileLink } from "./modules/links";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
-
+import { improveSchedule } from "./modules/schedule";
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
 - Listen to Chrome Storage changes
@@ -39,6 +39,7 @@ const init = async () => {
   injectOverrideFunctions();
 
   replaceIcons();
+  improveSchedule();
 };
 
 init();
