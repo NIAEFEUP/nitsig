@@ -1,4 +1,4 @@
-import {groupSectionTitleAndContent, groupChildrenBySelector, removeElementWithoutChildren, removeTwoColumnTable} from "../modules/utilities/pageUtils"
+import {groupSectionTitleAndContent, groupChildrenBySelector, moveChildrenToAncestor, moveChildrenToAncestor, removeTwoColumnTable} from "../modules/utilities/pageUtils"
 
 
 const publicationWebsites = {
@@ -24,9 +24,9 @@ export const teacherPage = () => {
     tagGroupedElements();
 
     //nuke the html structure, leaving only the elements that contain the information
-    removeElementWithoutChildren(".informacao-pessoal-dados-dados");
-    removeElementWithoutChildren(".informacao-pessoal-dados");
-    removeElementWithoutChildren(".informacao-pessoal-funcoes");
+    moveChildrenToAncestor(".informacao-pessoal-dados-dados");
+    moveChildrenToAncestor(".informacao-pessoal-dados");
+    moveChildrenToAncestor(".informacao-pessoal-funcoes");
 
 
     //we group the page contents to be easier to style to
@@ -128,7 +128,7 @@ function makePublicationWebsiteButtons() {
         }
         const link = linkElement.href
         console.log(link)
-        var found = false;
+        let found = false;
         for (website of Object.keys(publicationWebsites)) {
             if (link.includes(website)) {
                 found = true

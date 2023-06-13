@@ -2,7 +2,7 @@ export function groupSectionTitleAndContent(selector) {
     //this detects if an element is an h3 and groups 
     //with the next element until the next h3 appears, if any
     const outerElement = document.querySelector(selector);
-    var elementList = [];
+    let elementList = [];
     const listOfRows = [...outerElement.children]
     for (const row of listOfRows) {
         if (row.nodeName === "H3" && elementList.length === 0) {
@@ -34,7 +34,7 @@ export function groupSectionTitleAndContent(selector) {
     }
 }
 
-export function removeElementWithoutChildren(selector){
+export function moveChildrenToAncestor(selector){
     const element = document.querySelector(selector);
     const parent = element.parentElement;
     const listOfChildren = [...element.children];
