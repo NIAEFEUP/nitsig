@@ -30,23 +30,23 @@ export const teacherPage = () => {
 
 
     //we group the page contents to be easier to style to
-    groupChildrenBySelector([".teacherTitleBar", ".tabelasz", ".websiteButton"],
-        ["mainInfoContent"]);
+    groupChildrenBySelector([".se-teacher-title-bar", ".tabelasz", ".se-website-button"],
+        ["se-main-info-content"]);
     
-    groupChildrenBySelector([".informacao-pessoal-dados-foto", ".mainInfoContent"], 
-        ["mainInfoRow"]);
+    groupChildrenBySelector([".informacao-pessoal-dados-foto", ".se-main-info-content"], 
+        ["se-main-info-row"]);
+        
+    groupChildrenBySelector([".se-contact-info", ".se-roles", ".se-publication-website-list"],
+        ["se-extra-information-row"]);
 
-    groupChildrenBySelector([".contact-info", ".roles", ".publicationWebsiteList"],
-        ["extaInformationRow"]);
-
-    removeTwoColumnTable(".contact-info > table", true);
+    removeTwoColumnTable(".se-contact-info > table", true);
 
     //i hate sigarra, for some reason it nests one table inside each other
-    const rolesTable = document.querySelector(".roles > table > tbody > tr > td > table");
+    const rolesTable = document.querySelector(".se-roles > table > tbody > tr > td > table");
     if(rolesTable !== null){
-        document.querySelector(".roles > table").remove();
-        document.querySelector(".roles").appendChild(rolesTable);
-        removeTwoColumnTable(".roles > table", true);
+        document.querySelector(".se-roles > table").remove();
+        document.querySelector(".se-roles").appendChild(rolesTable);
+        removeTwoColumnTable(".se-roles > table", true);
     }
 
     const investigationTable = document.querySelector(".informacao-pessoal-outras > table > tbody > tr > td > table");
@@ -64,17 +64,26 @@ export const teacherPage = () => {
 
 
 function tagGroupedElements(){
-    const contacts = document.querySelector(".informacao-pessoal-dados-dados > div");
+    let contacts = document.querySelector(".informacao-pessoal-dados-dados > div:not(.se-website-button)");
     if(contacts !== null){
-        contacts.classList.add("contact-info")
+        contacts.classList.add("se-contact-info")
+    } else {
+        contacts = document.querySelector(".informacao-pessoal-dados-dados > table:not(.tabelasz)")
+        const div = document.createElement("div")
+        const informacao_pessoal = document.querySelector(".informacao-pessoal-dados-dados")
+        const h3 = document.createElement("h3")
+        h3.textContent = "Contactos"
+        div.append(h3, contacts)
+        div.classList.add("se-contact-info")
+        informacao_pessoal.appendChild(div)
     }
     const roles = document.querySelector(".informacao-pessoal-funcoes");
     if(roles !== null){
         if(roles.childElementCount === 1){
-            roles.children[0].classList.add("roles");
+            roles.children[0].classList.add("se-roles");
         } else if (roles.childElementCount > 1){
-            roles.children[0].classList.add("roles");
-            roles.children[1].classList.add("positions");
+            roles.children[0].classList.add("se-roles");
+            roles.children[1].classList.add("se-positions");
         }
     }
 
@@ -90,7 +99,7 @@ function makeWebsiteButtonIfExists(){
 
     const websiteLink = websiteIcon.href;
     const websiteButton = document.createElement("div");
-    websiteButton.classList.add("websiteButton");
+    websiteButton.classList.add("se-website-button");
     websiteButton.onclick = () => {location.href = websiteLink};
 
     const websiteText = document.createElement("p");
@@ -109,7 +118,7 @@ function makePublicationWebsiteButtons() {
     const tabelasz = document.querySelector(".tabelasz > tbody")
     const informacaoPessoal = document.querySelector(".informacao-pessoal-dados");
     const websiteList = document.createElement("div")
-    websiteList.classList.add("publicationWebsiteList")
+    websiteList.classList.add("se-publication-website-list")
     const listOfRows = [...tabelasz.children]
     listOfRows.forEach((row) => {
         console.log(row)
@@ -132,7 +141,7 @@ function makePublicationWebsiteButtons() {
                 const div = document.createElement("div")
                 div.appendChild(image)
                 div.appendChild(text)
-                div.classList.add("publicationWebsiteButton")
+                div.classList.add("se-publication-website-button")
                 div.onclick = () => { location.href = link }
                 websiteList.appendChild(div)
                 break;
@@ -167,7 +176,7 @@ function makeTitleBar() {
     siglaRow.remove();
 
     const titleBar = document.createElement("div");
-    titleBar.classList.add("teacherTitleBar");
+    titleBar.classList.add("se-teacher-title-bar");
 
     const newTitle = document.createElement("h1");
     newTitle.textContent = title;

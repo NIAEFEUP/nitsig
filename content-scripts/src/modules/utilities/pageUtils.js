@@ -52,7 +52,7 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
         throw Error("Couldnt find table with " + tableSelector +  " selector");
     const tbody = table.children[0];
     const div = document.createElement("div");
-    div.classList.add("keyPairTable")
+    div.classList.add("se-key-pair-table")
     for(const tr of tbody.children){
         if(tr.children.length !== 2){
             throw Error("Table with selector " + tableSelector + " isn't a two column table");
@@ -60,13 +60,13 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
         if (tr.children[0].children.length === 0){
             const p = document.createElement("p");
             p.textContent = tr.children[0].textContent;
-            if(!inverted) p.classList.add("highlightedPart")
-            p.classList.add("pairStart");
+            if(!inverted) p.classList.add("se-highlighted-part")
+            p.classList.add("se-pair-start");
             div.appendChild(p);
         } else {
             const element = tr.children[0].children[0];
-            if(!inverted) element.classList.add("highlightedPart");
-            p.classList.add("pairStart");
+            if(!inverted) element.classList.add("se-highlighted-part");
+            p.classList.add("se-pair-start");
 
             div.append(element);
         }
@@ -75,8 +75,8 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
         if (tr.children[1].children.length === 0){
             const p = document.createElement("p");
             p.textContent = tr.children[1].textContent;
-            if(inverted) p.classList.add("highlightedPart");
-            p.classList.add("contentPart");
+            if(inverted) p.classList.add("se-highlighted-part");
+            p.classList.add("se-content-part");
             div.appendChild(p);
             
         } //sometimes table elements will not also include ::text but also a child element
@@ -90,8 +90,8 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
                 innerDiv.append(p);
             }
             const element = tr.children[1].children[0];
-            if(inverted) innerDiv.classList.add("highlightedPart");
-            innerDiv.classList.add("contentPart");
+            if(inverted) innerDiv.classList.add("se-highlighted-part");
+            innerDiv.classList.add("se-content-part");
             innerDiv.append(element);
             div.append(innerDiv);
         }

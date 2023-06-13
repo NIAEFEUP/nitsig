@@ -1,15 +1,15 @@
 
 
-.teacherTitleBar > h1{
+.se-teacher-title-bar > h1{
     margin: 0 !important;
     padding: 0em;
 }
 
-.teacherTitleBar > h3{
+.se-teacher-title-bar > h3{
     margin: 0;
     padding-left: 1em;
 }
-.teacherTitleBar{
+.se-teacher-title-bar{
     display: flex;
     align-items: center;
 }
@@ -23,7 +23,7 @@
     border-radius: 8px;
 }
 
-.publicationWebsiteButton {
+.se-publication-website-button {
     background-color: #F4F4F4;
     width: fit-content; 
     height: fit-content;
@@ -33,16 +33,16 @@
     cursor: pointer;
 }
 
-.publicationWebsiteButton:active{
+.se-publication-website-button:active{
     background-color: #dddada;
 
 }
 
-.publicationWebsiteButton > img{
+.se-publication-website-button > img{
     display: inline-block;
     height: 25px;
 }
-.publicationWebsiteButton > p {
+.se-publication-website-button > p {
     display: inline-block;
     font-size: medium;
     padding: 0;
@@ -51,7 +51,7 @@
 
 }
 
-.informacao-pessoal-apresentacao{
+.se-informacao-pessoal-apresentacao{
     margin-top: 2em;
     box-shadow: none !important;
     border: none !important;
@@ -60,15 +60,15 @@
     border-radius: 8px;
 }
 
-.informacao-pessoal-adicional{
+.se-informacao-pessoal-adicional{
     width: 100% !important;
 }
 
-.informacao-pessoal-apresentacao > h3{
+.se-informacao-pessoal-apresentacao > h3{
     margin: 1em 0em;
 }
 
-.roles{
+.se-roles{
     background-color: #F4F4F4;
     border-radius: 8px;
 }
@@ -81,7 +81,7 @@
 
 }
 
-.websiteButton{
+.se-website-button{
     background-color: #F4F4F4;
     width: fit-content; 
     height: fit-content;
@@ -90,50 +90,50 @@
 
 }
 
-.websiteButton > p {
+.se-website-button > p {
     padding: 0.5em 1em;
     font-size: medium;
 }
 
-.websiteButton:active{
+.se-website-button:active{
     background-color: #dddada;
 
 }
 
-.contact-info{
+.se-contact-info{
     background-color: #F4F4F4;
     border-radius: 8px;
 
 }
 
-:is(.contact-info, .roles, .informacao-pessoal-outras) > h3{
+:is(.se-contact-info, .se-roles, .informacao-pessoal-outras) > h3{
     margin: 0em !important;
     padding: 0.5em 1em;
 }
 
-:is(.contact-info, .roles, .informacao-pessoal-outras) .formulario-legenda{
+:is(.se-contact-info, .se-roles, .informacao-pessoal-outras) .formulario-legenda{
     text-align: left !important;
 }
 
-.keyPairTable{
+.se-key-pair-table{
     padding: 0em 2em 1em 2em;
 }
 
-.keyPairTable p{
+.se-key-pair-table p{
     margin: 0 !important;
 }
 
-.keyPairTable .highlightedPart{
+.se-key-pair-table .se-highlighted-part{
     font-weight: bold;
 }
 
-.keyPairTable .contentPart{
+.se-key-pair-table .se-content-part{
     padding-left: 0.5em;
 }
 
 /* Main page Layout **/
 
-.mainInfoRow{
+.se-main-info-row{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -142,7 +142,7 @@
 
 }
 
-.extaInformationRow{
+.se-extra-information-row{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
