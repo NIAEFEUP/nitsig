@@ -121,13 +121,11 @@ function makePublicationWebsiteButtons() {
     websiteList.classList.add("se-publication-website-list")
     const listOfRows = [...tabelasz.children]
     listOfRows.forEach((row) => {
-        console.log(row)
         const linkElement = row.querySelector("td:nth-child(2) > a")
         if (linkElement === null) {
             return;
         }
         const link = linkElement.href
-        console.log(link)
         let found = false;
         for (website of Object.keys(publicationWebsites)) {
             if (link.includes(website)) {

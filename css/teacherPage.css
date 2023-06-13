@@ -51,7 +51,7 @@
 
 }
 
-.se-informacao-pessoal-apresentacao{
+.informacao-pessoal-apresentacao{
     margin-top: 2em;
     box-shadow: none !important;
     border: none !important;
@@ -60,11 +60,11 @@
     border-radius: 8px;
 }
 
-.se-informacao-pessoal-adicional{
+.informacao-pessoal-adicional{
     width: 100% !important;
 }
 
-.se-informacao-pessoal-apresentacao > h3{
+.informacao-pessoal-apresentacao > h3{
     margin: 1em 0em;
 }
 
