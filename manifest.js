@@ -20,7 +20,8 @@ let manifest = {
         css: [
             "css/simpler.css",
             "css/custom.css",
-            "css/icons.css"
+            "css/icons.css",
+            "css/teacherPage.css"
         ],
         },
         {
@@ -36,7 +37,8 @@ let manifest = {
             "css/custom.css",
             "css/simpler.css",
             "js/override-functions.js",
-            "css/icons.css"
+            "css/icons.css",
+            "images/publicationWebsiteLogo/*"
         ],
         matches: ["https://sigarra.up.pt/*"],
         },
