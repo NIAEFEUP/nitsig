@@ -24,6 +24,7 @@
 }
 
 .se-publication-website-button {
+    display: block;
     background-color: #F4F4F4;
     width: fit-content; 
     height: fit-content;
@@ -82,17 +83,16 @@
 }
 
 .se-website-button{
+    display: block;
     background-color: #F4F4F4;
     width: fit-content; 
     height: fit-content;
     border-radius: 8px;
     cursor: pointer;
-
-}
-
-.se-website-button > p {
     padding: 0.5em 1em;
+    margin: 1em 0em;
     font-size: medium;
+    text-decoration: none !important;
 }
 
 .se-website-button:active{

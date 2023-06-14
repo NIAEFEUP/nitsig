@@ -98,13 +98,10 @@ function makeWebsiteButtonIfExists(){
     if(websiteIcon === null) return;
 
     const websiteLink = websiteIcon.href;
-    const websiteButton = document.createElement("div");
+    const websiteButton = document.createElement("a");
     websiteButton.classList.add("se-website-button");
-    websiteButton.onclick = () => {location.href = websiteLink};
-
-    const websiteText = document.createElement("p");
-    websiteText.textContent = "Website";
-    websiteButton.appendChild(websiteText);
+    websiteButton.href = websiteLink
+    websiteButton.textContent = "Website";
 
     informationElement.append(websiteButton);
     websiteIcon.remove();
@@ -136,12 +133,12 @@ function makePublicationWebsiteButtons() {
                 const text = document.createElement("p")
                 text.textContent = publicationWebsites[website].text
 
-                const div = document.createElement("div")
-                div.appendChild(image)
-                div.appendChild(text)
-                div.classList.add("se-publication-website-button")
-                div.onclick = () => { location.href = link }
-                websiteList.appendChild(div)
+                const a = document.createElement("a")
+                a.appendChild(image)
+                a.appendChild(text)
+                a.classList.add("se-publication-website-button")
+                a.href = link
+                websiteList.appendChild(a)
                 break;
             }
         }
