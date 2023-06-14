@@ -148,5 +148,10 @@
     justify-content: flex-start;
     gap: 1em;
     margin-top: 2em;
+}
 
+@media screen and (max-width: 480px) {
+    .se-extra-information-row{
+        flex-direction: column;
+    }
 }
