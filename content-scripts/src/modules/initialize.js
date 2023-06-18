@@ -47,48 +47,59 @@ export const currentAccountPage = () => {
     tabs.forEach((tab, tab_index) => {
       let creditColumnIndex;
       let columnsToRemove = [];
-      if(tab.id == "tab7") return // Don't execute in Extrato Geral
+      rows = [...(tab.querySelectorAll("thead > tr, tbody > tr"))];
+      if(rows.length == 0) return;
 
-      rows =  [...(tab.querySelectorAll("tbody > tr"))];
-
+      headerTitles = document.querySelectorAll("ul.ui-tabs-nav > li > a")
+      headerTitles = [...headerTitles].map(title => title.textContent)
       headerCells = rows[0].querySelectorAll("th");
       headerCells.forEach((th, index) => {
         if(th.innerHTML == "Débito"){
           th.innerHTML = "Valor";
         }else if(th.innerHTML == "Crédito"){
-          creditColumnIndex = index + headerCells[0].colSpan; // Because there are colspan
+          creditColumnIndex = index 
+          // Colspan
+          colSpan = headerCells[0].colSpan;
+          if(colSpan > 1) creditColumnIndex += colSpan;
           th.remove()
         }
 
+        // Remove "Valor Pago" Column
         if(th.innerHTML == "Valor Pago"){
           columnsToRemove.push(index + headerCells[0].colSpan - 1);
           th.remove()
         }
 
+        // Remove "Valor em Falta" Column
         if(th.innerHTML == "Valor em Falta"){
           th.innerHTML = "";
           th.colSpan = 1;
           columnsToRemove.push(index + headerCells[0].colSpan - 1);
         }
 
+        // Rename "Juros em Mora" Column
         if(th.innerHTML == "Juros de Mora"){
           th.innerHTML = "Juros";
-          if(tab_index == 2){ // Juros de mora Proprinas
+          // Remove "Juros de Mora" Column in "Juros de mora Proprinas" tab
+          if(headerTitles[tab_index] == "Juros de mora Propinas"){
             columnsToRemove.push(index + headerCells[0].colSpan - 1);
             th.remove()
           }
         }
 
+        // Remove "Débito em Falta" Column
         if(th.innerHTML == "Débito em Falta"){
           columnsToRemove.push(index + headerCells[0].colSpan - 1);
           th.remove()
         }
 
+        // Remove "Valor em Falta" Column
         if(th.innerHTML == "Documento"){
           th.colSpan = 1;
           columnsToRemove.push(index + headerCells[0].colSpan - 1);
         }
 
+        // Remove "Estado" Column
         if(th.innerHTML == "Estado"){
           columnsToRemove.push(index + headerCells[0].colSpan - 1);
           th.remove();
@@ -108,10 +119,24 @@ export const currentAccountPage = () => {
 
       if(creditColumnIndex){
         rows.forEach((row, index) => {
+          isGeralExtract = headerTitles[tab_index] == "Extrato Geral";
+
           cells = [...row.querySelectorAll("td")]
-          if(cells[creditColumnIndex-1].innerHTML == "&nbsp;"){
-            cells[creditColumnIndex-1].innerHTML = cells[creditColumnIndex].innerHTML;
-            cells[creditColumnIndex-1].classList.add("n");
+          debitCell = cells[creditColumnIndex-1];
+
+          if(debitCell.innerHTML == "&nbsp;"){
+            debitCell.innerHTML = ""
+            debitCell.classList.add("n");
+            if(isGeralExtract){
+              debitCell.classList.add("positive")
+              debitCell.innerHTML = "+"
+            }
+            debitCell.innerHTML += cells[creditColumnIndex].innerHTML;
+          }else{
+            if(isGeralExtract){
+              debitCell.classList.add("negative")
+              debitCell.innerHTML = "-" + debitCell.innerHTML;
+            }
           }
           cells[creditColumnIndex].remove();
 
@@ -131,6 +156,16 @@ export const currentAccountPage = () => {
         });
       }
     })
+
+    // Change "Data" collumn position in "Extrato Geral" tab
+    const geralExtractTable = document.querySelector("#tab_extracto_geral");
+    if(geralExtractTable){
+      geralExtractTable.querySelectorAll("tr").forEach(row => {
+        cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
+        len = cells.length;
+        row.insertBefore(cells[1], cells[0]);
+      })
+    }
 
     // Switch "Refência" action button to the right
     if(tabs.length > 0){
@@ -160,20 +195,17 @@ export const currentAccountPage = () => {
       }
     }
 
-    // For each tabs, except the last one (Extrato Geral), switch the first cell content
-    tabs.forEach((tab, index) => {
-      if(index == tabs.length - 1) return;
-
-      // loop rows
+    // Improve the status badge
+    tabs.forEach((tab) => {
       tab.querySelectorAll("tbody > tr").forEach(row => {
         cells = [...row.querySelectorAll("td")]
         if(cells.length == 0) return;
 
-        // get title atriuibute from the first cell
+        // Get title atriuibute from the first cell
         const cellStatus = cells[0].querySelector("img")?.getAttribute("title") ?? null;
         if(cellStatus == null) return;
 
-        //create a div with the status
+        // Creating a new status badge
         statusDiv = document.createElement("div");
         statusDiv.innerHTML = statusProperties[cellStatus].text
         statusDiv.classList.add("badge");
@@ -184,10 +216,10 @@ export const currentAccountPage = () => {
       })
     })
 
-    // remove "Movimentos" h2
+    // Remove "Movimentos" h2
     contaCorrente.previousElementSibling.remove()
 
-    // Balance and NIF cards
+    // Create Balance and NIF cards
     const saldo = document.querySelector(".formulario #span_saldo_total").textContent;
     const saldoCard = document.createElement("div");
     saldoCard.classList.add("card");
@@ -217,31 +249,6 @@ export const currentAccountPage = () => {
     accountDetails.appendChild(nifCard);
     contaCorrente.insertBefore(accountDetails, contaCorrente.firstChild);
 
-    // Extrato Geral
-    const tab7 = contaCorrente.querySelector("#tab7");
-    if(!tab7) return;
-
-    const headerTitles = tab7.querySelectorAll("thead > tr > th");
-    headerTitles[3].remove();
-    headerTitles[0].innerHTML = "Data";
-    headerTitles[1].innerHTML = "Descrição";
-    headerTitles[2].innerHTML = "Valor";
-
-    const bodyRows = tab7.querySelectorAll("tbody > tr");
-    bodyRows.forEach(row => {
-      const cells = row.querySelectorAll("td");
-
-      row.insertBefore(cells[1], cells[0]);
-
-      if(cells[3].classList.contains('n')){
-        cells[2].innerHTML = "+" + cells[3].innerHTML.replace("&nbsp;", "");
-        cells[2].classList.add("n");
-        cells[2].classList.add("positive");
-      }else{
-        cells[2].innerHTML = "-" + cells[2].innerHTML.replace("&nbsp;", "");
-        cells[2].classList.add('negative');
-      }
-      cells[3].remove();
-    })
+    return;
   }
 }
