@@ -1,0 +1,25 @@
+#selectionTable {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: fit-content;
+    background: rgb(140,45,25);
+    padding: 5px;
+    background: linear-gradient(180deg, rgba(140,45,25,1) 0%, rgba(140,45,25,1) 60%, rgba(209,150,138,1) 60%, rgba(209,150,138,1) 100%);}
+
+input[type=checkbox] {
+    accent-color: #8C2D19;
+}
+
+.classOpt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.classOpt > * {
+    padding: 3px;
+    padding-inline: 5px;
+    color: white;
+}
