@@ -140,6 +140,7 @@ export const FA_ICON_MAP = Object.freeze({
     "phone": "phone",
     "plus-circle": "add-circle",
     "unlock": "login-circle",
+    "envelope": "mail-unread"
 });
 
 export const BANNER_ICON_MAP = Object.freeze({
