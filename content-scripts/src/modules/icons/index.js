@@ -3,6 +3,7 @@ import {
     BG_IMAGE_ICON_MAP,
     FA_ICON_MAP,
     IMG_ICON_MAP,
+    EVENTS,
 } from "./constants";
 
 const addCSS = () => {
@@ -16,31 +17,46 @@ const replaceImages = () => {
     const handleImage = (i) => {
         const icon = IMG_ICON_MAP[i.src.substring(i.src.lastIndexOf("/") + 1)];
 
-        if (icon === undefined)
-            return i.classList.remove("se-icon", "se-hidden-icon");
+        let span = i.querySelector(":scope > span.se-icon");
 
-        if (icon === "") {
-            i.classList.add("se-hidden-icon");
-            i.classList.remove("se-icon");
+        if (icon === undefined) {
+            span?.remove();
+            i.classList.remove("se-hidden-icon");
             return;
         }
 
-        i.classList.remove("se-hidden-icon");
-        i.classList.add("se-icon");
+        i.classList.add("se-hidden-icon");
 
-        const span = document.createElement("span");
-        replaceWithKeepAttrs(i, span);
+        if (icon === "") {
+            span?.remove();
+            return;
+        }
+
+        if (!span) {
+            span = document.createElement("span");
+            i.insertAdjacentElement("afterend", span);
+            copyEvents(i, span);
+        }
 
         size = Math.max(Math.round(Math.max(i.width, i.height) / 24) * 24, 24);
 
+        copyAttrs(i, span);
         span.classList.add(`ri-${icon}-line`);
         span.style.fontSize = `${size}px`;
+        span.classList.add("se-icon");
+        span.classList.remove("se-hidden-icon");
     };
 
     new MutationObserver((ms) =>
         ms.forEach((m) => {
-            if (m.type == "attributes") handleImage(m.target);
-            else m.target.querySelectorAll("img").forEach(handleImage);
+            console.log(m);
+            if (m.target instanceof HTMLImageElement) handleImage(m.target);
+            else if (m.addedNodes)
+                m.addedNodes.forEach((n) => {
+                    if (n instanceof HTMLImageElement) handleImage(n);
+                    else if (n instanceof HTMLElement)
+                        n.querySelectorAll("img").forEach(handleImage);
+                });
         })
     ).observe(document, {
         subtree: true,
@@ -49,6 +65,22 @@ const replaceImages = () => {
     });
 
     document.querySelectorAll("img").forEach(handleImage);
+};
+
+const copyAttrs = (el1, el2) => {
+    for (const attr of el1.attributes)
+        try {
+            el2.setAttribute(attr.name, attr.value);
+        } catch (error) {
+            console.error(error);
+        }
+};
+
+const copyEvents = (el1, el2) => {
+    for (const event of EVENTS)
+        el2.addEventListener(event, (e) =>
+            el1.dispatchEvent(new e.constructor(e.type, e))
+        );
 };
 
 /**
@@ -65,7 +97,6 @@ const replaceWithKeepAttrs = (el1, el2) => {
 
     el2.append(...el1.children);
 
-    console.debug(el2);
     el1.replaceWith(el2);
 };
 
@@ -96,10 +127,8 @@ const replaceBgImages = () => {
 
             i.classList.add("se-remove-icon");
 
-            if (i.tagName == "img")
-                replaceWithKeepAttrs(i, span);
-            else
-                i.insertBefore(span, i.firstChild);
+            if (i.tagName == "img") replaceWithKeepAttrs(i, span);
+            else i.insertBefore(span, i.firstChild);
         });
     });
 };
