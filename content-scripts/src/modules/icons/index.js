@@ -17,7 +17,10 @@ const replaceImages = () => {
     const handleImage = (i) => {
         const icon = IMG_ICON_MAP[i.src.substring(i.src.lastIndexOf("/") + 1)];
 
-        let span = i.querySelector(":scope > span.se-icon");
+        let span = null;
+
+        if (i.nextElementSibling?.matches(".se-icon"))
+            span = i.nextElementSibling;
 
         if (icon === undefined) {
             span?.remove();
