@@ -20,3 +20,13 @@ export const getUP = async () => {
     return pfp.src.substr(-9, pfp.src.length);
   }
 };
+
+/**
+ * @returns the current location path
+ */
+export const getPath = () => {
+  const url = window.location.pathname;
+  return url.split("/").pop().toLowerCase();
+};
+
+

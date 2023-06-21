@@ -378,6 +378,213 @@ body:has(#facebox_overlay){
   overflow-y: hidden;
 }
 
+/* ----------------- Conta Corrente Page ----------------- */
+
+/* Status badges */
+.badge{
+  padding: 0.2rem 0.5rem;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+}
+.badge::before{
+  content: "";
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.badge.badge-success{
+  border-color: #cce6d5;
+  background: #effdf4;
+  color: #368e50;
+}
+.badge.badge-success::before{
+  background: #0cb143;
+}
+
+.badge.badge-pending{
+  border-color: #f0eac6;
+  background: #fefde9;
+  color: #956e30;
+}
+.badge.badge-pending::before{
+  background: #f2bc30;
+}
+
+.badge.badge-cancelled{
+  border-color: #e3e5e6;
+  background: #f9fafc;
+  color: #4d535d;
+}
+.badge.badge-cancelled::before{
+  background: #8f8f9c;
+}
+
+.badge.badge-danger{
+  border-color: #e3c3b9;
+  background: #fef7f9;
+  color: #b25943;
+}
+.badge.badge-danger::before{
+  background: #fc6a44;
+}
+
+abbr[title]{
+  text-decoration: none;
+  border: none !important;
+}
+
+section.entidade {
+  display: none;
+}
+
+section.entidade ~ .formulario{
+  display: none;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW ~ .alerta{
+  display: none;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW{
+  border: none;
+  padding: 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > div.ui-tabs-panel{
+  padding: 1rem 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav{
+  background: none;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  padding: 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW .ui-tabs-anchor{
+  width: 100%;
+  text-align: center;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav::before,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav::after{
+  content: "";
+  flex: 1 0 100%;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav > li{
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > ul.ui-tabs-nav > li > a{
+  outline-color: #8e2915 !important;
+  outline-width: 5px !important;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW > .ui-tabs-nav > li > a > em{
+  font-style: normal;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active{
+  background: #8c2d19;
+  color: white;
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active:hover a:hover,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active a:active,
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW li.ui-tabs-active a:focus{
+  color: white !important;
+  cursor: pointer;
+}
+
+#tab_extracto_geral .positive {
+  color: #5fd17f;
+}
+
+#tab_extracto_geral .negative {
+  color: #fa8078;
+}
+
+/* TABLES DESIGN */
+
+.tabela {
+  border-spacing: 0 !important;
+  width: 100%;
+}
+
+.tabela .data{
+  color:rgb(112, 112, 112);
+}
+
+
+.tabela th {
+  color: #676767;
+  background: none;
+  text-align: left;
+}
+
+.tabela > tbody > tr.i,
+.tabela > tbody > tr.p
+{
+  background: none;
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.6rem 1rem !important;
+  border-bottom: 1.4px solid #f3f3f3;
+  text-align: left !important;
+}
+
+.tabela tr td:first-child,
+.tabela tr th:first-child{
+  text-align: left;
+  padding-left: 0 !important;
+}
+
+.tabela tr td:last-child,
+.tabela tr th:last-child{
+  text-align: right !important;
+  padding-right: 0 !important;
+}
+
+.tabela th{
+  font-weight: 400;
+}
+
+.tabela i{
+  font-style: normal;
+}
+
+/* ----------------- Generic New Components ----------------- */
+
+.card{
+  border: 1px solid #f3f3f3;
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: #f6f6f6;
+  width: fit-content;
+  padding: 1rem 2rem;
+}
+
+.card > h3, .card > p{
+  margin: 0;
+}
+
 /* ----------------- INPUT ----------------- */
 
 input, select{
