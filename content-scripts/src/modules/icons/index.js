@@ -52,7 +52,6 @@ const replaceImages = () => {
 
     new MutationObserver((ms) =>
         ms.forEach((m) => {
-            console.log(m);
             if (m.target instanceof HTMLImageElement) handleImage(m.target);
             else if (m.addedNodes)
                 m.addedNodes.forEach((n) => {
