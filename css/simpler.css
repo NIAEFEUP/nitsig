@@ -597,6 +597,12 @@ input, select, button{
   background: rgb(248, 248, 248) !important;
   box-shadow: none !important;
   font-weight: 500 !important;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #e8e8e8 !important;
 }
 
 select{
