@@ -76,6 +76,7 @@ p.flex-caption a {
 .ajuda-contextual {
   display: none !important;
 }
+
 /* News Section */
 
 .col-md-7 {
@@ -587,12 +588,21 @@ section.entidade ~ .formulario{
 
 /* ----------------- INPUT ----------------- */
 
-input, select{
+input, select, button{
   border-radius: 8px !important;
   border-color: #cfcfcf !important;
   box-sizing: border-box;
   padding: 0.5rem !important;
   box-shadow: 0px 0px 23px -17px rgba(0,0,0,0.3);
+  background: rgb(248, 248, 248) !important;
+  box-shadow: none !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #e8e8e8 !important;
 }
 
 select{
@@ -603,7 +613,7 @@ select{
   background-size: 1em;*/
 }
 
-input:active, input:focus, select:active, select:focus{
+button:active, button:focus, input:active, input:focus, select:active, select:focus{
   outline-color: #dc8877 !important;
   outline-width: 5px !important;
 }
