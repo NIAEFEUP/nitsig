@@ -1,5 +1,6 @@
 import throttle from "./utilities/throttle";
 import { getPath } from "./utilities/sigarra";
+import { isDate, reverseDate } from "./utilities/date";
 
 // Resize Listener
 export const addResizeListener = () => {
@@ -28,10 +29,9 @@ export const injectOverrideFunctions = () => {
  */
 export const reverseDateDirection = () => {
   document.querySelectorAll(".data").forEach(date => {
-      const dateObj = new Date(date.innerHTML);
-      if(dateObj instanceof Date && !isNaN(dateObj)){
-        date.innerHTML = date.innerHTML.split('-').reverse().join('-');
-      }
+    if(isDate(date.innerHTML)){
+      date.innerHTML = reverseDate(date.innerHTML)
+    }
   });
 }
 
@@ -147,9 +147,11 @@ export const currentAccountPage = () => {
             lastRowCells = rows[index-1].querySelectorAll("td")
 
             document_file = cells[cells.length - 1].querySelector("a")
-            lastRowCells[lastRowCells.length - 1].innerHTML = "";
-            lastRowCells[lastRowCells.length - 1].appendChild(document_file)
-            lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
+            if(document_file){
+              lastRowCells[lastRowCells.length - 1].innerHTML = "";
+              lastRowCells[lastRowCells.length - 1].appendChild(document_file)
+              lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
+            }
 
             row.remove();
           }
@@ -251,4 +253,44 @@ export const currentAccountPage = () => {
 
     return;
   }
+}
+
+export const addSortTableActions = () => {
+  document.querySelectorAll("th").forEach(th => {
+    th.addEventListener("click", () => {
+      const table = th.closest("table");
+      let index = [...th.parentElement.children].indexOf(th);
+      const aditionalColspan = parseInt(th.parentElement.children[0].getAttribute("colspan")) ?? 1;
+
+      const rows = [...table.querySelectorAll("tr")];
+      rows.shift();
+      index += aditionalColspan-1;
+      rows.sort((a, b) => {
+        let aValue = a.querySelectorAll("td")[index].innerHTML;
+        let bValue = b.querySelectorAll("td")[index].innerHTML;
+        
+        // Date order
+        if(isDate(reverseDate(aValue)) && isDate(reverseDate(bValue))){
+          const aDate = new Date(reverseDate(aValue));
+          const bDate = new Date(reverseDate(bValue));
+          if(aDate < bDate) return -1;
+          if(aDate > bDate) return 1;
+          return 0;
+        }
+
+        // Alphabetical order
+        return aValue.localeCompare(bValue, undefined, {
+          numeric: true,
+          sensitivity: 'base'
+        });
+      })
+
+      rows.forEach(row => {
+        table.appendChild(row);
+      })
+    })
+
+    th.style.cursor = "pointer";
+    //TODO: add an icon
+  })
 }

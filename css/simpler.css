@@ -543,6 +543,11 @@ section.entidade ~ .formulario{
   background: none;
 }
 
+table.dados tbody tr:nth-child(even), tr.p, td.p,
+table.dados tbody tr:nth-child(odd), tr.i, td.i{
+  background: none !important;
+}
+
 .tabela th,
 .tabela td {
   padding: 0.6rem 1rem !important;
