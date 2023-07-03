@@ -139,7 +139,6 @@ export const currentAccountPage = () => {
             }
           }
           cells[creditColumnIndex].remove();
-
           if(cells[0].classList.contains("credito")){ //remove "Multibanco - SIBS" row
             //TODO: adicionar data a "pago em"
             
@@ -147,10 +146,11 @@ export const currentAccountPage = () => {
             lastRowCells = rows[index-1].querySelectorAll("td")
 
             document_file = cells[cells.length - 1].querySelector("a")
-            lastRowCells[lastRowCells.length - 1].innerHTML = "";
-            lastRowCells[lastRowCells.length - 1].appendChild(document_file)
-            lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
-
+            if(document_file){
+              lastRowCells[lastRowCells.length - 1].innerHTML = "";
+              lastRowCells[lastRowCells.length - 1].appendChild(document_file)
+              lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
+            }
             row.remove();
           }
         });
