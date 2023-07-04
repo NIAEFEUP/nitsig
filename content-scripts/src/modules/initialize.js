@@ -260,14 +260,39 @@ export const addSortTableActions = () => {
     th.addEventListener("click", () => {
       const table = th.closest("table");
       let index = [...th.parentElement.children].indexOf(th);
-      const aditionalColspan = parseInt(th.parentElement.children[0].getAttribute("colspan")) ?? 1;
+      const aditionalColspan = parseInt(th.parentElement.children[0].getAttribute("colspan")) || 1;
+
+      const classes = ["asc", "desc"];
+      const currentClasses = th.classList;
+
+      // Remove asc and desc classes from neighbors th
+      th.parentElement.querySelectorAll("th").forEach(neighbor => {
+        if(neighbor == th) return
+        neighbor.classList.remove(...classes);
+      })
+
+      // Check if the current th has some class from classes
+      if(currentClasses.length == 0 || !classes.some(c => currentClasses.contains(c))){
+        th.classList.add(classes[0]);
+      }else{
+        classes.forEach(c => th.classList.toggle(c));
+      }
 
       const rows = [...table.querySelectorAll("tr")];
-      rows.shift();
+      
+      // Removing header rows
+      while(rows[0].classList.length === 0 || (!rows[0].classList[0].startsWith("i") && !rows[0].classList[0].startsWith("p")))
+        rows.shift();
+
       index += aditionalColspan-1;
+
+      if(rows.length <= 1) return;
+      if(rows[0].querySelectorAll("td").length <= index) return;
+
       rows.sort((a, b) => {
         let aValue = a.querySelectorAll("td")[index].innerHTML;
         let bValue = b.querySelectorAll("td")[index].innerHTML;
+        if(th.classList.contains("desc")) [aValue, bValue] = [bValue, aValue];
         
         // Date order
         if(isDate(reverseDate(aValue)) && isDate(reverseDate(bValue))){
