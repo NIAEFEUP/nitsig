@@ -1,23 +1,48 @@
 {
-  "name": "sigarra-extension",
-  "type": "module",
-  "scripts": {
-    "build": "node ./bundle-script.js",
-    "bundle": "node ./bundle-script.js",
-    "watch": "node ./watch-script.js",
-    "release": "yarn bundle all release"
-  },
-  "dependencies": {
-    "fs-extra": "^11.1.0",
-    "node-cmd": "^5.0.0",
-    "zip-local": "^0.3.5"
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "watch": "^1.0.2",
-    "klaw": "^4.1.0",
-    "@types/klaw": "^3.0.3",
-    "@types/chrome": "^0.0.218",
-    "https-localhost": "^4.7.1"
-  }
+    "name": "sigarra-extension",
+    "version": "1.0.0",
+    "displayName": "Sigarra Extension",
+    "author": "NIAEFEUP",
+    "description": "For a better sigarra.",
+    "license": "MIT",
+    "scripts": {
+        "build": "vite build",
+        "watch": "vite build --watch --mode development --minify false",
+        "dev": "vite",
+        "serve:firefox": "web-ext run --start-url \"about:debugging#/runtime/this-firefox\"  --source-dir ./dist/",
+        "serve:chrome": "web-ext run -t chromium --start-url \"https://example.com\" --source-dir ./dist/",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --check .",
+        "format:fix": "prettier --log-level warn --write ."
+    },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "remixicon": "^3.4.0",
+        "ts-node": "^10.9.1",
+        "webextension-polyfill": "^0.10.0"
+    },
+    "devDependencies": {
+        "@samrum/vite-plugin-web-extension": "^5.0.0",
+        "@types/chrome": "^0.0.239",
+        "@types/eslint": "^8.40.2",
+        "@types/react": "^18.2.14",
+        "@types/react-dom": "^18.2.6",
+        "@types/webextension-polyfill": "^0.10.1",
+        "@typescript-eslint/eslint-plugin": "^5.61.0",
+        "@typescript-eslint/parser": "^5.61.0",
+        "@vitejs/plugin-react": "^4.0.1",
+        "eslint": "^8.44.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-import-resolver-typescript": "^3.5.5",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-jsx-a11y": "^6.7.1",
+        "eslint-plugin-react": "^7.32.2",
+        "postcss-preset-env": "^9.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.1.6",
+        "vite": "~4.3.9",
+        "web-ext": "^7.6.2"
+    }
 }
