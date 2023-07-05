@@ -16,4 +16,7 @@ module.exports = {
             typescript: {},
         },
     },
+    env: {
+        browser: true,
+    },
 };
