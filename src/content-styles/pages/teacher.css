@@ -1,32 +1,33 @@
+/**
+ *  https://sigarra.up.pt/feup/func_geral.formview
+ */
 
-
-.se-teacher-title-bar > h1{
+.se-teacher-title-bar > h1 {
     margin: 0 !important;
     padding: 0em;
 }
 
-.se-teacher-title-bar > h3{
+.se-teacher-title-bar > h3 {
     margin: 0;
     padding-left: 1em;
 }
-.se-teacher-title-bar{
+.se-teacher-title-bar {
     display: flex;
     align-items: center;
 }
 
-
-.informacao-pessoal-dados-foto{
+.informacao-pessoal-dados-foto {
     float: none !important;
-}
 
-.informacao-pessoal-dados-foto > img{
-    border-radius: 8px;
+    > img {
+        border-radius: 8px;
+    }
 }
 
 .se-publication-website-button {
     display: block;
-    background-color: #F4F4F4;
-    width: fit-content; 
+    background-color: #f4f4f4;
+    width: fit-content;
     height: fit-content;
     padding: 5px 10px;
     margin-bottom: 1em;
@@ -34,12 +35,11 @@
     cursor: pointer;
 }
 
-.se-publication-website-button:active{
+.se-publication-website-button:active {
     background-color: #dddada;
-
 }
 
-.se-publication-website-button > img{
+.se-publication-website-button > img {
     display: inline-block;
     height: 25px;
 }
@@ -49,43 +49,41 @@
     padding: 0;
     margin: 0;
     padding-left: 1em;
-
 }
 
-.informacao-pessoal-apresentacao{
+.informacao-pessoal-apresentacao {
     margin-top: 2em;
     box-shadow: none !important;
     border: none !important;
     margin-left: 0 !important;
-    background-color: #F4F4F4 !important;
+    background-color: #f4f4f4 !important;
     border-radius: 8px;
 }
 
-.informacao-pessoal-adicional{
+.informacao-pessoal-adicional {
     width: 100% !important;
 }
 
-.informacao-pessoal-apresentacao > h3{
+.informacao-pessoal-apresentacao > h3 {
     margin: 1em 0em;
 }
 
-.se-roles{
-    background-color: #F4F4F4;
+.se-roles {
+    background-color: #f4f4f4;
     border-radius: 8px;
 }
 
-.informacao-pessoal-outras{
+.informacao-pessoal-outras {
     float: none !important;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     border-radius: 8px;
     margin-top: 2em;
-
 }
 
-.se-website-button{
+.se-website-button {
     display: block;
-    background-color: #F4F4F4;
-    width: fit-content; 
+    background-color: #f4f4f4;
+    width: fit-content;
     height: fit-content;
     border-radius: 8px;
     cursor: pointer;
@@ -95,54 +93,52 @@
     text-decoration: none !important;
 }
 
-.se-website-button:active{
+.se-website-button:active {
     background-color: #dddada;
-
 }
 
-.se-contact-info{
-    background-color: #F4F4F4;
+.se-contact-info {
+    background-color: #f4f4f4;
     border-radius: 8px;
-
 }
 
-:is(.se-contact-info, .se-roles, .informacao-pessoal-outras) > h3{
+:is(.se-contact-info, .se-roles, .informacao-pessoal-outras) > h3 {
     margin: 0em !important;
     padding: 0.5em 1em;
 }
 
-:is(.se-contact-info, .se-roles, .informacao-pessoal-outras) .formulario-legenda{
+:is(.se-contact-info, .se-roles, .informacao-pessoal-outras)
+    .formulario-legenda {
     text-align: left !important;
 }
 
-.se-key-pair-table{
+.se-key-pair-table {
     padding: 0em 2em 1em 2em;
 }
 
-.se-key-pair-table p{
+.se-key-pair-table p {
     margin: 0 !important;
 }
 
-.se-key-pair-table .se-highlighted-part{
+.se-key-pair-table .se-highlighted-part {
     font-weight: bold;
 }
 
-.se-key-pair-table .se-content-part{
+.se-key-pair-table .se-content-part {
     padding-left: 0.5em;
 }
 
 /* Main page Layout **/
 
-.se-main-info-row{
+.se-main-info-row {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     gap: 1em;
     margin-top: 1em;
-
 }
 
-.se-extra-information-row{
+.se-extra-information-row {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -151,7 +147,7 @@
 }
 
 @media screen and (max-width: 480px) {
-    .se-extra-information-row{
+    .se-extra-information-row {
         flex-direction: column;
     }
 }

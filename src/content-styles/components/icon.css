@@ -1,3 +1,5 @@
+@import url("remixicon/fonts/remixicon.css");
+
 .se-icon {
     font-size: 24px;
     line-height: 1 !important;
@@ -7,12 +9,12 @@
     width: 1em !important;
     height: 1em !important;
     text-decoration: none !important;
-}
 
-.se-icon::before {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
+    &::before {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+    }
 }
 
 .se-hidden-icon {
@@ -24,20 +26,12 @@
     width: unset !important;
     height: unset !important;
     text-indent: unset !important;
-}
 
-.se-remove-icon::before {
-    display: none;
-    background-image: none !important;
-    content: none !important;
-    width: unset !important;
-    height: unset !important;
-}
-
-#infopessoalh:not(.expandido) .colapsar {
-    display: none
-}
-
-#infopessoalh.expandido .expandir {
-    display: none
+    &::before {
+        display: none;
+        background-image: none !important;
+        content: none !important;
+        width: unset !important;
+        height: unset !important;
+    }
 }

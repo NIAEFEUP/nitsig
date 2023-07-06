@@ -1,0 +1,15 @@
+@import "./misc.css";
+
+@import "./components/card.css";
+@import "./components/cookie-bar.css";
+@import "./components/date-input.css";
+@import "./components/icon.css";
+@import "./components/input.css";
+@import "./components/popup.css";
+@import "./components/table.css";
+
+@import "./pages/account.css";
+@import "./pages/course-class-signup-list.css";
+@import "./pages/home.css";
+@import "./pages/schedule.css";
+@import "./pages/teacher.css";

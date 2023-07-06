@@ -1,0 +1,22 @@
+/* Fix accessibility not being actually accessible <.< */
+.acessibilidade,
+.acs {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    display: unset !important;
+}
+
+/* Smoother scroll */
+html {
+    scroll-behavior: smooth;
+
+    /* Disable smooth scrolling when users have prefers-reduced-motion enabled */
+    @media screen and (prefers-reduced-motion: reduce) {
+        scroll-behavior: auto;
+    }
+}

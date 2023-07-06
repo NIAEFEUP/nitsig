@@ -1,0 +1,190 @@
+/**
+ *  https://sigarra.up.pt/feup/hor_geral.estudantes_view
+ *  https://sigarra.up.pt/feup/hor_geral.docentes_view
+ *  https://sigarra.up.pt/feup/hor_geral.ocurr_view
+ */
+
+.horario {
+    table-layout: fixed !important;
+    width: 100% !important;
+    height: fit-content;
+    border-collapse: collapse !important;
+    border: solid 1px #b5b5b5 !important;
+
+    tr {
+        height: fit-content;
+        position: relative;
+    }
+
+    td,
+    th {
+        border: none !important;
+        background: unset !important;
+        color: unset !important;
+        height: 100%;
+    }
+
+    .column-start {
+        border-left: solid 1px #b5b5b5 !important;
+    }
+
+    tfoot {
+        border-top: solid 1px #b5b5b5;
+    }
+
+    thead {
+        border-bottom: solid 1px #b5b5b5 !important;
+        background-color: white !important;
+
+        th:first-of-type {
+            width: 6ch;
+        }
+    }
+
+    tbody :is(td, th) {
+        padding: 4px !important;
+    }
+
+    [data-se-hour-rule]::before {
+        content: attr(data-se-hour-rule);
+        position: absolute;
+        left: 0;
+        width: 6ch;
+        top: 0;
+        transform: translateY(-50%);
+    }
+
+    [data-se-hour-rule]::after {
+        content: "";
+        position: absolute;
+        background-color: #b5b5b5;
+        height: 1px;
+        left: 6ch;
+        right: 0;
+        top: 0;
+    }
+
+    .today {
+        background-color: rgba(100, 100, 255, 10%);
+    }
+
+    :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) {
+        > * {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
+            grid-auto-rows: 1fr;
+            place-items: center;
+            gap: 4px;
+            border-radius: 4px;
+            padding: 4px;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        a {
+            color: white !important;
+            text-decoration: none !important;
+            font-weight: bold !important;
+
+            &:hover {
+                text-decoration: underline !important;
+            }
+        }
+    }
+
+    /* This hides unused legend items */
+    &:not(:has(.TP)) #new-legend #TP,
+    &:not(:has(.TE)) #new-legend #TE,
+    &:not(:has(.P)) #new-legend #P,
+    &:not(:has(.OT)) #new-legend #OT,
+    &:not(:has(.PL)) #new-legend #PL,
+    &:not(:has(.TC)) #new-legend #TC,
+    &:not(:has(.S)) #new-legend #S,
+    &:not(:has(.O)) #new-legend #O {
+        display: none !important;
+    }
+}
+
+.horario .TP > *,
+#new-legend #TP::before {
+    background-color: #d3944c;
+}
+
+.horario .P > *,
+#new-legend #P::before {
+    background-color: #ab4d39;
+}
+
+.horario .TE > *,
+#new-legend #TE::before {
+    background-color: #fbd56c;
+}
+
+.horario .OT > *,
+#new-legend #OT::before {
+    background-color: #7ca5b8;
+}
+
+.horario .PL > *,
+#new-legend #PL::before {
+    background-color: #769c87;
+}
+
+.horario .TC > *,
+#new-legend #TC::before {
+    background-color: #cdbeb1;
+}
+
+.horario .S > *,
+#new-legend #S::before {
+    background-color: #917c9b;
+}
+
+.horario .O > *,
+#new-legend #O::before {
+    background-color: #b3b3b3;
+}
+
+.horario .almoco,
+#new-legend #almoco::before {
+    background-color: #ffbcb5 !important;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.25em;
+
+    &::before {
+        content: "";
+        width: 1em;
+        height: 1em;
+        border-radius: 50%;
+    }
+}
+
+.schedule-form {
+    display: flex;
+    gap: 1em;
+    margin-block: 1em;
+
+    select {
+        flex: 1;
+    }
+}
+
+#new-legend {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 8px;
+    width: 100%;
+}
+
+p[id^="legend-abbrv-"] {
+    margin: 0px;
+}
