@@ -1,199 +1,208 @@
-export const currentAccountPage = () => {
-  if(getPath() != "gpag_ccorrente_geral.conta_corrente_view") return;
+const statusProperties = {
+    Pago: {
+        class: "success",
+        text: "Pago",
+    },
+    "Não pago mas prazo ainda não foi excedido": {
+        class: "pending",
+        text: "Pendente",
+    },
+    Anulado: {
+        class: "cancelled",
+        text: "Anulado",
+    },
+    "Prazo excedido": {
+        class: "danger",
+        text: "Excedido",
+    },
+} as const;
 
-  const contaCorrente = document.getElementById("GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW");
-  if(contaCorrente){
+const mergeCreditDebit = (tab: HTMLElement, tabIndex: number) => {
+    let creditColumnIndex: number | null = null;
+    const columnsToRemove: number[] = [];
+    const rows = [
+        ...tab.querySelectorAll<HTMLTableRowElement>(":is(thead, tbody) > tr"),
+    ];
+    if (rows.length == 0) return;
 
-    tabs = contaCorrente.querySelectorAll(".tab")
-
-    // merge "Crédito" and "Débito" collumns and remove collumns
-    tabs.forEach((tab, tab_index) => {
-      let creditColumnIndex;
-      let columnsToRemove = [];
-      rows = [...(tab.querySelectorAll("thead > tr, tbody > tr"))];
-      if(rows.length == 0) return;
-
-      headerTitles = document.querySelectorAll("ul.ui-tabs-nav > li > a")
-      headerTitles = [...headerTitles].map(title => title.textContent)
-      headerCells = rows[0].querySelectorAll("th");
-      headerCells.forEach((th, index) => {
-        if(th.innerHTML == "Débito"){
-          th.innerHTML = "Valor";
-        }else if(th.innerHTML == "Crédito"){
-          creditColumnIndex = index 
-          // Colspan
-          colSpan = headerCells[0].colSpan;
-          if(colSpan > 1) creditColumnIndex += colSpan;
-          th.remove()
+    const headerTitles = [
+        ...document.querySelectorAll<HTMLAnchorElement>(
+            "ul.ui-tabs-nav > li > a",
+        ),
+    ].map((title) => title.textContent ?? "");
+    const headerCells = rows[0]?.querySelectorAll("th");
+    headerCells.forEach((th, index) => {
+        switch (th.textContent) {
+            case "Débito":
+                th.textContent = "Valor";
+                break;
+            case "Crédito": {
+                creditColumnIndex = index;
+                // Colspan
+                const colSpan = headerCells[0].colSpan;
+                if (colSpan > 1) creditColumnIndex += colSpan;
+                th.remove();
+                break;
+            }
+            case "Valor Pago":
+                columnsToRemove.push(index + headerCells[0].colSpan - 1);
+                th.remove();
+                break;
+            case "Valor em Falta":
+                th.textContent = "";
+                th.colSpan = 1;
+                columnsToRemove.push(index + headerCells[0].colSpan - 1);
+                break;
+            case "Juros de Mora":
+                th.textContent = "Juros";
+                // Remove "Juros de Mora" Column in "Juros de mora Proprinas" tab
+                if (headerTitles[tabIndex] == "Juros de mora Propinas") {
+                    columnsToRemove.push(index + headerCells[0].colSpan - 1);
+                    th.remove();
+                }
+                break;
+            case "Débito em Falta":
+                columnsToRemove.push(index + headerCells[0].colSpan - 1);
+                th.remove();
+                break;
+            case "Documento":
+                th.colSpan = 1;
+                columnsToRemove.push(index + headerCells[0].colSpan - 1);
+                break;
+            case "Estado":
+                columnsToRemove.push(index + headerCells[0].colSpan - 1);
+                th.remove();
+                break;
         }
+    });
 
-        // Remove "Valor Pago" Column
-        if(th.innerHTML == "Valor Pago"){
-          columnsToRemove.push(index + headerCells[0].colSpan - 1);
-          th.remove()
-        }
+    rows.shift();
 
-        // Remove "Valor em Falta" Column
-        if(th.innerHTML == "Valor em Falta"){
-          th.innerHTML = "";
-          th.colSpan = 1;
-          columnsToRemove.push(index + headerCells[0].colSpan - 1);
-        }
+    rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        columnsToRemove.forEach((columnIndex) => {
+            if (!cells[0].classList.contains("credito")) {
+                cells[columnIndex].remove();
+            }
+        });
+    });
 
-        // Rename "Juros em Mora" Column
-        if(th.innerHTML == "Juros de Mora"){
-          th.innerHTML = "Juros";
-          // Remove "Juros de Mora" Column in "Juros de mora Proprinas" tab
-          if(headerTitles[tab_index] == "Juros de mora Propinas"){
-            columnsToRemove.push(index + headerCells[0].colSpan - 1);
-            th.remove()
-          }
-        }
+    rows.forEach((row, index) => {
+        if (creditColumnIndex === null) return;
 
-        // Remove "Débito em Falta" Column
-        if(th.innerHTML == "Débito em Falta"){
-          columnsToRemove.push(index + headerCells[0].colSpan - 1);
-          th.remove()
-        }
+        const isGeralExtract = headerTitles[tabIndex] == "Extrato Geral";
 
-        // Remove "Valor em Falta" Column
-        if(th.innerHTML == "Documento"){
-          th.colSpan = 1;
-          columnsToRemove.push(index + headerCells[0].colSpan - 1);
-        }
+        const cells = row.querySelectorAll("td");
+        const debitCell = cells[creditColumnIndex - 1];
 
-        // Remove "Estado" Column
-        if(th.innerHTML == "Estado"){
-          columnsToRemove.push(index + headerCells[0].colSpan - 1);
-          th.remove();
-        }
-      });
-
-      rows.shift();
-
-      rows.forEach(row => {
-        cells = [...row.querySelectorAll("td")]
-        columnsToRemove.forEach(columnIndex => {
-          if(!cells[0].classList.contains("credito")){
-            cells[columnIndex].remove();
-          }
-        })
-      })
-
-      if(creditColumnIndex){
-        rows.forEach((row, index) => {
-          isGeralExtract = headerTitles[tab_index] == "Extrato Geral";
-
-          cells = [...row.querySelectorAll("td")]
-          debitCell = cells[creditColumnIndex-1];
-
-          if(debitCell.innerHTML == "&nbsp;"){
-            debitCell.innerHTML = ""
+        if (debitCell.innerHTML == "&nbsp;") {
+            debitCell.innerHTML = "";
             debitCell.classList.add("n");
-            if(isGeralExtract){
-              debitCell.classList.add("positive")
-              debitCell.innerHTML = "+"
+            if (isGeralExtract) {
+                debitCell.classList.add("positive");
+                debitCell.innerHTML = "+";
             }
             debitCell.innerHTML += cells[creditColumnIndex].innerHTML;
-          }else{
-            if(isGeralExtract){
-              debitCell.classList.add("negative")
-              debitCell.innerHTML = "-" + debitCell.innerHTML;
+        } else {
+            if (isGeralExtract) {
+                debitCell.classList.add("negative");
+                debitCell.innerHTML = "-" + debitCell.innerHTML;
             }
-          }
-          cells[creditColumnIndex].remove();
-          if(cells[0].classList.contains("credito")){ //remove "Multibanco - SIBS" row
+        }
+        cells[creditColumnIndex].remove();
+
+        if (cells[0].classList.contains("credito")) {
+            //remove "Multibanco - SIBS" row
             //TODO: adicionar data a "pago em"
-            
+
             //change the last cell of the last row to the value of the last cell of the current row
-            lastRowCells = rows[index-1].querySelectorAll("td")
+            const lastRowCells = rows[index - 1].querySelectorAll("td");
 
-            document_file = cells[cells.length - 1].querySelector("a")
-            if(document_file){
-              lastRowCells[lastRowCells.length - 1].innerHTML = "";
-              lastRowCells[lastRowCells.length - 1].appendChild(document_file)
-              lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
-            }
+            const documentFile = cells[cells.length - 1].querySelector("a");
+            lastRowCells[lastRowCells.length - 1].innerHTML = "";
+            if (documentFile)
+                lastRowCells[lastRowCells.length - 1].appendChild(documentFile);
+            lastRowCells[lastRowCells.length - 1].style.paddingRight = "0.6rem";
+
             row.remove();
-          }
-        });
-      }
-    })
+        }
+    });
+};
 
-    // Change "Data" collumn position in "Extrato Geral" tab
+export default () => {
+    const contaCorrente = document.querySelector<HTMLElement>(
+        "#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW",
+    );
+
+    if (!contaCorrente) return;
+
+    const tabs = contaCorrente.querySelectorAll<HTMLElement>(".tab");
+
+    // merge "Crédito" and "Débito" columns and remove columns
+    tabs.forEach(mergeCreditDebit);
+
+    // Change "Data" column position in "Extrato Geral" tab
     const geralExtractTable = document.querySelector("#tab_extracto_geral");
-    if(geralExtractTable){
-      geralExtractTable.querySelectorAll("tr").forEach(row => {
-        cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
-        len = cells.length;
+    geralExtractTable?.querySelectorAll("tr")?.forEach((row) => {
+        const cells = row.querySelectorAll("td, th");
         row.insertBefore(cells[1], cells[0]);
-      })
-    }
+    });
 
-    // Switch "Refência" action button to the right
-    if(tabs.length > 0){
-      tabs[0].querySelectorAll("tbody > tr").forEach(row => {
-        cells = [...row.querySelectorAll("td"), ...row.querySelectorAll("th")]
-        len = cells.length;
+    // Switch "Referência" action button to the right
+    tabs[0]?.querySelectorAll("tbody > tr")?.forEach((row) => {
+        const cells = row.querySelectorAll("td, th");
+        const len = cells.length;
         row.insertBefore(cells[len - 1], cells[len - 2]);
-      })
-    }
-
-    statusProperties = {
-      "Pago":{
-        class: "success",
-        text: "Pago"
-      },
-      "Não pago mas prazo ainda não foi excedido":{
-        class: "pending",
-        text: "Pendente"
-      },
-      "Anulado":{
-        class:"cancelled",
-        text: "Anulado"
-      },
-      "Prazo excedido": {
-        class: "danger",
-        text: "Excedido"
-      }
-    }
+    });
 
     // Improve the status badge
     tabs.forEach((tab) => {
-      tab.querySelectorAll("tbody > tr").forEach(row => {
-        cells = [...row.querySelectorAll("td")]
-        if(cells.length == 0) return;
+        tab.querySelectorAll("tbody > tr").forEach((row) => {
+            const cells = row.querySelectorAll("td");
 
-        // Get title atriuibute from the first cell
-        const cellStatus = cells[0].querySelector("img")?.getAttribute("title") ?? null;
-        if(cellStatus == null) return;
+            // Get title attribute from the first cell
+            const cellStatus =
+                (cells[0]?.querySelector("img")?.getAttribute("title") as
+                    | keyof typeof statusProperties
+                    | null) ?? null;
+            if (cellStatus == null) return;
 
-        // Creating a new status badge
-        statusDiv = document.createElement("div");
-        statusDiv.innerHTML = statusProperties[cellStatus].text
-        statusDiv.classList.add("badge");
-        statusDiv.classList.add("badge-" + statusProperties[cellStatus].class);
-        statusDiv.title = cellStatus;
+            // Creating a new status badge
+            const statusDiv = document.createElement("div");
+            statusDiv.innerHTML = statusProperties[cellStatus].text;
+            statusDiv.classList.add("badge");
+            statusDiv.classList.add(
+                "badge-" + statusProperties[cellStatus].class,
+            );
+            statusDiv.title = cellStatus;
 
-        cells[0].innerHTML = statusDiv.outerHTML;
-      })
-    })
+            cells[0].innerHTML = statusDiv.outerHTML;
+        });
+    });
 
     // Remove "Movimentos" h2
-    contaCorrente.previousElementSibling.remove()
+    contaCorrente.previousElementSibling?.remove();
 
     // Create Balance and NIF cards
-    const saldo = document.querySelector(".formulario #span_saldo_total").textContent;
+    const saldo =
+        document.querySelector(".formulario #span_saldo_total")?.textContent ??
+        "0";
     const saldoCard = document.createElement("div");
     saldoCard.classList.add("card");
     const title = document.createElement("p");
-    title.innerHTML = "Saldo";
+    title.textContent = "Saldo";
     const saldoValue = document.createElement("h3");
-    saldoValue.innerHTML = saldo + "€";
+    saldoValue.textContent = saldo + "€";
     saldoCard.appendChild(title);
     saldoCard.appendChild(saldoValue);
-    
-    const nif =  Array.from(document.querySelectorAll(".formulario .formulario-legenda")).filter(el => el.innerHTML.includes("N.I.F."))[0].nextElementSibling.innerHTML;
+
+    const nif =
+        [
+            ...document.querySelectorAll<HTMLElement>(
+                ".formulario .formulario-legenda",
+            ),
+        ].filter((el) => el.textContent?.includes("N.I.F."))[0]
+            ?.nextElementSibling?.textContent ?? "";
     const nifCard = document.createElement("div");
     nifCard.classList.add("card");
     const nifTitle = document.createElement("p");
@@ -202,8 +211,8 @@ export const currentAccountPage = () => {
     nifValue.innerHTML = nif;
     nifCard.appendChild(nifTitle);
     nifCard.appendChild(nifValue);
-    
-    accountDetails = document.createElement("div");
+
+    const accountDetails = document.createElement("div");
     accountDetails.style.display = "flex";
     accountDetails.style.gap = "1rem";
     accountDetails.style.marginBottom = "0.5rem";
@@ -211,7 +220,4 @@ export const currentAccountPage = () => {
     accountDetails.appendChild(saldoCard);
     accountDetails.appendChild(nifCard);
     contaCorrente.insertBefore(accountDetails, contaCorrente.firstChild);
-
-    return;
-  }
-}
+};

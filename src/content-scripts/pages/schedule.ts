@@ -1,4 +1,5 @@
-import { lcmAll } from "./utilities/math";
+import { lcmAll } from "~/common/math";
+import { keys } from "~/common/objects";
 
 const CLASS_TYPE_TO_ABBR = {
     Teórica: "TE",
@@ -10,56 +11,55 @@ const CLASS_TYPE_TO_ABBR = {
     "Trabalho de Campo": "TC",
     Seminário: "S",
     Almoço: "almoco",
-    Outra: "O"
-};
+    Outra: "O",
+} as const;
 const CLASS_ABBR_TO_ABBR = {
     T: "TE",
     TP: "TP",
     P: "P",
     PL: "PL",
     OT: "OT",
-    PL: "PL",
     TC: "TC",
     S: "S",
-    O: "O"
-};
+    O: "O",
+} as const;
 
-export const improveSchedule = () => {
-    /** @type {HTMLTableElement} */
-    const scheduleElem = document.querySelector(".horario");
+export default () => {
+    const scheduleElem =
+        document.querySelector<HTMLTableElement>("table.horario");
 
     // Not on the schedule page, abort
     if (!scheduleElem) return;
 
     const layout = document.querySelector("#conteudoinner");
-    /** @type {HTMLTableElement} */
-    const overlapping = document.querySelector("table.dados");
-    
+    const overlapping = document.querySelector<HTMLTableElement>("table.dados");
+
     fixForm();
-    
+
     layout
-        .querySelectorAll(":scope > :is(h2, h3, table)")
+        ?.querySelectorAll(":scope > :is(h2, h3, table)")
         .forEach((e) => e.remove());
 
-    layout.append(scheduleElem);
+    layout?.append(scheduleElem);
 
     fixClasses(scheduleElem);
     fixScheduleTable(scheduleElem);
     createLegend(scheduleElem);
-    fixOverlappingClasses(scheduleElem, overlapping);
+
+    if (overlapping) fixOverlappingClasses(scheduleElem, overlapping);
 };
 
-/**
- * @param {HTMLTableElement} table
- */
-const fixScheduleTable = (table) => {
+const fixScheduleTable = (table: HTMLTableElement) => {
     // Use thead for the first row
     const head = table.tHead ?? document.createElement("thead");
-    head.append(table.querySelector("tr:first-of-type"));
+    const firstRow = table.querySelector("tr:first-of-type");
+    if (firstRow) head.append(firstRow);
     table.append(head);
 
     // Remove "Horas" from the header
-    head.querySelector("th:first-of-type").innerText = "";
+    const firstHeader =
+        head.querySelector<HTMLTableCellElement>("th:first-of-type");
+    if (firstHeader) firstHeader.innerText = "";
 
     // Add colgroup
     const colgroup = document.createElement("colgroup");
@@ -75,8 +75,8 @@ const fixScheduleTable = (table) => {
     }
 
     // Change almoço to target the row itself
-    table.querySelectorAll(".almoco").forEach((e) => {
-        e.parentElement.classList.add("almoco");
+    table.querySelectorAll<HTMLTableCellElement>(".almoco").forEach((e) => {
+        e.parentElement?.classList.add("almoco");
         e.classList.remove("almoco");
     });
 
@@ -90,26 +90,25 @@ const fixScheduleTable = (table) => {
         cell.innerHTML = "&nbsp;"; // ew
         newRow.append(cell);
     }
-    body.insertBefore(newRow, body.firstElementChild);
+    body?.insertBefore(newRow, body.firstElementChild);
 
     // Remove time headers
     table.querySelectorAll("td.k").forEach((e) => e.remove());
 
-    /** @type {int[][]} */
-    const rows = [];
+    const rows: number[][] = [];
 
-    body.querySelectorAll("tr").forEach((e, i) => {
+    body?.querySelectorAll("tr").forEach((e, i) => {
         rows[i] ??= [1, 2, 3, 4, 5, 6];
 
         // Add column info to cells (useful later)
-        e.querySelectorAll("td").forEach((c, j) => {
-            const weekday = rows[i].shift();
-            c.dataset.seWeekday = weekday;
+        e.querySelectorAll("td").forEach((c) => {
+            const weekday = rows[i].shift() ?? -1;
+            c.dataset.seWeekday = weekday.toString();
             c.dataset.seRows = `${i}`;
 
             for (let k = i + 1; k < i + c.rowSpan; ++k) {
                 rows[k] = (rows[k] ?? [1, 2, 3, 4, 5, 6]).filter(
-                    (x) => x != weekday
+                    (x) => x != weekday,
                 );
                 c.dataset.seRows += ` ${k}`;
             }
@@ -133,23 +132,26 @@ const fixScheduleTable = (table) => {
     });
 
     // Add borders between columns before adding overlapping classes
-    body.querySelectorAll("td").forEach((e) => e.classList.add("column-start"));
+    body
+        ?.querySelectorAll("td")
+        .forEach((e) => e.classList.add("column-start"));
 };
 
-const createClass = (name, clazz, room, teacher) => {
+const createClass = (
+    name: Node | null,
+    clazz: Node | null,
+    room: Node | null,
+    teacher: Node | null,
+) => {
     const wrapper = document.createElement("div");
-    wrapper.append(name, clazz, room, teacher);
+    [name, clazz, room, teacher].forEach((e) => e && wrapper.append(e));
 
     return wrapper;
 };
 
-/**
- * @param {HTMLTableElement} table
- */
-const fixClasses = (table) => {
-    /** @type {NodeListOf<HTMLTableCellElement>} */
-    const classes = table.querySelectorAll(
-        "td:is(.TP, .TE, .P, .O, .OT, .PL, .TC, .S)"
+const fixClasses = (table: HTMLTableElement) => {
+    const classes = table.querySelectorAll<HTMLTableCellElement>(
+        "td:is(.TP, .TE, .P, .O, .OT, .PL, .TC, .S)",
     );
 
     classes.forEach((e) => {
@@ -159,58 +161,51 @@ const fixClasses = (table) => {
         const classTeacher = e.querySelector("table td:last-of-type a");
 
         e.replaceChildren(
-            createClass(className, classClass, classRoom, classTeacher)
+            createClass(className, classClass, classRoom, classTeacher),
         );
     });
 };
 
-const getClassDuration = async (url) => {
+const getClassDuration = async (url: string): Promise<Map<string, number>> => {
     const r = await fetch(url);
 
     const decoder = new TextDecoder(
-        r.headers.get("Content-Type").replace("text/html; charset=", "")
+        r.headers.get("Content-Type")?.replace("text/html; charset=", ""),
     );
     const text = decoder.decode(await r.arrayBuffer());
 
     const parser = new DOMParser();
-    let html = parser.parseFromString(text, "text/html");
+    const html = parser.parseFromString(text, "text/html");
 
-    const a = html.querySelector("#conteudoinner > li > a");
+    const a = html.querySelector<HTMLAnchorElement>("#conteudoinner > li > a");
 
-    if (a) {
-        const r = await fetch(a.href);
-        const text = decoder.decode(await r.arrayBuffer());
-        html = parser.parseFromString(text, "text/html");
-    }
+    if (a) return getClassDuration(a.href);
 
-    const ret = new Map();
+    const ret = new Map<string, number>();
 
-    html.querySelectorAll(".horario :is(.TP, .TE, .O, .OT, .PL, .TC, .S)").forEach(
-        (/** @type {HTMLTableCellElement} */ e) => {
-            const className = e.querySelector("b a").innerText;
-            const classClass = e.querySelector("span > a").innerText;
-            const classType = e.className;
+    html.querySelectorAll<HTMLTableCellElement>(
+        ".horario :is(.TP, .TE, .O, .OT, .PL, .TC, .S)",
+    ).forEach((e) => {
+        const className = e.querySelector<HTMLAnchorElement>("b a")?.innerText;
+        const classClass =
+            e.querySelector<HTMLAnchorElement>("span > a")?.innerText;
+        const classType = e.className;
 
-            ret.set(`${className},${classType},${classClass}`, e.rowSpan);
-        }
-    );
+        ret.set(`${className},${classType},${classClass}`, e.rowSpan);
+    });
 
     return ret;
 };
 
-/**
- * @param {HTMLTableElement} table
- * @param {HTMLTableElement} overlapping
- */
-const fixOverlappingClasses = async (table, overlapping) => {
+const fixOverlappingClasses = async (
+    table: HTMLTableElement,
+    overlapping: HTMLTableElement,
+) => {
     // I hate sigarra so much
-    /** @type {Map<any, number>} */
-    const durationCache = new Map();
+    const durationCache = new Map<string, number>();
 
-    /** @type {Record<string, number} */
-    const weekdays = {};
-    /** @type {NodeListOf<HTMLTableCellElement>} */
-    const headers = table.querySelectorAll("thead th");
+    const weekdays: Record<string, number> = {};
+    const headers = table.querySelectorAll<HTMLTableCellElement>("thead th");
     headers.forEach((e, i) => (weekdays[e.innerText.trim()] = i));
 
     for (const e of overlapping.querySelectorAll("tr")) {
@@ -218,37 +213,43 @@ const fixOverlappingClasses = async (table, overlapping) => {
         if (e.querySelector("th")) continue;
 
         // Get class information
-        /** @type {HTMLAnchorElement} */
-        const className = e.querySelector("[headers=t1] a");
-        const classType = /\((.+)\)/.exec(
-            e.querySelector("[headers=t1]").innerText
-        )[1];
-        /** @type {string} */
+        const className = e.querySelector<HTMLAnchorElement>("[headers=t1] a");
+        const classType = (/\((.+)\)/.exec(
+            e.querySelector<HTMLElement>("[headers=t1]")?.innerText ?? "",
+        )?.[1] ?? "P") as keyof typeof CLASS_ABBR_TO_ABBR;
         const weekday =
-            weekdays[e.querySelector("[headers=t2]").innerText.trim()];
-        /** @type {string} */
-        const startingTime = e.querySelector("[headers=t3]").innerText;
-        const classRoom = e.querySelector("[headers=t4] a");
-        const classTeacher = e.querySelector("[headers=t5] a");
-        const classClass = e.querySelector("[headers=t6] a");
+            weekdays[
+                e
+                    .querySelector<HTMLElement>("[headers=t2]")
+                    ?.innerText.trim() ?? ""
+            ];
+        const startingTime =
+            e.querySelector<HTMLElement>("[headers=t3]")?.innerText ?? "";
+        const classRoom = e.querySelector<HTMLAnchorElement>("[headers=t4] a");
+        const classTeacher =
+            e.querySelector<HTMLAnchorElement>("[headers=t5] a");
+        const classClass = e.querySelector<HTMLAnchorElement>("[headers=t6] a");
 
         let classDuration = durationCache.get(
-            `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`
+            `${className?.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass?.innerText}`,
         );
 
         if (!classDuration) {
-            (await getClassDuration(classClass.href)).forEach((duration, k) =>
-                durationCache.set(k, duration)
+            (await getClassDuration(classClass?.href ?? "")).forEach(
+                (duration, k) => durationCache.set(k, duration),
             );
-            classDuration = durationCache.get(
-                `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`
-            );
+            classDuration =
+                durationCache.get(
+                    `${className?.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass?.innerText}`,
+                ) ?? 1;
         }
 
         const row =
             (parseInt(startingTime.slice(0, startingTime.indexOf(":"))) - 8) *
                 2 +
-            (startingTime.slice(startingTime.indexOf(":") + 1) == "30") +
+            (startingTime.slice(startingTime.indexOf(":") + 1) == "30"
+                ? 1
+                : 0) +
             1;
 
         // Create class cell with the right info and insert it
@@ -256,31 +257,33 @@ const fixOverlappingClasses = async (table, overlapping) => {
         cell.rowSpan = classDuration;
         cell.classList.add(CLASS_ABBR_TO_ABBR[classType]);
         cell.append(
-            createClass(className, classClass, classRoom, classTeacher)
+            createClass(className, classClass, classRoom, classTeacher),
         );
-        cell.dataset.seWeekday = weekday;
-        cell.dataset.seRows = row;
+        cell.dataset.seWeekday = weekday.toString();
+        cell.dataset.seRows = row.toString();
         for (let i = row + 1; i < row + classDuration; ++i) {
             cell.dataset.seRows += ` ${i}`;
         }
 
-        const tr = table.querySelector(`tr:nth-of-type(${row + 1})`);
-        let next = null;
+        const tr = table.querySelector<HTMLTableRowElement>(
+            `tr:nth-of-type(${row + 1})`,
+        );
+        let next: Node | null = null;
 
         for (let i = weekday + 1; i < 7; ++i) {
-            next = tr.querySelector(`[data-se-weekday="${i}"]`);
+            next = tr?.querySelector(`[data-se-weekday="${i}"]`) ?? null;
             if (next) break;
         }
 
-        tr.insertBefore(cell, next);
+        tr?.insertBefore(cell, next);
     }
 
     // Find the number of columns needed per weekday
-    const set = new Set();
+    const set = new Set<number>();
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
             const o = table.querySelectorAll(
-                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`,
             );
             set.add(o.length);
         }
@@ -292,27 +295,29 @@ const fixOverlappingClasses = async (table, overlapping) => {
     headers.forEach((e, i) => i && (e.colSpan = span));
     table.querySelectorAll("col").forEach((e, i) => i && (e.span = span));
     table
-        .querySelectorAll("[data-se-weekday][data-se-rows]")
+        .querySelectorAll<HTMLTableCellElement>(
+            "[data-se-weekday][data-se-rows]",
+        )
         .forEach((e) => (e.colSpan = span));
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
-            const o = table.querySelectorAll(
-                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+            const o = table.querySelectorAll<HTMLTableCellElement>(
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`,
             );
             o.forEach(
-                (c) => (c.colSpan = Math.min(span / o.length, c.colSpan))
+                (c) => (c.colSpan = Math.min(span / o.length, c.colSpan)),
             );
         }
     }
-    debugger;
-    table.querySelector("tfoot tr td").colSpan = span * 6 + 1;
-    console.log(table.querySelector("tfoot tr td"));
+
+    const footerCell = table.querySelector<HTMLTableCellElement>("tfoot tr td");
+    if (footerCell) footerCell.colSpan = span * 6 + 1;
 
     // Insert spaces where needed
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
-            const o = table.querySelectorAll(
-                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+            const o = table.querySelectorAll<HTMLTableCellElement>(
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`,
             );
             let s = 0;
             o.forEach((c) => (s += c.colSpan));
@@ -322,26 +327,24 @@ const fixOverlappingClasses = async (table, overlapping) => {
                 space.colSpan = span - s;
 
                 const tr = table.querySelector(`tr:nth-of-type(${j + 1})`);
-                let next = null;
+                let next: Node | null = null;
                 for (let k = i + 1; k < 7; ++k) {
-                    next = tr.querySelector(`[data-se-weekday="${k}"]`);
+                    next =
+                        tr?.querySelector(`[data-se-weekday="${k}"]`) ?? null;
                     if (next) break;
                 }
 
-                tr.insertBefore(space, next);
+                tr?.insertBefore(space, next);
             }
         }
     }
 };
 
-/**
- * @param {HTMLTableElement} table
- */
-const createLegend = async (table) => {
+const createLegend = async (table: HTMLTableElement) => {
     const newLegend = document.createElement("div");
     newLegend.id = "new-legend";
 
-    for (const type of Object.keys(CLASS_TYPE_TO_ABBR)) {
+    for (const type of keys(CLASS_TYPE_TO_ABBR)) {
         const classDiv = document.createElement("div");
         classDiv.className = "legend-item";
 
@@ -362,33 +365,43 @@ const createLegend = async (table) => {
 };
 
 const fixForm = async () => {
-    /** @type {HTMLFormElement} */
-    const form = document.querySelector("#conteudoinner > form");
-    /** @type {HTMLSelectElement} */
-    const years = form.querySelector("select[name=pv_ano_lectivo]");
-    /** @type {HTMLSelectElement} */
-    const period = form.querySelector("select[name=pv_periodos]");
+    const form = document.querySelector<HTMLFormElement>(
+        "#conteudoinner > form",
+    );
+    const years = form?.querySelector<HTMLSelectElement>(
+        "select[name=pv_ano_lectivo]",
+    );
+    const period = form?.querySelector<HTMLSelectElement>(
+        "select[name=pv_periodos]",
+    );
+
+    if (!form || !years || !period) return;
 
     const week = document.createElement("select");
     week.name = "p_semana_inicio";
 
-    document.querySelectorAll(".horario-semanas td.sem-quebra").forEach((e) => {
-        const a = e.querySelector("a");
-        const url = new URL(a.href);
+    document
+        .querySelectorAll<HTMLTableCellElement>(
+            ".horario-semanas td.sem-quebra",
+        )
+        .forEach((e) => {
+            const a = e.querySelector("a");
+            const url = new URL(a?.href ?? "");
 
-        const option = document.createElement("option");
-        option.value = url.searchParams.get("p_semana_inicio");
-        option.innerText = e.innerText;
-        option.selected = e.classList.contains("bloco-select");
-        option.dataset.seWeekEnd = url.searchParams.get("p_semana_fim");
-        week.appendChild(option);
-    });
+            const option = document.createElement("option");
+            option.value = url.searchParams.get("p_semana_inicio") ?? "";
+            option.innerText = e.innerText;
+            option.selected = e.classList.contains("bloco-select");
+            option.dataset.seWeekEnd =
+                url.searchParams.get("p_semana_fim") ?? undefined;
+            week.appendChild(option);
+        });
 
-    week.addEventListener("change", (e) => {
+    week.addEventListener("change", function () {
         const input = document.createElement("input");
         input.type = "hidden";
         input.name = "p_semana_fim";
-        input.value = e.target.selectedOptions[0].dataset.seWeekEnd;
+        input.value = this.selectedOptions[0].dataset.seWeekEnd ?? "";
         form.appendChild(input);
     });
 
@@ -396,7 +409,7 @@ const fixForm = async () => {
         e.id = e.name;
         e.querySelector("option:empty")?.remove();
 
-        e.addEventListener("change", (_) => form.submit());
+        e.addEventListener("change", () => form.submit());
     });
 
     const yearsLabel = document.createElement("label");
@@ -415,8 +428,15 @@ const fixForm = async () => {
     weekLabel.className = "acs";
 
     form.method = "get";
-    form.classList.add("schedule-form")
-    form.replaceChildren(yearsLabel, years, periodLabel, period, weekLabel, week);
+    form.classList.add("schedule-form");
+    form.replaceChildren(
+        yearsLabel,
+        years,
+        periodLabel,
+        period,
+        weekLabel,
+        week,
+    );
 
     new URLSearchParams(window.location.search).forEach((value, key) => {
         if (
