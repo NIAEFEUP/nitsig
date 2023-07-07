@@ -53,7 +53,7 @@ const createPhotosButton = (icon, dialog) => {
 }
 
 const getPhotosLink = (title) => {
-    return title.children[1].href;
+    return title.children[2].href;
 }
 
 const editTitle = async (title, table, dialog) => {   

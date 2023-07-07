@@ -39,10 +39,6 @@ div[data-expand="false"] {
     cursor: pointer;
 }
 
-dialog[id^="photosDialog"] {
-    margin-inline: 100px;
-}
-
 dialog[id^="photosDialog"]::backdrop {
     background: black;
     opacity: 0.3;
@@ -50,6 +46,8 @@ dialog[id^="photosDialog"]::backdrop {
 
 .closeDialog {
     position: absolute;
+    right: 0px;
+    top: 0px;
     cursor: pointer;
 }
 
