@@ -1,25 +1,58 @@
-#selectionTable {
+[h3^="#class-title-"] {
+    background-color: blue;
+}
+
+.tableWrapper {
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+div[data-expand="true"] {
+    max-height: 5000px; /* magic number for now hopefully :/ (I NEED CSS4 NOW) */
+}
+
+div[data-expand="false"] {
+    max-height: 0px;
+}
+
+.classWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.titleWrapper {
+    margin: 0px;
+    padding: 20px;
+    background-color: #e8e8e8;
     display: flex;
     flex-direction: row;
     gap: 10px;
-    width: fit-content;
-    background: rgb(140,45,25);
-    padding: 5px;
-    background: linear-gradient(180deg, rgba(140,45,25,1) 0%, rgba(140,45,25,1) 60%, rgba(209,150,138,1) 60%, rgba(209,150,138,1) 100%);}
-
-input[type=checkbox] {
-    accent-color: #8C2D19;
 }
 
-.classOpt {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.classTitle {
+    margin: 0px;
 }
 
-.classOpt > * {
-    padding: 3px;
-    padding-inline: 5px;
-    color: white;
+.photosButton {
+    cursor: pointer;
+}
+
+dialog[id^="photosDialog"] {
+    margin-inline: 100px;
+}
+
+dialog[id^="photosDialog"]::backdrop {
+    background: black;
+    opacity: 0.3;
+}
+
+.closeDialog {
+    position: absolute;
+    cursor: pointer;
+}
+
+.dialogContentWrapper {
+    position: relative;
 }
