@@ -166,7 +166,7 @@ const fixClasses = (table) => {
 };
 
 const getClassDuration = async (url) => {
-    const html = fetchSigarraPage(url);
+    const html = await fetchSigarraPage(url);
 
     const a = html.querySelector("#conteudoinner > li > a");
 
