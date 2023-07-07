@@ -1,13 +1,3 @@
-const getNumberClasses = (base) => {
-    let last = base.nextElementSibling;
-    let cnt = 0;
-    while(last.nextElementSibling) {
-        if (last.nodeName !== "BR") cnt++;
-        last = last.nextElementSibling;
-    }
-    return cnt/2;
-}
-
 const removeExtras = () => {
     document.querySelector("#conteudoinner > h2").remove();
     document.querySelector("#conteudoinner > table:nth-child(5)").remove();
