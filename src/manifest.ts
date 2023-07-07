@@ -1,77 +1,63 @@
-let manifest = {
-    name: "Sigarra extension",
-    short_name: "Sigarra extension",
-    description: "Sigarra in a simpler way.",
-    version: "1.0.0",
-    manifest_version: 3,
-    icons: {
-        16: "images/logo/logo-16.png",
-        32: "images/logo/logo-32.png",
-        48: "images/logo/logo-48.png",
-        128: "images/logo/logo-128.png",
-    },
-    content_security_policy: {
-        extension_pages: "script-src 'self'; object-src 'self';"
-    },
-    content_scripts: [
-        {
-        run_at: "document_start",
-        matches: ["https://sigarra.up.pt/feup/*"],
-        css: [
-            "css/simpler.css",
-            "css/custom.css",
-            "css/icons.css",
-            "css/teacherPage.css"
-        ],
-        },
-        {
-        run_at: "document_end",
-        matches: ["https://sigarra.up.pt/feup/*"],
-        js: ["dist/main.js"],
-        },
-    ],
-    web_accessible_resources: [
-        {
-        resources: [
-            "css/main.css",
-            "css/custom.css",
-            "css/simpler.css",
-            "js/override-functions.js",
-            "css/icons.css",
-            "images/publicationWebsiteLogo/*"
-        ],
-        matches: ["https://sigarra.up.pt/*"],
-        },
-    ],
-    host_permissions: ["https://sigarra.up.pt/*"],
-    action: {
-        default_icon: {
-        16: "images/logo/logo-16.png",
-        32: "images/logo/logo-32.png",
-        48: "images/logo/logo-48.png",
-        },
-        default_title: "Sigarra extension",
-        default_popup: "index.html",
-    },
-    permissions: ["storage", "tabs", "cookies"],
-};
+import pkg from "../package.json";
 
-export const MANIFEST_CHROME = {
-    ...manifest,
-    background: {
-        service_worker: "background.js",
-        type: "module",
-    }
+const target = process.env.TARGET ?? "chrome";
+
+type Manifest =
+    | chrome.runtime.ManifestV3
+    | (Omit<chrome.runtime.ManifestV3, "background"> & {
+          background:
+              | chrome.runtime.ManifestV3["background"]
+              | {
+                    scripts: string[];
+                };
+      });
+
+export function getManifest(): Manifest {
+    return {
+        author: pkg.author,
+        description: pkg.description,
+        name: pkg.displayName ?? pkg.name,
+        version: pkg.version,
+        manifest_version: 3,
+        action: {
+            default_icon: {
+                16: "icons/16.png",
+                19: "icons/19.png",
+                32: "icons/32.png",
+                38: "icons/38.png",
+                48: "icons/48.png",
+                64: "icons/64.png",
+                96: "icons/96.png",
+                128: "icons/128.png",
+                256: "icons/256.png",
+                512: "icons/512.png",
+            },
+            default_popup: "src/popup/index.html",
+        },
+        content_security_policy: {
+            extension_pages: "script-src 'self'; object-src 'self';",
+        },
+        content_scripts: [
+            {
+                run_at: "document_start",
+                css: ["src/content-styles/index.css"],
+                js: ["src/content-scripts/index.ts"],
+                matches: ["*://sigarra.up.pt/feup/*"],
+            },
+        ],
+        background:
+            target === "firefox"
+                ? {
+                      scripts: ["src/background/index.ts"],
+                  }
+                : {
+                      service_worker: "src/background/index.ts",
+                      type: "module",
+                  },
+        host_permissions: ["*://sigarra.up.pt/feup/*"],
+        permissions: ["storage", "tabs", "cookies"],
+        options_ui: {
+            page: "src/options/index.html",
+        },
     };
-
-export const MANIFEST_FIREFOX = {
-    ...manifest,
-    browser_specific_settings: {
-        gecko: {
-            //id: "", //TODO: add this
-        },
-    },
-    background: {
-        scripts: ["background.js"],
-    }
-};
+}

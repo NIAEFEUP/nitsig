@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import webExtension from "@samrum/vite-plugin-web-extension";
+import react from "@vitejs/plugin-react-swc";
+import webExtension from "vite-plugin-web-extension";
 import path from "path";
 import { getManifest } from "./src/manifest";
 
@@ -10,13 +10,20 @@ export default defineConfig(() => {
         plugins: [
             react(),
             webExtension({
-                manifest: getManifest(),
+                manifest: getManifest,
+                webExtConfig: {
+                    startUrl: ["https://sigarra.up.pt/feup/pt/"],
+                },
             }),
         ],
         resolve: {
             alias: {
                 "~": path.resolve(__dirname, "./src"),
             },
+            // In dev mode, make sure fast refresh works
+            "/@react-refresh": path.resolve(
+                "node_modules/@vitejs/plugin-react-swc/refresh-runtime.js",
+            ),
         },
     };
 });
