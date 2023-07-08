@@ -6,11 +6,13 @@ const removeExtras = () => {
     document.querySelectorAll("#conteudoinner br").forEach( x => x.remove());
 }
 
-const titleClick = (table) => {
+const titleClick = (table, title) => {
     if (table.dataset.expand == "true") {
         table.dataset.expand = "false";
+        title.dataset.expand = "false";
     } else {
         table.dataset.expand = "true";
+        title.dataset.expand = "true";
     }
 }
 
@@ -26,7 +28,7 @@ const createPhotosDialog = async (title, index) => {
 
     dialog.id = "photosDialog" + index;
     closeButton.classList.add("closeDialog");
-    closeButton.innerText = "X";
+    closeButton.classList.add("ri-close-line");
     wrapper.classList.add("dialogContentWrapper")
     closeButton.addEventListener("click", () => {
         dialog.close();
@@ -58,21 +60,29 @@ const getPhotosLink = (title) => {
 
 const editTitle = async (title, table, dialog) => {   
     const titleText = document.createElement("h3");
+    const leftSide = document.createElement("div");
+    const chevron = document.createElement("span");
+    chevron.classList.add("ri-arrow-up-s-line", "rightChevron");
+    leftSide.classList.add("titleContent");
+    
     const titleContent = title.children[0];
     const className = titleContent.innerText.replaceAll(String.fromCharCode(160), '');
     const classLinks = titleContent.children;
 
     titleText.classList.add("classTitle");
-    title.appendChild(titleText);
+    leftSide.appendChild(titleText);
 
     titleText.innerText = className;
-    title.appendChild(classLinks[0]); // email button
+    leftSide.appendChild(classLinks[0]); // email button
     
     const photosButton = createPhotosButton(classLinks[1].children[0], dialog); // photos button
-    title.appendChild(photosButton);
+    leftSide.appendChild(photosButton);
+    
+    title.appendChild(leftSide);
+    title.appendChild(chevron);
 
     titleContent.remove();
-    title.addEventListener("click", () => titleClick(table));
+    title.addEventListener("click", () => titleClick(table, title));
 }
 
 const groupClasses = async () => {
@@ -94,6 +104,7 @@ const groupClasses = async () => {
         
         title.remove();
         table.remove();
+
         titleWrapperElement.appendChild(title);
         tableWrapperElement.appendChild(table);
         groupElement.appendChild(titleWrapperElement);
@@ -102,6 +113,7 @@ const groupClasses = async () => {
         
         editTitle(titleWrapperElement, tableWrapperElement, photosDialog);
         tableWrapperElement.dataset.expand = "true";
+        titleWrapperElement.dataset.expand = "true";
 
         titleIndex++;
         tableIndex++;

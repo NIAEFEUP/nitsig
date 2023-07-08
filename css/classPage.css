@@ -7,11 +7,11 @@
     transition: max-height 0.5s ease-in-out;
 }
 
-div[data-expand="true"] {
+.tableWrapper[data-expand="true"] {
     max-height: 5000px; /* magic number for now hopefully :/ (I NEED CSS4 NOW) */
 }
 
-div[data-expand="false"] {
+.tableWrapper[data-expand="false"] {
     max-height: 0px;
 }
 
@@ -29,6 +29,8 @@ div[data-expand="false"] {
     display: flex;
     flex-direction: row;
     gap: 10px;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .classTitle {
@@ -37,6 +39,10 @@ div[data-expand="false"] {
 
 .photosButton {
     cursor: pointer;
+}
+
+.photosButton:hover {
+    color: #b38300;
 }
 
 dialog[id^="photosDialog"]::backdrop {
@@ -49,8 +55,29 @@ dialog[id^="photosDialog"]::backdrop {
     right: 0px;
     top: 0px;
     cursor: pointer;
+    font-size: x-large;
 }
 
 .dialogContentWrapper {
     position: relative;
+}
+
+.titleContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.rightChevron {
+    font-size: x-large;
+    transition: transform 0.5s ease-in-out;
+}
+
+.titleWrapper[data-expand="true"] .rightChevron {
+    transform: rotate(0deg);
+}
+
+.titleWrapper[data-expand="false"] .rightChevron {
+    transform: rotate(-180deg);
 }
