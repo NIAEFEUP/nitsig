@@ -22,7 +22,8 @@ export default defineConfig(() => {
             },
             // In dev mode, make sure fast refresh works
             "/@react-refresh": path.resolve(
-                "node_modules/@vitejs/plugin-react-swc/refresh-runtime.js",
+                __dirname,
+                "./node_modules/@vitejs/plugin-react-swc/refresh-runtime.js",
             ),
         },
     };

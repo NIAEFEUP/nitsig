@@ -1,89 +1,97 @@
-import { getStorage, setStorage } from "./utilities/storage";
+import { getStorage, setStorage } from "../../common/storage";
 
-const emptyLogin = { auto_login: { verifed: false, user_info: "" } };
+interface AutoLogin {
+    verified: boolean;
+    userInfo: string;
+}
 
-var auto_login;
+const emptyLogin = { verified: false, userInfo: "" } as const;
 
-export const rememberLogin = async (data) => {
-    if (!(data?.autoLogin === "on")) return;
+let autoLogin: AutoLogin;
 
-    auto_login = await getStorage("auto_login");
-    console.log(auto_login);
-    if (auto_login === undefined) {
-        await setStorage(emptyLogin);
-        auto_login = emptyLogin;
+export const rememberLogin = async () => {
+    autoLogin = await getStorage("autoLogin");
+
+    if (autoLogin === undefined) {
+        await setStorage({ autoLogin: emptyLogin });
+        autoLogin = emptyLogin;
     }
-    if (!auto_login.verifed) {
+
+    if (!autoLogin.verified) {
         if (document.querySelector(".autenticado") == null) {
             //inject button onClick
             document
-                .querySelector(".autenticacao > form")
-                .addEventListener("submit", loginButtonHandler);
+                .querySelector<HTMLFormElement>(".autenticacao > form")
+                ?.addEventListener("submit", loginButtonHandler);
         }
-
     } else if (document.querySelector(".autenticado") == null) {
-        const res = await tryLogin(auto_login);
+        const res = await tryLogin();
         if (res.status != 200) {
             console.log("Something went wrong while logging in...");
             return;
         }
         //check if there is a error while loading page
-        const htmlRes = document.createElement('html');
+        const htmlRes = document.createElement("html");
         htmlRes.innerHTML = await res.text();
-        if(htmlRes.querySelector("p.aviso-invalidado") != null){
+        if (htmlRes.querySelector("p.aviso-invalidado") != null) {
             await setStorage(emptyLogin);
         }
-        await chrome.runtime.sendMessage({ type: "login", auto_login: auto_login });
-
+        await chrome.runtime.sendMessage({
+            type: "login",
+            autoLogin,
+        });
     }
     if (document.querySelector(".autenticado") != null) {
-        document.querySelector(".terminar-sessao").onclick = function () {
-            setStorage(emptyLogin);
-        }
-    };
+        document
+            .querySelector(".terminar-sessao")
+            ?.addEventListener("click", () =>
+                setStorage({ autoLogin: emptyLogin }),
+            );
+    }
 };
 
-
-
-function loginButtonHandler(event) {
+function loginButtonHandler(event: SubmitEvent) {
     event.preventDefault();
-    auto_login.user_info = btoa(JSON.stringify({
-        user: document.getElementById("user").value,
-        pass: document.getElementById("pass").value
-    }));
-
-    tryLogin(auto_login).then(
-        async (res) => {
-            if (res.status != 200) {
-                console.log("Something went wrong while logging in...");
-                return;
-            }
-            const loggedIn = await chrome.runtime.sendMessage({ type: "login", auto_login: auto_login });
-            if (loggedIn === false) {
-                //TODO: (issue #59) show error to user
-                console.log("Wrong details... try again");
-                return;
-            }
-        }
+    autoLogin.userInfo = btoa(
+        JSON.stringify({
+            user: document.querySelector<HTMLInputElement>("#user")?.value,
+            pass: document.querySelector<HTMLInputElement>("#pass")?.value,
+        }),
     );
+
+    tryLogin().then(async (res) => {
+        if (!res.ok) {
+            console.log("Something went wrong while logging in...");
+            return;
+        }
+        const loggedIn = await chrome.runtime.sendMessage({
+            type: "login",
+            autoLogin,
+        });
+        if (loggedIn === false) {
+            //TODO: (issue #59) show error to user
+            console.log("Wrong details... try again");
+            return;
+        }
+    });
 }
 
-async function tryLogin(auto_login) {
-    const user_info = JSON.parse(atob(auto_login.user_info));
+async function tryLogin() {
+    const userInfo = JSON.parse(atob(autoLogin.userInfo));
     const formBody = new URLSearchParams();
-    formBody.append("p_app", 162);
-    formBody.append("p_amo", 55);
+    formBody.append("p_app", "162");
+    formBody.append("p_amo", "55");
     formBody.append("p_address", "WEB_PAGE.INICIAL");
-    formBody.append("p_user", user_info.user);
-    formBody.append("p_pass", user_info.pass);
-    const url = new URL('https://sigarra.up.pt/feup/pt/vld_validacao.validacao');
-    url.search = formBody.toString();
-    return await fetch(url,
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            }
-        }
+    formBody.append("p_user", userInfo.user);
+    formBody.append("p_pass", userInfo.pass);
+    const url = new URL(
+        "https://sigarra.up.pt/feup/pt/vld_validacao.validacao",
     );
+    url.search = formBody.toString();
+    return await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+    });
 }

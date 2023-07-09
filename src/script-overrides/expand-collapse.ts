@@ -1,4 +1,4 @@
-function expandir_colapsar(id: string) {
+export function expandir_colapsar(id: string) {
     const element = document.getElementById(id);
 
     if (!element) return;

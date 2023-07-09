@@ -1,48 +1,8 @@
-import {
-  injectOverrideFunctions,
-  reverseDateDirection,
-  currentAccountPage
-} from "./modules/initialize";
-import { injectAllChanges, userPreferences } from "./modules/options/all";
-import constructNewData from "./modules/utilities/constructNewData";
-import { getStorage } from "./modules/utilities/storage";
-import { changeProfileLink } from "./modules/links";
-import { rememberLogin } from "./modules/login";
-import { replaceIcons } from "./modules/icons";
-import { teacherPage } from "./pages/teacher_page";
-import { improveSchedule } from "./modules/schedule";
-/*--
-- Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
-- Listen to Chrome Storage changes
-- Inject styles in respond to changes
---*/
-chrome.storage.onChanged.addListener((changes) => {
-  const newChangesData = constructNewData(changes);
-  rememberLogin();
-  injectAllChanges(newChangesData);
-});
+import pages from "./pages";
 
-/*--
-- Initializing function, runs once at start
-- Get Chrome Storage and inject respective styles
---*/
-const init = async () => {
-  // // Watch for resize events
-  // addResizeListener();
+const loadPage = () =>
+    pages.forEach(
+        (page) => page.path.test(window.location.pathname) && page.fun(),
+    );
 
-  // // Inject user preferences
-  const data = await getStorage(userPreferences);
-  injectAllChanges(data);
-  rememberLogin(data);
-  changeProfileLink();
-  teacherPage();
-  
-  injectOverrideFunctions();
-
-  reverseDateDirection(); //TO FIX: the sort funcionality stop working because of this
-  currentAccountPage();
-  replaceIcons();
-  improveSchedule();
-};
-
-init();
+loadPage();

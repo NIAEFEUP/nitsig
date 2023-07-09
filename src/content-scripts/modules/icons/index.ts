@@ -6,21 +6,14 @@ import {
     EVENTS,
 } from "./constants";
 
-const addCSS = () => {
-    if (!document.querySelector('link[href$="remixicon.css"]'))
-        document.head.innerHTML +=
-            '<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">';
-};
-
 const replaceImages = () => {
-    /** @type {(i: HTMLImageElement) => any} */
-    const handleImage = (i) => {
+    const handleImage = (i: HTMLImageElement) => {
         const icon = IMG_ICON_MAP[i.src.substring(i.src.lastIndexOf("/") + 1)];
 
-        let span = null;
+        let span: HTMLSpanElement | null = null;
 
-        if (i.nextElementSibling?.matches(".se-icon"))
-            span = i.nextElementSibling;
+        if (i.nextElementSibling?.matches("span.se-icon"))
+            span = i.nextElementSibling as HTMLSpanElement;
 
         if (icon === undefined) {
             span?.remove();
@@ -41,7 +34,10 @@ const replaceImages = () => {
             copyEvents(i, span);
         }
 
-        size = Math.max(Math.round(Math.max(i.width, i.height) / 24) * 24, 24);
+        const size = Math.max(
+            Math.round(Math.max(i.width, i.height) / 24) * 24,
+            24,
+        );
 
         copyAttrs(i, span);
         span.classList.add(`ri-${icon}-line`);
@@ -59,7 +55,7 @@ const replaceImages = () => {
                     else if (n instanceof HTMLElement)
                         n.querySelectorAll("img").forEach(handleImage);
                 });
-        })
+        }),
     ).observe(document, {
         subtree: true,
         childList: true,
@@ -69,7 +65,7 @@ const replaceImages = () => {
     document.querySelectorAll("img").forEach(handleImage);
 };
 
-const copyAttrs = (el1, el2) => {
+const copyAttrs = (el1: Element, el2: Element) => {
     for (const attr of el1.attributes)
         try {
             el2.setAttribute(attr.name, attr.value);
@@ -78,18 +74,18 @@ const copyAttrs = (el1, el2) => {
         }
 };
 
-const copyEvents = (el1, el2) => {
+const copyEvents = (el1: Element, el2: Element) => {
     for (const event of EVENTS)
-        el2.addEventListener(event, (e) =>
-            el1.dispatchEvent(new e.constructor(e.type, e))
-        );
+        el2.addEventListener(event, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            el1.dispatchEvent(
+                new (Object.getPrototypeOf(e).constructor)(e.type, e),
+            );
+        });
 };
 
-/**
- * @param {HTMLElement} el1
- * @param {HTMLElement} el2
- */
-const replaceWithKeepAttrs = (el1, el2) => {
+const replaceWithKeepAttrs = (el1: Element, el2: Element) => {
     for (const attr of el1.attributes)
         try {
             el2.setAttribute(attr.name, attr.value);
@@ -137,7 +133,7 @@ const replaceBgImages = () => {
 
 const replaceBanners = () => {
     Object.entries(BANNER_ICON_MAP).forEach(([k, v]) => {
-        document.querySelectorAll(`.${k}`).forEach((i) => {
+        document.querySelectorAll<HTMLElement>(`.${k}`).forEach((i) => {
             const span = document.createElement("span");
             span.innerHTML = i.innerHTML;
             i.innerText = "";
@@ -154,7 +150,6 @@ const replaceBanners = () => {
 // https://sigarra.up.pt/feup/pt/FEST_GERAL.INQ_RAIDES_EDIT
 
 export const replaceIcons = () => {
-    addCSS();
     replaceImages();
     replaceFA();
     replaceBgImages();

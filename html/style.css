@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500&display=swap");
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body#autorize{
+body#autorize {
     background-image: url("./images/background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -15,8 +15,8 @@ body#autorize{
     animation: shrink 6s infinite alternate;
 }
 
-body{
-    font-family: 'Lexend Deca', sans-serif;
+body {
+    font-family: "Lexend Deca", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,21 +44,21 @@ body{
     }
 }
 
-h1{
+h1 {
     font-size: 7rem;
     font-weight: 100;
     text-shadow: 0 10px 20px #000000d0;
     animation: zoom 6s infinite alternate;
 }
 
-h3{
+h3 {
     font-size: 2rem;
     font-weight: 300;
     text-shadow: 0 10px 20px #000000d0;
     animation: zoom 6s infinite alternate;
 }
 
-#permissions{
+#permissions {
     background-color: #518886;
     padding: 0.7rem 2rem;
     border-radius: 10px;
@@ -70,13 +70,13 @@ h3{
     transition: all 0.3s ease;
 }
 
-#permissions:hover{
+#permissions:hover {
     background-color: #3a6463;
     box-shadow: 0 10px 50px #0000004c;
     transform: translateY(-5px) scale(1.01);
 }
 
-#ready{
+#ready {
     background: rgba(153, 51, 51, 0.3);
     padding: 1.2rem;
     border-radius: 15px;
@@ -87,17 +87,17 @@ h3{
     font-weight: 300;
     animation: 0.5s ease-in-out 0s 1 slideInFromDown;
 }
-#ready > img{
+#ready > img {
     height: 50px;
 }
 
 @keyframes slideInFromDown {
     0% {
-      transform: translatey(10%);
-      opacity: 0.2;
+        transform: translatey(10%);
+        opacity: 0.2;
     }
     100% {
-      transform: translateX(0);
-      opacity: 1;
+        transform: translateX(0);
+        opacity: 1;
     }
-  }
+}
