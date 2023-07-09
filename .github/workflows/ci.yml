@@ -36,3 +36,40 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Format
         run: yarn format
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+          cache: yarn
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build for chrome
+        run: yarn build
+        env:
+          TARGET: chrome
+      - name: Zip chrome extension
+        run: zip -r ../chrome.zip *
+        working-directory: ./dist
+      - name: Build for firefox
+        run: yarn build
+        env:
+          TARGET: firefox
+      - name: Zip firefox extension
+        run: zip -r ../firefox.zip *
+        working-directory: ./dist
+      - name: Upload chrome extension
+        uses: actions/upload-artifact@v2
+        with:
+          name: Chrome extension
+          path: chrome.zip
+      - name: Upload firefox extension
+        uses: actions/upload-artifact@v2
+        with:
+          name: Firefox extension
+          path: firefox.zip

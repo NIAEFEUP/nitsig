@@ -40,7 +40,6 @@ export function getManifest(): Manifest {
         content_scripts: [
             {
                 run_at: "document_start",
-                css: ["src/content-styles/index.css"],
                 js: ["src/content-scripts/index.ts"],
                 matches: ["*://sigarra.up.pt/feup/*"],
             },

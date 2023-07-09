@@ -1,3 +1,5 @@
+import "~/content-styles/index.css";
+
 import pages from "./pages";
 
 const loadPage = () =>
