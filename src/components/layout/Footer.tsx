@@ -6,8 +6,7 @@ const Footer = () => {
             <button
                 onClick={() => window.close()}
                 type="button"
-                className="inline-flex items-center px-4 py-2 text-[15px] font-bold text-white border border-transparent rounded-full shadow-sm bg-accentThree hover:bg-accentFive focus:outline-none w-fit"
-            >
+                className="inline-flex items-center px-4 py-2 text-[15px] font-bold text-white border border-transparent rounded-full shadow-sm bg-accentThree hover:bg-accentFive focus:outline-none w-fit">
                 Feito
             </button>
         </footer>

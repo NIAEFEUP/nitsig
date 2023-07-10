@@ -21,7 +21,7 @@ const options = {
         description: "Automatically login to sigarra",
         type: "boolean",
         default: false,
-    }
+    },
 } as const satisfies Record<string, Option>;
 
 export default options;

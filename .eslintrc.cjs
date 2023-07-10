@@ -9,7 +9,7 @@ module.exports = {
         "eslint-config-prettier",
     ],
     settings: {
-        react: {
+        "react": {
             version: "detect",
         },
         "import/resolver": {

@@ -11,7 +11,7 @@
         "watch": "vite build --watch --mode development --minify false",
         "dev": "vite",
         "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
+        "lint:fix": "eslint --fix .",
         "format": "prettier --check .",
         "format:fix": "prettier --log-level warn --write ."
     },

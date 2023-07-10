@@ -1,3 +1,4 @@
+import React from "react";
 import SwitchControl from "../controls/SwitchControl";
 
 const LayoutContent = () => (

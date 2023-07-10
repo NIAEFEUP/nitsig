@@ -2,16 +2,16 @@ import { lcmAll } from "~/common/math";
 import { keys } from "~/common/objects";
 
 const CLASS_TYPE_TO_ABBR = {
-    Teórica: "TE",
+    "Teórica": "TE",
     "Teórico-Prática": "TP",
-    Prática: "P",
-    Laboratório: "PL",
+    "Prática": "P",
+    "Laboratório": "PL",
     "Orientação Tutorial": "OT",
     "Prática Laboratorial": "PL",
     "Trabalho de Campo": "TC",
-    Seminário: "S",
-    Almoço: "almoco",
-    Outra: "O",
+    "Seminário": "S",
+    "Almoço": "almoco",
+    "Outra": "O",
 } as const;
 const CLASS_ABBR_TO_ABBR = {
     T: "TE",

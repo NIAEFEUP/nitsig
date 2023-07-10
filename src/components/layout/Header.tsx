@@ -13,8 +13,7 @@ const Header = () => (
                 href="https://ni.fe.up.pt"
                 target="_blank"
                 rel="noreferrer"
-                className="text-red hover:underline font-bold cursor-pointer"
-            >
+                className="text-red hover:underline font-bold cursor-pointer">
                 niaefeup
             </a>
         </p>

@@ -17,7 +17,7 @@ export default defineConfig(() => {
             }),
         ],
         resolve: {
-            alias: {
+            "alias": {
                 "~": path.resolve(__dirname, "./src"),
             },
             // In dev mode, make sure fast refresh works

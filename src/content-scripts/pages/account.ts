@@ -1,5 +1,5 @@
 const statusProperties = {
-    Pago: {
+    "Pago": {
         class: "success",
         text: "Pago",
     },
@@ -7,7 +7,7 @@ const statusProperties = {
         class: "pending",
         text: "Pendente",
     },
-    Anulado: {
+    "Anulado": {
         class: "cancelled",
         text: "Anulado",
     },

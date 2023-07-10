@@ -3,7 +3,7 @@ import Tailwind from "tailwindcss";
 
 export default {
     plugins: [
-        PostcssPresetEnv, 
+        PostcssPresetEnv,
         // Tailwind
     ],
 };

@@ -1,6 +1,5 @@
-import { rememberLogin } from "../login"
+import { rememberLogin } from "../login";
 
 export default (value: boolean) => {
-    if (value)
-        rememberLogin()
-}
+    if (value) rememberLogin();
+};

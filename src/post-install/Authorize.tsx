@@ -14,6 +14,6 @@ const Authorize = () => {
             <button className="authorize__button">Autorizar</button>
         </div>
     );
-}
+};
 
 export default Authorize;

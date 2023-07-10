@@ -1,10 +1,15 @@
 /** @type {import("prettier").Options} */
 export default {
-    semi: true,
-    trailingComma: "all",
-    singleQuote: false,
     printWidth: 80,
     tabWidth: 4,
-    endOfLine: "auto",
     useTabs: false,
+    semi: true,
+    singleQuote: false,
+    quoteProps: "consistent",
+    jsxSingleQuote: false,
+    trailingComma: "all",
+    bracketSpacing: true,
+    bracketSameLine: true,
+    arrowParens: "always",
+    endOfLine: "auto",
 };
