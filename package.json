@@ -6,6 +6,9 @@
     "description": "For a better sigarra.",
     "license": "MIT",
     "type": "module",
+    "engines": {
+        "node": ">=18"
+    },
     "scripts": {
         "build": "tsc && vite build",
         "watch": "vite build --watch --mode development --minify false",

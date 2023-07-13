@@ -5,28 +5,25 @@ import path from "path";
 import { getManifest } from "./src/manifest";
 
 // https://vitejs.dev/config/
-export default defineConfig(() => {
-    return {
-        plugins: [
-            react(),
-            webExtension({
-                manifest: getManifest,
-                browser: process.env.TARGET ?? "chrome",
-                webExtConfig: {
-                    startUrl: ["https://sigarra.up.pt/feup/pt/"],
-                },
-                additionalInputs: ["src/post-install/index.html"],
-            }),
-        ],
-        resolve: {
-            "alias": {
-                "~": path.resolve(__dirname, "./src"),
+export default defineConfig({
+    plugins: [
+        react(),
+        webExtension({
+            manifest: getManifest,
+            browser: process.env.TARGET ?? "chrome",
+            webExtConfig: {
+                startUrl: ["https://sigarra.up.pt/feup/pt/"],
             },
+            additionalInputs: ["src/post-install/index.html"],
+        }),
+    ],
+    resolve: {
+        alias: {
+            "~": path.resolve(__dirname, "./src"),
             // In dev mode, make sure fast refresh works
             "/@react-refresh": path.resolve(
-                __dirname,
-                "./node_modules/@vitejs/plugin-react-swc/refresh-runtime.js",
+                "node_modules/@vitejs/plugin-react-swc/refresh-runtime.js",
             ),
         },
-    };
+    },
 });

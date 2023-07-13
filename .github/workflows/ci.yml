@@ -66,7 +66,7 @@ jobs:
       - name: Zip firefox extension
         run: zip -r ../firefox.zip *
         working-directory: ./dist
-      - name: Upload chrome extension
+      - name: Upload extension
         uses: actions/upload-artifact@v2
         with:
           name: Extension
