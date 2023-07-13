@@ -1,17 +1,21 @@
 const hideSociodemographicData = () => {
-    document.querySelector("#infopessoalh").style.display="none";
+    var x =  document.querySelector("#infopessoalh");
+    if (x != null)
+        x.style.display="none";
 }
 
 const hideCurricularUnitTab = () => {
-    document.querySelector(".estudantes-curso-opcao:nth-child(3)").style.display="none";
+    var x = document.querySelector(".estudantes-curso-opcao:nth-child(3)");
+    if (x != null)
+        x.style.display="none";
 }
 
 const renameStatusAndFrequency = () => {
-    (
-        document.querySelector(".estudantes-curso-opcao:nth-child(4) a") ??
-        document.querySelector(".estudantes-curso-opcao:nth-child(4)")
-    ).innerText="Estatutos / Frequência";
-}
+    const element = document.querySelector(".estudantes-curso-opcao:nth-child(4) a") ?? document.querySelector(".estudantes-curso-opcao:nth-child(4)");
+    if (element !== null) {
+      element.innerText = "Estatutos / Frequência";
+    }
+  }
 
 const alignGPAandECTs = () => {
     document.querySelector(".caixa > :nth-child(1) > tbody > :nth-child(3)").style.display="none"; // remove ects by recognition
@@ -72,11 +76,12 @@ const linkToCurrUnit = () => {
     })
 }
 
+
 export const profileChanges = () => {
 
     hideSociodemographicData();
     hideCurricularUnitTab();
-    renameStatusAndFrequency();
+    renameStatusAndFrequency();    
     
     if (window.location.href.toLowerCase().includes( "/fest_geral.curso_percurso_academico_view")){
         alignGPAandECTs();
@@ -87,4 +92,5 @@ export const profileChanges = () => {
         linkToGradeResults();
         linkToCurrUnit();
     }
+
 }
