@@ -13,7 +13,7 @@
 *.ruby-version
 *.rbenv-version
 
-#build changes file
+# Build changes file
 .changes.json
 
 # OS or Editor folders
@@ -47,5 +47,5 @@ bundle/firefox
 bundle/safari
 .vscode
 
-# xcode project
+# Xcode project
 xcuserdata/

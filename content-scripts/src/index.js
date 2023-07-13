@@ -1,21 +1,25 @@
 import {
-  addResizeListener,
-  observe,
+  injectOverrideFunctions,
+  reverseDateDirection,
+  currentAccountPage
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
 import { changeProfileLink } from "./modules/links";
 import { profileChanges } from "./modules/profile";
-
+import { rememberLogin } from "./modules/login";
+import { replaceIcons } from "./modules/icons";
+import { teacherPage } from "./pages/teacher_page";
+import { improveSchedule } from "./modules/schedule";
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
 - Listen to Chrome Storage changes
 - Inject styles in respond to changes
 --*/
 chrome.storage.onChanged.addListener((changes) => {
-  console.log(changes);
   const newChangesData = constructNewData(changes);
+  rememberLogin();
   injectAllChanges(newChangesData);
 });
 
@@ -24,19 +28,23 @@ chrome.storage.onChanged.addListener((changes) => {
 - Get Chrome Storage and inject respective styles
 --*/
 const init = async () => {
-  // // Start MutationObserver
-  //observe();
-
   // // Watch for resize events
   // addResizeListener();
 
-  // Inject user preferences
+  // // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
-
+  rememberLogin(data);
   changeProfileLink();
   profileChanges();
+  teacherPage();
+  
   injectOverrideFunctions();
+
+  reverseDateDirection(); //TO FIX: the sort funcionality stop working because of this
+  currentAccountPage();
+  replaceIcons();
+  improveSchedule();
 };
 
 init();

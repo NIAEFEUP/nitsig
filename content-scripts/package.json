@@ -3,11 +3,13 @@
   "source": "src/index.js",
   "main": "dist/main.js",
   "scripts": {
+    "clean": "rimraf dist && rimraf .parcel-cache",
     "watch": "parcel watch",
     "build": "parcel build"
   },
   "devDependencies": {
-    "parcel": "^2.8.0"
+    "parcel": "^2.8.0",
+    "rimraf": "^5.0.1"
   },
   "license": "MIT"
 }

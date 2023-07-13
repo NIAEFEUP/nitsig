@@ -21,10 +21,10 @@ at the root directory and you'll get a bundle directory that looks like this:
 ## Watch for changes
 
 ```sh
-yarn watch [firefox | chrome | safari]
+sudo yarn watch [firefox | chrome | safari]
 ```
 
-If you don't see ```⭐ The extension started listening for changes``` in the terminal reload the extension in the browser.
+The extension polls the watch webserver for changes, if the page doesn't reload automatically, reload the extension and if that doesn't work, see the service worker/background script console for errors.
 
 ## Load Extension
 
