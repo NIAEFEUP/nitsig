@@ -7,4 +7,4 @@ const loadPage = () =>
         (page) => page.path.test(window.location.pathname) && page.fun(),
     );
 
-loadPage();
+window.addEventListener("DOMContentLoaded", loadPage);

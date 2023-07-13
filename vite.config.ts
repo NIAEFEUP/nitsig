@@ -11,9 +11,11 @@ export default defineConfig(() => {
             react(),
             webExtension({
                 manifest: getManifest,
+                browser: process.env.TARGET ?? "chrome",
                 webExtConfig: {
                     startUrl: ["https://sigarra.up.pt/feup/pt/"],
                 },
+                additionalInputs: ["src/post-install/index.html"],
             }),
         ],
         resolve: {

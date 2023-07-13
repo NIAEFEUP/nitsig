@@ -15,6 +15,7 @@ const PostInstall = () => {
             setAuthorized,
         );
         chrome.permissions.onAdded.addListener(() => setAuthorized(true));
+        chrome.permissions.onRemoved.addListener(() => setAuthorized(false));
     }, []);
 
     return authorized === null ? (

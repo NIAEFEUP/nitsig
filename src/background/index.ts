@@ -6,14 +6,9 @@ chrome.runtime.onInstalled.addListener((object) => {
             );
         });
 
-        if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1)
-            chrome.tabs.create({
-                url: chrome.runtime.getURL("html/autorize.html"),
-            });
-        else
-            chrome.tabs.create({
-                url: chrome.runtime.getURL("html/installed.html"),
-            });
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("src/post-install/index.html"),
+        });
     }
 });
 

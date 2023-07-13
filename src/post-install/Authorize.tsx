@@ -1,4 +1,5 @@
 import React from "react";
+import AuthorizeButton from "./AuthorizeButton";
 
 const Authorize = () => {
     return (
@@ -11,7 +12,7 @@ const Authorize = () => {
                     da extensão à página da secretaria virtual da FEUP.
                 </p>
             </div>
-            <button className="authorize__button">Autorizar</button>
+            <AuthorizeButton />
         </div>
     );
 };
