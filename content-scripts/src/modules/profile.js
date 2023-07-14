@@ -76,12 +76,78 @@ const linkToCurrUnit = () => {
     })
 }
 
+// ------------------------
+// Navbars
+// ------------------------
+const styleTextNavbar = () => {
+    var z = document.querySelectorAll("li.estudantes-curso-opcao a");
+    z.forEach(element => {
+        element.style = `
+        text-decoration: none !important;
+        `;
+    });
+}
+
+const styleButtonsNavbar = () => {
+    styleTextNavbar();
+    var y = document.querySelectorAll("li.estudantes-curso-opcao");
+    y.forEach(element => {
+        element.style = `
+        border: none !important;
+        padding: 0.5em 1em !important;
+        `;
+        
+    });
+
+    var y_ativo = document.querySelector("li.estudantes-curso-opcao.ativo");
+    if (y_ativo != null) {
+        y_ativo.style = `
+        border: none !important;
+        background: #8c2d19;
+        color: white;
+        padding: 0.5em 1em !important;
+        `;
+    }
+}
+const styleNavbar = () => {
+    styleButtonsNavbar();
+    var x = document.querySelector("ul.estudantes-curso-lista-opcoes");
+    if (x == null){
+        console.log("x is null");
+    }
+    if (x != null) {
+        console.log("x is not null");
+        x.style = `
+        background: none !important;
+        border: none !important;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.7rem !important;; 
+        padding: 0 !important;
+        `;
+
+    }
+}
+
+// ------------------------
+// Table Percurso Académico
+// ------------------------
+
+const styleTableSizes = () => {
+    
+
+}
+const styleTablePercursoAcademico = () => {
+    styleTableSizes();
+}
+
 
 export const profileChanges = () => {
 
     hideSociodemographicData();
     hideCurricularUnitTab();
     renameStatusAndFrequency();    
+    styleNavbar();
     
     if (window.location.href.toLowerCase().includes( "/fest_geral.curso_percurso_academico_view")){
         alignGPAandECTs();
@@ -91,6 +157,9 @@ export const profileChanges = () => {
         reduceTableAcademicJourney();
         linkToGradeResults();
         linkToCurrUnit();
+        styleTablePercursoAcademico();
+
     }
 
 }
+
