@@ -42,25 +42,26 @@ export const teacherPage = () => {
     removeTwoColumnTable(".se-contact-info > table", true);
 
     //i hate sigarra, for some reason it nests one table inside each other
-    const rolesTable = document.querySelector(".se-roles > table > tbody > tr > td > table");
-    if(rolesTable !== null){
-        document.querySelector(".se-roles > table").remove();
-        document.querySelector(".se-roles").appendChild(rolesTable);
-        removeTwoColumnTable(".se-roles > table", true);
-    }
-
-    const investigationTable = document.querySelector(".informacao-pessoal-outras > table > tbody > tr > td > table");
-    if(investigationTable !== null){
-        document.querySelector(".informacao-pessoal-outras > table").remove();
-        document.querySelector(".informacao-pessoal-outras").appendChild(investigationTable);
-        removeTwoColumnTable(".informacao-pessoal-outras > table", true);
-
-    }
+    reformatTable(".se-roles");
+    reformatTable(".informacao-pessoal-outras")
 
 
 
 
 };
+
+
+
+function reformatTable(tableClass){
+    const tableSelector = tableClass + " > table"
+    const table = document.querySelector(tableSelector + " > tbody > tr > td > table");
+    if(table !== null){
+        document.querySelector(tableSelector).remove();
+        document.querySelector(tableClass).appendChild(table);
+        removeTwoColumnTable(tableSelector, true);
+    }
+}
+
 
 
 function tagGroupedElements(){
