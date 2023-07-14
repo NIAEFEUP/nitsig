@@ -20,13 +20,5 @@ export const getUP = () => {
 
     if (pfp == null) return null;
 
-    return pfp.src.substring(-9, pfp.src.length);
-};
-
-/**
- * @returns the current location path
- */
-export const getPath = () => {
-    const url = window.location.pathname;
-    return url.split("/").pop()?.toLowerCase();
+    return pfp.src.slice(-9);
 };

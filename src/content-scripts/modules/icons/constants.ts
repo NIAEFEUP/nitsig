@@ -1,4 +1,4 @@
-export const IMG_ICON_MAP: Record<string, string | undefined> = {
+export const IMG_ICON_MAP = {
     "Acreditado": "checkbox-circle",
     "Alerta": "alert",
     "Apagar": "close-circle",
@@ -127,9 +127,9 @@ export const IMG_ICON_MAP: Record<string, string | undefined> = {
     "Visto": "checkbox-circle",
     "youtube_32.png": "youtube",
     "ZipPeq": "file-zip",
-} as const;
+} as const satisfies Record<string, string | undefined>;
 
-export const FA_ICON_MAP: Record<string, string | undefined> = {
+export const FA_ICON_MAP = {
     "bars": "menu",
     "ellipsis-v": "more-2",
     "envelope-o": "mail",
@@ -139,85 +139,18 @@ export const FA_ICON_MAP: Record<string, string | undefined> = {
     "plus-circle": "add-circle",
     "unlock": "login-circle",
     "envelope": "mail-unread",
-} as const;
+} as const satisfies Record<string, string | undefined>;
 
-export const BANNER_ICON_MAP: Record<string, string | undefined> = {
+export const BANNER_ICON_MAP = {
     alerta: "alert",
     info: "information",
-} as const;
+} as const satisfies Record<string, string | undefined>;
 
-export const BG_IMAGE_ICON_MAP: Record<string, string | undefined> = {
+export const BG_IMAGE_ICON_MAP = {
     ".acao.adicionar-elemento": "add-circle",
     ".acao.adicionar": "add-circle",
     ".acao.eliminar": "close-circle",
     ".acao.limpar": "eraser",
     ".EmAprovacao-28-14": "indeterminate-circle",
     ".terminar-sessao": "logout-circle",
-} as const;
-
-export const EVENTS = [
-    "animationcancel",
-    "animationend",
-    "animationiteration",
-    "animationstart",
-    "afterscriptexecute",
-    "auxclick",
-    "beforescriptexecute",
-    "blur",
-    "click",
-    "compositionend",
-    "compositionstart",
-    "compositionupdate",
-    "contextmenu",
-    "copy",
-    "cut",
-    "dblclick",
-    "DOMActivate",
-    "DOMMouseScroll",
-    "error",
-    "focusin",
-    "focusout",
-    "focus",
-    "fullscreenchange",
-    "fullscreenerror",
-    "gesturechange",
-    "gestureend",
-    "gesturestart",
-    "gotpointercapture",
-    "keydown",
-    "keypress",
-    "keyup",
-    "lostpointercapture",
-    "mousedown",
-    "mouseenter",
-    "mouseleave",
-    "mousemove",
-    "mouseout",
-    "mouseover",
-    "mouseup",
-    "mousewheel",
-    "paste",
-    "pointercancel",
-    "pointerdown",
-    "pointerenter",
-    "pointerleave",
-    "pointermove",
-    "pointerout",
-    "pointerover",
-    "pointerup",
-    "scroll",
-    "select",
-    "touchcancel",
-    "touchend",
-    "touchmove",
-    "touchstart",
-    "transitioncancel",
-    "transitionend",
-    "transitionrun",
-    "transitionstart",
-    "webkitmouseforcechanged",
-    "webkitmouseforcedown",
-    "webkitmouseforceup",
-    "webkitmouseforcewillbegin",
-    "wheel",
-] as const;
+} as const satisfies Record<string, string | undefined>;

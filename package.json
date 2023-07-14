@@ -11,8 +11,11 @@
     },
     "scripts": {
         "build": "tsc && vite build",
+        "build:firefox": "TARGET=firefox tsc && vite build",
         "watch": "vite build --watch --mode development --minify false",
+        "watch:firefox": "TARGET=firefox vite build --watch --mode development --minify false",
         "dev": "vite",
+        "dev:firefox": "TARGET=firefox vite",
         "lint": "eslint .",
         "lint:fix": "eslint --fix .",
         "format": "prettier --check .",
