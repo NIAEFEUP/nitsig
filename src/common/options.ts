@@ -43,7 +43,8 @@ export type OptionValues = {
 export const getOption = async <T extends OptionName>(
     name: T,
 ): Promise<OptionType<T>> =>
-    (await Browser.storage.local.get(name))[name] ?? options[name].default;
+    ((await Browser.storage.local.get(name))[name] as OptionType<T>) ??
+    options[name].default;
 
 export const getOptions = async (): Promise<OptionValues> => {
     const values = (await Browser.storage.local.get(null)) as OptionValues;

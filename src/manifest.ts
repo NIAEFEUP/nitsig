@@ -1,5 +1,6 @@
 import Browser from "webextension-polyfill";
 import pkg from "../package.json";
+import fs from "node:fs";
 
 const target = process.env.TARGET ?? "chrome";
 
@@ -44,5 +45,15 @@ export function getManifest(): Browser.Manifest.WebExtensionManifest {
         options_ui: {
             page: "src/options/index.html",
         },
+        web_accessible_resources: [
+            {
+                resources: [
+                    ...fs
+                        .readdirSync("src/content-styles/options")
+                        .filter((s) => s.endsWith(".css"))
+                        .map((s) => `src/content-styles/options/${s}`),
+                ],
+            },
+        ],
     };
 }

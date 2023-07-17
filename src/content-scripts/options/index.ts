@@ -3,7 +3,7 @@ import masterOptions, {
     OptionTypeString,
 } from "~/common/options";
 import autoLogin from "./autoLogin";
-import hideShortcuts from "./shortcuts";
+import hideShortcuts from "./hideShortcuts";
 
 export type Option<T extends OptionTypeString> = (
     value: OptionTypeFromString<T>,

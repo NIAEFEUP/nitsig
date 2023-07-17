@@ -11,13 +11,13 @@
     },
     "scripts": {
         "build": "tsc && vite build",
-        "build:firefox": "TARGET=firefox tsc && vite build",
+        "build:firefox": "tsc && TARGET=firefox vite build",
         "watch": "vite build --watch --mode development --minify false",
         "watch:firefox": "TARGET=firefox vite build --watch --mode development --minify false",
         "dev": "vite",
         "dev:firefox": "TARGET=firefox vite",
-        "lint": "eslint .",
-        "lint:fix": "eslint --fix .",
+        "lint": "eslint src vite.config.ts",
+        "lint:fix": "eslint --fix src vite.config.ts",
         "format": "prettier --check .",
         "format:fix": "prettier --log-level warn --write ."
     },

@@ -19,7 +19,17 @@ Browser.runtime.onInstalled.addListener((object) => {
     }
 });
 
-Browser.runtime.onMessage.addListener(async (message, sender) => {
+interface LoginMessage {
+    type: "login";
+    auto_login: {
+        verifed: boolean;
+        userInfo: string;
+    };
+}
+
+type Message = LoginMessage;
+
+Browser.runtime.onMessage.addListener(async (message: Message, sender) => {
     if (!sender.tab || !sender.tab.active) {
         console.log("tab not active skipping message...");
         return;
@@ -40,6 +50,6 @@ Browser.runtime.onMessage.addListener(async (message, sender) => {
     }
 });
 
-Browser.permissions.onRemoved.addListener((permissions) => {
+Browser.permissions.onRemoved.addListener(() => {
     //TODO:
 });

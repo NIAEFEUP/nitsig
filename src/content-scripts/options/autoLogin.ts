@@ -1,7 +1,7 @@
 import Browser from "webextension-polyfill";
 
 export default (value: boolean) => {
-    if (value) rememberLogin();
+    if (value) void rememberLogin();
 };
 
 interface AutoLogin {
@@ -16,7 +16,7 @@ let autoLogin: AutoLogin;
 const rememberLogin = async () => {
     autoLogin = (await Browser.storage.local.get("autoLoginCache"))[
         "autoLoginCache"
-    ];
+    ] as AutoLogin;
 
     if (autoLogin === undefined) {
         await Browser.storage.local.set({ autoLogin: emptyLogin });
@@ -67,25 +67,30 @@ function loginButtonHandler(event: SubmitEvent) {
         }),
     );
 
-    tryLogin().then(async (res) => {
-        if (!res.ok) {
-            console.log("Something went wrong while logging in...");
-            return;
-        }
-        const loggedIn = await Browser.runtime.sendMessage({
-            type: "login",
-            autoLogin,
-        });
-        if (loggedIn === false) {
-            //TODO: (issue #59) show error to user
-            console.log("Wrong details... try again");
-            return;
-        }
-    });
+    tryLogin()
+        .then(async (res) => {
+            if (!res.ok) {
+                console.log("Something went wrong while logging in...");
+                return;
+            }
+            const loggedIn = (await Browser.runtime.sendMessage({
+                type: "login",
+                autoLogin,
+            })) as boolean | undefined;
+            if (loggedIn === false) {
+                //TODO: (issue #59) show error to user
+                console.log("Wrong details... try again");
+                return;
+            }
+        })
+        .catch(console.error);
 }
 
 async function tryLogin() {
-    const userInfo = JSON.parse(atob(autoLogin.userInfo));
+    const userInfo = JSON.parse(atob(autoLogin.userInfo)) as {
+        user: string;
+        pass: string;
+    };
     const formBody = new URLSearchParams();
     formBody.append("p_app", "162");
     formBody.append("p_amo", "55");

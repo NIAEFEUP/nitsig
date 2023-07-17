@@ -12,7 +12,7 @@ export const toggleStyleOption = (url: string): Option<"boolean"> => {
             link.href = extUrl;
             document.head.appendChild(link);
         } else {
-            removeElement(`link[href="${extUrl}"`);
+            removeElement(`link[href="${extUrl}"]`);
         }
     };
 };

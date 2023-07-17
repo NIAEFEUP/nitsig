@@ -27,7 +27,12 @@ const main = async () => {
     });
 
     Browser.storage.onChanged.addListener((changes) =>
-        loadOptions(map(changes, (change) => change.newValue) as OptionValues),
+        loadOptions(
+            map(
+                changes,
+                (change) => change.newValue as unknown,
+            ) as OptionValues,
+        ),
     );
 
     loadOptions(await getOptions());

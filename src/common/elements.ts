@@ -11,9 +11,7 @@ export const proxyEvents = (el1: Element, el2: Element) => {
         el2.addEventListener(event, (e) => {
             e.preventDefault();
             e.stopPropagation();
-            el1.dispatchEvent(
-                new (Object.getPrototypeOf(e).constructor)(e.type, e),
-            );
+            el1.dispatchEvent(new Event(e.type, e));
         });
 };
 

@@ -1,11 +1,11 @@
 import React from "react";
-import SwitchControl from "../controls/SwitchControl";
+// import SwitchControl from "../controls/SwitchControl";
 
 const LayoutContent = () => (
     <form className="dark:bg-bgTwoDark bg-bgTwo flex flex-col items-center justify-between rounded-2xl px-4">
         <div className="w-full py-4">
             <div className="flex flex-col gap-y-4">
-                <SwitchControl
+                {/* <SwitchControl
                     label="Ativar barra de navegação"
                     storageKey="key1"
                 />
@@ -16,7 +16,7 @@ const LayoutContent = () => (
                 <SwitchControl
                     label="Relembrar utilizador"
                     storageKey="autoLogin"
-                />
+                /> */}
             </div>
         </div>
     </form>

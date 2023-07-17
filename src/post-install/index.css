@@ -12,6 +12,7 @@ body {
 
     @media (aspect-ratio < 16/9) {
         background-size: auto 100%;
+        animation-name: shrink-vertical;
     }
 }
 
@@ -24,13 +25,11 @@ body {
     }
 }
 
-@media (aspect-ratio < 16/9) {
-    @keyframes shrink {
-        0% {
-            background-size: auto 100%;
-        }
-        100% {
-            background-size: auto 110%;
-        }
+@keyframes shrink-vertical {
+    0% {
+        background-size: auto 100%;
+    }
+    100% {
+        background-size: auto 110%;
     }
 }
