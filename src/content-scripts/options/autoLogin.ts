@@ -1,3 +1,5 @@
+import Browser from "webextension-polyfill";
+
 export default (value: boolean) => {
     if (value) rememberLogin();
 };
@@ -12,12 +14,12 @@ const emptyLogin = { verified: false, userInfo: "" } as const;
 let autoLogin: AutoLogin;
 
 const rememberLogin = async () => {
-    autoLogin = (await chrome.storage.local.get("autoLoginCache"))[
+    autoLogin = (await Browser.storage.local.get("autoLoginCache"))[
         "autoLoginCache"
     ];
 
     if (autoLogin === undefined) {
-        await chrome.storage.local.set({ autoLogin: emptyLogin });
+        await Browser.storage.local.set({ autoLogin: emptyLogin });
         autoLogin = emptyLogin;
     }
 
@@ -38,19 +40,21 @@ const rememberLogin = async () => {
         const htmlRes = document.createElement("html");
         htmlRes.innerHTML = await res.text();
         if (htmlRes.querySelector("p.aviso-invalidado") != null) {
-            await chrome.storage.local.set({ autoLoginCache: emptyLogin });
+            await Browser.storage.local.set({ autoLoginCache: emptyLogin });
         }
-        await chrome.runtime.sendMessage({
+        await Browser.runtime.sendMessage({
             type: "login",
             autoLogin,
         });
     }
     if (document.querySelector(".autenticado") != null) {
-        document
-            .querySelector(".terminar-sessao")
-            ?.addEventListener("click", () =>
-                chrome.storage.local.set({ autoLoginCache: emptyLogin }),
-            );
+        document.querySelector(".terminar-sessao")?.addEventListener(
+            "click",
+            () =>
+                void Browser.storage.local.set({
+                    autoLoginCache: emptyLogin,
+                }),
+        );
     }
 };
 
@@ -68,7 +72,7 @@ function loginButtonHandler(event: SubmitEvent) {
             console.log("Something went wrong while logging in...");
             return;
         }
-        const loggedIn = await chrome.runtime.sendMessage({
+        const loggedIn = await Browser.runtime.sendMessage({
             type: "login",
             autoLogin,
         });

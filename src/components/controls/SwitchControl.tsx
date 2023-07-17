@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Browser from "webextension-polyfill";
 // import * as SwitchPrimitive from "@radix-ui/react-switch";
 // import { styled } from "@stitches/react";
-
-import { getStorage, setStorage } from "~/common/storage";
 
 interface Props {
     label: string;
@@ -16,7 +15,9 @@ function SwitchControl({ label, storageKey, defaultState = false }: Props) {
     useEffect(() => {
         const getDefaultState = async () => {
             try {
-                const userDefault = await getStorage(storageKey);
+                const userDefault = (
+                    await Browser.storage.local.get(storageKey)
+                )[storageKey];
                 userDefault &&
                     setLocalState(userDefault === "on" ? true : false);
             } catch (error) {
@@ -28,7 +29,7 @@ function SwitchControl({ label, storageKey, defaultState = false }: Props) {
     }, [storageKey]);
 
     return (
-        <div className="flex items-center justify-between w-full">
+        <div className="flex w-full items-center justify-between">
             <label htmlFor={storageKey} className="text-[15px] font-bold">
                 {label}
             </label>

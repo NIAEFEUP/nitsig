@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from "react";
 
 const Container = ({ children }: PropsWithChildren) => (
-    <div className="relative flex flex-col p-1 font-sans dark:text-white text-black font-normal max-w-full w-[350px]">
+    <div className="relative flex w-[350px] max-w-full flex-col p-1 font-sans font-normal text-black dark:text-white">
         {children}
     </div>
 );

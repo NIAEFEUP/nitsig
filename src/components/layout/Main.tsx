@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../sections/Layout";
 
 const Main = () => (
-    <main className="flex flex-col p-2 gap-y-4">
+    <main className="flex flex-col gap-y-4 p-2">
         <Layout />
     </main>
 );

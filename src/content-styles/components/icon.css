@@ -9,6 +9,7 @@
     width: 1em !important;
     height: 1em !important;
     text-decoration: none !important;
+    font-weight: normal !important;
 
     &::before {
         display: inline-block;

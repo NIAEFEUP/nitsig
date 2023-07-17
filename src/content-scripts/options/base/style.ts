@@ -1,8 +1,9 @@
 import { removeElement } from "~/common/elements";
 import type { Option } from "..";
+import Browser from "webextension-polyfill";
 
 export const toggleStyleOption = (url: string): Option<"boolean"> => {
-    const extUrl = chrome.runtime.getURL(url);
+    const extUrl = Browser.runtime.getURL(url);
 
     return (value) => {
         if (value) {

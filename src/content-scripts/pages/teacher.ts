@@ -5,6 +5,7 @@ import {
     moveChildrenToAncestor,
     removeTwoColumnTable,
 } from "~/common/layout";
+import Browser from "webextension-polyfill";
 
 const publicationWebsites = {
     "authenticus.pt": { icon: "authenticusID.png", text: "Authenticus ID" },
@@ -141,7 +142,7 @@ function makePublicationWebsiteButtons() {
             if (link.includes(website)) {
                 found = true;
                 const image = document.createElement("img");
-                image.src = chrome.runtime.getURL(
+                image.src = Browser.runtime.getURL(
                     "images/publicationWebsiteLogo/" +
                         publicationWebsites[website].icon,
                 );

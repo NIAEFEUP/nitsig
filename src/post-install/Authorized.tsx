@@ -1,17 +1,10 @@
 import React from "react";
 
-const Authorized = () => {
+export default function () {
     return (
-        <div className="authorized">
-            <div className="authorized__icon" />
-            <div className="authorized__text">
-                <h1>Extensão autorizada!</h1>
-                <p>
-                    A extensão está agora autorizada a aceder à página da secr
-                </p>
-            </div>
+        <div className="flex flex-row gap-2 rounded-md bg-red-900 p-3 text-xl shadow-md">
+            <i className="ri-checkbox-multiple-line"></i>
+            Extensão pronta a usar!
         </div>
     );
-};
-
-export default Authorized;
+}

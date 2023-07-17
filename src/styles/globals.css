@@ -14,7 +14,7 @@ body {
 }
 
 body {
-    @apply antialiased dark:bg-bgOneDark bg-bgOne;
+    @apply antialiased;
 }
 
 img,

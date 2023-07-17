@@ -2,7 +2,7 @@ import React from "react";
 import SwitchControl from "../controls/SwitchControl";
 
 const LayoutContent = () => (
-    <form className="flex flex-col items-center justify-between px-4 dark:bg-bgTwoDark bg-bgTwo rounded-2xl">
+    <form className="dark:bg-bgTwoDark bg-bgTwo flex flex-col items-center justify-between rounded-2xl px-4">
         <div className="w-full py-4">
             <div className="flex flex-col gap-y-4">
                 <SwitchControl

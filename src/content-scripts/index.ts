@@ -4,7 +4,8 @@ import pages from "./pages";
 import modules from "./modules";
 import { OptionValues, getOptions } from "~/common/options";
 import options from "./options";
-import { entries } from "~/common/objects";
+import { entries, map } from "~/common/objects";
+import Browser from "webextension-polyfill";
 
 const loadPage = () =>
     pages.forEach(
@@ -25,9 +26,11 @@ const main = async () => {
         attributes: true,
     });
 
-    loadOptions(await getOptions());
+    Browser.storage.onChanged.addListener((changes) =>
+        loadOptions(map(changes, (change) => change.newValue) as OptionValues),
+    );
 
-    console.log(await getOptions());
+    loadOptions(await getOptions());
 };
 
-main();
+void main();

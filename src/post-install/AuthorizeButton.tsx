@@ -1,14 +1,15 @@
 import React, { useCallback } from "react";
+import Browser from "webextension-polyfill";
+import { Button } from "flowbite-react";
 
-const AuthorizeButton = () => {
-    const onClick = useCallback(() => {
-        console.log("clicked");
-        return chrome.permissions.request({
-            origins: ["*://sigarra.up.pt/feup/*"],
-        });
-    }, []);
+export default function () {
+    const onClick = useCallback(
+        () =>
+            void Browser.permissions.request({
+                origins: ["*://sigarra.up.pt/feup/*"],
+            }),
+        [],
+    );
 
-    return <button onClick={onClick}>Autorizar</button>;
-};
-
-export default AuthorizeButton;
+    return <Button onClick={onClick}>Autorizar</Button>;
+}

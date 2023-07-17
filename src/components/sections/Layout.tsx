@@ -5,7 +5,7 @@ const Layout = () => (
     <section className="flex flex-col gap-y-2">
         <label
             htmlFor="user-control-interface"
-            className="text-sm font-bold dark:text-accentOneDark text-accentOne">
+            className="dark:text-accentOneDark text-accentOne text-sm font-bold">
             Layout
         </label>
         <div id="user-control-interface">

@@ -13,11 +13,13 @@ export const selectorModule =
     ): Module =>
     (mutation) => {
         (mutation.addedNodes ?? [mutation.target]).forEach((node) => {
-            (selector instanceof Array ? selector : [selector]).forEach((s) => {
-                if (!(node instanceof HTMLElement)) return;
+            (selector instanceof Array ? selector : [selector]).forEach(
+                (s: S extends string[] ? S[number] : S) => {
+                    if (!(node instanceof HTMLElement)) return;
 
-                if (node.matches(s)) module(node as T, s);
-                node.querySelectorAll<T>(s).forEach((e) => module(e, s));
-            });
+                    if (node.matches(s)) module(node as T, s);
+                    node.querySelectorAll<T>(s).forEach((e) => module(e, s));
+                },
+            );
         });
     };

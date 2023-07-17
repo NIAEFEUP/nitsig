@@ -1,39 +1,45 @@
-chrome.runtime.onInstalled.addListener((object) => {
-    if (object.reason === "install") {
-        chrome.tabs.query({ url: "*://sigarra.up.pt/feup/*" }, (tabs) => {
-            tabs.forEach(
-                (tab) => tab.id !== undefined && chrome.tabs.reload(tab.id),
-            );
-        });
+import Browser from "webextension-polyfill";
 
-        chrome.tabs.create({
-            url: chrome.runtime.getURL("src/post-install/index.html"),
+Browser.runtime.onInstalled.addListener((object) => {
+    if (object.reason === "install") {
+        Browser.tabs
+            .query({ url: "*://sigarra.up.pt/feup/*" })
+            .then((tabs) => {
+                tabs.forEach(
+                    (tab) =>
+                        tab.id !== undefined &&
+                        void Browser.tabs.reload(tab.id),
+                );
+            })
+            .catch(console.error);
+
+        void Browser.tabs.create({
+            url: Browser.runtime.getURL("src/post-install/index.html"),
         });
     }
 });
 
-chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+Browser.runtime.onMessage.addListener(async (message, sender) => {
     if (!sender.tab || !sender.tab.active) {
         console.log("tab not active skipping message...");
         return;
     }
 
     if (message.type == "login") {
-        const cookie = await chrome.cookies.get({
+        const cookie = await Browser.cookies.get({
             name: "SI_SESSION",
             url: sender.tab.url ?? "",
         });
-        console.log(cookie);
-        if (cookie == null || cookie.value === "0") {
-            sendResponse(false);
-            return;
-        }
+
+        if (cookie == null || cookie.value === "0") return false;
+
         message.auto_login.verifed = true;
-        await chrome.storage.local.set({ auto_login: message.auto_login });
-        if (sender.tab.id !== undefined) chrome.tabs.reload(sender.tab.id);
+        await Browser.storage.local.set({ auto_login: message.auto_login });
+        if (sender.tab.id !== undefined)
+            void Browser.tabs.reload(sender.tab.id);
     }
 });
 
-chrome.permissions.onRemoved.addListener((permissions) => {
+Browser.permissions.onRemoved.addListener((permissions) => {
     //TODO:
 });

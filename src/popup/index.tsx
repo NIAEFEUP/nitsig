@@ -1,4 +1,5 @@
 import React from "react";
+import renderRoot from "~/common/renderRoot";
 import Container from "~/components/layout/Container";
 import Footer from "~/components/layout/Footer";
 import Header from "~/components/layout/Header";
@@ -12,4 +13,4 @@ const IndexPage = () => (
     </Container>
 );
 
-export default IndexPage;
+renderRoot(IndexPage);

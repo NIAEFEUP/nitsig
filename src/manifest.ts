@@ -1,18 +1,9 @@
+import Browser from "webextension-polyfill";
 import pkg from "../package.json";
 
 const target = process.env.TARGET ?? "chrome";
 
-type Manifest =
-    | chrome.runtime.ManifestV3
-    | (Omit<chrome.runtime.ManifestV3, "background"> & {
-          background:
-              | chrome.runtime.ManifestV3["background"]
-              | {
-                    scripts: string[];
-                };
-      });
-
-export function getManifest(): Manifest {
+export function getManifest(): Browser.Manifest.WebExtensionManifest {
     return {
         author: pkg.author,
         description: pkg.description,
@@ -20,18 +11,11 @@ export function getManifest(): Manifest {
         version: pkg.version,
         manifest_version: 3,
         action: {
-            default_icon: {
-                16: "logo/logo-16.png",
-                32: "logo/logo-32.png",
-                48: "logo/logo-48.png",
-                64: "logo/logo-64.png",
-                128: "logo/logo-128.png",
-            },
             default_popup: "src/popup/index.html",
         },
-        content_security_policy: {
-            extension_pages: "script-src 'self'; object-src 'self';",
-        },
+        // content_security_policy: {
+        //     extension_pages: "script-src 'self' localhost; object-src 'self' localhost;",
+        // },
         content_scripts: [
             {
                 run_at: "document_start",
@@ -49,6 +33,13 @@ export function getManifest(): Manifest {
                       type: "module",
                   },
         host_permissions: ["*://sigarra.up.pt/feup/*"],
+        icons: {
+            16: "logo/logo-16.png",
+            32: "logo/logo-32.png",
+            48: "logo/logo-48.png",
+            64: "logo/logo-64.png",
+            128: "logo/logo-128.png",
+        },
         permissions: ["storage", "tabs", "cookies"],
         options_ui: {
             page: "src/options/index.html",

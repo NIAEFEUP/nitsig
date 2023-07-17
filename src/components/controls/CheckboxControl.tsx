@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
+import Browser from "webextension-polyfill";
 // import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 // import { CheckIcon } from "@radix-ui/react-icons";
 // import { styled } from "@stitches/react";
-
-import { getStorage, setStorage } from "~/common/storage";
 
 interface Props {
     label: string;
@@ -17,7 +16,9 @@ function CheckboxControl({ label, storageKey, defaultState = false }: Props) {
     useEffect(() => {
         const getDefaultState = async () => {
             try {
-                const userSetting = await getStorage(storageKey);
+                const userSetting = (
+                    await Browser.storage.local.get(storageKey)
+                )[storageKey];
                 userSetting &&
                     setLocalState(userSetting === "on" ? true : false);
             } catch (error) {
@@ -30,13 +31,13 @@ function CheckboxControl({ label, storageKey, defaultState = false }: Props) {
 
     return (
         <>
-            <div className="flex items-center justify-between w-full py-1">
+            <div className="flex w-full items-center justify-between py-1">
                 <label
                     htmlFor={storageKey}
                     className="text-base tracking-normal">
                     {label}
                 </label>
-                <div className="grid rounded-full cursor-pointer w-9 h-9 place-items-center hover:bg-accentFour">
+                <div className="hover:bg-accentFour grid h-9 w-9 cursor-pointer place-items-center rounded-full">
                     {/* <StyledCheckbox
                         onCheckedChange={async (checked) => {
                             setLocalState(checked);

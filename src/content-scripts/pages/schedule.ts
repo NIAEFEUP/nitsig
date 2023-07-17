@@ -46,7 +46,7 @@ export default () => {
     fixScheduleTable(scheduleElem);
     createLegend(scheduleElem);
 
-    if (overlapping) fixOverlappingClasses(scheduleElem, overlapping);
+    if (overlapping) void fixOverlappingClasses(scheduleElem, overlapping);
 };
 
 const fixScheduleTable = (table: HTMLTableElement) => {
@@ -340,7 +340,7 @@ const fixOverlappingClasses = async (
     }
 };
 
-const createLegend = async (table: HTMLTableElement) => {
+const createLegend = (table: HTMLTableElement) => {
     const newLegend = document.createElement("div");
     newLegend.id = "new-legend";
 
@@ -364,7 +364,7 @@ const createLegend = async (table: HTMLTableElement) => {
     table.appendChild(foot);
 };
 
-const fixForm = async () => {
+const fixForm = () => {
     const form = document.querySelector<HTMLFormElement>(
         "#conteudoinner > form",
     );
