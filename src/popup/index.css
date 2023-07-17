@@ -1,0 +1,5 @@
+@import "/src/styles/globals.css";
+
+body {
+    @apply h-96 w-96;
+}

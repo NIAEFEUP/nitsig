@@ -1,0 +1,156 @@
+/**
+ *  https://sigarra.up.pt/feup/gpag_ccorrente_geral.conta_corrente_view
+ */
+
+/* Status badges */
+.badge {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+    }
+
+    &.badge-success {
+        border-color: #cce6d5;
+        background: #effdf4;
+        color: #368e50;
+
+        &::before {
+            background: #0cb143;
+        }
+    }
+
+    &.badge-pending {
+        border-color: #f0eac6;
+        background: #fefde9;
+        color: #956e30;
+
+        &::before {
+            background: #f2bc30;
+        }
+    }
+
+    &.badge-cancelled {
+        border-color: #e3e5e6;
+        background: #f9fafc;
+        color: #4d535d;
+
+        &::before {
+            background: #8f8f9c;
+        }
+    }
+
+    &.badge-danger {
+        border-color: #e3c3b9;
+        background: #fef7f9;
+        color: #b25943;
+
+        &::before {
+            background: #fc6a44;
+        }
+    }
+}
+
+abbr[title] {
+    text-decoration: none;
+    border: none !important;
+}
+
+section.entidade {
+    display: none;
+
+    ~ .formulario {
+        display: none;
+    }
+}
+
+#GPAG_CCORRENTE_GERAL_CONTA_CORRENTE_VIEW {
+    border: none;
+    padding: 0;
+
+    ~ .alerta {
+        display: none;
+    }
+
+    > div.ui-tabs-panel {
+        padding: 1rem 0;
+    }
+
+    > ul.ui-tabs-nav {
+        background: none;
+        border: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        padding: 0;
+    }
+
+    .ui-tabs-anchor {
+        width: 100%;
+        text-align: center;
+    }
+
+    > ul.ui-tabs-nav {
+        &::before,
+        &::after {
+            content: "";
+            flex: 1 0 100%;
+        }
+
+        > li {
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            flex: 1;
+            margin: 0;
+            padding: 0;
+
+            > a {
+                outline-color: #8e2915 !important;
+                outline-width: 5px !important;
+            }
+        }
+    }
+
+    > .ui-tabs-nav > li > a > em {
+        font-style: normal;
+    }
+
+    li.ui-tabs-active {
+        background: #8c2d19;
+        color: white;
+
+        &:hover a:hover {
+            color: white !important;
+            cursor: pointer;
+        }
+
+        a {
+            &:active,
+            &:focus {
+                color: white !important;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+#tab_extracto_geral {
+    .positive {
+        color: #5fd17f;
+    }
+
+    .negative {
+        color: #fa8078;
+    }
+}

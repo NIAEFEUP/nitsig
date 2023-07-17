@@ -1,0 +1,28 @@
+#cookie-bar {
+    &.fixed {
+        padding: 0.8rem;
+        background: #111111d9;
+    }
+
+    .cb-enable {
+        background: #842918;
+        padding: 0.3rem 0.7rem;
+        margin-left: 20px;
+
+        &:hover {
+            background: #9d3c29;
+            color: white !important;
+        }
+    }
+
+    .cb-policy {
+        background: #2b2b2b;
+        padding: 0.3rem 0.7rem;
+        margin-left: 15px;
+
+        &:hover {
+            background: #353535;
+            color: white !important;
+        }
+    }
+}

@@ -1,0 +1,53 @@
+/** 
+ *  https://sigarra.up.pt/feup/it_geral.ver_insc
+ */
+
+ul[id^="list_"] {
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
+    margin: 0;
+
+    display: grid !important;
+    flex-wrap: wrap;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    margin: 0;
+
+    transition:
+        opacity 0.3s ease-in,
+        height 0.2s ease-out;
+
+    br {
+        display: none;
+    }
+
+    > li {
+        list-style-type: none;
+        width: fit-content;
+        background: whitesmoke;
+        padding: 0.8rem;
+        border-radius: 8px;
+        width: 100%;
+
+        ul {
+            padding: 0;
+            padding-top: 0.4rem;
+            display: flex;
+
+            li {
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+                list-style-type: none;
+                padding-right: 1em;
+
+                a {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
