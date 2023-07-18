@@ -7,12 +7,12 @@ const removeExtras = () => {
 }
 
 const titleClick = (table, title) => {
-    if (table.dataset.expand == "true") {
-        table.dataset.expand = "false";
+    if (title.dataset.expand == "true") {
         title.dataset.expand = "false";
+        table.style.gridTemplateRows = "0fr";
     } else {
-        table.dataset.expand = "true";
         title.dataset.expand = "true";
+        table.style.gridTemplateRows = "1fr";
     }
 }
 
@@ -112,7 +112,6 @@ const groupClasses = async () => {
         groupElement.appendChild(photosDialog);
         
         editTitle(titleWrapperElement, tableWrapperElement, photosDialog);
-        tableWrapperElement.dataset.expand = "true";
         titleWrapperElement.dataset.expand = "true";
 
         titleIndex++;

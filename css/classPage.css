@@ -4,15 +4,13 @@
 
 .tableWrapper {
     overflow: hidden;
-    transition: max-height 0.5s ease-in-out;
+    display: grid;
+    transition: grid-template-rows 0.5s ease-in-out;
+    grid-template-rows: 1fr;
 }
 
-.tableWrapper[data-expand="true"] {
-    max-height: 5000px; /* magic number for now hopefully :/ (I NEED CSS4 NOW) */
-}
-
-.tableWrapper[data-expand="false"] {
-    max-height: 0px;
+.tableWrapper > table {
+    overflow: hidden;
 }
 
 .classWrapper {
@@ -80,4 +78,16 @@ dialog[id^="photosDialog"]::backdrop {
 
 .titleWrapper[data-expand="false"] .rightChevron {
     transform: rotate(-180deg);
+}
+
+.tabela tr:nth-child(2) td, .tabela tr:nth-child(2) th {
+    border-block: rgb(119, 118, 118) 1px solid;
+}
+
+.tabela tr:not(tr:nth-child(1)) td, .tabela tr:not(tr:nth-child(1)) td {
+    border-bottom: rgb(119, 118, 118) 1px solid;
+}
+
+.tabela tr.k, .tabela td.k {
+    background-image: none;
 }
