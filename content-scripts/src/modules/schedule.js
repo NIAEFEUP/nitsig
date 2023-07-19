@@ -171,9 +171,7 @@ const getClassDuration = async (url) => {
     const a = html.querySelector("#conteudoinner > li > a");
 
     if (a) {
-        const r = await fetch(a.href);
-        const text = decoder.decode(await r.arrayBuffer());
-        html = parser.parseFromString(text, "text/html");
+        return await getClassDuration(a.href);
     }
 
     const ret = new Map();
