@@ -1,0 +1,94 @@
+[h3^="#class-title-"] {
+    background-color: blue;
+}
+
+.tableWrapper {
+    overflow: hidden;
+    display: grid;
+    transition: grid-template-rows 0.5s ease-in-out;
+    grid-template-rows: 1fr;
+}
+
+.tableWrapper > table {
+    display: grid;
+    overflow: hidden;
+}
+
+.classWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.titleWrapper {
+    margin: 0px;
+    padding: 20px;
+    background-color: #e8e8e8;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.classTitle {
+    margin: 0px;
+}
+
+.photosButton {
+    cursor: pointer;
+}
+
+.photosButton:hover {
+    color: #b38300;
+}
+
+dialog[id^="photosDialog"]::backdrop {
+    background: black;
+    opacity: 0.3;
+}
+
+.closeDialog {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    cursor: pointer;
+    font-size: x-large;
+}
+
+.dialogContentWrapper {
+    position: relative;
+}
+
+.titleContent {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.rightChevron {
+    font-size: x-large;
+    transition: transform 0.5s ease-in-out;
+}
+
+.titleWrapper[data-expand="true"] .rightChevron {
+    transform: rotate(0deg);
+}
+
+.titleWrapper[data-expand="false"] .rightChevron {
+    transform: rotate(-180deg);
+}
+
+.tabela tr:nth-child(2) td, .tabela tr:nth-child(2) th {
+    border-block: rgb(119, 118, 118) 1px solid;
+}
+
+.tabela tr:not(tr:nth-child(1)) td, .tabela tr:not(tr:nth-child(1)) td {
+    border-bottom: rgb(119, 118, 118) 1px solid;
+}
+
+.tabela tr.k, .tabela td.k {
+    background-image: none;
+}

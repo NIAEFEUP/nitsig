@@ -1,4 +1,5 @@
 import { lcmAll } from "./utilities/math";
+import { fetchSigarraPage } from "./utilities/pageUtils";
 
 const CLASS_TYPE_TO_ABBR = {
     Teórica: "TE",
@@ -165,15 +166,7 @@ const fixClasses = (table) => {
 };
 
 const getClassDuration = async (url) => {
-    const r = await fetch(url);
-
-    const decoder = new TextDecoder(
-        r.headers.get("Content-Type").replace("text/html; charset=", "")
-    );
-    const text = decoder.decode(await r.arrayBuffer());
-
-    const parser = new DOMParser();
-    let html = parser.parseFromString(text, "text/html");
+    const html = await fetchSigarraPage(url);
 
     const a = html.querySelector("#conteudoinner > li > a");
 
