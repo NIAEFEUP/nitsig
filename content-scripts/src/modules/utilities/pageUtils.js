@@ -46,8 +46,10 @@ export function moveChildrenToAncestor(selector){
 }
 
 
-export function removeTwoColumnTable(tableSelector, inverted=false){
+export function removeTwoColumnTable(tableSelector, inverted=false, parent=null){
     const table = document.querySelector(tableSelector);
+    parent === null ? parent = table.parentElement : parent = parent;
+    
     if(table === null || table.tagName !== "TABLE") 
         throw Error("Couldnt find table with " + tableSelector +  " selector");
     const tbody = table.children[0];
@@ -97,7 +99,7 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
         }
         
     }
-    table.parentElement.appendChild(div);
+    parent.appendChild(div);
     table.remove();
 }
 
