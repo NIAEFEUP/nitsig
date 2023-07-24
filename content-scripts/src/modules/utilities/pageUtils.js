@@ -57,25 +57,28 @@ export function removeTwoColumnTable(tableSelector, inverted=false, parent=null)
     const div = document.createElement("div");
     div.classList.add("se-key-pair-table")
     for(const tr of tbody.children){
+        if (tr.children[0].tagName === "TH") continue;
         if(tr.children.length !== 2){
             throw Error("Table with selector " + tableSelector + " isn't a two column table");
         }
-        if (tr.children[0].children.length === 0){
+        if (tr.children[0].children.length === 0 ||
+            tr.children[0].children[0].textContent === ""){
             const p = document.createElement("p");
             p.textContent = tr.children[0].textContent;
             if(!inverted) p.classList.add("se-highlighted-part")
             p.classList.add("se-pair-start");
             div.appendChild(p);
         } else {
-            const p = document.createElement("p");
             const element = tr.children[0].children[0];
+            const childText = tr.children[0].childNodes[0].textContent
+            if (childText !== "") {
+                element.textContent = `${childText} @ ${element.textContent}`
+            }
             if(!inverted) element.classList.add("se-highlighted-part");
-            p.classList.add("se-pair-start");
-            
             div.append(element);
         }
 
-        
+        console.log(tr.children[0].childNodes)
         if (tr.children[1].children.length === 0){
             const p = document.createElement("p");
             p.textContent = tr.children[1].textContent;
