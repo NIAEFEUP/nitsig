@@ -48,10 +48,11 @@ export function moveChildrenToAncestor(selector){
 
 export function removeTwoColumnTable(tableSelector, inverted=false, parent=null){
     const table = document.querySelector(tableSelector);
-    parent === null ? parent = table.parentElement : parent = parent;
     
     if(table === null || table.tagName !== "TABLE") 
-        throw Error("Couldnt find table with " + tableSelector +  " selector");
+    throw Error("Couldnt find table with " + tableSelector +  " selector");
+    parent === null ? parent = table.parentElement : parent = parent;
+    
     const tbody = table.children[0];
     const div = document.createElement("div");
     div.classList.add("se-key-pair-table")
@@ -66,14 +67,15 @@ export function removeTwoColumnTable(tableSelector, inverted=false, parent=null)
             p.classList.add("se-pair-start");
             div.appendChild(p);
         } else {
+            const p = document.createElement("p");
             const element = tr.children[0].children[0];
             if(!inverted) element.classList.add("se-highlighted-part");
             p.classList.add("se-pair-start");
-
+            
             div.append(element);
         }
 
-
+        
         if (tr.children[1].children.length === 0){
             const p = document.createElement("p");
             p.textContent = tr.children[1].textContent;
@@ -82,7 +84,7 @@ export function removeTwoColumnTable(tableSelector, inverted=false, parent=null)
             div.appendChild(p);
             
         } //sometimes table elements will not also include ::text but also a child element
-          //aka villate's cellphone when the user is logged on :)  
+        //aka villate's cellphone when the user is logged on :)  
         else {
             const innerDiv = document.createElement("div")
             if(tr.children[1].childNodes[0].nodeValue != ""){
