@@ -53,7 +53,8 @@ export const teacherPage = () => {
 
 function reformatTables(parentSelector){
     let parentElement = document.querySelector(parentSelector);
-    if (parentElement === null) return;
+    if (parentElement === null || 
+        parentElement.children.length === 0) return;
     const tableList = parentElement.querySelectorAll("table > tbody > tr > td > table");
     
     if (tableList.length !== 0) {
