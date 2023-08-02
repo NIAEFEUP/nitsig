@@ -773,45 +773,33 @@ div.info > span, div.alerta > span {
   background-image: none;
 }
 
-div.alerta {
-  display: grid;
-  grid-template-columns: 3rem auto;
-  padding: 2em 1em !important;
+div.alerta, div.info, div.informa{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem !important;
   background-image: none !important;
-  background-color: #fdecee !important;
   border: 0 !important;
   width: fit-content;
-  max-width: 600px;
-  margin: 1.5em auto !important;
+  margin: 1.5em 0 !important;
+  color: #000000 !important;
+  font-weight: normal !important;
 }
 
-div.info {
-  display: grid;
-  grid-template-columns: 3rem auto;
-  padding: 2em 1em !important;
-  background-image: none !important;
+div.alerta {
+  background-color: #fdecee !important;
+}
+
+div.info, div.informa{
   background-color: #e6fafd !important;
-  border: 0 !important;
-  width: fit-content;
-  max-width: 600px;
-  margin: 1.5em auto !important;
 }
 
 div.alerta > span[class='se-icon ri-alert-fill'] {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
   color: #ef4d61;
 }
 
 div.info > span[class='se-icon ri-information-fill'] {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
   color: #02cfe9;
-}
-
-div.alerta > span:last-of-type, div.info > span:last-of-type {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
 }
 
 /* ----------------- SCHEDULE ----------------- */
