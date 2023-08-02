@@ -11,6 +11,7 @@ import { changeProfileLink } from "./modules/links";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
+import { classPage } from "./pages/class_page";
 import { improveSchedule } from "./modules/schedule";
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -37,7 +38,8 @@ const init = async () => {
   rememberLogin(data);
   changeProfileLink();
   teacherPage();
-  
+  classPage();
+
   injectOverrideFunctions();
 
   reverseDateDirection(); //TO FIX: the sort funcionality stop working because of this

@@ -120,3 +120,18 @@ export function groupChildrenBySelector(childSelectors, classList){
     });
 
 }
+
+export async function fetchSigarraPage(url) {
+    const r = await fetch(url);
+
+    const decoder = new TextDecoder(
+        r.headers.get("Content-Type").replace("text/html; charset=", "")
+    );
+
+    const text = decoder.decode(await r.arrayBuffer());
+
+    const parser = new DOMParser();
+    let html = parser.parseFromString(text, "text/html");
+
+    return html;
+}
