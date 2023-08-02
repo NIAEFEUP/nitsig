@@ -260,15 +260,24 @@ export const addSortTableActions = () => {
       let index = [...th.parentElement.children].indexOf(th);
       const aditionalColspan = parseInt(th.parentElement.children[0].getAttribute("colspan")) || 1;
       const rows = [...table.querySelectorAll("tr")];
-      
+
       // Removing header rows
-      while(rows[0].classList.length === 0 || (!rows[0].classList[0].startsWith("i") && !rows[0].classList[0].startsWith("p")))
+      while(rows.length > 0 && rows[0].classList.length === 0)
         rows.shift();
+      
+      // Only sort rows with classList[0] starting with "i" "p" or "d"
+      const rowsToSort = rows.filter(row => {
+        if(row.classList.length == 0) return false;
+        const firstClass = row.classList[0];
+        return firstClass.startsWith("i") || firstClass.startsWith("p") || firstClass.startsWith("d");
+      })  
+
+      console.log("rows", rowsToSort)
 
       index += aditionalColspan-1;
 
-      if(rows.length <= 1) return;
-      if(rows[0].querySelectorAll("td").length <= index) return;
+      if(rowsToSort.length <= 1) return;
+      if(rowsToSort[0].querySelectorAll("td").length <= index) return;
 
       const classes = ["asc", "desc"];
       const currentClasses = th.classList;
@@ -286,7 +295,7 @@ export const addSortTableActions = () => {
         classes.forEach(c => th.classList.toggle(c));
       }
 
-      rows.sort((a, b) => {
+      rowsToSort.sort((a, b) => {
         let aValue = a.querySelectorAll("td")[index].innerHTML;
         let bValue = b.querySelectorAll("td")[index].innerHTML;
         if(th.classList.contains("desc")) [aValue, bValue] = [bValue, aValue];
@@ -307,7 +316,7 @@ export const addSortTableActions = () => {
         });
       })
 
-      rows.forEach(row => {
+      rowsToSort.forEach(row => {
         table.appendChild(row);
       })
     })
