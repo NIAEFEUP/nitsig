@@ -677,7 +677,7 @@ button:active, button:focus, input:active, input:focus, select:active, select:fo
 }
 
 .yui-skin-sam .yui-calendar .calweekdaycell{
-  background-color: none !important;
+  /* background-color: none !important; */
   background: none;
   color: #575757 !important;
 }
@@ -762,6 +762,56 @@ div.yui-cal-nav{
 
 .yui-skin-sam .yui-calcontainer .yui-cal-nav-yc{
   width: 7.5rem !important;
+}
+
+/* Warning boxes */
+
+div.info > span, div.alerta > span {
+  color: #000000;
+  font-weight: 100;
+  font-size: 1rem;
+  background-image: none;
+}
+
+div.alerta {
+  display: grid;
+  grid-template-columns: 3rem auto;
+  padding: 2em 1em !important;
+  background-image: none !important;
+  background-color: #fdecee !important;
+  border: 0 !important;
+  width: fit-content;
+  max-width: 600px;
+  margin: 1.5em auto !important;
+}
+
+div.info {
+  display: grid;
+  grid-template-columns: 3rem auto;
+  padding: 2em 1em !important;
+  background-image: none !important;
+  background-color: #e6fafd !important;
+  border: 0 !important;
+  width: fit-content;
+  max-width: 600px;
+  margin: 1.5em auto !important;
+}
+
+div.alerta > span[class='se-icon ri-alert-fill'] {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  color: #ef4d61;
+}
+
+div.info > span[class='se-icon ri-information-fill'] {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  color: #02cfe9;
+}
+
+div.alerta > span:last-of-type, div.info > span:last-of-type {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 
 /* ----------------- SCHEDULE ----------------- */
