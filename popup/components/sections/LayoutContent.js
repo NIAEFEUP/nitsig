@@ -13,6 +13,9 @@ const LayoutContent = () => (
                 <SwitchControl
                     label="Relembrar utilizador"
                     storageKey="autoLogin"/>
+                <SwitchControl
+                    label="Mudar font"
+                    storageKey="font"/>
             </div>
         </div>
     </form>
