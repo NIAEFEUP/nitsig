@@ -135,3 +135,24 @@ export async function fetchSigarraPage(url) {
 
     return html;
 }
+
+export function makeTextNodesElements(selector){
+
+    const element = document.querySelector(selector);
+    let lastElement = null;
+    for(let value of [...element.childNodes]){
+        if(value.nodeType == Node.TEXT_NODE || value.nodeType == Node.ENTITY_NODE){
+            const span = document.createElement('span');
+            if(value.textContent == '\n') continue;
+            span.textContent = value.textContent;
+            if(lastElement == null){
+                element.prepend(span);
+            } else {
+                element.insertBefore(span, lastElement.nextSibling)
+            }
+            element.removeChild(value)
+        } else if (value.nodeType == Node.ELEMENT_NODE){
+            lastElement = value
+        }
+    }
+}

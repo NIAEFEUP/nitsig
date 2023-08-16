@@ -12,6 +12,7 @@ import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
 import { classPage } from "./pages/class_page";
 import { improveSchedule } from "./modules/schedule";
+import { courseUnitPage } from "./pages/course_unit_page";
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
 - Listen to Chrome Storage changes
@@ -37,6 +38,7 @@ const init = async () => {
   rememberLogin(data);
   changeProfileLink();
   teacherPage();
+  courseUnitPage();
   classPage();
 
   injectOverrideFunctions();
