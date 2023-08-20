@@ -677,7 +677,7 @@ button:active, button:focus, input:active, input:focus, select:active, select:fo
 }
 
 .yui-skin-sam .yui-calendar .calweekdaycell{
-  background-color: none !important;
+  /* background-color: none !important; */
   background: none;
   color: #575757 !important;
 }
@@ -762,6 +762,44 @@ div.yui-cal-nav{
 
 .yui-skin-sam .yui-calcontainer .yui-cal-nav-yc{
   width: 7.5rem !important;
+}
+
+/* Warning boxes */
+
+div.info > span, div.alerta > span {
+  color: #000000;
+  font-weight: 100;
+  font-size: 1rem;
+  background-image: none;
+}
+
+div.alerta, div.info, div.informa{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem !important;
+  background-image: none !important;
+  border: 0 !important;
+  width: fit-content;
+  margin: 1.5em 0 !important;
+  color: #000000 !important;
+  font-weight: normal !important;
+}
+
+div.alerta {
+  background-color: #fdecee !important;
+}
+
+div.info, div.informa{
+  background-color: #e6fafd !important;
+}
+
+div.alerta > span[class='se-icon ri-alert-fill'] {
+  color: #ef4d61;
+}
+
+div.info > span[class='se-icon ri-information-fill'] {
+  color: #02cfe9;
 }
 
 /* ----------------- SCHEDULE ----------------- */
