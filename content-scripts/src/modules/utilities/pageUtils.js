@@ -1,4 +1,9 @@
-export function groupSectionTitleAndContent(selector) {
+
+/**
+ * @param {string} selector 
+ * @param {string[]} classList 
+ */
+export function groupSectionTitleAndContent(selector, classList=[]) {
     //this detects if an element is an h3 and groups 
     //with the next element until the next h3 appears, if any
     const outerElement = document.querySelector(selector);
@@ -6,16 +11,19 @@ export function groupSectionTitleAndContent(selector) {
     const listOfRows = [...outerElement.children]
     for (const row of listOfRows) {
         if (row.nodeName === "H3" && elementList.length === 0) {
+            row.classList.add("se-group-title");
             elementList.push(row)
             continue
         }
         if (row.nodeName === "H3" && elementList.length !== 0) {
             const div = document.createElement("div")
+            div.classList.add(...classList)
             elementList.forEach((element) => {
                 element.remove()
                 div.appendChild(element)
             })
             outerElement.appendChild(div)
+            row.classList.add("se-group-title");
             elementList = [row]
             continue
         }
@@ -26,6 +34,7 @@ export function groupSectionTitleAndContent(selector) {
     }
     if (elementList.length !== 0) {
         const div = document.createElement("div")
+        div.classList.add(...classList)
         elementList.forEach((element) => {
             element.remove()
             div.appendChild(element)
@@ -99,6 +108,7 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
     }
     table.parentElement.appendChild(div);
     table.remove();
+    return div;
 }
 
 
