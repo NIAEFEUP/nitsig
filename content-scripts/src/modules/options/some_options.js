@@ -18,7 +18,27 @@ export const hideShortcuts = (shortcuts) => {
       break;
 
     case "off":
-      removeElement("se-hide-shortcuts");
+      removeElement("#se-hide-shortcuts");
       break;
   }
 };
+
+export const changeFont = (font) => {
+  console.log(font);
+  switch (font) {
+    case "on":
+      addStyles(
+        "se-change-font",
+        `
+          * {
+            font-family: Roboto, sans-serif;
+          }
+        `
+      );
+      break;
+
+    case "off":
+      removeElement("#se-change-font");
+      break;
+  }
+}

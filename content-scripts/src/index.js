@@ -29,6 +29,9 @@ chrome.storage.onChanged.addListener((changes) => {
 - Get Chrome Storage and inject respective styles
 --*/
 const init = async () => {
+
+  const path = window.location.pathname.split("/").slice(-1);
+
   // // Watch for resize events
   // addResizeListener();
 
@@ -38,8 +41,10 @@ const init = async () => {
   rememberLogin(data);
   changeProfileLink();
   teacherPage();
+
+  if(path == "it_listagem.lista_turma_disciplina")
+    classPage();
   courseUnitPage();
-  classPage();
 
   injectOverrideFunctions();
 
