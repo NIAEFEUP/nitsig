@@ -78,7 +78,6 @@ export function removeTwoColumnTable(tableSelector, inverted=false, parent=null)
             div.append(element);
         }
 
-        console.log(tr.children[0].childNodes)
         if (tr.children[1].children.length === 0){
             const p = document.createElement("p");
             p.textContent = tr.children[1].textContent;
@@ -89,17 +88,33 @@ export function removeTwoColumnTable(tableSelector, inverted=false, parent=null)
         } //sometimes table elements will not also include ::text but also a child element
         //aka villate's cellphone when the user is logged on :)  
         else {
-            const innerDiv = document.createElement("div")
-            if(tr.children[1].childNodes[0].nodeValue != ""){
-                const p = document.createElement("p");
-                p.style.display = "inline";
-                p.textContent = tr.children[1].childNodes[0].nodeValue;
-                innerDiv.append(p);
-            }
-            const element = tr.children[1].children[0];
+            const innerDiv = document.createElement("div");
             if(inverted) innerDiv.classList.add("se-highlighted-part");
             innerDiv.classList.add("se-content-part");
-            innerDiv.append(element);
+
+            const label = tr.children[0].textContent;
+            
+            if (tr.children[1].childNodes[0].nodeValue != ""){
+                const p = document.createElement("p");
+                p.style.display = "inline";
+                if (label === "Salas: "){
+                    // ensure all classrooms are present
+                    const classrooms = tr.children[1].querySelectorAll("a");
+                    classrooms.forEach((room) => {
+                        p.append(room);
+                        p.append(", ");
+                    })
+                    p.removeChild(p.lastChild);
+                    innerDiv.append(p);
+                } else {
+                    if (label.startsWith("Telemóvel") || label.startsWith("Mobile phone")){
+                        p.textContent = tr.children[1].childNodes[0].nodeValue;
+                        innerDiv.append(p);
+                    }
+                    const element = tr.children[1].children[0];
+                    innerDiv.append(element);
+                }
+            }
             div.append(innerDiv);
         }
         
