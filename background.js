@@ -1,5 +1,21 @@
 const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
+// Add default values for each option here
+const popupOptions = [
+  {
+    key1: "on"
+  },
+  {
+    shortcuts: "on"
+  },
+  {
+    autoLogin: "off"
+  },
+  {
+    font: "on"
+  },
+]
+
 chrome.runtime.onInstalled.addListener((object) => {
   if (object.reason === "install") {
     chrome.tabs.query({ url: "*://sigarra.up.pt/feup/*" }, (tabs) => {
@@ -16,6 +32,16 @@ chrome.runtime.onInstalled.addListener((object) => {
       chrome.tabs.create({
         url: chrome.runtime.getURL("html/installed.html")
       });
+    }
+
+    for (const opt of popupOptions) {
+      chrome.storage.local.set(opt);
+    }
+  }
+
+  if (object.reason === "update") {
+    for (const opt of popupOptions) {
+      chrome.storage.local.set(opt);
     }
   }
 });
