@@ -32,6 +32,7 @@
 }
 
 .se-profile-info{
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -73,4 +74,17 @@
 .se-course-card-clickable:not(.se-course-card-active){
     opacity: 0.5;
     transition: opacity 0.2s ease-out;
+}
+
+.se-profile-first-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.se-profile-edit-button {
+    text-decoration: none !important;
+    color: initial !important;
 }

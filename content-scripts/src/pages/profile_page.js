@@ -72,10 +72,28 @@ export const changeProfileRow = () => {
     const profileInfo = document.createElement('div');
     profileInfo.classList.add('se-profile-info');
 
+    const firstRow = document.createElement('div');
+    firstRow.classList.add('se-profile-first-row');
+
     const userNameUPRow = document.createElement('div');
     userNameUPRow.append(studentName, studentUP);
     userNameUPRow.classList.add('se-profile-username-row');
-    profileInfo.append(userNameUPRow);
+    firstRow.append(userNameUPRow);
+    
+    const editButton = document.querySelector('.menu-contexto-principal')
+    if(editButton != null){
+        const isInEditPage = location.href.toLowerCase().includes("fest_geral.info_pessoal_completa_view");
+        const href = isInEditPage ? "javascript:history.go(-1)" : `fest_geral.info_pessoal_completa_view?pv_num_unico=${getUP()}`;
+        const a = document.createElement('a');
+        a.classList.add('se-profile-edit-button');
+        a.href = href;
+
+        a.innerHTML = `<i class="${
+            isInEditPage ? "ri-arrow-go-back-line": "ri-edit-line" } ri-xl"></i>`;
+        firstRow.append(a);
+    }
+
+    profileInfo.append(firstRow);
 
     const emailList = document.createElement('div');
     profileInfo.append(emailList)
