@@ -1,6 +1,8 @@
+import Link from 'next/link'
+
 const Footer = () => {
   return (
-    <footer className="flex flex-col items-center w-full px-2 pt-4 pb-8">
+    <footer className="flex items-center justify-center w-full gap-2 px-2 pt-4 pb-8">
       <button
         onClick={() => window.close()}
         type="button"
@@ -8,6 +10,14 @@ const Footer = () => {
       >
         Feito
       </button>
+      <Link href="feedback">
+        <button
+          className="inline-flex items-center px-4 py-2 text-[15px] font-bold text-white border border-transparent rounded-full shadow-sm bg-accentThree hover:bg-accentFive focus:outline-none w-fit"
+          type="button"
+        >
+          Dar Feedback
+        </button>
+      </Link>
     </footer>
   )
 }
