@@ -1,7 +1,7 @@
 let manifest = {
-    name: "Sigarra extension",
-    short_name: "Sigarra extension",
-    description: "Sigarra in a simpler way.",
+    name: "Nitsig: a neater Sigarra",
+    short_name: "Nitsig",
+    description: "A neater Sigarra",
     version: "1.0.0",
     manifest_version: 3,
     icons: {
@@ -51,7 +51,7 @@ let manifest = {
         32: "images/logo/logo-32.png",
         48: "images/logo/logo-48.png",
         },
-        default_title: "Sigarra extension",
+        default_title: "Nitsig",
         default_popup: "index.html",
     },
     permissions: ["storage", "tabs", "cookies"],
@@ -69,7 +69,7 @@ export const MANIFEST_FIREFOX = {
     ...manifest,
     browser_specific_settings: {
         gecko: {
-            //id: "", //TODO: add this
+            id: "nitsig@ni.fe.up.pt",
         },
     },
     background: {

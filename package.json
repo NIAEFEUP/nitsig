@@ -1,5 +1,5 @@
 {
-  "name": "sigarra-extension",
+  "name": "nitsig",
   "type": "module",
   "scripts": {
     "build": "node ./bundle-script.js",
