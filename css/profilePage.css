@@ -1,0 +1,39 @@
+
+.se-profile-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2em;
+}
+
+.se-student-photo{
+    float: none !important;
+    padding: 0em !important;
+    white-space: normal !important;  
+    max-width: 150px;
+}
+
+.se-student-photo > img{
+    border-radius: 8px;
+}
+
+.se-student-photo > .estudante-foto-editar {
+    border-radius: 8px;
+    padding: 0.1em 0.15em;
+}
+
+.se-profile-username-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1em;
+}
+
+.se-profile-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+}

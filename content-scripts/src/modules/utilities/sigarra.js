@@ -3,7 +3,7 @@
  * 
  * @returns true if user is authenticated, false otherwise
  */
-export const isAuth = async () => {
+export const isAuth = () => {
   const authDiv = document.getElementsByClassName("autenticado");
   return authDiv.length > 0;
 };
@@ -13,7 +13,7 @@ export const isAuth = async () => {
  * 
  * @returns the "up" number unique to each user
  */
-export const getUP = async () => {
+export const getUP = () => {
   if (isAuth()) {
     const pfp = document.querySelector(".autenticado > .fotografia > img");
 
