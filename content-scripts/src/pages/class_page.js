@@ -124,7 +124,7 @@ const groupClasses = async () => {
 }
 
 export const classPage = () => {
-    if (!document.location.href.toLowerCase().includes("func_geral.formview"))
+    if (!document.location.href.toLowerCase().includes("it_listagem.lista_turma_disciplina"))
         return;
 
     removeExtras();
