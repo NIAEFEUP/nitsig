@@ -107,7 +107,12 @@ export const changeCourseCards = () => {
     const cards = Array.from(document.querySelectorAll('.estudante-lista-curso-activo'));
     if(cards.length == 0) return;
 
+    const hasCardSelected = cards
+        .map((card) => card.classList.contains('percurso'))
+        .reduce((prev, curr) => prev || curr);
+
     const modifiedCards = cards.map((card) => {
+        const active = card.classList.contains('percurso');
         card.classList = ["se-course-card"];
         const detailsElement = card.querySelector('.estudante-lista-curso-detalhes');
         if(detailsElement != null) {
@@ -116,8 +121,9 @@ export const changeCourseCards = () => {
 
             const a = document.createElement('a');
             a.classList = card.classList;
-            a.classList.add("se-course-card-clickable")
-            
+            a.classList.add("se-course-card-clickable");
+            if(active || hasCardSelected == false) a.classList.add('se-course-card-active')
+
             a.append(...card.children);
             a.href = url;
             return a;
