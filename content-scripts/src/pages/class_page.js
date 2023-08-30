@@ -124,6 +124,9 @@ const groupClasses = async () => {
 }
 
 export const classPage = () => {
+    if (!document.location.href.toLowerCase().includes("func_geral.formview"))
+        return;
+
     removeExtras();
     groupClasses();
 }
