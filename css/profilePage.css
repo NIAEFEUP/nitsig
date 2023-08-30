@@ -37,3 +37,33 @@
     align-items: flex-start;
     gap: 1em;
 }
+
+.se-course-card-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.se-course-card {
+    flex-basis: 45%;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+    padding: 1em;
+}
+
+.se-course-card-clickable{
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.se-course-card-clickable > .estudante-lista-curso-nome > a{
+    display: block;
+}
+
+.se-course-card-clickable:hover, .se-course-card-clickable:active, .se-course-card-clickable:focus{
+    color: inherit !important;
+    background-color: #dddada;
+}

@@ -1,3 +1,4 @@
+import { removeTwoColumnTable } from "../modules/utilities/pageUtils";
 import { getUP } from "../modules/utilities/sigarra";
 
 //this is are all pages AFAIK that contain an profile row
@@ -95,4 +96,42 @@ export const changeProfileRow = () => {
     //replacement should only be done at the end just in case something fails
     oldScheduleRow.parentElement.insertBefore(newScheduleRow, oldScheduleRow);
     oldScheduleRow.remove();
+};
+
+export const changeCourseCards = () => {
+    const couldHaveCards = profileRowPages
+        .map((value) => document.location.href.toLowerCase().includes(value))
+        .reduce((prev, curr) => prev || curr);
+    if(!couldHaveCards) return;
+
+    const cards = Array.from(document.querySelectorAll('.estudante-lista-curso-activo'));
+    if(cards.length == 0) return;
+
+    const modifiedCards = cards.map((card) => {
+        card.classList = ["se-course-card"];
+        const detailsElement = card.querySelector('.estudante-lista-curso-detalhes');
+        if(detailsElement != null) {
+            const url = detailsElement.querySelector('a').href;
+            detailsElement.remove();
+
+            const a = document.createElement('a');
+            a.classList = card.classList;
+            a.classList.add("se-course-card-clickable")
+            
+            a.append(...card.children);
+            a.href = url;
+            return a;
+        }
+        return card;
+    });
+
+    const oldCardsList = document.querySelector('.estudantes-caixa-lista-cursos');
+    const newCardsList = document.createElement('div');
+    newCardsList.classList.add("se-course-card-list");
+
+    newCardsList.append(...modifiedCards);
+
+
+    oldCardsList.parentElement.insertBefore(newCardsList, oldCardsList);
+    oldCardsList.remove();
 };
