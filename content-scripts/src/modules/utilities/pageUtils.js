@@ -51,7 +51,7 @@ export function removeTwoColumnTable(tableSelector, inverted=false, parent=null)
     
     if(table === null || table.tagName !== "TABLE") 
     throw Error("Couldnt find table with " + tableSelector +  " selector");
-    parent === null ? parent = table.parentElement : parent = parent;
+    parent ??= table.parentElement;
     
     const tbody = table.children[0];
     const div = document.createElement("div");
