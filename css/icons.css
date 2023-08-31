@@ -41,3 +41,20 @@
 #infopessoalh.expandido .expandir {
     display: none
 }
+
+th:after {
+    content: "";
+    font-family: "remixicon";
+    vertical-align: middle;
+    padding-left: 0.3rem;
+}
+
+th.asc:after{
+    content: "\f160";
+    font-weight: bold;
+}
+
+th.desc:after{
+    content: "\f15f";
+    font-weight: bold;
+}
