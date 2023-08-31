@@ -1,20 +1,12 @@
 const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
 // Add default values for each option here
-const popupOptions = [
-  {
-    key1: "on"
-  },
-  {
-    shortcuts: "on"
-  },
-  {
-    autoLogin: "off"
-  },
-  {
-    font: "on"
-  },
-]
+const popupOptions = {
+  key1: "on",
+  shortcuts: "on",
+  autoLogin: "off",
+  font: "on",
+};
 
 chrome.runtime.onInstalled.addListener((object) => {
   if (object.reason === "install") {
@@ -34,14 +26,13 @@ chrome.runtime.onInstalled.addListener((object) => {
       });
     }
 
-    for (const opt of popupOptions) {
-      chrome.storage.local.set(opt);
-    }
+    chrome.storage.local.set(popupOptions);
   }
 
   if (object.reason === "update") {
     for (const opt of popupOptions) {
-      chrome.storage.local.set(opt);
+      if (chrome.storage.local.get(opt) != null)
+        chrome.storage.local.set({[opt]: popupOptions[opt]});
     }
   }
 });
