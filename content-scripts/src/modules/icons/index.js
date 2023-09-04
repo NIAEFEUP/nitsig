@@ -44,7 +44,7 @@ const replaceImages = () => {
         size = Math.max(Math.round(Math.max(i.width, i.height) / 24) * 24, 24);
 
         copyAttrs(i, span);
-        span.classList.add(`ri-${icon}-line`);
+        span.classList.add(`ri-${icon}-line`, `ri-${icon}`);
         span.style.fontSize = `${size}px`;
         span.classList.add("se-icon");
         span.classList.remove("se-hidden-icon");
