@@ -15,3 +15,8 @@
 .se-card-expand-button:hover{
     background: inherit !important;
 }
+
+.se-expandable-card-wrapper{
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+}
