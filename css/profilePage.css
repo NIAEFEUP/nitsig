@@ -46,14 +46,22 @@
     align-items: flex-start;
     gap: 1em;
     margin-top: 1em;
+    container: card-list / inline-size;
 }
 
 .se-course-card {
-    flex-basis: 45%;
+    flex-basis: 25em;
     background-color: #F4F4F4;
     border-radius: 8px;
     padding: 1em;
 }
+
+@container card-list (width < 25em){
+    .se-course-card {
+        flex-basis: 100%
+    }
+}
+
 
 .se-course-card-clickable{
     text-decoration: none !important;
