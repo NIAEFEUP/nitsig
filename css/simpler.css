@@ -55,19 +55,20 @@ body {
     padding: 0 !important;
     background: unset !important;
     display: grid;
-    grid-template: "header header header" auto
-                   "left main right" 1fr / auto 1fr auto;
+    grid-template:
+        "header header header" auto
+        "left main right" 1fr / auto 1fr auto;
 }
 
 .se-button {
     display: flex;
     flex-direction: row;
-    gap: .5em;
+    gap: 0.5em;
     align-items: center;
     justify-content: center;
     background-color: white !important;
     color: black !important;
-    padding: .5em 1em !important;
+    padding: 0.5em 1em !important;
     border-radius: 8px !important;
     border: none;
     text-decoration: none !important;
@@ -91,26 +92,26 @@ body {
 
 .se-icon-button {
     border-radius: 50% !important;
-    padding: .5em !important;
+    padding: 0.5em !important;
 }
 
 .se-primary-button {
-    background-color: rgb(140,45,25) !important;
+    background-color: rgb(140, 45, 25) !important;
     color: white !important;
 }
 
 .se-primary-button:is(:hover, :focus):not(:disabled) {
-    background-color: rgb(165,45,25) !important;
+    background-color: rgb(165, 45, 25) !important;
     color: white !important;
 }
 
 .se-primary-button:active:not(:disabled) {
-    background-color: rgb(190,45,25) !important;
+    background-color: rgb(190, 45, 25) !important;
     color: white !important;
 }
 
 #se-auth-federate {
-    background-color: #4A9CD4 !important;
+    background-color: #4a9cd4 !important;
     color: white !important;
 }
 
@@ -126,29 +127,30 @@ body {
 
 .se-badge {
     position: relative;
-} 
+}
 
 .se-badge::after {
     content: "";
     position: absolute;
     top: 0;
     right: 0;
-    background-color: #D00;
+    background-color: #d00;
     border-radius: 50%;
-    width: .75em;
-    height: .75em;
+    width: 0.75em;
+    height: 0.75em;
 }
 
 #se-header {
     grid-area: header;
     margin: 0;
-    background-color: rgb(140,45,25); /* TODO: variables */
+    background-color: rgb(140, 45, 25); /* TODO: variables */
     display: flex;
     flex-direction: row;
     padding: 1em;
     height: 8em;
     gap: 1em;
     align-items: center;
+    justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -160,7 +162,6 @@ body {
     justify-content: center;
     height: 100%;
     width: fit-content;
-    margin-right: auto;
     background-color: rgb(0 0 0 / 0.2);
     padding: 1em;
     border-radius: 8px;
@@ -171,6 +172,21 @@ body {
     width: auto;
 }
 
+#se-header-links {
+    display: flex;
+    flex-direction: row;
+    gap: max(1em, 5vw);
+    align-items: center;
+    justify-content: space-around;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+#se-header-links a {
+    text-decoration: none !important;
+    color: white !important;
+}
+
 #se-auth {
     position: relative;
     display: flex;
@@ -179,17 +195,16 @@ body {
     align-items: center;
 }
 
-#se-auth-form, #se-auth-profile-menu {
+#se-auth-form,
+#se-auth-profile-menu {
     display: none;
     flex-direction: column;
     align-items: stretch;
-    gap: 1em;
-    margin-left: auto;
     position: absolute;
     background-color: white;
     border-radius: 8px;
-    padding: 1em;
     box-shadow: 0px 0px 23px -17px rgb(0 0 0 / 30%);
+    overflow: hidden;
 }
 
 #se-auth-close-button {
@@ -213,12 +228,63 @@ body {
     right: 0;
     text-align: center;
     width: max-content;
-} 
+    gap: 1em;
+    padding: 1em;
+}
 
 #se-auth-profile-menu {
     top: 5em;
     right: 0;
     width: 16em;
+}
+
+#se-auth-header {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 1em;
+    position: relative;
+}
+
+#se-auth-header:hover {
+    background-color: #f0f0f0;
+}
+
+#se-auth-header a {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+#se-auth-header a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+#se-auth-logout {
+    padding: 1em;
+}
+
+#se-auth-profile-links {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #d1d1d1;
+    padding-block: 0.5em;
+}
+
+#se-auth-profile-links a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 1em;
+    text-align: start;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+#se-auth-profile-links a:hover {
+    background-color: #f0f0f0;
 }
 
 .se-separator {
@@ -230,7 +296,8 @@ body {
     margin-inline: -1em;
 }
 
-.se-separator::before, .se-separator::after {
+.se-separator::before,
+.se-separator::after {
     content: "";
     height: 1px;
     background-color: #d1d1d1;
@@ -242,6 +309,12 @@ body {
     margin-bottom: -1em;
     border-top: 1px solid #d1d1d1;
     padding-block: 1em;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+#se-auth-reset:hover {
+    background-color: #f0f0f0;
 }
 
 #se-auth-profile-button {
@@ -280,68 +353,9 @@ body {
     overflow: scroll;
 }
 
-:is(#colunaprincipal, #colunaextra), :is(#colunaprincipal, #colunaextra) * {
+:is(#colunaprincipal, #colunaextra),
+:is(#colunaprincipal, #colunaextra) * {
     background: unset !important;
-}
-
-div.logotipo-alternativo {
-    margin: 0;
-    margin-right: auto;
-    display: inline-block;
-    height: 44px;
-}
-
-div.logotipo-alternativo *, img#logotipo {
-    display: inline-block;
-    height: 100%;
-    width: auto;
-}
-
-a#toggle-coluna-principal,
-a#toggle-coluna-secundaria {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    padding: .5em;
-    margin: 0;
-    height: unset;
-}
-
-div.autenticacao {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1em;
-    padding-left: 1em;
-}
-
-div.autenticacao .terminar-sessao {
-    margin: 0;
-    padding: 0;
-}
-
-div.autenticacao .terminar-sessao::before {
-    content: "\eed8";
-    font: inherit;
-    margin: 0;
-    padding: 0;
-}
-
-div.autenticacao a.nome {
-    margin: 0;
-    padding: 0;
-    font-size: 1.2em;
-}
-
-div.autenticacao a.fotografia {
-    height: 100%;
-    width: fit-content;
-}
-
-div.autenticacao a.fotografia img {
-    height: 44px;
-    width: auto;
 }
 
 /* ----------------- HOMEPAGE ----------------- */
@@ -350,8 +364,8 @@ div.autenticacao a.fotografia img {
   display: none;
 }
 
-#colunaextra img {
-  display: none;
+#colunaextra img.destaque {
+    display: none;
 }
 
 img.sama {

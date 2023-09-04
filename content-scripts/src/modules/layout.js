@@ -16,7 +16,7 @@ const authentication = (auth) =>
                     alt="Foto de perfil">
             </button>
             <div id="se-auth-profile-menu">
-                <div>
+                <div id="se-auth-header">
                     <a
                         href="fest_geral.cursos_list?pv_num_unico=${
                             auth.number
@@ -24,9 +24,16 @@ const authentication = (auth) =>
                     >${auth.name}</a>
                     <span>${auth.number}</span>
                 </div>
-                <a href="vld_validacao.sair?p_address=WEB_PAGE.INICIAL">
-                    <span class="se-icon ri-logout-box-line"></span> Terminar Sessão
-                </a>
+                <nav id="se-auth-profile-links">
+                    <a href="gpag_ccorrente_geral.conta_corrente_view?pct_cod=${
+                        auth.number
+                    }">
+                        <span class="se-icon ri-money-euro-circle-line"></span> Conta corrente
+                    </a>
+                    <a href="vld_validacao.sair?p_address=WEB_PAGE.INICIAL">
+                        <span class="se-icon ri-logout-box-line"></span> Terminar Sessão
+                    </a>
+                </nav>
             </div>
         `
         : /*html*/ `
@@ -77,10 +84,15 @@ const authentication = (auth) =>
 const createNewHeader = (auth) =>
     elementFromHtml(/*html*/ `
         <header id="se-header">
-            <!--<button class="se-button se-icon" id="se-left-button"></button>-->
             <a id="se-logo" href="/feup"><img src="${chrome.runtime.getURL(
                 "images/FEUP.svg"
             )}"></a>
+            <nav id="se-header-links">
+                <a href="web_base.gera_pagina?p_pagina=ESTUDANTES">Estudantes</a>
+                <a href="uni_geral.nivel_list?pv_nivel_id=4">Serviços</a>
+                <a href="web_base.gera_pagina?p_pagina=1182">Faculdade</a>
+                <a href="web_base.gera_pagina?p_pagina=1831">Pesquisa</a>
+            </nav>
             <div id="se-auth">${authentication(auth)}</div>
         </header>
     `);
@@ -117,6 +129,16 @@ const replaceHeader = () => {
     oldHeader.replaceWith(newHeader);
 };
 
+const removeLeftColumn = () => {
+    const leftColumn = document.querySelector("#colunaprincipal");
+    const rightColumn = document.querySelector("#colunaextra");
+
+    const map = leftColumn.querySelector("#caixa-campus");
+    rightColumn.append(map);
+
+    leftColumn.remove();
+};
+
 export const changeLayout = () => {
     // Move all scripts and styles to head
     const scripts = document.querySelectorAll("script, link, style");
@@ -136,4 +158,5 @@ export const changeLayout = () => {
         .forEach((x) => x.remove());
 
     replaceHeader();
+    removeLeftColumn();
 };
