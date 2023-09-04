@@ -39,29 +39,44 @@ export const teacherPage = () => {
     groupChildrenBySelector([".se-contact-info", ".se-roles", ".se-publication-website-list"],
         ["se-extra-information-row"]);
 
-    removeTwoColumnTable(".se-contact-info > table", true);
+
+    const sectionClasses = [
+        ".se-contact-info", 
+        ".se-roles", 
+        ".se-positions", 
+        ".informacao-pessoal-outras"
+    ]
 
     //i hate sigarra, for some reason it nests one table inside each other
-    const rolesTable = document.querySelector(".se-roles > table > tbody > tr > td > table");
-    if(rolesTable !== null){
-        document.querySelector(".se-roles > table").remove();
-        document.querySelector(".se-roles").appendChild(rolesTable);
-        removeTwoColumnTable(".se-roles > table", true);
-    }
-
-    const investigationTable = document.querySelector(".informacao-pessoal-outras > table > tbody > tr > td > table");
-    if(investigationTable !== null){
-        document.querySelector(".informacao-pessoal-outras > table").remove();
-        document.querySelector(".informacao-pessoal-outras").appendChild(investigationTable);
-        removeTwoColumnTable(".informacao-pessoal-outras > table", true);
-
-    }
-
-
-
-
+    sectionClasses.forEach(reformatTables);
 };
 
+function reformatTables(parentSelector){
+    let parentElement = document.querySelector(parentSelector);
+    if (parentElement === null || 
+        parentElement.children.length === 0) return;
+    const tableList = parentElement.querySelectorAll("table > tbody > tr > td > table");
+    
+    if (tableList.length !== 0) {
+        parentElement.querySelector('table').remove();
+        if (tableList.length > 1) {
+            const container = document.createElement("div");
+            container.classList.add("se-container");
+            parentElement.appendChild(container);
+            parentElement = container;
+        };
+        for (table of tableList) {
+            document.querySelector(parentSelector).appendChild(table);
+            removeTwoColumnTable(`${parentSelector} > table`, true, parentElement);
+        }
+    }
+    else {
+        const tableSelector = `${parentSelector} > table`;
+        table = document.querySelector(tableSelector);
+        parentElement.appendChild(table);
+        removeTwoColumnTable(tableSelector, true, parentElement);
+    }
+}
 
 function tagGroupedElements(){
     let contacts = document.querySelector(".informacao-pessoal-dados-dados > div:not(.se-website-button)");

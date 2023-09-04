@@ -24,7 +24,6 @@ export const hideShortcuts = (shortcuts) => {
 };
 
 export const changeFont = (font) => {
-  console.log(font);
   switch (font) {
     case "on":
       addStyles(
