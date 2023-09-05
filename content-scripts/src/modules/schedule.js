@@ -32,6 +32,8 @@ export const improveSchedule = () => {
     // Not on the schedule page, abort
     if (!scheduleElem) return;
 
+    scheduleElem.classList.add("se-loading");
+
     const layout = document.querySelector("#conteudoinner");
     /** @type {HTMLTableElement} */
     const overlapping = document.querySelector("table.dados");
@@ -48,6 +50,7 @@ export const improveSchedule = () => {
     fixScheduleTable(scheduleElem);
     createLegend(scheduleElem);
     fixOverlappingClasses(scheduleElem, overlapping);
+    scheduleElem.classList.remove("se-loading");
 };
 
 /**
@@ -194,6 +197,8 @@ const getClassDuration = async (url) => {
  * @param {HTMLTableElement} overlapping
  */
 const fixOverlappingClasses = async (table, overlapping) => {
+    if (!overlapping) return;
+
     // I hate sigarra so much
     /** @type {Map<any, number>} */
     const durationCache = new Map();

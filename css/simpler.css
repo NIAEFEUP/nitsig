@@ -815,6 +815,7 @@ div.info > span[class='se-icon ri-information-fill'] {
     height: fit-content;
     border-collapse: collapse !important;
     border: solid 1px #b5b5b5 !important;
+    position: relative;
 }
 
 .horario tr {
@@ -957,6 +958,19 @@ div.info > span[class='se-icon ri-information-fill'] {
 
 .horario .today {
     background-color: rgba(100, 100, 255, 10%);
+}
+
+.horario.se-loading::after {
+    content: "A carregar...";
+    position: absolute;
+    inset: 0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    z-index: 2;
+    border: 1px solid #b5b5b5;
 }
 
 .legend-item {
