@@ -850,7 +850,7 @@ div.info > span[class='se-icon ri-information-fill'] {
     width: 6ch;
 }
 
-.horario [data-se-hour-rule]::before {
+.horario tr:not(:first-of-type) [data-se-hour-rule$="00"]::before {
     content: attr(data-se-hour-rule);
     position: absolute;
     left: 0;
@@ -859,14 +859,21 @@ div.info > span[class='se-icon ri-information-fill'] {
     transform: translateY(-50%);
 }
 
-.horario [data-se-hour-rule]::after {
+.horario tr:not(:first-of-type) [data-se-hour-rule]::after {
     content: "";
     position: absolute;
-    background-color: #b5b5b5;
     height: 1px;
     left: 6ch;
     right: 0;
     top: 0;
+}
+
+.horario tr:not(:first-of-type) [data-se-hour-rule$="00"]::after {
+    background: #b5b5b5;
+}
+
+.horario tr:not(:first-of-type) [data-se-hour-rule$="30"]::after {
+    background: #ebebeb;
 }
 
 .horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O)>* {
@@ -945,7 +952,7 @@ div.info > span[class='se-icon ri-information-fill'] {
 
 .horario .almoco,
 #new-legend #almoco::before {
-    background-color: #FFBCB5 !important;
+    box-shadow: inset 0 0 0 10000px #FFBCB588;
 }
 
 .horario .today {
