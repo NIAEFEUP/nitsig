@@ -1,4 +1,9 @@
-export function groupSectionTitleAndContent(selector) {
+
+/**
+ * @param {string} selector 
+ * @param {string[]} classList 
+ */
+export function groupSectionTitleAndContent(selector, classList=[]) {
     //this detects if an element is an h3 and groups 
     //with the next element until the next h3 appears, if any
     const outerElement = document.querySelector(selector);
@@ -6,16 +11,19 @@ export function groupSectionTitleAndContent(selector) {
     const listOfRows = [...outerElement.children]
     for (const row of listOfRows) {
         if (row.nodeName === "H3" && elementList.length === 0) {
+            row.classList.add("se-group-title");
             elementList.push(row)
             continue
         }
         if (row.nodeName === "H3" && elementList.length !== 0) {
             const div = document.createElement("div")
+            div.classList.add(...classList)
             elementList.forEach((element) => {
                 element.remove()
                 div.appendChild(element)
             })
             outerElement.appendChild(div)
+            row.classList.add("se-group-title");
             elementList = [row]
             continue
         }
@@ -26,6 +34,7 @@ export function groupSectionTitleAndContent(selector) {
     }
     if (elementList.length !== 0) {
         const div = document.createElement("div")
+        div.classList.add(...classList)
         elementList.forEach((element) => {
             element.remove()
             div.appendChild(element)
@@ -46,18 +55,23 @@ export function moveChildrenToAncestor(selector){
 }
 
 
-export function removeTwoColumnTable(tableSelector, inverted=false){
+export function removeTwoColumnTable(tableSelector, inverted=false, parent=null){
     const table = document.querySelector(tableSelector);
+    
     if(table === null || table.tagName !== "TABLE") 
-        throw Error("Couldnt find table with " + tableSelector +  " selector");
+    throw Error("Couldnt find table with " + tableSelector +  " selector");
+    parent ??= table.parentElement;
+    
     const tbody = table.children[0];
     const div = document.createElement("div");
     div.classList.add("se-key-pair-table")
     for(const tr of tbody.children){
+        if (tr.children[0].tagName === "TH") continue;
         if(tr.children.length !== 2){
             throw Error("Table with selector " + tableSelector + " isn't a two column table");
         }
-        if (tr.children[0].children.length === 0){
+        if (tr.children[0].children.length === 0 ||
+            tr.children[0].children[0].textContent === ""){
             const p = document.createElement("p");
             p.textContent = tr.children[0].textContent;
             if(!inverted) p.classList.add("se-highlighted-part")
@@ -65,12 +79,13 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
             div.appendChild(p);
         } else {
             const element = tr.children[0].children[0];
+            const childText = tr.children[0].childNodes[0].textContent
+            if (childText !== "") {
+                element.textContent = `${childText} @ ${element.textContent}`
+            }
             if(!inverted) element.classList.add("se-highlighted-part");
-            p.classList.add("se-pair-start");
-
             div.append(element);
         }
-
 
         if (tr.children[1].children.length === 0){
             const p = document.createElement("p");
@@ -80,25 +95,42 @@ export function removeTwoColumnTable(tableSelector, inverted=false){
             div.appendChild(p);
             
         } //sometimes table elements will not also include ::text but also a child element
-          //aka villate's cellphone when the user is logged on :)  
+        //aka villate's cellphone when the user is logged on :)  
         else {
-            const innerDiv = document.createElement("div")
-            if(tr.children[1].childNodes[0].nodeValue != ""){
-                const p = document.createElement("p");
-                p.style.display = "inline";
-                p.textContent = tr.children[1].childNodes[0].nodeValue;
-                innerDiv.append(p);
-            }
-            const element = tr.children[1].children[0];
+            const innerDiv = document.createElement("div");
             if(inverted) innerDiv.classList.add("se-highlighted-part");
             innerDiv.classList.add("se-content-part");
-            innerDiv.append(element);
+
+            const label = tr.children[0].textContent;
+            
+            if (tr.children[1].childNodes[0].nodeValue != ""){
+                const p = document.createElement("p");
+                p.style.display = "inline";
+                if (label === "Salas: "){
+                    // ensure all classrooms are present
+                    const classrooms = tr.children[1].querySelectorAll("a");
+                    classrooms.forEach((room) => {
+                        p.append(room);
+                        p.append(", ");
+                    })
+                    p.removeChild(p.lastChild);
+                    innerDiv.append(p);
+                } else {
+                    if (label.startsWith("Telemóvel") || label.startsWith("Mobile phone")){
+                        p.textContent = tr.children[1].childNodes[0].nodeValue;
+                        innerDiv.append(p);
+                    }
+                    const element = tr.children[1].children[0];
+                    innerDiv.append(element);
+                }
+            }
             div.append(innerDiv);
         }
         
     }
-    table.parentElement.appendChild(div);
+    parent.appendChild(div);
     table.remove();
+    return div;
 }
 
 
@@ -134,4 +166,25 @@ export async function fetchSigarraPage(url) {
     let html = parser.parseFromString(text, "text/html");
 
     return html;
+}
+
+export function makeTextNodesElements(selector){
+
+    const element = document.querySelector(selector);
+    let lastElement = null;
+    for(let value of [...element.childNodes]){
+        if(value.nodeType == Node.TEXT_NODE || value.nodeType == Node.ENTITY_NODE){
+            const span = document.createElement('span');
+            if(value.textContent == '\n') continue;
+            span.textContent = value.textContent;
+            if(lastElement == null){
+                element.prepend(span);
+            } else {
+                element.insertBefore(span, lastElement.nextSibling)
+            }
+            element.removeChild(value)
+        } else if (value.nodeType == Node.ELEMENT_NODE){
+            lastElement = value
+        }
+    }
 }

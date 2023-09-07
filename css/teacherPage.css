@@ -74,7 +74,7 @@
     border-radius: 8px;
 }
 
-.informacao-pessoal-outras{
+.informacao-pessoal-outras, .se-positions{
     float: none !important;
     background-color: #F4F4F4;
     border-radius: 8px;
@@ -106,7 +106,7 @@
 
 }
 
-:is(.se-contact-info, .se-roles, .informacao-pessoal-outras) > h3{
+:is(.se-contact-info, .se-roles, .se-positions, .informacao-pessoal-outras) > h3{
     margin: 0em !important;
     padding: 0.5em 1em;
 }
@@ -115,8 +115,14 @@
     text-align: left !important;
 }
 
+.se-container{
+    display: flex;
+    flex-direction: row;
+}
+
 .se-key-pair-table{
     padding: 0em 2em 1em 2em;
+    width: 100%;
 }
 
 .se-key-pair-table p{
