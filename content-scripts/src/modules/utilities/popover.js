@@ -9,9 +9,12 @@ export const createPopover = (popover, target = popover) => {
 
     popover.addEventListener(`popover-close:${id}`, (e) => e.stopPropagation());
 
-    document.addEventListener(`popover-close:${id}`, () =>
-        target?.classList.remove("se-popover-open")
-    );
+    document.addEventListener(`popover-close:${id}`, () => {
+        target?.classList.remove("se-popover-open");
+        document.removeEventListener("click", close, {
+            capture: true,
+        });
+    });
 
     const close = (/** @type {Event} */ e) =>
         e.target?.dispatchEvent(
@@ -23,7 +26,6 @@ export const createPopover = (popover, target = popover) => {
 
         target?.classList.add("se-popover-open");
         document.addEventListener("click", close, {
-            once: true,
             capture: true,
         });
     };
