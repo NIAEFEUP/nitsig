@@ -1,4 +1,39 @@
 import { elementFromHtml } from "./utilities/elementFromHtml";
+import { createPopover } from "./utilities/popover";
+
+const HEADER_LINKS = {
+    Estudantes: {
+        Bolsas: "web_base.gera_pagina?p_pagina=242366",
+        "Escolher turmas": "it_geral.ver_insc",
+        "Estatutos especiais": "web_base.gera_pagina?p_pagina=242322",
+        Exames: "web_base.gera_pagina?p_pagina=242382",
+        Matrículas: "web_base.gera_pagina?p_pagina=31583",
+        Propinas: "web_base.gera_pagina?p_pagina=propinas ano corrente",
+        "Mais opções": "web_base.gera_pagina?p_pagina=ESTUDANTES",
+    },
+    Faculdade: {
+        Alumni: "web_base.gera_pagina?p_pagina=243186",
+        Cursos: "cur_geral.cur_inicio",
+        Departamentos: "uni_geral.nivel_list?pv_nivel_id=1",
+        Empresas: "web_base.gera_pagina?p_pagina=242380",
+        Governo: "web_base.gera_pagina?p_pagina=31715",
+        Notícias: "noticias_geral.lista_noticias",
+        "Serviços/Gabinetes": "uni_geral.nivel_list?pv_nivel_id=4",
+    },
+    Pesquisa: {
+        Edifícios: "instal_geral.edificio_query",
+        Estudantes: "fest_geral.fest_query",
+        Horários: "hor_geral.pesquisa_form",
+        Notícias: "noticias_geral.pesquisa",
+        Pessoal: "func_geral.formquery",
+        "Projetos de investigação": "projectos_geral.pesquisa_projectos",
+        Publicações: "pub_geral.pub_pesquisa",
+        Salas: "instal_geral.espaco_query",
+        Turmas: "it_turmas_geral.formquery",
+        "Unidades Curriculares": "ucurr_geral.pesquisa_ucs",
+        "Mais opções": "web_base.gera_pagina?p_pagina=1831",
+    },
+};
 
 const authentication = (auth) =>
     auth
@@ -81,6 +116,29 @@ const authentication = (auth) =>
             </form>
         `;
 
+/**
+ * @param {Record<string, Record<string, string>>} links
+ */
+const createLinks = (links) =>
+    Object.entries(links)
+        .map(
+            ([key, value]) => /*html*/ `
+    <div class="se-header-link">
+        <button>${key}</button>
+        <div class="se-header-link-popover">
+            ${Object.entries(value)
+                .map(
+                    ([label, url]) => /*html*/ `
+                <a href="${url}">${label}</a>
+            `
+                )
+                .join("")}
+        </div>
+    </div>
+`
+        )
+        .join("");
+
 const createNewHeader = (auth) =>
     elementFromHtml(/*html*/ `
         <header id="se-header">
@@ -88,10 +146,7 @@ const createNewHeader = (auth) =>
                 "images/FEUP.svg"
             )}"></a>
             <nav id="se-header-links">
-                <a href="web_base.gera_pagina?p_pagina=ESTUDANTES">Estudantes</a>
-                <a href="uni_geral.nivel_list?pv_nivel_id=4">Serviços</a>
-                <a href="web_base.gera_pagina?p_pagina=1182">Faculdade</a>
-                <a href="web_base.gera_pagina?p_pagina=1831">Pesquisa</a>
+                ${createLinks(HEADER_LINKS)}
             </nav>
             <div id="se-auth">${authentication(auth)}</div>
         </header>
@@ -113,18 +168,24 @@ const replaceHeader = () => {
 
     const newHeader = createNewHeader(auth);
 
-    const authElement = newHeader.querySelector("#se-auth");
-    const toggleAuth = () => authElement?.classList.toggle("se-auth-open");
+    const newAuth = newHeader.querySelector("#se-auth");
+    const authPopover = newHeader.querySelector(
+        ":is(#se-auth-profile-menu, #se-auth-form)"
+    );
+    const toggleAuth = createPopover(authPopover, newAuth);
 
     newHeader
-        .querySelector("#se-auth-button")
-        ?.addEventListener("click", toggleAuth);
-    newHeader
-        .querySelector("#se-auth-close-button")
-        ?.addEventListener("click", toggleAuth);
-    newHeader
-        .querySelector("#se-auth-profile-button")
-        ?.addEventListener("click", toggleAuth);
+        .querySelectorAll(
+            ":is(#se-auth-button, #se-auth-close-button, #se-auth-profile-button)"
+        )
+        .forEach((x) => x.addEventListener("click", toggleAuth));
+
+    newHeader.querySelectorAll(".se-header-link").forEach((x) => {
+        const popover = x.querySelector(".se-header-link-popover");
+        const togglePopover = createPopover(popover);
+        const button = x.querySelector("button");
+        button.addEventListener("click", togglePopover);
+    });
 
     oldHeader.replaceWith(newHeader);
 };
