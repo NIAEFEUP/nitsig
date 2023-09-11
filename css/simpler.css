@@ -54,6 +54,7 @@ html {
 }
 
 body {
+    font-size: 1em !important;
     height: 100%;
     overflow: hidden;
     padding: 0 !important;
@@ -176,7 +177,7 @@ body {
 #se-header-links {
     display: flex;
     flex-direction: row;
-    gap: max(1em, calc((100vw - 1200px) * .2));
+    gap: max(1em, calc((100vw - 900px) * .2));
     align-items: center;
     justify-content: space-around;
 }
@@ -322,6 +323,7 @@ body {
 }
 
 .se-separator {
+    height: 1px;
     display: flex;
     flex-direction: row;
     align-items: center;
