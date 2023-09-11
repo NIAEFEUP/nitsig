@@ -195,6 +195,10 @@ const removeLeftColumn = () => {
     const rightColumn = document.querySelector("#colunaextra");
 
     const map = leftColumn.querySelector("#caixa-campus");
+    const mapImage = map.querySelector("img");
+    mapImage.src = chrome.runtime.getURL("images/feup-map.svg");
+    mapImage.width = 113;
+    mapImage.height = 142;
     rightColumn.append(map);
 
     leftColumn.remove();

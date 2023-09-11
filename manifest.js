@@ -43,7 +43,8 @@ let manifest = {
             "js/override-functions.js",
             "css/icons.css",
             "images/publicationWebsiteLogo/*",
-            "images/FEUP.svg"
+            "images/FEUP.svg",
+            "images/feup-map.svg",
         ],
         matches: ["https://sigarra.up.pt/*"],
         },
