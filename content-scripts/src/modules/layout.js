@@ -172,13 +172,11 @@ const replaceHeader = () => {
     const authPopover = newHeader.querySelector(
         ":is(#se-auth-profile-menu, #se-auth-form)"
     );
-    const toggleAuth = createPopover(authPopover, newAuth);
+    const openAuth = createPopover(authPopover, newAuth);
 
     newHeader
-        .querySelectorAll(
-            ":is(#se-auth-button, #se-auth-close-button, #se-auth-profile-button)"
-        )
-        .forEach((x) => x.addEventListener("click", toggleAuth));
+        .querySelectorAll(":is(#se-auth-button, #se-auth-profile-button)")
+        .forEach((x) => x.addEventListener("click", openAuth));
 
     newHeader.querySelectorAll(".se-header-link").forEach((x) => {
         const popover = x.querySelector(".se-header-link-popover");
