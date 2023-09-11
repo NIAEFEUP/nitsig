@@ -877,7 +877,7 @@ div.info > span[class='se-icon ri-information-fill'] {
     background: #ebebeb;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O)>* {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O, .existeexames)>* {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
     grid-auto-rows: 1fr;
@@ -888,15 +888,18 @@ div.info > span[class='se-icon ri-information-fill'] {
     height: 100%;
     position: relative;
     z-index: 1;
+    color: white;
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) a {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O, .existeexames) a {
     color: white !important;
     text-decoration: none !important;
     font-weight: bold !important;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) a:hover {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O, .existeexames) a:hover {
     text-decoration: underline !important;
 }
 
@@ -907,7 +910,8 @@ div.info > span[class='se-icon ri-information-fill'] {
 .horario:not(:has(.PL)) #new-legend #PL,
 .horario:not(:has(.TC)) #new-legend #TC,
 .horario:not(:has(.S)) #new-legend #S,
-.horario:not(:has(.O)) #new-legend #O {
+.horario:not(:has(.O)) #new-legend #O,
+.horario:not(:has(.existeexames)) #new-legend #existeexames {
     display: none !important;
 }
 
@@ -949,6 +953,11 @@ div.info > span[class='se-icon ri-information-fill'] {
 .horario .O>*,
 #new-legend #O::before {
     background-color: #b3b3b3;
+}
+
+.horario .existeexames>*,
+#new-legend #existeexames::before {
+    background-color: #FFBCB5;
 }
 
 .horario .almoco,
