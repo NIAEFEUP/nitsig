@@ -815,6 +815,7 @@ div.info > span[class='se-icon ri-information-fill'] {
     height: fit-content;
     border-collapse: collapse !important;
     border: solid 1px #b5b5b5 !important;
+    position: relative;
 }
 
 .horario tr {
@@ -850,7 +851,7 @@ div.info > span[class='se-icon ri-information-fill'] {
     width: 6ch;
 }
 
-.horario [data-se-hour-rule]::before {
+.horario tr:not(:first-of-type) [data-se-hour-rule$="00"]::before {
     content: attr(data-se-hour-rule);
     position: absolute;
     left: 0;
@@ -859,17 +860,24 @@ div.info > span[class='se-icon ri-information-fill'] {
     transform: translateY(-50%);
 }
 
-.horario [data-se-hour-rule]::after {
+.horario tr:not(:first-of-type) [data-se-hour-rule]::after {
     content: "";
     position: absolute;
-    background-color: #b5b5b5;
     height: 1px;
     left: 6ch;
     right: 0;
     top: 0;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O)>* {
+.horario tr:not(:first-of-type) [data-se-hour-rule$="00"]::after {
+    background: #b5b5b5;
+}
+
+.horario tr:not(:first-of-type) [data-se-hour-rule$="30"]::after {
+    background: #ebebeb;
+}
+
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O, .existeexames)>* {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));
     grid-auto-rows: 1fr;
@@ -880,15 +888,18 @@ div.info > span[class='se-icon ri-information-fill'] {
     height: 100%;
     position: relative;
     z-index: 1;
+    color: white;
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) a {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O, .existeexames) a {
     color: white !important;
     text-decoration: none !important;
     font-weight: bold !important;
 }
 
-.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O) a:hover {
+.horario :is(.TP, .TE, .P, .OT, .PL, .TC, .S, .O, .existeexames) a:hover {
     text-decoration: underline !important;
 }
 
@@ -899,7 +910,8 @@ div.info > span[class='se-icon ri-information-fill'] {
 .horario:not(:has(.PL)) #new-legend #PL,
 .horario:not(:has(.TC)) #new-legend #TC,
 .horario:not(:has(.S)) #new-legend #S,
-.horario:not(:has(.O)) #new-legend #O {
+.horario:not(:has(.O)) #new-legend #O,
+.horario:not(:has(.existeexames)) #new-legend #existeexames {
     display: none !important;
 }
 
@@ -943,13 +955,31 @@ div.info > span[class='se-icon ri-information-fill'] {
     background-color: #b3b3b3;
 }
 
+.horario .existeexames>*,
+#new-legend #existeexames::before {
+    background-color: #FFBCB5;
+}
+
 .horario .almoco,
 #new-legend #almoco::before {
-    background-color: #FFBCB5 !important;
+    box-shadow: inset 0 0 0 10000px #FFBCB588;
 }
 
 .horario .today {
     background-color: rgba(100, 100, 255, 10%);
+}
+
+.horario.se-loading::after {
+    content: "A carregar...";
+    position: absolute;
+    inset: 0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    z-index: 2;
+    border: 1px solid #b5b5b5;
 }
 
 .legend-item {
