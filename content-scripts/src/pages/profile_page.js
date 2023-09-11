@@ -26,6 +26,17 @@ function getStudentName(){
  * 
  * @param {Element} element 
  */
+function removeAtSign(element) {
+    const atSign = element.querySelector('span:nth-child(2) > a:nth-child(1) > span:nth-child(2)');
+    atSign.parentElement.insertBefore(document.createTextNode('@'), atSign);
+    atSign.remove();
+    element.querySelector('span:nth-child(2) > a:nth-child(1) > img:nth-child(1)').remove();
+}
+
+/**
+ * 
+ * @param {Element} element 
+ */
 async function removeTitleRedudancy(element) {
     
     if(getUP() == currentSearchParams.get("pv_num_unico") && 
@@ -60,6 +71,9 @@ export const changeProfileRow = () => {
 
     const studentName = document.querySelector('.estudante-info-nome');
     const studentUP = document.querySelector('.estudante-info-numero');
+    const newStudentUP = document.createElement('p');
+    newStudentUP.textContent = studentUP.textContent;
+
     const studentInstitutionalEmail = document.querySelector('.email-institucional');
     const studentAlternativeEmail = document.querySelector('.email-alternativo');
     const studentWebPage = document.querySelector('.pagina-pessoal');
@@ -76,7 +90,7 @@ export const changeProfileRow = () => {
     firstRow.classList.add('se-profile-first-row');
 
     const userNameUPRow = document.createElement('div');
-    userNameUPRow.append(studentName, studentUP);
+    userNameUPRow.append(studentName, newStudentUP);
     userNameUPRow.classList.add('se-profile-username-row');
     firstRow.append(userNameUPRow);
     
@@ -97,8 +111,15 @@ export const changeProfileRow = () => {
 
     const emailList = document.createElement('div');
     profileInfo.append(emailList)
+    removeAtSign(studentInstitutionalEmail);
+
+    studentInstitutionalEmail.querySelectorAll('.cursormao').forEach((val) => val.remove());
+
     emailList.append(studentInstitutionalEmail);
-    if(studentAlternativeEmail != null) emailList.append(studentAlternativeEmail);
+    if(studentAlternativeEmail != null) {
+        emailList.append(studentAlternativeEmail);
+        removeAtSign(studentAlternativeEmail);
+    }
 
     if(studentWebPage != null) {
         const webpageLink = studentWebPage.lastElementChild;
