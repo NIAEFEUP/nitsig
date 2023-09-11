@@ -58,3 +58,7 @@ th.desc:after{
     content: "\f15f";
     font-weight: bold;
 }
+
+:is(.barratemporal, .barratemporale, .barratemporald) .se-icon {
+    background-color: white !important;
+}
