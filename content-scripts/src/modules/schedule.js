@@ -25,9 +25,11 @@ const CLASS_ABBR_TO_ABBR = {
     O: "O",
 };
 
-export const improveSchedule = () => {
+export const improveSchedule = async () => {
     /** @type {HTMLTableElement} */
     const scheduleElem = document.querySelector("table.horario");
+
+    debugger
 
     // Not on the schedule page, abort
     if (!scheduleElem) return;
@@ -48,8 +50,8 @@ export const improveSchedule = () => {
 
     fixClasses(scheduleElem);
     fixScheduleTable(scheduleElem);
-    createLegend(scheduleElem);
-    fixOverlappingClasses(scheduleElem, overlapping);
+    await createLegend(scheduleElem);
+    await fixOverlappingClasses(scheduleElem, overlapping);
     scheduleElem.classList.remove("se-loading");
 };
 
@@ -410,6 +412,7 @@ const fixForm = async () => {
         .querySelectorAll(":is(.horario-semanas, .escolhersemana) td")
         .forEach((e) => {
             const a = e.querySelector("a");
+            if (!a) return;
             const url = new URL(a.href);
 
             const option = document.createElement("option");
