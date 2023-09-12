@@ -23,7 +23,7 @@ let manifest = {
             "css/icons.css",
             "css/teacherPage.css",
             "css/classPage.css",
-            "css/profilePage.css"
+            "css/profilePage.css",
             "css/card.css",
             "css/expandableCard.css"
         ],
@@ -42,7 +42,9 @@ let manifest = {
             "css/simpler.css",
             "js/override-functions.js",
             "css/icons.css",
-            "images/publicationWebsiteLogo/*"
+            "images/publicationWebsiteLogo/*",
+            "images/FEUP.svg",
+            "images/feup-map.svg",
         ],
         matches: ["https://sigarra.up.pt/*"],
         },

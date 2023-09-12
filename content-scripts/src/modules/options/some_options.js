@@ -41,3 +41,27 @@ export const changeFont = (font) => {
       break;
   }
 }
+
+export const useNavBar = (navbar) => {
+    switch (navbar) {
+        case "on":
+            addStyles("se-use-navbar", `
+                #colunaprincipal {
+                    display: none !important;
+                }
+            `);
+            removeElement("#se-dont-use-navbar");
+            break;
+        case "off":
+            addStyles("se-dont-use-navbar", `
+                #se-header-links {
+                    display: none !important;
+                }
+                #colunaextra #caixa-campus {
+                    display: none !important;
+                }
+            `);
+            removeElement("#se-use-navbar");
+            break;
+    }
+}

@@ -29,8 +29,6 @@ export const improveSchedule = async () => {
     /** @type {HTMLTableElement} */
     const scheduleElem = document.querySelector("table.horario");
 
-    debugger
-
     // Not on the schedule page, abort
     if (!scheduleElem) return;
 
