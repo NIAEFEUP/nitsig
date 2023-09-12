@@ -164,7 +164,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 4em;
+    height: 3em;
     width: fit-content;
     border-radius: 8px;
 }
@@ -177,15 +177,18 @@ body {
 #se-header-links {
     display: flex;
     flex-direction: row;
-    gap: max(1em, calc((100vw - 900px) * .2));
-    align-items: center;
+    gap: max(0em, calc((100vw - 900px) * .2));
+    align-items: stretch;
     justify-content: space-around;
+    align-self: stretch;
 }
 
 .se-header-link {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    padding-inline: 1em;
 }
 
 .se-header-link > button {
@@ -203,9 +206,9 @@ body {
 }
 
 .se-header-link-popover {
-    top: 7em;
+    top: 4em;
     width: max-content;
-    max-height: calc(100vh - 8em);
+    max-height: calc(100vh - 5em);
     padding-block: .5em;
     overflow-y: auto !important;
 }
@@ -226,10 +229,11 @@ body {
 }
 
 #se-auth {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-auto-flow: column;
     gap: 1em;
     align-items: center;
+    justify-items: end;
 }
 
 #se-auth-form,
@@ -245,21 +249,28 @@ body {
     overflow: hidden;
 }
 
-#se-auth-close-button {
-    display: none;
+#se-auth-close-button,
+#se-auth-button {
+    grid-area: 1 / 1;
 }
 
+#se-auth-close-button,
 .se-popover-open #se-auth-button {
-    display: none;
+    visibility: hidden;
 }
 
-.se-popover-open :is(#se-auth-form, #se-auth-profile-menu, #se-auth-close-button),
-.se-header-link-popover.se-popover-open {
+.se-popover-open #se-auth-close-button {
+    visibility: unset;
+}
+
+.se-popover-open :is(#se-auth-form, #se-auth-profile-menu),
+.se-header-link-popover.se-popover-open,
+.se-header-link:hover > .se-header-link-popover {
     display: flex;
 }
 
 #se-auth-form {
-    top: 7em;
+    top: 6em;
     right: 1em;
     text-align: center;
     width: max-content;
@@ -268,7 +279,7 @@ body {
 }
 
 #se-auth-profile-menu {
-    top: 7em;
+    top: 6em;
     right: 1em;
     width: 16em;
 }
@@ -357,8 +368,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     border-radius: 50% !important;
     overflow: hidden;
     border: none;
