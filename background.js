@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener((object) => {
   }
 
   if (object.reason === "update") {
-    for (const opt of popupOptions) {
+    for (const opt in popupOptions) {
       if (chrome.storage.local.get(opt) != null)
         chrome.storage.local.set({[opt]: popupOptions[opt]});
     }

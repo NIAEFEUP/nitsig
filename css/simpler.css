@@ -10,14 +10,14 @@
 
 /* First Sigarra breakpoint at 1100px */
 @media only screen and (min-width: 900px) and (max-width: 1100px) {
-    body {
+    body:is(body) {
         font-size: 1em !important;
     }
 }
 
 /* Second Sigarra breakpoint at 900px */
 @media only screen and (max-width: 900px) {
-    body {
+    body:is(body) {
         font-size: 1em !important;
     }
 }
@@ -53,7 +53,7 @@ html {
     height: 100%;
 }
 
-body {
+body:is(body) {
     font-size: 1em !important;
     height: 100%;
     overflow: hidden;
@@ -226,6 +226,7 @@ body {
 
 .se-header-link-popover a:hover {
     background-color: #f0f0f0;
+    color: inherit !important;
 }
 
 #se-auth {
