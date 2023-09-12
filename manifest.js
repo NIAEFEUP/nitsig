@@ -74,7 +74,7 @@ export const MANIFEST_FIREFOX = {
     ...manifest,
     browser_specific_settings: {
         gecko: {
-            id: "pt.up.fe.ni.nitsig",
+            id: "nitsig@ni.fe.up.pt",
         },
     },
     background: {
