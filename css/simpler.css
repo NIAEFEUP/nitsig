@@ -1416,3 +1416,10 @@ p[id^="legend-abbrv-"] {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }
+
+/* Page top image cover*/
+center:first-of-type > img, .encaixar {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+}
