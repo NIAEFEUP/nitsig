@@ -292,21 +292,6 @@ body {
     position: relative;
 }
 
-#se-auth-header:hover {
-    background-color: #f0f0f0;
-}
-
-#se-auth-header a {
-    text-decoration: none !important;
-    color: inherit !important;
-}
-
-#se-auth-header a::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-}
-
 #se-auth-logout {
     padding: 1em;
 }

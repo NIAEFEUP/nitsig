@@ -52,14 +52,15 @@ const authentication = (auth) =>
             </button>
             <div id="se-auth-profile-menu">
                 <div id="se-auth-header">
-                    <a
-                        href="fest_geral.cursos_list?pv_num_unico=${
-                            auth.number
-                        }"
-                    >${auth.name}</a>
+                    <span>${auth.name}</span>
                     <span>${auth.number}</span>
                 </div>
                 <nav id="se-auth-profile-links">
+                    <a href="fest_geral.cursos_list?pv_num_unico=${
+                            auth.number
+                    }">
+                        <span class="se-icon ri-user-line"></span> Perfil
+                    </a>
                     <a href="gpag_ccorrente_geral.conta_corrente_view?pct_cod=${
                         auth.number
                     }">
