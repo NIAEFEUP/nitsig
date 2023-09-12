@@ -15,6 +15,8 @@ import { classPage } from "./pages/class_page";
 import { improveSchedule } from "./modules/schedule";
 import { changeCourseCards, changeProfileRow } from "./pages/profile_page";
 import { courseUnitPage } from "./pages/course_unit_page";
+import { fixPagination } from "./modules/pagination";
+
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
 - Listen to Chrome Storage changes
@@ -57,6 +59,7 @@ const init = async () => {
   improveSchedule();
   changeProfileRow();
   changeCourseCards();
+  fixPagination();
 };
 
 init();

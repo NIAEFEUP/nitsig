@@ -1019,3 +1019,48 @@ div.info > span[class='se-icon ri-information-fill'] {
 p[id^="legend-abbrv-"] {
     margin: 0px;
 }
+
+/* ----------------- PAGINATION ----------------- */
+
+.se-pagination {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    justify-content: center;
+    align-items: stretch;
+    width: max-content;
+    margin-inline: auto;
+}
+
+.se-pagination > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #b5b5b5;
+    border-left: none;
+    color: inherit !important;
+    text-decoration: none !important;
+    padding: .25em;
+}
+
+.se-pagination > span {
+    color: black !important;
+    font-weight: 600;
+}
+
+.se-pagination > a:hover {
+    background-color: #f0f0f0;
+    color: inherit !important;
+}
+
+.se-pagination > :first-child {
+    border-left: 1px solid #b5b5b5;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.se-pagination > :last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
