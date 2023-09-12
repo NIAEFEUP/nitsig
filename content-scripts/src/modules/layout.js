@@ -13,6 +13,8 @@ const HEADER_LINKS = {
     },
     Faculdade: {
         Alumni: "web_base.gera_pagina?p_pagina=243186",
+        "Calendário escolar":
+            "web_base.gera_pagina?p_pagina=página estática genérica 106",
         Cursos: "cur_geral.cur_inicio",
         Departamentos: "uni_geral.nivel_list?pv_nivel_id=1",
         Empresas: "web_base.gera_pagina?p_pagina=242380",
@@ -57,7 +59,7 @@ const authentication = (auth) =>
                 </div>
                 <nav id="se-auth-profile-links">
                     <a href="fest_geral.cursos_list?pv_num_unico=${
-                            auth.number
+                        auth.number
                     }">
                         <span class="se-icon ri-user-line"></span> Perfil
                     </a>
@@ -164,7 +166,7 @@ const replaceHeader = () => {
         auth = {
             name: autenticacao.querySelector(".nome").textContent,
             number: autenticacao.querySelector("img").src.slice(-9),
-            notifications: oldHeader.querySelector(".notificacoes") !== null,
+            notifications: oldHeader.querySelector(".notificacao") !== null,
         };
 
     const newHeader = createNewHeader(auth);
@@ -198,7 +200,7 @@ const removeLeftColumn = () => {
     mapImage.src = chrome.runtime.getURL("images/feup-map.svg");
     mapImage.width = 113;
     mapImage.height = 142;
-    
+
     const newMap = map.cloneNode(true);
     rightColumn.append(newMap);
 };
