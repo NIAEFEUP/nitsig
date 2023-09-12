@@ -24,6 +24,8 @@ let manifest = {
             "css/teacherPage.css",
             "css/classPage.css",
             "css/profilePage.css"
+            "css/card.css",
+            "css/expandableCard.css"
         ],
         },
         {
