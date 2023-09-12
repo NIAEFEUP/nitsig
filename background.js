@@ -2,7 +2,7 @@ const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
 // Add default values for each option here
 const popupOptions = {
-  key1: "on",
+  navbar: "on",
   shortcuts: "on",
   autoLogin: "off",
   font: "on",

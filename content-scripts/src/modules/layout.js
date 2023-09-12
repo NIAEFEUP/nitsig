@@ -198,9 +198,9 @@ const removeLeftColumn = () => {
     mapImage.src = chrome.runtime.getURL("images/feup-map.svg");
     mapImage.width = 113;
     mapImage.height = 142;
-    rightColumn.append(map);
-
-    leftColumn.remove();
+    
+    const newMap = map.cloneNode(true);
+    rightColumn.append(newMap);
 };
 
 export const changeLayout = () => {
