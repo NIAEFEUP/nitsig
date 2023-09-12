@@ -1044,6 +1044,11 @@ p[id^="legend-abbrv-"] {
     padding: .25em;
 }
 
+.se-pagination > span {
+    color: black !important;
+    font-weight: 600;
+}
+
 .se-pagination > a:hover {
     background-color: #f0f0f0;
     color: inherit !important;

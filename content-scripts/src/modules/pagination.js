@@ -24,7 +24,7 @@ const replacePagination = (pagination) => {
 
     if (first) {
         const firstIcon = document.createElement("span");
-        firstIcon.classList.add("se-icon", "ri-skip-back-line");
+        firstIcon.classList.add("se-icon", "ri-arrow-left-double-line");
         first.replaceChildren(firstIcon);
         newPagination.append(first);
     }
@@ -51,7 +51,7 @@ const replacePagination = (pagination) => {
 
     if (last) {
         const lastIcon = document.createElement("span");
-        lastIcon.classList.add("se-icon", "ri-skip-forward-line");
+        lastIcon.classList.add("se-icon", "ri-arrow-right-double-line");
         last.replaceChildren(lastIcon);
         newPagination.append(last);
     }

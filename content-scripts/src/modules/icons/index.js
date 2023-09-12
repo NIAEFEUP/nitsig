@@ -9,7 +9,7 @@ import {
 const addCSS = () => {
     if (!document.querySelector('link[href$="remixicon.css"]'))
         document.head.innerHTML +=
-            '<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">';
+            '<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">';
 };
 
 const replaceImages = () => {
