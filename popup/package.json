@@ -1,5 +1,5 @@
 {
-  "name": "sigarra-extension-popup",
+  "name": "nitsig-popup",
   "private": true,
   "scripts": {
     "dev": "next dev",

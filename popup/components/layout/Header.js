@@ -2,7 +2,7 @@ const Header = () => (
   <header className="text-center">
     <div className="flex items-center justify-center">
       <h1 className="text-xl font-extrabold">
-        <span>Sigarra Extension</span>
+        <span>Nitsig</span>
       </h1>
     </div>
     <p className="pt-3 pb-3 text-sm font-medium leading-5 dark:text-accentOneDark text-accentOne">
