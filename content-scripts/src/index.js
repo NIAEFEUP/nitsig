@@ -13,6 +13,7 @@ import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
 import { classPage } from "./pages/class_page";
 import { improveSchedule } from "./modules/schedule";
+import { changeCourseCards, changeProfileRow } from "./pages/profile_page";
 import { courseUnitPage } from "./pages/course_unit_page";
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -54,6 +55,8 @@ const init = async () => {
   addSortTableActions();
   replaceIcons();
   improveSchedule();
+  changeProfileRow();
+  changeCourseCards();
 };
 
 init();
