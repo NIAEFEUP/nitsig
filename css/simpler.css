@@ -431,7 +431,7 @@ p.flex-caption a {
 .col-md-7 {
   padding-top: 1em;
   background: #f0f0f0;
-  border-radius: 1em;
+  border-radius: 0.8em;
 }
 
 .col-md-7 h2 {
@@ -542,6 +542,7 @@ p.mais-noticias a:hover {
 
 .calendario-inicio .calendtable {
   border-spacing: 1em 0 !important;
+  max-width: 400px;
 }
 
 .calendario-inicio table{
@@ -619,6 +620,7 @@ table.calendtable .calendeventsel {
   background-color: rgb(140,45,25) !important;
   border-color: rgb(140,45,25) !important;
   color: white !important;
+  border-radius: 0.5em
 }
 
 .calendevent a {
@@ -633,7 +635,6 @@ table.calendtable .calendeventsel {
 }
 
 .calendevent a:hover, .calendeventsel a:hover, .calendeventsel a:visited {
-  color: black !important;
   font-weight: bold;
 }
 
@@ -646,6 +647,7 @@ table.calendtable {
   background-color: rgb(240, 240, 240) !important;
   border: 10px solid rgb(240, 240, 240) !important;
   font-family: sans-serif;
+  border-radius: 0.5em;
 }
 
 table.calendtable td {
@@ -1414,9 +1416,36 @@ p[id^="legend-abbrv-"] {
     border-bottom-right-radius: 8px;
 }
 
+
+.row{
+  margin: 0 !important;
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+/* For lesse than 800px */
+@media (max-width: 1350px) {
+  .row{
+    grid-template-columns: auto;
+  }
+}
+
+.row > div.col-md-7, .row > div.col-md-5{
+  width: auto
+}
+
+.row > div.col-md-7{
+  min-width: 450px;
+}
+
+.container-fluid:last-child{
+  display: none;
+}
+
 /* Page top image cover*/
 center:first-of-type > img, .encaixar {
   width: 100%;
   max-height: 220px;
   object-fit: cover;
 }
+
