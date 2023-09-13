@@ -6,7 +6,7 @@ const LayoutContent = () => (
             <div className="flex flex-col gap-y-4">
                 <SwitchControl 
                     label="Ativar barra de navegação" 
-                    storageKey="key1" />
+                    storageKey="navbar" />
                 <SwitchControl 
                     label="Esconder atalhos" 
                     storageKey="shortcuts" />

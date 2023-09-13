@@ -16,6 +16,7 @@ import { improveSchedule } from "./modules/schedule";
 import { changeCourseCards, changeProfileRow } from "./pages/profile_page";
 import { courseUnitPage } from "./pages/course_unit_page";
 import { fixPagination } from "./modules/pagination";
+import { changeLayout } from "./modules/layout";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -60,6 +61,7 @@ const init = async () => {
   changeProfileRow();
   changeCourseCards();
   fixPagination();
+  changeLayout();
 };
 
 init();

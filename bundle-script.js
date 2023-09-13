@@ -244,9 +244,9 @@ const processArguments = async () => {
 
 
 
-const generateSafariProjectCommand = `xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Sigarra Extension' --bundle-identifier 'pt.up.fe.ni.sigarra-extension'`;
+const generateSafariProjectCommand = `xcrun /Applications/Xcode.app/Contents/Developer/usr/bin/safari-web-extension-converter bundle/firefox --project-location bundle/safari --app-name 'Nitsig' --bundle-identifier 'pt.up.fe.ni.nitsig'`;
 // The first command currently ignores the full --bundle-identifier flag (it still take the company name), so a replace is required to make sure it matches our bundle identifier
-const fixBundleIdentifierCommand = `find "bundle/safari/Sigarra Extension" \\( -name "*.swift" -or -name "*.pbxproj" \\) -type f -exec sed -i '' 's/pt.up.fe.ni.sigarra-extension/pt.up.fe.ni.sigarra-extension/g' {} +`;
+const fixBundleIdentifierCommand = `find "bundle/safari/Nitsig" \\( -name "*.swift" -or -name "*.pbxproj" \\) -type f -exec sed -i '' 's/pt.up.fe.ni.nitsig/pt.up.fe.ni.nitsig/g' {} +`;
 
 await processArguments();
 

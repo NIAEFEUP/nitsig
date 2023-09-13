@@ -2,7 +2,7 @@ const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
 // Add default values for each option here
 const popupOptions = {
-  key1: "on",
+  navbar: "on",
   shortcuts: "on",
   autoLogin: "off",
   font: "on",
@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener((object) => {
   }
 
   if (object.reason === "update") {
-    for (const opt of popupOptions) {
+    for (const opt in popupOptions) {
       if (chrome.storage.local.get(opt) != null)
         chrome.storage.local.set({[opt]: popupOptions[opt]});
     }
