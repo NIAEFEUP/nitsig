@@ -43,16 +43,15 @@ const init = async () => {
   // // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
-  rememberLogin(data);
   changeProfileLink();
   teacherPage();
 
   if(path == "it_listagem.lista_turma_disciplina")
     classPage();
   courseUnitPage();
-
+  
   injectOverrideFunctions();
-
+  
   reverseDateDirection(); //TO FIX: the sort funcionality stop working because of this
   currentAccountPage();
   addSortTableActions();
@@ -62,6 +61,8 @@ const init = async () => {
   changeCourseCards();
   fixPagination();
   changeLayout();
+  
+  rememberLogin(data);
 };
 
 init();

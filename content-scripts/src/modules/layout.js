@@ -68,7 +68,7 @@ const authentication = (auth) =>
                     }">
                         <span class="se-icon ri-money-euro-circle-line"></span> Conta corrente
                     </a>
-                    <a href="vld_validacao.sair?p_address=WEB_PAGE.INICIAL">
+                    <a id="se-logout-button" href="vld_validacao.sair?p_address=WEB_PAGE.INICIAL">
                         <span class="se-icon ri-logout-box-line"></span> Terminar Sessão
                     </a>
                 </nav>

@@ -250,6 +250,17 @@ body:is(body) {
     overflow: hidden;
 }
 
+.se-auth-invalid {
+  border: 1px solid #cc0000 !important;
+
+}
+
+#se-auth-wrong-details {
+  color: #cc0000;
+  font-weight: bold;
+  font-size: 0.8em;
+}
+
 #se-auth-close-button,
 #se-auth-button {
     grid-area: 1 / 1;
