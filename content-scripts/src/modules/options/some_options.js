@@ -4,7 +4,7 @@ import removeElement from "../utilities/removeElement";
 //import { getStorage } from "../utilities/storage";
 
 // Function to hide shortcuts 
-export const hideShortcuts = (shortcuts) => {
+export const hideShortcuts = (shortcuts) => new Promise((resolve, reject) => {
   switch (shortcuts) {
     case "on":
       addStyles(
@@ -21,9 +21,9 @@ export const hideShortcuts = (shortcuts) => {
       removeElement("#se-hide-shortcuts");
       break;
   }
-};
+});
 
-export const changeFont = (font) => {
+export const changeFont = (font) => new Promise((resolve, reject) => {
   switch (font) {
     case "on":
       addStyles(
@@ -40,9 +40,9 @@ export const changeFont = (font) => {
       removeElement("#se-change-font");
       break;
   }
-}
+});
 
-export const useNavBar = (navbar) => {
+export const useNavBar = (navbar) => new Promise((resolve, reject) => {
     switch (navbar) {
         case "on":
             addStyles("se-use-navbar", `
@@ -64,4 +64,4 @@ export const useNavBar = (navbar) => {
             removeElement("#se-use-navbar");
             break;
     }
-}
+});

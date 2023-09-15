@@ -13,7 +13,9 @@ export const userPreferences = [
 ];
 
 export const injectAllChanges = (data) => {
-    useNavBar(data?.navbar);
-  hideShortcuts(data?.shortcuts);
-  changeFont(data?.font);
+  Promise.all([
+    hideShortcuts(data?.shortcuts),
+    useNavBar(data?.navbar),
+    changeFont(data?.font)
+  ]).catch((err) => console.error(err));
 };
