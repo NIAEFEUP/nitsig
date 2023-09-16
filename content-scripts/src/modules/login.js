@@ -1,3 +1,4 @@
+import { fetchSigarraPage } from "./utilities/pageUtils";
 import { getStorage, setStorage } from "./utilities/storage";
 
 const emptyLogin = { auto_login: { verifed: false, user_info: "" } };
@@ -24,17 +25,10 @@ export const rememberLogin = async (data) => {
 
     } else if (!isAuthenticated) {
         const res = await tryLogin(auto_login);
-        if (res.status != 200) {
-            console.log("Something went wrong while logging in...");
-            return;
-        }
-        //check if there is a error while loading page
-        const htmlRes = document.createElement('html');
-        htmlRes.innerHTML = await res.text();
         // NOTE(luisd): if this happens probably the login is now invalid
         // eg.: user changes password / expires
         // we should then prompt the user to login again
-        if(htmlRes.querySelector("p.aviso-invalidado") != null){
+        if(res.querySelector("p.aviso-invalidado") != null){
             await setStorage(emptyLogin);
             return; 
         }
@@ -69,13 +63,7 @@ export const loginButtonHandler = (event) => {
 
     tryLogin(auto_login).then(
         async (res) => {
-            if (res.status != 200) {
-                console.log("Something went wrong while logging in...");
-                return;
-            }
-            const htmlRes = document.createElement('html');
-            htmlRes.innerHTML = await res.text();
-            if(htmlRes.querySelector("p.aviso-invalidado") != null){
+            if(res.querySelector("p.aviso-invalidado") != null){
                 document.getElementById("se-auth-user").classList.add("se-auth-invalid");
                 document.getElementById("se-auth-pass").classList.add("se-auth-invalid");
                 const p = document.createElement('p');
@@ -108,7 +96,7 @@ async function tryLogin(auto_login) {
     formBody.append("p_pass", user_info.pass);
     const url = new URL('https://sigarra.up.pt/feup/pt/vld_validacao.validacao');
     url.search = formBody.toString();
-    return await fetch(url,
+    return await fetchSigarraPage(url,
         {
             method: "POST",
             headers: {
