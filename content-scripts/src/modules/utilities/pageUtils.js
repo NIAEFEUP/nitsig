@@ -153,8 +153,14 @@ export function groupChildrenBySelector(childSelectors, classList){
 
 }
 
-export async function fetchSigarraPage(url) {
-    const r = await fetch(url);
+/**
+ * 
+ * @param {RequestInfo | URL} url 
+ * @param {RequestInit | undefined} init 
+ * @returns 
+ */
+export async function fetchSigarraPage(url, init=undefined) {
+    const r = await fetch(url, init);
 
     const decoder = new TextDecoder(
         r.headers.get("Content-Type").replace("text/html; charset=", "")

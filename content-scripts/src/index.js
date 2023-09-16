@@ -57,8 +57,7 @@ const init = async () => {
   // // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
-  rememberLogin(data);
-
+  
   functionsToExecute.forEach(f => {
     try {
       f.func();
@@ -67,6 +66,10 @@ const init = async () => {
       console.error(error);
     }
   });
+  // we run rememberLogin at last, because it's async
+  // TODO (luisd): make a better mechanism for functions that depend on previous
+  // steps and might be async
+  await rememberLogin(data);
 };
 
 init();

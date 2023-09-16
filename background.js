@@ -31,7 +31,7 @@ chrome.runtime.onInstalled.addListener((object) => {
 
   if (object.reason === "update") {
     for (const opt in popupOptions) {
-      if (chrome.storage.local.get(opt) != null)
+      if (chrome.storage.local.get(opt) == null)
         chrome.storage.local.set({[opt]: popupOptions[opt]});
     }
   }
@@ -52,7 +52,7 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     }
     message.auto_login.verifed = true;
     await chrome.storage.local.set({ auto_login: message.auto_login });
-    chrome.tabs.reload(sender.tab.id);
+    sendResponse(true);
   }
 });
 
