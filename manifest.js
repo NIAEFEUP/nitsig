@@ -1,7 +1,7 @@
 let manifest = {
     name: "NitSig: Sigarra, but Neater",
     short_name: "NitSig",
-    description: "A Neater Sigarra by improving it UI/UX experience and adding new features",
+    description: "A Neater Sigarra by improving its UI/UX experience and adding new features",
     version: "1.0.0",
     manifest_version: 3,
     icons: {
