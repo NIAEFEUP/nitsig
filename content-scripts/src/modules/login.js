@@ -11,7 +11,7 @@ export const rememberLogin = async (data) => {
     const isAuthenticated = document.querySelector('#se-auth-form') == null;
 
     auto_login = await getStorage("auto_login");
-    if (auto_login === null) {
+    if (!auto_login) {
         await setStorage(emptyLogin);
         auto_login = emptyLogin;
     }
