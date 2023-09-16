@@ -1,10 +1,8 @@
-//import selectors from "../../selectors";
 import addStyles from "../utilities/addStyles";
 import removeElement from "../utilities/removeElement";
-//import { getStorage } from "../utilities/storage";
 
 // Function to hide shortcuts 
-export const hideShortcuts = (shortcuts) => new Promise((resolve, reject) => {
+export const hideShortcuts = async (shortcuts) => {
   switch (shortcuts) {
     case "on":
       addStyles(
@@ -21,9 +19,9 @@ export const hideShortcuts = (shortcuts) => new Promise((resolve, reject) => {
       removeElement("#se-hide-shortcuts");
       break;
   }
-});
+};
 
-export const changeFont = (font) => new Promise((resolve, reject) => {
+export const changeFont = async (font) => {
   switch (font) {
     case "on":
       addStyles(
@@ -40,9 +38,9 @@ export const changeFont = (font) => new Promise((resolve, reject) => {
       removeElement("#se-change-font");
       break;
   }
-});
+};
 
-export const useNavBar = (navbar) => new Promise((resolve, reject) => {
+export const useNavBar = async (navbar) => {
     switch (navbar) {
         case "on":
             addStyles("se-use-navbar", `
@@ -64,4 +62,4 @@ export const useNavBar = (navbar) => new Promise((resolve, reject) => {
             removeElement("#se-use-navbar");
             break;
     }
-});
+};
