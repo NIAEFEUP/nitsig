@@ -7,7 +7,6 @@ import {
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
-import { changeProfileLink } from "./modules/links";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
@@ -33,9 +32,24 @@ chrome.storage.onChanged.addListener((changes) => {
 - Initializing function, runs once at start
 - Get Chrome Storage and inject respective styles
 --*/
-const init = async () => {
 
-  const path = window.location.pathname.split("/").slice(-1);
+const functionsToExecute = [
+  { name: "changeLayout", func: changeLayout },
+  { name: "reverseDateDirection", func: reverseDateDirection },
+  { name: "currentAccountPage", func: currentAccountPage },
+  { name: "addSortTableActions", func: addSortTableActions },
+  { name: "replaceIcons", func: replaceIcons },
+  { name: "improveSchedule", func: improveSchedule },
+  { name: "changeProfileRow", func: changeProfileRow },
+  { name: "changeCourseCards", func: changeCourseCards },
+  { name: "fixPagination", func: fixPagination },
+  { name: "teacherPage", func: teacherPage },
+  { name: "classPage", func: classPage },
+  { name: "courseUnitPage", func: courseUnitPage },
+  { name: "injectOverrideFunctions", func: injectOverrideFunctions },
+]
+
+const init = async () => {
 
   // // Watch for resize events
   // addResizeListener();
@@ -43,26 +57,19 @@ const init = async () => {
   // // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
-  changeProfileLink();
-  teacherPage();
-
-  if(path == "it_listagem.lista_turma_disciplina")
-    classPage();
-  courseUnitPage();
   
-  injectOverrideFunctions();
-  
-  reverseDateDirection(); //TO FIX: the sort funcionality stop working because of this
-  currentAccountPage();
-  addSortTableActions();
-  replaceIcons();
-  improveSchedule();
-  changeProfileRow();
-  changeCourseCards();
-  fixPagination();
-  changeLayout();
-  
-  rememberLogin(data);
+  functionsToExecute.forEach(f => {
+    try {
+      f.func();
+    } catch (error) {
+      console.error(`Error running ${f.name} init function!\n`)
+      console.error(error);
+    }
+  });
+  // we run rememberLogin at last, because it's async
+  // TODO (luisd): make a better mechanism for functions that depend on previous
+  // steps and might be async
+  await rememberLogin(data);
 };
 
 init();

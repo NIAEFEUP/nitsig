@@ -1,4 +1,5 @@
 import { fetchSigarraPage } from "../modules/utilities/pageUtils";
+import { getPath } from "../modules/utilities/sigarra";
 
 const removeExtras = () => {
     document.querySelector("#conteudoinner > h2").remove();
@@ -124,8 +125,8 @@ const groupClasses = async () => {
 }
 
 export const classPage = () => {
-    if (!document.location.href.toLowerCase().includes("it_listagem.lista_turma_disciplina"))
-        return;
+    const path = getPath();
+    if(!path.includes("it_listagem.lista_turma_disciplina")) return;
 
     removeExtras();
     groupClasses();
