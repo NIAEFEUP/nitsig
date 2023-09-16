@@ -1,7 +1,7 @@
 TODO:
 # Privacy Policy
 
-Nitsig does not store or collect any personal information. All user prefences are stored on the user's device in local storage.
+NitSig does not store or collect any personal information. All user prefences are stored on the user's device in local storage.
 
 ## Contact Information
 
