@@ -84,3 +84,12 @@ dialog[id^="photosDialog"]::backdrop {
 .tabela tr.k, .tabela td.k {
     background-image: none;
 }
+
+.tabela > tbody > tr, .tabela > tr {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.tabela tr:hover  {
+    border: none !important;
+}
