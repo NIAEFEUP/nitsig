@@ -79,6 +79,7 @@ export const MANIFEST_FIREFOX = {
     browser_specific_settings: {
         gecko: {
             id: "nitsig@ni.fe.up.pt",
+            update_url: "https://ni.fe.up.pt/nitsig/firefox/updates.json",
         },
     },
     background: {
