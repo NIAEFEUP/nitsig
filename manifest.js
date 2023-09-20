@@ -2,7 +2,7 @@ let manifest = {
     name: "NitSig: Sigarra, but Neater",
     short_name: "NitSig",
     description: "A Neater Sigarra by improving its UI/UX experience and adding new features",
-    version: "1.0.0",
+    version: "1.0.1",
     manifest_version: 3,
     icons: {
         16: "images/logo/logo-16.png",
@@ -79,6 +79,7 @@ export const MANIFEST_FIREFOX = {
     browser_specific_settings: {
         gecko: {
             id: "nitsig@ni.fe.up.pt",
+            update_url: "https://ni.fe.up.pt/nitsig/firefox/updates.json",
         },
     },
     background: {
