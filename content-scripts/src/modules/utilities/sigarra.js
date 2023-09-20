@@ -4,8 +4,7 @@
  * @returns true if user is authenticated, false otherwise
  */
 export const isAuth = () => {
-  const authDiv = document.getElementsByClassName("autenticado");
-  return authDiv.length > 0;
+  return document.querySelector('#se-auth-form') == null;
 };
 
 /**
@@ -15,7 +14,7 @@ export const isAuth = () => {
  */
 export const getUP = () => {
   if (isAuth()) {
-    const pfp = document.querySelector(".autenticado > .fotografia > img");
+    const pfp = document.querySelector("#se-auth-profile-button > img");
 
     return pfp.src.substr(-9, pfp.src.length);
   }
