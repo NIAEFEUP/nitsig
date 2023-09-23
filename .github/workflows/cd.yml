@@ -22,11 +22,21 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build
         run: yarn release
-      - name: Upload artifact
+      - name: Upload chrome artifact
         uses: actions/upload-artifact@v2
         with:
-          path: bundle
-          name: bundle
+          path: bundle/chrome
+          name: chrome
+      - name: Upload firefox artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: bundle/firefox
+          name: firefox
+      - name: Upload safari artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: bundle/safari
+          name: safari
   
   chrome:
     name: Deploy to Chrome
@@ -41,10 +51,9 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: chrome
       - run: ls -R
     #   - name: Upload to Chrome Web Store
-    #     working-directory: bundle/chrome
     #     run: npx chrome-webstore-upload-cli upload --auto-publish
 
   edge:
@@ -55,7 +64,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: chrome
+      - run: ls -R
 
   firefox:
     name: Deploy to Firefox
@@ -68,7 +78,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: firefox
+      - run: ls -R
     #   - name: Sign add-on
     #     working-directory: bundle/firefox
     #     run: npx web-ext sign --api-key $API_KEY --api-secret $API_SECRET
@@ -81,7 +92,8 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: chrome
+      - run: ls -R
 
   safari:
     name: Deploy to Safari
@@ -91,4 +103,5 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: safari
+      - run: ls -R
