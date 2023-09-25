@@ -158,6 +158,7 @@ export const FA_ICON_MAP = Object.freeze({
 export const BANNER_ICON_MAP = Object.freeze({
     "alerta": "alert",
     "info": "information",
+    "informa": "information",
 });
 
 export const BG_IMAGE_ICON_MAP = Object.freeze({
