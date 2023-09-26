@@ -447,7 +447,7 @@ body:is(body) {
 .se-notification {
     display: grid;
     grid-template: "title button" auto
-                   "date button" auto
+                   "time button" auto
                    / 1fr auto;
     align-items: center;
     gap: .25em;
@@ -464,8 +464,8 @@ body:is(body) {
     font-weight: 500;
 }
 
-.se-notification-date {
-    grid-area: date;
+.se-notification-time {
+    grid-area: time;
     font-size: .8em;
 }
 
