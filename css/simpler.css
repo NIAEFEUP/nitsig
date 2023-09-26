@@ -445,9 +445,11 @@ body:is(body) {
 }
 
 .se-notification {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template: "title button" auto
+                   "date button" auto
+                   / 1fr auto;
+    align-items: center;
     gap: .25em;
     padding: .5em;
     border-bottom: 1px solid #d1d1d1;
@@ -458,7 +460,19 @@ body:is(body) {
 }
 
 .se-notification-title {
+    grid-area: title;
     font-weight: 500;
+}
+
+.se-notification-date {
+    grid-area: date;
+    font-size: .8em;
+}
+
+.se-notification-button {
+    grid-area: button;
+    background: none !important;
+    border: none !important;
 }
 
 #se-auth-new-notifications,
@@ -476,6 +490,10 @@ body:is(body) {
 
 #se-auth-empty-notifications {
     display: none;
+}
+
+#se-auth-empty-notifications,
+#se-auth-notifications-list .se-loading-indicator {
     flex-direction: column;
     align-items: center;
     justify-content: center;

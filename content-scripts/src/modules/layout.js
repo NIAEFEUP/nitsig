@@ -226,6 +226,36 @@ const loadNotifications = async () => {
                 span.textContent = title;
 
                 li.append(span, time);
+
+                if (answer) {
+                    const markAsRead = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Seems to always succeed
+                        await fetchSigarraPage(
+                            `gnots_geral.nots_list_sub?${answer.name}=${answer.value}`
+                        );
+
+                        e.target.remove();
+                        readNotifications.insertBefore(
+                            li,
+                            readNotifications.firstChild
+                        );
+                    };
+
+                    const button = document.createElement("button");
+                    button.classList.add("se-notification-button");
+                    button.type = "button";
+                    button.addEventListener("click", markAsRead);
+
+                    const icon = document.createElement("span");
+                    icon.classList.add("se-icon", "ri-check-line");
+
+                    button.append(icon);
+                    li.append(button);
+                }
+
                 list.append(li);
             });
         })
