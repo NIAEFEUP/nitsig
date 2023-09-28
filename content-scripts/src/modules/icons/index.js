@@ -142,13 +142,12 @@ const replaceBanners = () => {
         document.querySelectorAll(`.${k}`).forEach((i) => {
             const span = document.createElement("span");
             span.innerHTML = i.innerHTML;
-            i.innerText = "";
 
             const icon = document.createElement("span");
             icon.classList.add("se-icon", `ri-${v}-fill`);
             icon.style.fontSize = "1.5em";
 
-            i.append(icon, span);
+            i.replaceChildren(icon, span);
         });
     });
 };

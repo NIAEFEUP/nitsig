@@ -943,12 +943,16 @@ div.info, div.informa{
   background-color: #e6fafd !important;
 }
 
-div.alerta > span[class='se-icon ri-alert-fill'] {
+div.alerta > span.se-icon {
   color: #ef4d61;
 }
 
-div.info > span[class='se-icon ri-information-fill'] {
+div:is(.info, .informa) > span.se-icon {
   color: #02cfe9;
+}
+
+div.informa > span > span.se-icon {
+    display: none !important;
 }
 
 /* ----------------- SCHEDULE ----------------- */
