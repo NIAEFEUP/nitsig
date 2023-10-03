@@ -82,6 +82,15 @@ jobs:
         with:
           path: web-ext-artifacts
           name: firefox-signed
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: web-ext-artifacts/*.xpi
+          asset_name: firefox.xpi
+          asset_content_type: application/x-xpinstall
 
 #   opera:
 #     name: Deploy to Opera
