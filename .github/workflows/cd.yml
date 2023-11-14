@@ -91,6 +91,13 @@ jobs:
           asset_path: web-ext-artifacts/*.xpi
           asset_name: firefox.xpi
           asset_content_type: application/x-xpinstall
+      - name: Trigger workflow on website
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: cd.yaml
+          repo: NIAEFEUP/nitsig-website
+          inputs: '{ "version": "${{ github.event.release.name }}" }'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
 #   opera:
 #     name: Deploy to Opera
