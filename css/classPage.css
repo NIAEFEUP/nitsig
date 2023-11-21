@@ -9,11 +9,6 @@
     grid-template-rows: 1fr;
 }
 
-.tableWrapper > table {
-    display: grid;
-    overflow: hidden;
-}
-
 .classWrapper {
     display: flex;
     flex-direction: column;
@@ -85,9 +80,8 @@ dialog[id^="photosDialog"]::backdrop {
     background-image: none;
 }
 
-.tabela > tbody > tr, .tabela > tr {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+.tabela {
+    table-layout: auto;
 }
 
 .tabela tr:hover  {
