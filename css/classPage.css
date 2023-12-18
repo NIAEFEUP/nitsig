@@ -3,10 +3,8 @@
 }
 
 .tableWrapper {
-    overflow: hidden;
-    display: grid;
-    transition: grid-template-rows 0.5s ease-in-out;
-    grid-template-rows: 1fr;
+    overflow-y: hidden;
+    overflow-x: scroll;
 }
 
 .classWrapper {
@@ -69,19 +67,15 @@ dialog[id^="photosDialog"]::backdrop {
 }
 
 .titleWrapper[data-expand="true"] .rightChevron {
-    transform: rotate(0deg);
+    transform: rotate(-180deg);
 }
 
 .titleWrapper[data-expand="false"] .rightChevron {
-    transform: rotate(-180deg);
+    transform: rotate(0deg);
 }
 
 .tabela tr.k, .tabela td.k {
     background-image: none;
-}
-
-.tabela {
-    table-layout: auto;
 }
 
 .tabela tr:hover  {
