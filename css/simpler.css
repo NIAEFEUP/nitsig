@@ -115,6 +115,33 @@ body:is(body) {
     color: white !important;
 }
 
+.se-loading-indicator {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.se-loading .se-loading-indicator {
+    display: flex;
+}
+
+.se-loading-indicator > .se-icon {
+    animation: infinite linear rotate 1s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 #se-auth-federate {
     background-color: #4a9cd4 !important;
     color: white !important;
@@ -239,6 +266,7 @@ body:is(body) {
 
 #se-auth-form,
 #se-auth-profile-menu,
+#se-auth-notifications-menu,
 .se-header-link-popover {
     display: none;
     flex-direction: column;
@@ -276,6 +304,7 @@ body:is(body) {
 }
 
 .se-popover-open :is(#se-auth-form, #se-auth-profile-menu),
+#se-auth-notifications-menu.se-popover-open,
 .se-header-link-popover.se-popover-open,
 .se-header-link:hover > .se-header-link-popover {
     display: flex;
@@ -290,10 +319,11 @@ body:is(body) {
     padding: 1em;
 }
 
-#se-auth-profile-menu {
+#se-auth-profile-menu, #se-auth-notifications-menu {
     top: 6em;
     right: 1em;
     width: 16em;
+    max-height: calc(100vh - 7em);
 }
 
 #se-auth-header {
@@ -378,6 +408,106 @@ body:is(body) {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+#se-auth-notifications-menu input {
+    display: none;
+}
+
+#se-auth-notifications-header {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+#se-auth-notifications-header label {
+    flex: 1;
+    padding: .5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#se-auth-notifications-header label:hover {
+    background-color: #f0f0f0;
+}
+
+#se-auth-new-notifications-radio:checked ~ #se-auth-notifications-header label[for="se-auth-new-notifications-radio"],
+#se-auth-read-notifications-radio:checked ~ #se-auth-notifications-header label[for="se-auth-read-notifications-radio"] {
+    font-weight: bold;
+}
+
+#se-auth-notifications-list {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.se-notification {
+    display: grid;
+    grid-template: "title button" auto
+                   "time button" auto
+                   / 1fr auto;
+    align-items: center;
+    gap: .25em;
+    padding: .5em;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.se-notification:last-of-type {
+    border: none;
+}
+
+.se-notification-title {
+    grid-area: title;
+    font-weight: 500;
+}
+
+.se-notification-time {
+    grid-area: time;
+    font-size: .8em;
+}
+
+.se-notification-button {
+    grid-area: button;
+    background: none !important;
+    border: none !important;
+}
+
+#se-auth-new-notifications,
+#se-auth-read-notifications {
+    display: none;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+}
+
+#se-auth-new-notifications-radio:checked ~ #se-auth-notifications-list #se-auth-new-notifications:not(:empty),
+#se-auth-read-notifications-radio:checked ~ #se-auth-notifications-list #se-auth-read-notifications:not(:empty) {
+    display: flex;
+}
+
+#se-auth-empty-notifications {
+    display: none;
+}
+
+#se-auth-empty-notifications,
+#se-auth-notifications-list .se-loading-indicator {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+    padding: 1em;
+}
+
+#se-auth-new-notifications-radio:checked ~ #se-auth-notifications-list #se-auth-new-notifications:empty ~ #se-auth-empty-notifications,
+#se-auth-read-notifications-radio:checked ~ #se-auth-notifications-list #se-auth-read-notifications:empty ~ #se-auth-empty-notifications {
+    display: flex;
+}
+
+.se-loading > :is(#se-auth-new-notifications, #se-auth-read-notifications, #se-auth-empty-notifications) {
+    display: none !important;
 }
 
 #conteudo {

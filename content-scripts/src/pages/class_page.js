@@ -3,7 +3,6 @@ import { getPath } from "../modules/utilities/sigarra";
 
 const removeExtras = () => {
     document.querySelector("#conteudoinner > h2").remove();
-    document.querySelector("#conteudoinner > table:nth-child(5)").remove();
     document.querySelectorAll("#conteudoinner br").forEach( x => x.remove());
 }
 
@@ -59,8 +58,9 @@ const getPhotosLink = (title) => {
     return title.children[2].href;
 }
 
-const editTitle = async (title, table, dialog) => {   
+const editTitle = async (title, table, dialog, enrolled, enrolledText) => {   
     const titleText = document.createElement("h3");
+    const enrolledQnt = document.createElement("h3");
     const leftSide = document.createElement("div");
     const chevron = document.createElement("span");
     chevron.classList.add("ri-arrow-up-s-line", "rightChevron");
@@ -79,17 +79,28 @@ const editTitle = async (title, table, dialog) => {
     const photosButton = createPhotosButton(classLinks[1].children[0], dialog); // photos button
     leftSide.appendChild(photosButton);
     
+    enrolledQnt.classList.add("classTitle");
+    enrolledQnt.innerText = `${enrolled} ${enrolledText.toLowerCase()}`;
+    
     title.appendChild(leftSide);
     title.appendChild(chevron);
+    leftSide.appendChild(enrolledQnt);
 
     titleContent.remove();
     title.addEventListener("click", () => titleClick(table, title));
 }
 
-const groupClasses = async () => {
+/**
+ * 
+ * @param {Element} enrolledTable
+ *
+ */
+const groupClasses = async (enrolledTable) => {
     const parent = document.querySelector("#conteudoinner");
-    let titleIndex = 5, tableIndex = 6, classIndex = 0;
+    let titleIndex = 5, tableIndex = 6, classIndex = 0, enrolledIndex = 2;
     let title = document.querySelector(`#conteudoinner > h3:nth-child(${titleIndex})`);
+    let enrolled = enrolledTable.querySelector(`td.l:nth-child(${enrolledIndex})`).textContent;
+    let enrolledText = enrolledTable.querySelector("tbody > tr.d > td.k.t").textContent
     let table = document.querySelector(`#conteudoinner > table:nth-child(${tableIndex})`);
     
     while (title || table) {
@@ -112,15 +123,17 @@ const groupClasses = async () => {
         groupElement.appendChild(tableWrapperElement);
         groupElement.appendChild(photosDialog);
         
-        editTitle(titleWrapperElement, tableWrapperElement, photosDialog);
+        editTitle(titleWrapperElement, tableWrapperElement, photosDialog, enrolled, enrolledText);
         titleWrapperElement.dataset.expand = "true";
 
         titleIndex++;
         tableIndex++;
         classIndex++;
+        enrolledIndex++;
 
         title = document.querySelector(`#conteudoinner > h3:nth-child(${titleIndex})`);
         table = document.querySelector(`#conteudoinner > table:nth-child(${tableIndex})`);
+        enrolled = enrolledTable.querySelector(`td.l:nth-child(${enrolledIndex})`).textContent;
     }
 }
 
@@ -129,5 +142,7 @@ export const classPage = () => {
     if(!path.includes("it_listagem.lista_turma_disciplina")) return;
 
     removeExtras();
-    groupClasses();
+    const enrolledTable = document.querySelector("#conteudoinner > table:nth-child(5)");
+    enrolledTable.remove();
+    groupClasses(enrolledTable);
 }

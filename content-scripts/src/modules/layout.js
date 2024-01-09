@@ -1,5 +1,6 @@
 import { elementFromHtml } from "./utilities/elementFromHtml";
 import { createPopover } from "./utilities/popover";
+import { fetchSigarraPage } from "./utilities/pageUtils";
 
 const HEADER_LINKS = {
     Estudantes: {
@@ -40,13 +41,32 @@ const HEADER_LINKS = {
 const authentication = (auth) =>
     auth
         ? /*html*/ `
-            <a 
-                href="gnots_geral.all_nots_list?pv_user=${auth.number}" 
+            <button
+                id="se-auth-notifications-button"
                 class="se-button se-icon-button ${
                     auth.notifications ? "se-badge" : ""
                 }">
                 <span class="se-icon ri-notification-line"></span>
-            </a>
+            </button>
+            <div id="se-auth-notifications-menu">
+                <input type="radio" name="se-auth-notifications" id="se-auth-new-notifications-radio" checked>
+                <input type="radio" name="se-auth-notifications" id="se-auth-read-notifications-radio">
+                <div id="se-auth-notifications-header">
+                    <label for="se-auth-new-notifications-radio">Novas</label>
+                    <label for="se-auth-read-notifications-radio">Lidas</label>
+                </div>
+                <div id="se-auth-notifications-list">
+                    <ol id="se-auth-new-notifications"></ol>
+                    <ol id="se-auth-read-notifications"></ol>
+                    <div id="se-auth-empty-notifications">
+                        <span class="se-icon ri-notification-off-line"></span>
+                        <span>Sem notificações</span>
+                    </div>
+                    <div class="se-loading-indicator">
+                        <span class="se-icon ri-refresh-line"></span>
+                    </div>
+                </div>
+            </div>
             <button id="se-auth-profile-button">
                 <img
                     src="fotografias_service.foto?pct_cod=${auth.number}"
@@ -155,6 +175,96 @@ const createNewHeader = (auth) =>
         </header>
     `);
 
+const loadNotifications = async () => {
+    const notificationsList = document.querySelector(
+        "#se-auth-notifications-list"
+    );
+
+    if (
+        notificationsList?.hasAttribute("data-se-loaded") ||
+        notificationsList?.classList.contains("se-loading")
+    )
+        return;
+
+    notificationsList.classList.add("se-loading");
+
+    const newNotifications = document.querySelector(
+        "#se-auth-new-notifications"
+    );
+    const readNotifications = document.querySelector(
+        "#se-auth-read-notifications"
+    );
+
+    const dateFormatter = new Intl.DateTimeFormat("pt-PT", {
+        dateStyle: "short",
+    });
+
+    await Promise.allSettled(
+        [
+            [newNotifications, "P"],
+            [readNotifications, "F"],
+        ].map(async ([list, type]) => {
+            const r = await fetchSigarraPage(
+                `gnots_ajax.show_lista_notifs?pv_estado=${type}`
+            );
+
+            r.querySelectorAll("tr.d").forEach((x) => {
+                const date = x.querySelector("td:nth-child(3)")?.textContent;
+                const title = x.querySelector("td:nth-child(4)")?.textContent;
+                const answer = x.querySelector("td:nth-child(7) input");
+
+                const li = document.createElement("li");
+                li.classList.add("se-notification");
+
+                const time = document.createElement("time");
+                time.classList.add("se-notification-time");
+                time.dateTime = date;
+                time.textContent = dateFormatter.format(new Date(date));
+
+                const span = document.createElement("span");
+                span.classList.add("se-notification-title");
+                span.textContent = title;
+
+                li.append(span, time);
+
+                if (answer) {
+                    const markAsRead = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Seems to always succeed
+                        await fetchSigarraPage(
+                            `gnots_geral.nots_list_sub?${answer.name}=${answer.value}`
+                        );
+
+                        e.target.remove();
+                        readNotifications.insertBefore(
+                            li,
+                            readNotifications.firstChild
+                        );
+                    };
+
+                    const button = document.createElement("button");
+                    button.classList.add("se-notification-button");
+                    button.type = "button";
+                    button.addEventListener("click", markAsRead);
+
+                    const icon = document.createElement("span");
+                    icon.classList.add("se-icon", "ri-check-line");
+
+                    button.append(icon);
+                    li.append(button);
+                }
+
+                list.append(li);
+            });
+        })
+    );
+
+    notificationsList.classList.remove("se-loading");
+    notificationsList.setAttribute("data-se-loaded", "");
+};
+
 const replaceHeader = () => {
     const oldHeader = document.querySelector("#cabecalho");
 
@@ -182,6 +292,21 @@ const replaceHeader = () => {
     newHeader
         .querySelectorAll(":is(#se-auth-button, #se-auth-profile-button)")
         .forEach((x) => x.addEventListener("click", openAuth));
+
+    const notificationsPopover = newHeader.querySelector(
+        "#se-auth-notifications-menu"
+    );
+    const notificationsButton = newHeader.querySelector(
+        "#se-auth-notifications-button"
+    );
+
+    if (notificationsPopover && notificationsButton) {
+        const openNotifications = createPopover(notificationsPopover);
+        notificationsButton.addEventListener("click", () => {
+            loadNotifications();
+            openNotifications();
+        });
+    }
 
     newHeader.querySelectorAll(".se-header-link").forEach((x) => {
         const popover = x.querySelector(".se-header-link-popover");
