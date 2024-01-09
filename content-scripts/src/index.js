@@ -6,7 +6,7 @@ import {
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
-import { getStorage } from "./modules/utilities/storage";
+import { getStorage, setStorage } from "./modules/utilities/storage";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
@@ -16,6 +16,7 @@ import { changeCourseCards, changeProfileRow } from "./pages/profile_page";
 import { courseUnitPage } from "./pages/course_unit_page";
 import { fixPagination } from "./modules/pagination";
 import { changeLayout } from "./modules/layout";
+import { addStarIconToCard } from "./modules/favorite-course";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -47,16 +48,20 @@ const functionsToExecute = [
   { name: "classPage", func: classPage },
   { name: "courseUnitPage", func: courseUnitPage },
   { name: "injectOverrideFunctions", func: injectOverrideFunctions },
+  { name: "addStarIconToCard", func: addStarIconToCard}
 ]
 
 const init = async () => {
 
   // // Watch for resize events
   // addResizeListener();
-
   // // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
+
+  if(!(await getStorage('favorite_courses'))){
+    await setStorage({'favorite_courses': '{}'}) //Insert empty object
+  }
   
   functionsToExecute.forEach(f => {
     try {

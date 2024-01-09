@@ -167,7 +167,7 @@ export const changeCourseCards = () => {
             const a = document.createElement('a');
             a.classList = card.classList;
             a.classList.add("se-course-card-clickable");
-            a.setAttribute('data-course-id', festId)
+            a.setAttribute('data-course-enrollment-id', festId)
             if(active || hasCardSelected == false) a.classList.add('se-course-card-active')
 
             a.append(...card.children);
