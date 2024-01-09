@@ -157,10 +157,17 @@ export const changeCourseCards = () => {
         if(detailsElement != null) {
             const url = detailsElement.querySelector('a').href;
             detailsElement.remove();
+            const parsedUrlParams = new URLSearchParams(url.split('?')[1])
+            let festId = parsedUrlParams.get('pv_fest_id') 
+            if(festId === null){
+                festId = new URLSearchParams(location.href.split('?')[1]).get('pv_fest_id')
+
+            }
 
             const a = document.createElement('a');
             a.classList = card.classList;
             a.classList.add("se-course-card-clickable");
+            a.setAttribute('data-course-id', festId)
             if(active || hasCardSelected == false) a.classList.add('se-course-card-active')
 
             a.append(...card.children);
