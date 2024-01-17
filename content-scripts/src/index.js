@@ -7,6 +7,7 @@ import {
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage } from "./modules/utilities/storage";
+import { profileChanges } from "./modules/profile";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
 import { teacherPage } from "./pages/teacher_page";
@@ -47,6 +48,7 @@ const functionsToExecute = [
   { name: "classPage", func: classPage },
   { name: "courseUnitPage", func: courseUnitPage },
   { name: "injectOverrideFunctions", func: injectOverrideFunctions },
+  { name: "profileChanges", func: profileChanges },
 ]
 
 const init = async () => {
