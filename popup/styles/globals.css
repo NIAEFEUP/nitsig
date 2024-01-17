@@ -29,7 +29,7 @@
 html,
 body,
 #__next {
-  @apply h-full;
+  @apply h-fit;
 }
 
 body {
@@ -37,7 +37,7 @@ body {
 }
 
 #__next {
-  @apply isolate p-2;
+  @apply p-2 isolate;
 }
 
 img,

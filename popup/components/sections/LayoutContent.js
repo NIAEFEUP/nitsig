@@ -6,13 +6,16 @@ const LayoutContent = () => (
             <div className="flex flex-col gap-y-4">
                 <SwitchControl 
                     label="Ativar barra de navegação" 
-                    storageKey="key1" />
+                    storageKey="navbar" />
                 <SwitchControl 
                     label="Esconder atalhos" 
                     storageKey="shortcuts" />
                 <SwitchControl
                     label="Relembrar utilizador"
                     storageKey="autoLogin"/>
+                <SwitchControl
+                    label="Mudar fonte de letra"
+                    storageKey="font"/>
             </div>
         </div>
     </form>

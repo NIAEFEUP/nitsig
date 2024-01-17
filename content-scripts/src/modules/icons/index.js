@@ -9,7 +9,7 @@ import {
 const addCSS = () => {
     if (!document.querySelector('link[href$="remixicon.css"]'))
         document.head.innerHTML +=
-            '<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">';
+            '<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">';
 };
 
 const replaceImages = () => {
@@ -44,7 +44,7 @@ const replaceImages = () => {
         size = Math.max(Math.round(Math.max(i.width, i.height) / 24) * 24, 24);
 
         copyAttrs(i, span);
-        span.classList.add(`ri-${icon}-line`);
+        span.classList.add(`ri-${icon}-line`, `ri-${icon}`);
         span.style.fontSize = `${size}px`;
         span.classList.add("se-icon");
         span.classList.remove("se-hidden-icon");
@@ -71,18 +71,20 @@ const replaceImages = () => {
 
 const copyAttrs = (el1, el2) => {
     for (const attr of el1.attributes)
-        try {
-            el2.setAttribute(attr.name, attr.value);
-        } catch (error) {
-            console.error(error);
-        }
+        if (!attr.name.startsWith("on"))
+            try {
+                el2.setAttribute(attr.name, attr.value);
+            } catch (error) {
+                console.error(error);
+            }
 };
 
 const copyEvents = (el1, el2) => {
     for (const event of EVENTS)
-        el2.addEventListener(event, (e) =>
-            el1.dispatchEvent(new e.constructor(e.type, e))
-        );
+        el2.addEventListener(event, (e) => {
+            el1.dispatchEvent(new e.constructor(e.type, e));
+            e.stopPropagation();
+        });
 };
 
 /**
@@ -140,12 +142,12 @@ const replaceBanners = () => {
         document.querySelectorAll(`.${k}`).forEach((i) => {
             const span = document.createElement("span");
             span.innerHTML = i.innerHTML;
-            i.innerText = "";
 
             const icon = document.createElement("span");
-            icon.classList.add("se-icon", `ri-${v}-line`);
+            icon.classList.add("se-icon", `ri-${v}-fill`);
+            icon.style.fontSize = "1.5em";
 
-            i.append(icon, span);
+            i.replaceChildren(icon, span);
         });
     });
 };

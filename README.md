@@ -54,7 +54,7 @@ You can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
 		</td>
       <td width="33.33%">
 			<ol>
-				<li>Open <code>bundle/safari/Sigarra Extension for Sigarra Extension.xcodeproj</code></li>
+				<li>Open <code>bundle/safari/NitSig for NitSig.xcodeproj</code></li>
 				<li>Click the Play button in Xcode ("start the active scheme")</li>
 				<li><a href="https://developer.apple.com/documentation/safariservices/safari_web_extensions/running_your_safari_web_extension#3744467">Configure Safari in macOS to run unsigned extensions</a></li>
 			</ol>

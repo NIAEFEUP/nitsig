@@ -1,0 +1,98 @@
+
+.se-profile-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 2em;
+}
+
+.se-student-photo{
+    float: none !important;
+    padding: 0em !important;
+    white-space: normal !important;  
+    max-width: 150px;
+}
+
+.se-student-photo > img{
+    border-radius: 8px;
+}
+
+.se-student-photo > .estudante-foto-editar {
+    border-radius: 8px;
+    padding: 0.1em 0.15em;
+}
+
+.se-profile-username-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1em;
+}
+
+.se-profile-info{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.se-course-card-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1em;
+    margin-top: 1em;
+    container: card-list / inline-size;
+}
+
+.se-course-card {
+    flex-basis: 25em;
+    background-color: #F4F4F4;
+    border-radius: 8px;
+    padding: 1em;
+}
+
+@container card-list (width < 25em){
+    .se-course-card {
+        flex-basis: 100%
+    }
+}
+
+
+.se-course-card-clickable{
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.se-course-card-clickable > .estudante-lista-curso-nome > a{
+    display: block;
+}
+
+.se-course-card-clickable:hover, .se-course-card-clickable:active, .se-course-card-clickable:focus{
+    color: inherit !important;
+    background-color: #dddada;
+    opacity: 1 !important;
+    transition: opacity 0.2s ease-out;
+}
+
+.se-course-card-clickable:not(.se-course-card-active){
+    opacity: 0.5;
+    transition: opacity 0.2s ease-out;
+}
+
+.se-profile-first-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.se-profile-edit-button {
+    text-decoration: none !important;
+    color: initial !important;
+}

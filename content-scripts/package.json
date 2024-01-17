@@ -1,5 +1,5 @@
 {
-  "name": "sigarra-extension-content-scripts",
+  "name": "nitsig-content-scripts",
   "source": "src/index.js",
   "main": "dist/main.js",
   "scripts": {

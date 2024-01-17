@@ -1,13 +1,21 @@
 import {
+    useNavBar,
   hideShortcuts,
+  changeFont
 } from "./some_options";
 
 // Array of user preferences, passed to `injectAllChanges`
 export const userPreferences = [
+  "navbar",
   "shortcuts",
-  "autoLogin"
+  "autoLogin",
+  "font"
 ];
 
 export const injectAllChanges = (data) => {
-  hideShortcuts(data?.shortcuts); 
+  Promise.all([
+    hideShortcuts(data?.shortcuts),
+    useNavBar(data?.navbar),
+    changeFont(data?.font)
+  ]).catch((err) => console.error(err));
 };
