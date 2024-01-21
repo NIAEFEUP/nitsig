@@ -78,7 +78,7 @@ const authentication = (auth) =>
                     <span>${auth.number}</span>
                 </div>
                 <nav id="se-auth-profile-links">
-                    <a href="fest_geral.cursos_list?pv_num_unico=${
+                    <a class="se-auth-profile" href="fest_geral.cursos_list?pv_num_unico=${
                         auth.number
                     }">
                         <span class="se-icon ri-user-line"></span> Perfil
@@ -272,13 +272,15 @@ const replaceHeader = () => {
 
     let auth = null;
 
-    if (autenticacao && autenticacao.classList.contains("autenticado"))
+    if (autenticacao && autenticacao.classList.contains("autenticado")){
+        const number = autenticacao.querySelector("img").src.slice(-9)
+
         auth = {
             name: autenticacao.querySelector(".nome").textContent,
-            number: autenticacao.querySelector("img").src.slice(-9),
+            number: number,
             notifications: oldHeader.querySelector(".notificacao") !== null,
         };
-
+    }
     const newHeader = createNewHeader(auth);
 
     const newAuth = newHeader.querySelector("#se-auth");
@@ -330,7 +332,7 @@ const removeLeftColumn = () => {
     rightColumn.append(newMap);
 };
 
-export const changeLayout = () => {
+export const changeLayout = async () => {
     // Move all scripts and styles to head
     const scripts = document.querySelectorAll("script, link, style");
     document.head.append(...scripts);

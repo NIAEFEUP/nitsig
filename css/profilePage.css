@@ -68,6 +68,24 @@
     color: inherit !important;
 }
 
+.se-course-card > .estudante-lista-curso-nome {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.se-course-card >  .estudante-lista-curso-nome  > .se-course-star {
+    font-size: 1.5rem;
+}
+
+.se-course-card >  .estudante-lista-curso-nome  > .se-course-star.se-favorite-course:hover{
+    color: rgb(219, 146, 9);
+}
+
+.se-course-card >  .estudante-lista-curso-nome  > .se-course-star.ri-star-fill {
+    color: rgb(236, 156, 7);
+}
+
 .se-course-card-clickable > .estudante-lista-curso-nome > a{
     display: block;
 }
