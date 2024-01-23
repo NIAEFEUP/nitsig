@@ -1,4 +1,5 @@
-const renameStatusAndFrequency = () => {
+const renameStatutesAndAttendance = () => {
+    // TODO: English
     const element =
         document.querySelector(".estudantes-curso-opcao:nth-child(4) a") ??
         document.querySelector(".estudantes-curso-opcao:nth-child(4)");
@@ -7,7 +8,7 @@ const renameStatusAndFrequency = () => {
     }
 };
 
-const alignGPAandECTs = () => {
+const replaceResultsTable = () => {
     const avgTable = document.querySelector(".caixa > table:first-child");
 
     if (!avgTable) return;
@@ -57,7 +58,7 @@ const defaultCurrentYear = () => {
         .click();
 };
 
-const titleTableAcademicJourney = () => {
+const addTooltips = () => {
     document.querySelectorAll("#tabelapercurso .l").forEach((elem) => {
         switch (elem.innerHTML) {
             case "V":
@@ -76,37 +77,39 @@ const titleTableAcademicJourney = () => {
     });
 };
 
-const linkToGradeResults = () => {
+const replaceUCLinks = () => {
     document
         .querySelectorAll("#tabelapercurso tr:is(.i, .p)")
         .forEach((elem) => {
-            elem.querySelectorAll("td.n").forEach((e1) => {
-                if (
-                    e1.classList.contains("aprovado") ||
-                    e1.classList.contains("nao-aprovado")
-                ) {
-                    e1.classList.add("cursormao");
-                    e1.onclick = (_) => {
-                        elem.querySelector("td a.unidade-curricular").click();
-                    };
-                }
+            const name = elem.querySelector("td.uc");
+            const code = elem.querySelector("td.t");
+            const results = elem.querySelectorAll("td.n:not(.k)");
+
+            if (!name || !code || !results) return;
+
+            const nameLink = name.querySelector("a");
+            const codeLink = code.querySelector("a");
+
+            results.forEach((result) => {
+                const link = nameLink.cloneNode(false);
+                link.innerHTML = result.innerHTML;
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    nameLink.click();
+                });
+
+                result.replaceChildren(link);
             });
+
+            code.innerHTML = codeLink.innerHTML;
+
+            codeLink.innerHTML = nameLink.innerHTML;
+            name.replaceChildren(codeLink);
         });
 };
 
-const linkToCurrUnit = () => {
-    document
-        .querySelectorAll("#tabelapercurso tr:is(.i, .p)")
-        .forEach((elem) => {
-            elem.querySelectorAll("td.k.t.uc").forEach((e1) => {
-                e1.onclick = (e) => {
-                    if (e.isTrusted) elem.querySelector("td.k.t a").click();
-                };
-            });
-        });
-};
-
-const replaceOptionalPlaceholder = () => {
+const replaceMinorCourseUnitPlaceholders = () => {
     const pattern =
         /\d+ U.C. do tipo Unidade curricular da componente (\w+) com um total de (\d+) créditos/;
 
@@ -120,11 +123,45 @@ const replaceOptionalPlaceholder = () => {
         if (match) {
             const [, type, credits] = match;
 
+            // Figure out year and period through some heuristics
+            const row = placeholder.parentElement;
+            let prevRow = row.previousElementSibling;
+            while (prevRow && prevRow.querySelector("td[colspan='6']")) {
+                prevRow = prevRow.previousElementSibling;
+            }
+            let nextRow = row.nextElementSibling;
+            while (nextRow && nextRow.querySelector("td[colspan='6']")) {
+                nextRow = nextRow.nextElementSibling;
+            }
+
+            const prevYear = parseInt(
+                prevRow.querySelector("td.k.l:first-child").innerText
+            );
+            const nextYear = parseInt(
+                nextRow.querySelector("td.k.l:first-child").innerText
+            );
+
+            const prevPeriod = parseInt(
+                prevRow.querySelector("td.k.l:nth-child(2)").innerText
+            );
+            const nextPeriod = parseInt(
+                nextRow.querySelector("td.k.l:nth-child(2)").innerText
+            );
+
+            const year =
+                nextYear > prevYear && nextPeriod > prevPeriod
+                    ? nextYear
+                    : prevYear;
+            const period = year === nextYear ? nextPeriod : prevPeriod + 1;
+
+            // Fill in the table
             const yearElement = document.createElement("td");
             yearElement.classList.add("k", "l");
+            yearElement.innerHTML = year;
 
             const periodElement = document.createElement("td");
             periodElement.classList.add("k", "l");
+            periodElement.innerHTML = period + "S";
 
             const codeElement = document.createElement("td");
             codeElement.classList.add("k", "t");
@@ -152,31 +189,19 @@ const replaceOptionalPlaceholder = () => {
     });
 };
 
-// ------------------------
-// Table Percurso Académico
-// ------------------------
-
-const styleTableSizes = () => {};
-const styleTablePercursoAcademico = () => {
-    styleTableSizes();
-};
-
 export const profileChanges = () => {
-    renameStatusAndFrequency();
+    renameStatutesAndAttendance();
 
     if (
         window.location.href
             .toLowerCase()
             .includes("/fest_geral.curso_percurso_academico_view")
     ) {
-        alignGPAandECTs();
+        replaceResultsTable();
         hideLegend();
         defaultCurrentYear();
-        titleTableAcademicJourney();
-        linkToGradeResults();
-        linkToCurrUnit();
-        styleTablePercursoAcademico();
-
-        replaceOptionalPlaceholder();
+        addTooltips();
+        replaceUCLinks();
+        replaceMinorCourseUnitPlaceholders();
     }
 };
