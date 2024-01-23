@@ -1,5 +1,4 @@
-
-.se-profile-row{
+.se-profile-row {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -7,14 +6,14 @@
     gap: 2em;
 }
 
-.se-student-photo{
+.se-student-photo {
     float: none !important;
     padding: 0em !important;
-    white-space: normal !important;  
+    white-space: normal !important;
     max-width: 150px;
 }
 
-.se-student-photo > img{
+.se-student-photo > img {
     border-radius: 8px;
 }
 
@@ -31,7 +30,7 @@
     gap: 1em;
 }
 
-.se-profile-info{
+.se-profile-info {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -51,40 +50,41 @@
 
 .se-course-card {
     flex-basis: 25em;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     border-radius: 8px;
     padding: 1em;
 }
 
-@container card-list (width < 25em){
+@container card-list (width < 25em) {
     .se-course-card {
-        flex-basis: 100%
+        flex-basis: 100%;
     }
 }
 
-
-.se-course-card-clickable{
+.se-course-card-clickable {
     text-decoration: none !important;
     color: inherit !important;
 }
 
-.se-course-card-clickable > .estudante-lista-curso-nome > a{
+.se-course-card-clickable > .estudante-lista-curso-nome > a {
     display: block;
 }
 
-.se-course-card-clickable:hover, .se-course-card-clickable:active, .se-course-card-clickable:focus{
+.se-course-card-clickable:hover,
+.se-course-card-clickable:active,
+.se-course-card-clickable:focus {
     color: inherit !important;
     background-color: #dddada;
     opacity: 1 !important;
     transition: opacity 0.2s ease-out;
 }
 
-.se-course-card-clickable:not(.se-course-card-active){
+.se-course-card-clickable:not(.se-course-card-active) {
     opacity: 0.5;
     transition: opacity 0.2s ease-out;
 }
 
-.se-profile-first-row{
+.se-profile-first-row {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -95,4 +95,74 @@
 .se-profile-edit-button {
     text-decoration: none !important;
     color: initial !important;
+}
+
+ul.estudantes-curso-lista-opcoes {
+    background: none !important;
+    border: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.7rem !important;
+    padding: 0 !important;
+}
+
+li.estudantes-curso-opcao {
+    border: none !important;
+    padding: 0.5em 1em !important;
+}
+
+li.estudantes-curso-opcao.ativo {
+    border: none !important;
+    background: #8c2d19;
+    color: white;
+    padding: 0.5em 1em !important;
+}
+
+li.estudantes-curso-opcao a {
+    text-decoration: none !important;
+}
+
+.estudantes-curso-opcao:nth-child(3) {
+    display: none;
+}
+
+/* PERCURSO ACADEMICO */
+
+#tabelapercurso td.k:empty {
+    position: relative;
+}
+
+#tabelapercurso td.k:empty::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        transparent 0px 2.82842712px,
+        rgb(0 0 0 / 10%) 2.82842712px 4.24264069px
+    );
+}
+
+#tabelapercurso tr:last-of-type {
+    display: none !important;
+}
+
+.se-results {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1em;
+    margin: .5em;
+}
+
+.se-results p {
+    margin: 0;
+}
+
+.se-results .se-results-label {
+    font-weight: bold;
+}
+
+.se-results .se-results-secondary-value {
+    opacity: 0.5;
 }

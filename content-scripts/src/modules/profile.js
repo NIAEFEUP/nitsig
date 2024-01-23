@@ -1,38 +1,65 @@
-const hideSociodemographicData = () => {
-    var x =  document.querySelector("#infopessoalh");
-    if (x != null)
-        x.style.display="none";
-}
-
-const hideCurricularUnitTab = () => {
-    var x = document.querySelector(".estudantes-curso-opcao:nth-child(3)");
-    if (x != null)
-        x.style.display="none";
-}
-
 const renameStatusAndFrequency = () => {
-    const element = document.querySelector(".estudantes-curso-opcao:nth-child(4) a") ?? document.querySelector(".estudantes-curso-opcao:nth-child(4)");
+    const element =
+        document.querySelector(".estudantes-curso-opcao:nth-child(4) a") ??
+        document.querySelector(".estudantes-curso-opcao:nth-child(4)");
     if (element !== null) {
-      element.innerText = "Estatutos / Frequência";
+        element.innerText = "Estatutos / Frequência";
     }
-  }
+};
 
 const alignGPAandECTs = () => {
-    document.querySelector(".caixa > :nth-child(1) > tbody > :nth-child(3)").style.display="none"; // remove ects by recognition
-    document.querySelector(".caixa > :nth-child(1) > tbody").style.display="flex";
-}
+    const avgTable = document.querySelector(".caixa > table:first-child");
+
+    if (!avgTable) return;
+
+    const [avg, ects, ectsRecognition] =
+        avgTable.querySelectorAll("tr td:last-child");
+
+    const resultsElement = document.createElement("div");
+    resultsElement.classList.add("se-results");
+
+    const avgEl = document.createElement("p");
+    const avgLabel = document.createElement("span");
+    avgLabel.classList.add("se-results-label");
+    avgLabel.innerHTML = "Média:";
+    const avgValue = document.createElement("span");
+    avgValue.classList.add("se-results-value");
+    avgValue.innerHTML = avg.innerHTML;
+    avgEl.append(avgLabel, " ", avgValue);
+
+    const ectsEl = document.createElement("p");
+    const ectsLabel = document.createElement("span");
+    ectsLabel.classList.add("se-results-label");
+    ectsLabel.innerHTML = "ECTS:";
+    const ectsValue = document.createElement("span");
+    ectsValue.classList.add("se-results-value");
+    ectsValue.innerHTML = ects.innerHTML;
+    ectsEl.append(ectsLabel, " ", ectsValue);
+
+    if (parseInt(ectsRecognition.innerHTML) > 0) {
+        const ectsRecognitionEl = document.createElement("span");
+        ectsRecognitionEl.classList.add("se-results-secondary-value");
+        ectsRecognitionEl.innerHTML = `(${ectsRecognition.innerHTML} por reconhecimento)`;
+        ectsEl.append(" ", ectsRecognitionEl);
+    }
+
+    resultsElement.append(avgEl, ectsEl);
+    avgTable.replaceWith(resultsElement);
+};
 
 const hideLegend = () => {
-    document.querySelector(".caixa > :last-child").style.display="none";  
-}
+    document.querySelector(".caixa > :last-child").style.display = "none";
+};
 
 const defaultCurrentYear = () => {
-    document.querySelector("#tabelapercurso > tbody > tr:first-child > :last-child").click();
-}
+    document
+        .querySelector("#tabelapercurso > tbody > tr:first-child > :last-child")
+        .click();
+};
 
 const titleTableAcademicJourney = () => {
-    document.querySelectorAll("#tabelapercurso .l").forEach( elem => {
-        switch (elem.innerHTML){
+    document.querySelectorAll("#tabelapercurso .l").forEach((elem) => {
+        switch (elem.innerHTML) {
             case "V":
                 elem.title = "Válida";
                 break;
@@ -46,120 +73,110 @@ const titleTableAcademicJourney = () => {
                 elem.title = "Condicionada";
                 break;
         }
-    })
-}
-
-const reduceTableAcademicJourney = () => {
-    document.querySelector("#tabelapercurso .totais.s").style.display="none";
-    document.querySelector("#tabelapercurso .totais.n").style.display="none";
-}
+    });
+};
 
 const linkToGradeResults = () => {
-    document.querySelectorAll("#tabelapercurso tr:is(.i, .p)").forEach(elem => {
-        elem.querySelectorAll("td.n").forEach(e1 => {
-            if (e1.classList.contains("aprovado") || (e1.classList.contains("nao-aprovado"))) {
-                e1.classList.add("cursormao");
-                e1.onclick = (_) => { elem.querySelector("td a.unidade-curricular").click() };
-            }
-        })
-    })
-}
+    document
+        .querySelectorAll("#tabelapercurso tr:is(.i, .p)")
+        .forEach((elem) => {
+            elem.querySelectorAll("td.n").forEach((e1) => {
+                if (
+                    e1.classList.contains("aprovado") ||
+                    e1.classList.contains("nao-aprovado")
+                ) {
+                    e1.classList.add("cursormao");
+                    e1.onclick = (_) => {
+                        elem.querySelector("td a.unidade-curricular").click();
+                    };
+                }
+            });
+        });
+};
 
 const linkToCurrUnit = () => {
-    document.querySelectorAll("#tabelapercurso tr:is(.i, .p)").forEach(elem => {
-        elem.querySelectorAll("td.k.t.uc").forEach(e1 => {
-            e1.onclick = (e) => { 
-                if (e.isTrusted)
-                elem.querySelector("td.k.t a").click()
-             };
-        })
-    })
-}
+    document
+        .querySelectorAll("#tabelapercurso tr:is(.i, .p)")
+        .forEach((elem) => {
+            elem.querySelectorAll("td.k.t.uc").forEach((e1) => {
+                e1.onclick = (e) => {
+                    if (e.isTrusted) elem.querySelector("td.k.t a").click();
+                };
+            });
+        });
+};
 
-// ------------------------
-// Navbars
-// ------------------------
-const styleTextNavbar = () => {
-    var z = document.querySelectorAll("li.estudantes-curso-opcao a");
-    z.forEach(element => {
-        element.style = `
-        text-decoration: none !important;
-        `;
+const replaceOptionalPlaceholder = () => {
+    const pattern =
+        /\d+ U.C. do tipo Unidade curricular da componente (\w+) com um total de (\d+) créditos/;
+
+    const placeholders = document.querySelectorAll(
+        "#tabelapercurso td[colspan='6']"
+    );
+
+    placeholders.forEach((placeholder) => {
+        const match = placeholder.innerHTML.match(pattern);
+
+        if (match) {
+            const [, type, credits] = match;
+
+            const yearElement = document.createElement("td");
+            yearElement.classList.add("k", "l");
+
+            const periodElement = document.createElement("td");
+            periodElement.classList.add("k", "l");
+
+            const codeElement = document.createElement("td");
+            codeElement.classList.add("k", "t");
+
+            const nameElement = document.createElement("td");
+            nameElement.classList.add("k", "t", "uc");
+
+            const typeElement = document.createElement("td");
+            typeElement.classList.add("k", "t");
+            typeElement.innerHTML = type;
+
+            const creditsElement = document.createElement("td");
+            creditsElement.classList.add("k", "n");
+            creditsElement.innerHTML = credits;
+
+            placeholder.replaceWith(
+                yearElement,
+                periodElement,
+                codeElement,
+                nameElement,
+                typeElement,
+                creditsElement
+            );
+        }
     });
-}
-
-const styleButtonsNavbar = () => {
-    styleTextNavbar();
-    var y = document.querySelectorAll("li.estudantes-curso-opcao");
-    y.forEach(element => {
-        element.style = `
-        border: none !important;
-        padding: 0.5em 1em !important;
-        `;
-        
-    });
-
-    var y_ativo = document.querySelector("li.estudantes-curso-opcao.ativo");
-    if (y_ativo != null) {
-        y_ativo.style = `
-        border: none !important;
-        background: #8c2d19;
-        color: white;
-        padding: 0.5em 1em !important;
-        `;
-    }
-}
-const styleNavbar = () => {
-    styleButtonsNavbar();
-    var x = document.querySelector("ul.estudantes-curso-lista-opcoes");
-    if (x == null){
-        console.log("x is null");
-    }
-    if (x != null) {
-        console.log("x is not null");
-        x.style = `
-        background: none !important;
-        border: none !important;
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 0.7rem !important;; 
-        padding: 0 !important;
-        `;
-
-    }
-}
+};
 
 // ------------------------
 // Table Percurso Académico
 // ------------------------
 
-const styleTableSizes = () => {
-    
-
-}
+const styleTableSizes = () => {};
 const styleTablePercursoAcademico = () => {
     styleTableSizes();
-}
-
+};
 
 export const profileChanges = () => {
+    renameStatusAndFrequency();
 
-    hideSociodemographicData();
-    hideCurricularUnitTab();
-    renameStatusAndFrequency();    
-    styleNavbar();
-    
-    if (window.location.href.toLowerCase().includes( "/fest_geral.curso_percurso_academico_view")){
+    if (
+        window.location.href
+            .toLowerCase()
+            .includes("/fest_geral.curso_percurso_academico_view")
+    ) {
         alignGPAandECTs();
         hideLegend();
         defaultCurrentYear();
         titleTableAcademicJourney();
-        reduceTableAcademicJourney();
         linkToGradeResults();
         linkToCurrUnit();
         styleTablePercursoAcademico();
 
+        replaceOptionalPlaceholder();
     }
-
-}
-
+};
