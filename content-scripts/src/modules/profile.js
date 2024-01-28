@@ -189,6 +189,40 @@ const replaceMinorCourseUnitPlaceholders = () => {
     });
 };
 
+const changeYearPeriodRowSpan = () => {
+    const rows = document.querySelectorAll("#tabelapercurso tr");
+
+    /** @type {HTMLTableCellElement?} */
+    let prevYear = null;
+    /** @type {HTMLTableCellElement?} */
+    let prevPeriod = null;
+
+    rows.forEach((row) => {
+        /** @type {HTMLTableCellElement?} */
+        const year = row.querySelector("td.k.l:first-child");
+        /** @type {HTMLTableCellElement?} */
+        const period = row.querySelector("td.k.l:nth-child(2)");
+
+        if (year && period) {
+            if (year.innerText === prevYear?.innerText) {
+                year.style.display = "none";
+                prevYear.rowSpan ??= 1;
+                prevYear.rowSpan += 1;
+            } else {
+                prevYear = year;
+            }
+
+            if (period.innerText === prevPeriod?.innerText) {
+                period.style.display = "none";
+                prevPeriod.rowSpan ??= 1;
+                prevPeriod.rowSpan += 1;
+            } else {
+                prevPeriod = period;
+            }
+        }
+    });
+};
+
 export const profileChanges = () => {
     renameStatutesAndAttendance();
 
@@ -203,5 +237,6 @@ export const profileChanges = () => {
         addTooltips();
         replaceUCLinks();
         replaceMinorCourseUnitPlaceholders();
+        changeYearPeriodRowSpan();
     }
 };

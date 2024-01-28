@@ -255,6 +255,8 @@ export const currentAccountPage = () => {
 
 export const addSortTableActions = () => {
   document.querySelectorAll("th").forEach(th => {
+    if (th.onclick) return;
+
     th.addEventListener("click", () => {
       const table = th.closest("table");
       let index = [...th.parentElement.children].indexOf(th);

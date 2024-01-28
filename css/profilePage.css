@@ -128,6 +128,10 @@ li.estudantes-curso-opcao a {
 
 /* PERCURSO ACADEMICO */
 
+#tabelapercurso {
+    width: 100%;
+}
+
 #tabelapercurso td.k:empty {
     position: relative;
 }
@@ -152,7 +156,7 @@ li.estudantes-curso-opcao a {
     flex-direction: row;
     align-items: center;
     gap: 1em;
-    margin: .5em;
+    margin: 0.5em;
 }
 
 .se-results p {
