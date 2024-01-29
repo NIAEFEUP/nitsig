@@ -28,6 +28,14 @@ const replaceResultsTable = () => {
     avgValue.innerHTML = avg.innerHTML;
     avgEl.append(avgLabel, " ", avgValue);
 
+    const yearlyAvgEl = document.createElement("p");
+    yearlyAvgEl.style.display = "none";
+    const yearlyAvgLabel = document.createElement("span");
+    yearlyAvgLabel.classList.add("se-results-label");
+    const yearlyAvgValue = document.createElement("span");
+    yearlyAvgValue.classList.add("se-results-value");
+    yearlyAvgEl.append(yearlyAvgLabel, " ", yearlyAvgValue);
+
     const ectsEl = document.createElement("p");
     const ectsLabel = document.createElement("span");
     ectsLabel.classList.add("se-results-label");
@@ -44,7 +52,7 @@ const replaceResultsTable = () => {
         ectsEl.append(" ", ectsRecognitionEl);
     }
 
-    resultsElement.append(avgEl, ectsEl);
+    resultsElement.append(avgEl, yearlyAvgEl, ectsEl);
     avgTable.replaceWith(resultsElement);
 };
 
@@ -223,6 +231,57 @@ const changeYearPeriodRowSpan = () => {
     });
 };
 
+const avgForSelectedYear = () => {
+    const yearlyAvgEl = document.querySelector(".se-results p:nth-child(2)");
+    const yearlyAvgLabel = yearlyAvgEl.querySelector(".se-results-label");
+    const yearlyAvgValue = yearlyAvgEl.querySelector(".se-results-value");
+
+    const observer = new MutationObserver((mutations) => {
+        const selectedHeader = document.querySelector(
+            "#tabelapercurso th.selecionado"
+        );
+
+        if (!selectedHeader) {
+            yearlyAvgEl.style.display = "none";
+            return;
+        }
+
+        yearlyAvgEl.style.display = "";
+
+        yearlyAvgLabel.innerHTML = `Média em ${selectedHeader.innerText}:`;
+
+        let credits = 0;
+        let sum = 0;
+
+        const rows = document.querySelectorAll(
+            "#tabelapercurso tr:not([style*='display: none'])"
+        );
+        rows.forEach((row) => {
+            const creditsEl = row.querySelector("td.n.k");
+            const resultEl = row.querySelector("td.n.aprovado");
+
+            if (creditsEl && resultEl) {
+                const currentCredits = parseFloat(
+                    creditsEl.innerText.replace(",", ".")
+                );
+                credits += currentCredits;
+                sum += parseInt(resultEl.innerText) * currentCredits;
+            }
+        });
+
+        const result = sum / credits;
+        yearlyAvgValue.innerHTML = result.toFixed(2).replace(/\.?0+$/, "");
+    });
+
+    const header = document.querySelector("#tabelapercurso tr:first-child");
+    if (header)
+        observer.observe(header, {
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["class"],
+        });
+};
+
 export const profileChanges = () => {
     renameStatutesAndAttendance();
 
@@ -232,6 +291,7 @@ export const profileChanges = () => {
             .includes("/fest_geral.curso_percurso_academico_view")
     ) {
         replaceResultsTable();
+        avgForSelectedYear();
         hideLegend();
         defaultCurrentYear();
         addTooltips();
