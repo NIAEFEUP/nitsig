@@ -34,6 +34,14 @@ const config = {
                 exclude: /node_modules/,
                 loader: "esbuild-loader",
             },
+            {
+                test: /\.scss$/,
+                use:[
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
         ],
     },
     plugins: [

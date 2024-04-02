@@ -4,6 +4,7 @@ import {
   currentAccountPage,
   addSortTableActions
 } from "./modules/initialize";
+import "../../css/style.scss";
 import { injectAllChanges, userPreferences } from "./modules/options/all";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage, setStorage } from "./modules/utilities/storage";
