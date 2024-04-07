@@ -1,0 +1,225 @@
+// Variables
+$primary-color: rgb(140, 45, 25);
+$secondary-color: rgb(165, 45, 25);
+$background-color: #f0f0f0;
+$font-family-kanit: 'Kanit', sans-serif;
+$font-family-noticia-text: "NoticiaText", serif;
+
+// General styles
+img.sama {
+    display: none !important;
+}
+
+.container-fluid {
+    .destacar-menor,
+    .encaixar100.portlet-banner-new {
+        display: none;
+    }
+}
+
+p.flex-caption a {
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    word-spacing: 0.7em;
+    font-family: $font-family-kanit !important;
+}
+
+.ajuda-contextual {
+    display: none !important;
+}
+
+// News Section
+.col-md-7 {
+    padding-top: 1em;
+    background: $background-color;
+    border-radius: 0.8em;
+
+    h2 {
+        margin: 0 !important;
+        font-size: 2em !important;
+        border-bottom: 2px solid $primary-color;
+    }
+
+    h3 {
+        margin: revert !important;
+    }
+
+    .ri-add-circle-line {
+        &::before {
+            font-size: 0.5em;
+            content: "Ler Mais" !important;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: unset !important;
+            height: unset !important;
+        }
+
+        display: block;
+        font-family: $font-family-noticia-text !important;
+        color: white !important;
+        padding: 0.2em 0.5em 0.5em 0.5em !important;
+        border-radius: 8px;
+        width: auto;
+        max-width: 14% !important;
+        position: absolute;
+        text-align: center;
+        top: 3%;
+        right: 3%;
+        width: unset !important;
+        height: unset !important;
+    }
+
+    .novo-portlet-noticias p {
+        width: 85%;
+
+        a > span {
+            float: right;
+            background-image: linear-gradient(rgb(110, 110, 110), rgb(130, 130, 130)) !important;
+            background-size: 100% 200% !important;
+            background-position: initial !important;
+            transition: background-position 0.3s;
+
+            &:hover {
+                background-position: 0 -100% !important;
+            }
+        }
+    }
+}
+
+.mais-noticias a {
+    color: white !important;
+    display: block;
+    background-image: linear-gradient($primary-color, $secondary-color);
+    background-size: 100% 200%;
+    transition: background-position 0.3s;
+    border-radius: 8px !important;
+
+    &:link {
+        color: white;
+        font-weight: bold;
+    }
+}
+
+p.mais-noticias {
+    width: 40%;
+    margin: 0 auto;
+    padding-bottom: 2em;
+    text-transform: uppercase;
+    text-align: center !important;
+
+    &:hover {
+        color: white !important;
+        background-position: 0 -100%;
+    }
+}
+
+// Calendar and Events
+.calendario-inicio {
+    input[type="submit"] {
+        width: 30%;
+        margin: 0;
+        text-transform: uppercase;
+        color: white !important;
+        background-image: linear-gradient($primary-color, $secondary-color) !important;
+        background-size: 100% 200%;
+        transition: background-position 0.3s;
+        border-radius: 8px;
+        border: none;
+        font-family: $font-family-noticia-text !important;
+        font-weight: bold;
+
+        &:hover {
+            background-position: 0 -100%;
+        }
+    }
+
+    select {
+        width: 70%;
+        padding: 12px 14px;
+        margin: 0;
+        background-color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    form {
+        display: flex;
+        gap: 1em;
+    }
+
+    .calendtable {
+        border-spacing: 0.5em 0 !important;
+        max-width: 400px;
+    }
+
+    table {
+        width: 100%;
+    }
+}
+
+.col-md-5 {
+    padding-top: 1em;
+
+    h2 {
+        margin: 0 !important;
+        font-size: 2em !important;
+        border-bottom: 2px solid $primary-color;
+    }
+}
+
+.mais-eventos a {
+    color: white !important;
+    display: block;
+    background-image: linear-gradient($primary-color, $secondary-color);
+    background-size: 100% 200%;
+    transition: background-position 0.3s;
+
+    &:link {
+        color: white;
+        font-weight: bold;
+    }
+}
+
+p.mais-eventos {
+    text-transform: uppercase;
+    text-align: center !important;
+    padding-left: 1em;
+
+    &:hover {
+        background-position: 0 -100%;
+        color: white !important;
+    }
+}
+
+ul.agenda li {
+    border-left: 6px solid $primary-color !important;
+    background-color: $background-color !important;
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.row {
+    margin: 0 !important;
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    @media (max-width: 1350px) {
+        grid-template-columns: auto;
+    }
+
+    > div.col-md-7,
+    > div.col-md-5 {
+        width: auto;
+    }
+
+    > div.col-md-7 {
+        min-width: 450px;
+    }
+}
+
+// Footer
+.container-fluid:last-child {
+    display: none;
+}

@@ -7,11 +7,11 @@
     display: grid;
     transition: grid-template-rows 0.5s ease-in-out;
     grid-template-rows: 1fr;
-}
 
-.tableWrapper > table {
-    display: grid;
-    overflow: hidden;
+    > table {
+        display: grid;
+        overflow: hidden;
+    }
 }
 
 .classWrapper {
@@ -30,18 +30,18 @@
     gap: 10px;
     justify-content: space-between;
     cursor: pointer;
-}
 
-.classTitle {
-    margin: 0px;
-}
+    .classTitle {
+        margin: 0px;
+    }
 
-.photosButton {
-    cursor: pointer;
-}
+    .photosButton {
+        cursor: pointer;
 
-.photosButton:hover {
-    color: #b38300;
+        &:hover {
+            color: #b38300;
+        }
+    }
 }
 
 dialog[id^="photosDialog"]::backdrop {
@@ -73,14 +73,20 @@ dialog[id^="photosDialog"]::backdrop {
     transition: transform 0.5s ease-in-out;
 }
 
-.titleWrapper[data-expand="true"] .rightChevron {
-    transform: rotate(0deg);
+.titleWrapper[data-expand="true"] {
+    .rightChevron {
+        transform: rotate(0deg);
+    }
 }
 
-.titleWrapper[data-expand="false"] .rightChevron {
-    transform: rotate(-180deg);
+.titleWrapper[data-expand="false"] {
+    .rightChevron {
+        transform: rotate(-180deg);
+    }
 }
 
-.tabela tr.k, .tabela td.k {
-    background-image: none;
+.tabela {
+    tr.k, td.k {
+        background-image: none;
+    }
 }

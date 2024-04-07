@@ -1,5 +1,4 @@
-
-.se-profile-row{
+.se-profile-row {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -7,20 +6,20 @@
     gap: 2em;
 }
 
-.se-student-photo{
+.se-student-photo {
     float: none !important;
     padding: 0em !important;
     white-space: normal !important;  
     max-width: 150px;
-}
 
-.se-student-photo > img{
-    border-radius: 8px;
-}
+    > img {
+        border-radius: 8px;
+    }
 
-.se-student-photo > .estudante-foto-editar {
-    border-radius: 8px;
-    padding: 0.1em 0.15em;
+    > .estudante-foto-editar {
+        border-radius: 8px;
+        padding: 0.1em 0.15em;
+    }
 }
 
 .se-profile-username-row {
@@ -31,7 +30,7 @@
     gap: 1em;
 }
 
-.se-profile-info{
+.se-profile-info {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -47,6 +46,12 @@
     gap: 1em;
     margin-top: 1em;
     container: card-list / inline-size;
+
+    @container card-list (width < 25em) {
+        .se-course-card {
+            flex-basis: 100%
+        }
+    }
 }
 
 .se-course-card {
@@ -56,53 +61,46 @@
     padding: 1em;
 }
 
-@container card-list (width < 25em){
-    .se-course-card {
-        flex-basis: 100%
-    }
-}
-
-
-.se-course-card-clickable{
+.se-course-card-clickable {
     text-decoration: none !important;
     color: inherit !important;
+
+    &:hover, &:active, &:focus {
+        color: inherit !important;
+        background-color: #dddada;
+        opacity: 1 !important;
+        transition: opacity 0.2s ease-out;
+    }
+
+    &:not(.se-course-card-active) {
+        opacity: 0.5;
+        transition: opacity 0.2s ease-out;
+    }
 }
 
 .se-course-card > .estudante-lista-curso-nome {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
+
+    > .se-course-star {
+        font-size: 1.5rem;
+
+        &.se-favorite-course:hover {
+            color: rgb(219, 146, 9);
+        }
+
+        &.ri-star-fill {
+            color: rgb(236, 156, 7);
+        }
+    }
+
+    > .estudante-lista-curso-nome > a {
+        display: block;
+    }
 }
 
-.se-course-card >  .estudante-lista-curso-nome  > .se-course-star {
-    font-size: 1.5rem;
-}
-
-.se-course-card >  .estudante-lista-curso-nome  > .se-course-star.se-favorite-course:hover{
-    color: rgb(219, 146, 9);
-}
-
-.se-course-card >  .estudante-lista-curso-nome  > .se-course-star.ri-star-fill {
-    color: rgb(236, 156, 7);
-}
-
-.se-course-card-clickable > .estudante-lista-curso-nome > a{
-    display: block;
-}
-
-.se-course-card-clickable:hover, .se-course-card-clickable:active, .se-course-card-clickable:focus{
-    color: inherit !important;
-    background-color: #dddada;
-    opacity: 1 !important;
-    transition: opacity 0.2s ease-out;
-}
-
-.se-course-card-clickable:not(.se-course-card-active){
-    opacity: 0.5;
-    transition: opacity 0.2s ease-out;
-}
-
-.se-profile-first-row{
+.se-profile-first-row {
     width: 100%;
     display: flex;
     flex-direction: row;
