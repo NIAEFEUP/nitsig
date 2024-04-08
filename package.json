@@ -3,7 +3,13 @@
   "type": "module",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "run:firefox": "web-ext run --source-dir dist/firefox",
+    "run:chrome": "web-ext run --source-dir dist/chrome --chromium-binary",
+    "run": "yarn run:firefox",
+    "dev:firefox": "concurrently 'yarn watch' 'yarn run:firefox'",
+    "dev:chrome": "concurrently 'yarn watch' 'yarn run:chrome'",
+    "dev": "yarn dev:firefox"
   },
   "dependencies": {
     "fs-extra": "^11.1.0",
@@ -16,6 +22,7 @@
     "@types/klaw": "^3.0.3",
     "@types/node": "^20.11.28",
     "@types/webpack": "^5.28.5",
+    "concurrently": "^8.2.2",
     "copy-webpack-plugin": "^12.0.2",
     "cross-env": "^7.0.3",
     "esbuild-loader": "^4.1.0",
@@ -25,6 +32,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.2",
     "watch": "^1.0.2",
+    "web-ext": "^7.11.0",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "webpack-shell-plugin-next": "^2.3.1"
