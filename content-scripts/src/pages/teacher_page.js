@@ -1,4 +1,4 @@
-import {groupSectionTitleAndContent, groupChildrenBySelector, moveChildrenToAncestor, moveChildrenToAncestor, removeTwoColumnTable} from "../modules/utilities/pageUtils"
+import {groupSectionTitleAndContent, groupChildrenBySelector, moveChildrenToAncestor, removeTwoColumnTable} from "../modules/utilities/pageUtils"
 
 
 const publicationWebsites = {
