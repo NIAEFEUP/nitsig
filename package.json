@@ -2,7 +2,8 @@
   "name": "nitsig",
   "type": "module",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "fs-extra": "^11.1.0",

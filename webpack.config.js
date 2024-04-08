@@ -8,7 +8,7 @@ import fs from "fs-extra";
 import klaw from "klaw";
 import cp from "child_process";
 
-const { pathExists, readFile, writeFile } = fs;
+const { pathExists, readFile, writeFile, copy } = fs;
 const { spawnSync } = cp;
 
 const CHANGES_FILENAME = ".changes.json";
@@ -50,12 +50,13 @@ const writeNewChangedFiles = async () => {
  * @type {webpack.Configuration}
  */
 const config = {
+    name: "base",
     mode: "production",
     entry: {
-        "content-scripts": "./content-scripts/src/index.js",
-        background: "./background.js",
+        "base/content-scripts": "./content-scripts/src/index.js",
+        "base/background": "./background.js",
     },
-    output: { path: path.resolve("dist"), filename: "[name].js" },
+    output: { path: path.resolve("dist"), filename: "[name].js", clean: true },
     module: {
         rules: [
             {
@@ -80,7 +81,6 @@ const config = {
                                     path.includes(".next") ||
                                     path.includes(".parcel-cache")
                                 );
-                                foo;
                             },
                         })) {
                             if (
@@ -116,33 +116,25 @@ const config = {
                 blocking: true,
                 parallel: false,
             },
+            onBuildEnd: {
+                scripts: [
+                    () => Promise.all([
+                        copy("./dist/base/.", "./dist/chrome" ),
+                        copy("./dist/base/.", "./dist/firefox"),
+                    ])
+                ]
+            }
         }),
         new CopyPlugin({
             patterns: [
                 {
                     context: "./popup/out",
                     from: ".",
-                    to: "popup",
+                    to: "base/popup",
                 },
                 {
                     from: "./(css|html|images|js)/**/*",
-                    to: ".",
-                },
-                {
-                    context: "./dist",
-                    from: ".",
-                    to: "chrome",
-                    globOptions: {
-                        ignore: ["chrome", "firefox"],
-                    },
-                },
-                {
-                    context: "./dist",
-                    from: ".",
-                    to: "firefox",
-                    globOptions: {
-                        ignore: ["chrome", "firefox"],
-                    },
+                    to: "base/",
                 },
                 {
                     from: "./manifest/(base|chrome).json",
