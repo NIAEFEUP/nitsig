@@ -79,7 +79,8 @@ const config = {
                                     path.includes("node_modules") ||
                                     path.includes(".next") ||
                                     path.includes(".parcel-cache")
-                                );foo
+                                );
+                                foo;
                             },
                         })) {
                             if (
@@ -97,7 +98,7 @@ const config = {
                         const ret = spawnSync(
                             "cd ./popup && yarn && yarn build",
                             { shell: true }
-                        )
+                        );
 
                         if (ret.error) throw ret.error;
 
@@ -119,6 +120,31 @@ const config = {
         new CopyPlugin({
             patterns: [
                 {
+                    context: "./popup/out",
+                    from: ".",
+                    to: "popup",
+                },
+                {
+                    from: "./(css|html|images|js)/**/*",
+                    to: ".",
+                },
+                {
+                    context: "./dist",
+                    from: ".",
+                    to: "chrome",
+                    globOptions: {
+                        ignore: ["chrome", "firefox"],
+                    },
+                },
+                {
+                    context: "./dist",
+                    from: ".",
+                    to: "firefox",
+                    globOptions: {
+                        ignore: ["chrome", "firefox"],
+                    },
+                },
+                {
                     from: "./manifest/(base|chrome).json",
                     to: "chrome/manifest.json",
                     transformAll: transformManifests,
@@ -127,19 +153,6 @@ const config = {
                     from: "./manifest/(base|firefox).json",
                     to: "firefox/manifest.json",
                     transformAll: transformManifests,
-                },
-                {
-                    context: "./popup/out",
-                    from: ".",
-                    to: "popup",
-                },
-                {
-                    from: "./css",
-                    to: "css",
-                },
-                {
-                    from: "./js",
-                    to: "js",
                 },
             ],
         }),

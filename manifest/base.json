@@ -32,7 +32,7 @@
         {
             "run_at": "document_end",
             "matches": ["https://sigarra.up.pt/feup/*"],
-            "js": ["dist/main.js"]
+            "js": ["content-scripts.js"]
         },
         {
             "matches": ["*://sigarra.up.pt/*/web_page.inicial"],
