@@ -19,14 +19,14 @@
             "run_at": "document_start",
             "matches": ["https://sigarra.up.pt/feup/*"],
             "css": [
-                "css/simpler.css",
-                "css/custom.css",
-                "css/icons.css",
-                "css/teacherPage.css",
-                "css/classPage.css",
-                "css/profilePage.css",
-                "css/card.css",
-                "css/expandableCard.css"
+                "css/simpler.scss",
+                "css/custom.scss",
+                "css/icons.scss",
+                "css/teacherPage.scss",
+                "css/classPage.scss",
+                "css/profilePage.scss",
+                "css/card.scss",
+                "css/expandableCard.scss"
             ]
         },
         {
@@ -36,7 +36,7 @@
         },
         {
             "matches": ["*://sigarra.up.pt/*/web_page.inicial"],
-            "css": ["css/homepage.css"]
+            "css": ["css/homepage.scss"]
         }
     ],
     "web_accessible_resources": [

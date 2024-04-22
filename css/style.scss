@@ -1,5 +1,9 @@
-$body-color: red;
-
-body {
-  color: $body-color;
-}
+@use 'profilePage';
+@use 'card';
+@use 'classPage';
+@use 'simpler';
+@use 'teacherPage';
+@use 'custom';
+@use 'expandableCard';
+@use 'homepage';
+@use 'icons';
