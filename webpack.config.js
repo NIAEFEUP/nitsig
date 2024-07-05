@@ -1,5 +1,3 @@
-/// @ts-check
-
 import CopyPlugin from "copy-webpack-plugin";
 import WebpackShellPluginNext from "webpack-shell-plugin-next";
 import path from "node:path";
@@ -57,6 +55,10 @@ const config = {
         "base/background": "./background.js",
     },
     output: { path: path.resolve("dist"), filename: "[name].js", clean: true },
+    watch: true,
+    watchOptions: {
+        ignored: ["**/node_modules", "**/dist"],
+    },
     module: {
         rules: [
             {
@@ -118,11 +120,14 @@ const config = {
             },
             onBuildEnd: {
                 scripts: [
-                    () => Promise.all([
-                        copy("./dist/base/.", "./dist/chrome" ),
-                        copy("./dist/base/.", "./dist/firefox"),
-                    ])
-                ]
+                    async () => {
+                        await Promise.all([
+                            copy("./dist/base/.", "./dist/chrome"),
+                            copy("./dist/base/.", "./dist/firefox"),
+                        ]);
+                    }
+                ],
+                parallel: true,
             }
         }),
         new CopyPlugin({
