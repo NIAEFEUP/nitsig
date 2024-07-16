@@ -9,10 +9,10 @@ const removeExtras = () => {
 const titleClick = (table, title) => {
     if (title.dataset.expand == "true") {
         title.dataset.expand = "false";
-        table.style.gridTemplateRows = "0fr";
+        table.style.height = "0px";
     } else {
         title.dataset.expand = "true";
-        table.style.gridTemplateRows = "1fr";
+        table.style.height = "100%";
     }
 }
 

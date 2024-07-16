@@ -10,9 +10,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
@@ -21,17 +21,17 @@ jobs:
       - name: Build
         run: yarn release
       - name: Upload chrome artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           path: bundle/chrome
           name: chrome
       - name: Upload firefox artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           path: bundle/firefox
           name: firefox
       - name: Upload safari artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           path: bundle/safari
           name: safari
@@ -47,7 +47,7 @@ jobs:
       REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: chrome
       - name: Upload to Chrome Web Store
@@ -59,7 +59,7 @@ jobs:
 #     needs: build
 #     steps:
 #       - name: Download artifact
-#         uses: actions/download-artifact@v2
+#         uses: actions/download-artifact@v4
 #         with:
 #           name: chrome
 
@@ -72,13 +72,13 @@ jobs:
       API_SECRET: ${{ secrets.FIREFOX_API_SECRET }}
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: firefox
       - name: Sign add-on
         run: npx web-ext sign --api-key $API_KEY --api-secret $API_SECRET
       - name: Upload signed add-on
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           path: web-ext-artifacts
           name: firefox-signed
@@ -105,7 +105,7 @@ jobs:
 #     needs: build
 #     steps:
 #       - name: Download artifact
-#         uses: actions/download-artifact@v2
+#         uses: actions/download-artifact@v4
 #         with:
 #           name: chrome
 
@@ -115,7 +115,7 @@ jobs:
 #     needs: build
 #     steps:
 #       - name: Download artifact
-#         uses: actions/download-artifact@v2
+#         uses: actions/download-artifact@v4
 #         with:
 #           name: safari
 #       - run: ls -R

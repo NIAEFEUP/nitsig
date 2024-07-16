@@ -272,7 +272,7 @@ export const addSortTableActions = () => {
         return firstClass.startsWith("i") || firstClass.startsWith("p") || firstClass.startsWith("d");
       })  
 
-      console.log("rows", rowsToSort)
+      // console.log("rows", rowsToSort)
 
       index += aditionalColspan-1;
 
