@@ -21,13 +21,13 @@ This command will initialize a browser window and load the extension, watching f
 
 You read to start!
 
-## Building the bundle
+## Building a bundle
 
 ```sh
 yarn build
 ```
 
-## Load the bundle
+## Load a bundle
 
 <table>
 	<tr>

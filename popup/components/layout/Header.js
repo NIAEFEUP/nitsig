@@ -7,7 +7,7 @@ const Header = () => (
     <p className="pt-1 pb-3 text-sm font-medium leading-5 dark:text-accentOneDark text-accentOne">
       Made by{" "}
       <a
-        href="https://ni.fe.up.pt"
+        href="https://niaefeup.pt"
         target="_blank"
         rel="noreferrer"
         className="font-bold cursor-pointer text-red hover:underline"

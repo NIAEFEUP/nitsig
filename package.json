@@ -4,8 +4,8 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "run:firefox": "web-ext run --source-dir dist/firefox",
-    "run:chrome": "web-ext run --source-dir dist/chrome --chromium-binary",
+    "run:firefox": "web-ext run --source-dir dist/firefox --start-url fe.up.pt --keep-profile-changes",
+    "run:chrome": "web-ext run --source-dir dist/chrome --chromium-binary --start-url fe.up.pt --keep-profile-changes",
     "run": "yarn run:firefox",
     "dev:firefox": "concurrently 'yarn watch' 'yarn run:firefox'",
     "dev:chrome": "concurrently 'yarn watch' 'yarn run:chrome'",

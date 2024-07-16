@@ -44,6 +44,55 @@ const writeNewChangedFiles = async () => {
     );
 };
 
+const buildPopup = async () => {
+    console.log("Building popup");
+    await loadLastChangedFiles();
+    let shouldRunBool = false;
+    for await (const file of klaw("./popup", {
+        filter: (path) => {
+            return !(
+                path.includes("out") ||
+                path.includes("node_modules") ||
+                path.includes(".next") ||
+                path.includes(".parcel-cache")
+            );
+        },
+    })) {
+        if (
+            !lastChangedFiles.has(file.path) ||
+            lastChangedFiles.get(file.path) < file.stats.mtimeMs
+        ) {
+            shouldRunBool = true;
+        }
+        newChangedFiles.set(file.path, file.stats.mtimeMs);
+    }
+
+    // Always returning here, no changes ever detected
+    if (!shouldRunBool) return console.log("No changes detected on popup.");
+
+    const ret = spawnSync("cd ./popup && yarn && yarn build", { shell: true });
+
+    if (ret.error) throw ret.error;
+
+    console.log(`Popup Build: ${ret.stdout.toString()}`);
+
+    if (ret.status != 0) {
+        throw new Error(`Popup build returned with code: ${ret.status}`);
+    }
+
+    await writeNewChangedFiles();
+    console.log("Wrote new changed files.");
+};
+
+const copyDist = async () => {
+    console.log("Copying dist files...");
+    await Promise.all([
+        copy("./dist/base/.", "./dist/chrome"),
+        copy("./dist/base/.", "./dist/firefox"),
+    ]);
+    console.log("Copied dist files.");
+};
+
 /**
  * @type {webpack.Configuration}
  */
@@ -54,8 +103,7 @@ const config = {
         "base/content-scripts": "./content-scripts/src/index.js",
         "base/background": "./background.js",
     },
-    output: { path: path.resolve("dist"), filename: "[name].js", clean: true },
-    watch: true,
+    output: { path: path.resolve("dist"), filename: "[name].js"},
     watchOptions: {
         ignored: ["**/node_modules", "**/dist"],
     },
@@ -70,72 +118,31 @@ const config = {
     },
     plugins: [
         new WebpackShellPluginNext({
-            onBuildStart: {
-                scripts: [
-                    async () => {
-                        await loadLastChangedFiles();
-                        let shouldRunBool = false;
-                        for await (const file of klaw("./popup", {
-                            filter: (path) => {
-                                return !(
-                                    path.includes("out") ||
-                                    path.includes("node_modules") ||
-                                    path.includes(".next") ||
-                                    path.includes(".parcel-cache")
-                                );
-                            },
-                        })) {
-                            if (
-                                !lastChangedFiles.has(file.path) ||
-                                lastChangedFiles.get(file.path) <
-                                    file.stats.mtimeMs
-                            ) {
-                                shouldRunBool = true;
-                            }
-                            newChangedFiles.set(file.path, file.stats.mtimeMs);
-                        }
+            // To work on watch
+            onDoneWatch: {
+                scripts: [buildPopup, copyDist],
+                parallel: false,
+            },
 
-                        if (!shouldRunBool) return;
-
-                        const ret = spawnSync(
-                            "cd ./popup && yarn && yarn build",
-                            { shell: true }
-                        );
-
-                        if (ret.error) throw ret.error;
-
-                        console.log(`Popup Build: ${ret.stdout.toString()}`);
-
-                        if (ret.status != 0) {
-                            throw new Error(
-                                `Popup build returned with code: ${ret.status}`
-                            );
-                        }
-
-                        await writeNewChangedFiles();
-                    },
-                ],
+            // To Build Extension:
+            // just on build
+            onBeforeNormalRun: { 
+                scripts: [buildPopup],
                 blocking: true,
                 parallel: false,
             },
+            // build and watch init
             onBuildEnd: {
-                scripts: [
-                    async () => {
-                        await Promise.all([
-                            copy("./dist/base/.", "./dist/chrome"),
-                            copy("./dist/base/.", "./dist/firefox"),
-                        ]);
-                    }
-                ],
+                scripts: [copyDist],
                 parallel: true,
-            }
+            },
         }),
         new CopyPlugin({
             patterns: [
                 {
                     context: "./popup/out",
                     from: ".",
-                    to: "base/popup",
+                    to: "base/",
                 },
                 {
                     from: "./(css|html|images|js)/**/*",
