@@ -1,34 +1,33 @@
-## Development / Building / Bundling the Extension
+## Development
 
 First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) installed.
 
-Run
-```sh
-yarn && yarn bundle [all | firefox | chrome | safari]
-```
-at the root directory and you'll get a bundle directory that looks like this:
-
-```
-📂 bundle
-└ 📁 chrome
-└ 📁 firefox
-└ 📁 safari
-└ 🗄️ chrome.zip
-└ 🗄️ firefox.zip
-└ 🗄️ safari.zip
-```
-
-## Watch for changes
+Install dependencies:
 
 ```sh
-sudo yarn watch [firefox | chrome | safari]
+yarn install
 ```
 
-The extension polls the watch webserver for changes, if the page doesn't reload automatically, reload the extension and if that doesn't work, see the service worker/background script console for errors.
+To develop choose your favorite browser.
+```sh
+yarn run dev:firefox
+```
+or
+```sh
+yarn run dev:chrome
+```
 
-## Load Extension
+This command will initialize a browser window and load the extension, watching for changes.
 
-You can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
+You read to start!
+
+## Building a bundle
+
+```sh
+yarn build
+```
+
+## Load a bundle
 
 <table>
 	<tr>
@@ -61,5 +60,3 @@ You can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
 		</td>
 	</tr>
 </table>
-
-#### This respository was based on the [typefully/minimal-twitter](https://github.com/typefully/minimal-twitter) extension repository

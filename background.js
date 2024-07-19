@@ -8,13 +8,17 @@ const popupOptions = {
   font: "on",
 };
 
+const reloadFEUPSigarraPages = () => {
+  chrome.tabs.query({ url: "*://sigarra.up.pt/feup/*" }, (tabs) => {
+    tabs.forEach((tab) => {
+      chrome.tabs.reload(tab.id);
+    });
+  });
+}
+
 chrome.runtime.onInstalled.addListener((object) => {
   if (object.reason === "install") {
-    chrome.tabs.query({ url: "*://sigarra.up.pt/feup/*" }, (tabs) => {
-      tabs.forEach((tab) => {
-        chrome.tabs.reload(tab.id);
-      });
-    });
+    reloadFEUPSigarraPages()
 
     if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
       chrome.tabs.create({
@@ -30,6 +34,7 @@ chrome.runtime.onInstalled.addListener((object) => {
   }
 
   if (object.reason === "update") {
+    reloadFEUPSigarraPages();
     for (const opt in popupOptions) {
       if (chrome.storage.local.get(opt) == null)
         chrome.storage.local.set({[opt]: popupOptions[opt]});
