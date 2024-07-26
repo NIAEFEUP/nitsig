@@ -99,6 +99,15 @@ const copyDist = async () => {
 const config = {
     name: "base",
     mode: "production",
+    devtool: "inline-source-map",
+    resolve: {
+        // Add `.ts` and `.tsx` as a resolvable extension.
+        extensions: [".ts", ".tsx", ".js"],
+        // Add support for TypeScripts fully qualified ESM imports.
+        extensionAlias: {
+            ".js": [".js", ".ts"],
+        }
+    },
     entry: {
         "base/content-scripts": "./content-scripts/src/index.js",
         "base/background": "./background.js",
@@ -110,9 +119,20 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.[jt]sx?/,
+                test: /\.tsx?$/,
+                exclude: /node_modules/,
+                loader: "ts-loader",
+                resolve: {
+                    fullySpecified: false,
+                }
+            },
+            {
+                test: /\.[j]sx?/,
                 exclude: /node_modules/,
                 loader: "esbuild-loader",
+                resolve: {
+                    fullySpecified: false,
+                }
             },
         ],
     },
