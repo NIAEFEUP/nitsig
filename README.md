@@ -1,4 +1,4 @@
-## Development
+## Developing
 
 First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) installed.
 
@@ -8,7 +8,14 @@ Install dependencies:
 yarn install
 ```
 
-To develop choose your favorite browser.
+Build for the first time:
+
+```sh
+yarn build
+```
+
+Choose your favorite browser and start developing:
+
 ```sh
 yarn run dev:firefox
 ```
@@ -17,9 +24,7 @@ or
 yarn run dev:chrome
 ```
 
-This command will initialize a browser window and load the extension, watching for changes.
-
-You read to start!
+This command will initialize a browser window and load the extension, watching for changes and reloading the window automatically.
 
 ## Building a bundle
 
@@ -27,7 +32,7 @@ You read to start!
 yarn build
 ```
 
-## Load a bundle
+## Loading a bundle
 
 <table>
 	<tr>
