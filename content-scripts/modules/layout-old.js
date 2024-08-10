@@ -43,9 +43,8 @@ const authentication = (auth) =>
         ? /*html*/ `
             <button
                 id="se-auth-notifications-button"
-                class="se-button se-icon-button ${
-                    auth.notifications ? "se-badge" : ""
-                }">
+                class="se-button se-icon-button ${auth.notifications ? "se-badge" : ""
+        }">
                 <span class="se-icon ri-notification-line"></span>
             </button>
             <div id="se-auth-notifications-menu">
@@ -78,14 +77,12 @@ const authentication = (auth) =>
                     <span>${auth.number}</span>
                 </div>
                 <nav id="se-auth-profile-links">
-                    <a class="se-auth-profile" href="fest_geral.cursos_list?pv_num_unico=${
-                        auth.number
-                    }">
+                    <a class="se-auth-profile" href="fest_geral.cursos_list?pv_num_unico=${auth.number
+        }">
                         <span class="se-icon ri-user-line"></span> Perfil
                     </a>
-                    <a href="gpag_ccorrente_geral.conta_corrente_view?pct_cod=${
-                        auth.number
-                    }">
+                    <a href="gpag_ccorrente_geral.conta_corrente_view?pct_cod=${auth.number
+        }">
                         <span class="se-icon ri-money-euro-circle-line"></span> Conta corrente
                     </a>
                     <a id="se-logout-button" href="vld_validacao.sair?p_address=WEB_PAGE.INICIAL">
@@ -150,12 +147,12 @@ const createLinks = (links) =>
         <button>${key}</button>
         <div class="se-header-link-popover">
             ${Object.entries(value)
-                .map(
-                    ([label, url]) => /*html*/ `
+                    .map(
+                        ([label, url]) => /*html*/ `
                 <a href="${url}">${label}</a>
             `
-                )
-                .join("")}
+                    )
+                    .join("")}
         </div>
     </div>
 `
@@ -166,8 +163,8 @@ const createNewHeader = (auth) =>
     elementFromHtml(/*html*/ `
         <header id="se-header">
             <a id="se-logo" href="/feup"><img src="${chrome.runtime.getURL(
-                "images/FEUP.svg"
-            )}"></a>
+        "images/FEUP.svg"
+    )}"></a>
             <nav id="se-header-links">
                 ${createLinks(HEADER_LINKS)}
             </nav>
@@ -272,7 +269,7 @@ const replaceHeader = () => {
 
     let auth = null;
 
-    if (autenticacao && autenticacao.classList.contains("autenticado")){
+    if (autenticacao && autenticacao.classList.contains("autenticado")) {
         const number = autenticacao.querySelector("img").src.slice(-9)
 
         auth = {

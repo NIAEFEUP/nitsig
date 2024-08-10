@@ -1,9 +1,5 @@
 let popoverId = 0;
 
-/**
- * @param {HTMLElement} popover
- * @param {HTMLElement} [target]
- */
 export const createPopover = (popover, target = popover) => {
     const id = popoverId++;
 
