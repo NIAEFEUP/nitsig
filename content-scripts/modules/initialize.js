@@ -253,10 +253,13 @@ export const currentAccountPage = () => {
   }
 }
 
+// We are now doing this on our own table component (components/table.tsx), but this still works for regular tables that we didn't reimplement yet
 export const addSortTableActions = () => {
   document.querySelectorAll("th").forEach(th => {
     th.addEventListener("click", () => {
       const table = th.closest("table");
+      // Don't sort our tables with this function
+      if (table.classList.contains("se-table")) return;
       let index = [...th.parentElement.children].indexOf(th);
       const aditionalColspan = parseInt(th.parentElement.children[0].getAttribute("colspan")) || 1;
       const rows = [...table.querySelectorAll("tr")];

@@ -1350,3 +1350,25 @@ center:first-of-type > img, .encaixar {
   object-fit: cover;
 }
 
+.se-sort-button {
+  background: none !important;
+  border: none !important;
+  display: inline !important;
+  right: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none !important;
+  cursor: pointer !important;
+}
+
+.se-sort-button:hover {
+  background: none !important;
+}
+
+.se-table-header {
+  height: fit-content;
+  width: fit-content;
+}
