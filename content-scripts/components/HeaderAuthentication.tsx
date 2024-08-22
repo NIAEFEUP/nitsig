@@ -1,5 +1,6 @@
 import jsx from "texsaur";
 import { AuthSession } from "../types";
+import { togglePopover } from "../modules/utilities/popover";
 
 interface Props {
   auth: AuthSession | null;
@@ -11,9 +12,9 @@ const Authentication = ({ auth }: Props) => {
       <div id="se-auth">
         <button
           id="se-auth-notifications-button"
-          className={`se-button se-icon-button ${
-            auth.hasNotifications ? "se-badge" : ""
-          }`}
+          className={`se-button se-icon-button ${auth.hasNotifications ? "se-badge" : ""
+            }`}
+          onclick={() => togglePopover("se-auth-notifications-menu")}
         >
           <span className="se-icon ri-notification-line"></span>
         </button>
@@ -45,7 +46,8 @@ const Authentication = ({ auth }: Props) => {
             </div>
           </div>
         </div>
-        <button id="se-auth-profile-button">
+
+        <button id="se-auth-profile-button" onclick={() => togglePopover("se-auth-profile-menu")}>
           <img
             src={`fotografias_service.foto?pct_cod=${auth.number}`}
             alt="Foto de perfil"
@@ -83,7 +85,7 @@ const Authentication = ({ auth }: Props) => {
 
   return (
     <div id="se-auth">
-      <button className="se-buttonn" id="se-auth-button">
+      <button className="se-buttonn" id="se-auth-button" onclick={() => togglePopover("se-auth-form")}>
         Iniciar Sessão
       </button>
       <button className="se-button se-icon-button" id="se-auth-close-button">
@@ -129,7 +131,7 @@ const Authentication = ({ auth }: Props) => {
           Recuperar palavra-passe
         </a>
       </form>
-    </div>
+    </div >
   );
 };
 
