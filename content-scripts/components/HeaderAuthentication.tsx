@@ -1,6 +1,7 @@
 import jsx from "texsaur";
 import { AuthSession } from "../types";
 import { togglePopover } from "../modules/utilities/popover";
+import Icon from "./Icon";
 
 interface Props {
   auth: AuthSession | null;
@@ -16,7 +17,7 @@ const Authentication = ({ auth }: Props) => {
             }`}
           onclick={() => togglePopover("se-auth-notifications-menu")}
         >
-          <span className="se-icon ri-notification-line"></span>
+          <Icon name="ri-notification-line" />
         </button>
         <div id="se-auth-notifications-menu">
           <input
@@ -38,11 +39,11 @@ const Authentication = ({ auth }: Props) => {
             <ol id="se-auth-new-notifications"></ol>
             <ol id="se-auth-read-notifications"></ol>
             <div id="se-auth-empty-notifications">
-              <span className="se-icon ri-notification-off-line"></span>
+              <Icon name="ri-notification-off-line" />
               <span>Sem notificações</span>
             </div>
             <div className="se-loading-indicator">
-              <span className="se-icon ri-refresh-line"></span>
+              <Icon name="ri-refresh-line" />
             </div>
           </div>
         </div>
@@ -63,20 +64,21 @@ const Authentication = ({ auth }: Props) => {
               className="se-auth-profile"
               href={`fest_geral.cursos_list?pv_num_unico=${auth.number}`}
             >
-              <span className="se-icon ri-user-line"></span> Perfil
+              <Icon name="ri-user-line" />
+              Perfil
             </a>
             <a
               href={`gpag_ccorrente_geral.conta_corrente_view?pct_cod=${auth.number}`}
             >
-              <span className="se-icon ri-money-euro-circle-line"></span> Conta
-              corrente
+              <Icon name="ri-money-euro-circle-line" />
+              Conta corrente
             </a>
             <a
               id="se-logout-button"
               href="vld_validacao.sair?p_address=WEB_PAGE.INICIAL"
             >
-              <span className="se-icon ri-logout-box-line"></span> Terminar
-              Sessão
+              <Icon name="ri-logout-box-line" />
+              Terminar Sessão
             </a>
           </nav>
         </div>
@@ -87,9 +89,6 @@ const Authentication = ({ auth }: Props) => {
     <div id="se-auth">
       <button className="se-buttonn" id="se-auth-button" onclick={() => togglePopover("se-auth-form")}>
         Iniciar Sessão
-      </button>
-      <button className="se-button se-icon-button" id="se-auth-close-button">
-        <span className="se-icon ri-close-line"></span>
       </button>
       <form id="se-auth-form" action="vld_validacao.validacao" method="post">
         <input type="hidden" name="p_address" value="web_page.inicial" />
@@ -124,7 +123,7 @@ const Authentication = ({ auth }: Props) => {
           id="se-auth-federate"
           className="se-button"
         >
-          <span className="se-icon ri-shield-user-line"></span>
+          <Icon name="ri-shield-user-line" />
           Autenticação Federada
         </a>
         <a href="gent_geral.list_services" id="se-auth-reset">
