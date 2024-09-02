@@ -4,18 +4,17 @@ import { isDate, reverseDate } from "../utilities/date.js";
 // Props for the Table component
 interface TableProps {
     // content may be a JSX component or a string
-    // TODO maybe we should add JSX.Component if we want to allow JSX components
-    tableName: string;
+    name: string;
     headers: [string, (string | Element)][];
     data: (string | Element)[][];
 }
 
-export const Table:JSX.Component<TableProps> = ({ tableName, headers, data }) => {
+export const Table:JSX.Component<TableProps> = ({ name, headers, data }) => {
     const headerKeys = headers.map((header) => header[0]);
 
     const sortHeader = (event: any) => {        
         const states = ["asc", "desc"];
-        let table = document.querySelector(`[aria-name=${tableName}]`)!;
+        let table = document.querySelector(`[aria-name=${name}]`)!;
         const rows = Array.from(table.querySelectorAll("tbody tr"));
         
         let el = event.target as HTMLElement;
@@ -34,7 +33,7 @@ export const Table:JSX.Component<TableProps> = ({ tableName, headers, data }) =>
             const nextState = states[(states.indexOf(currentState || "") + 1) % 2];
             el.setAttribute("aria-sort", nextState);
             currentState = nextState;
-        }                
+        }
 
         rows.sort((a: Element, b: Element): number => {
             let aValue = a.querySelector(`td[key=${key}]`)!.innerHTML;
@@ -64,7 +63,7 @@ export const Table:JSX.Component<TableProps> = ({ tableName, headers, data }) =>
     }
 
     return (
-        <table class="se-table" aria-name={tableName}>
+        <table class="se-table" aria-name={name}>
         <thead>
             <tr>
             {headers.map(([key, value]) => (
