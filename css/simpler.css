@@ -310,8 +310,12 @@ body:is(body) {
     display: flex;
 }
 
+.se-popover-open {
+  display: flex !important;
+}
+
 #se-auth-form {
-    top: 6em;
+    top: 4.5em;
     right: 1em;
     text-align: center;
     width: max-content;
@@ -320,7 +324,7 @@ body:is(body) {
 }
 
 #se-auth-profile-menu, #se-auth-notifications-menu {
-    top: 6em;
+    top: 4.5em;
     right: 1em;
     width: 16em;
     max-height: calc(100vh - 7em);

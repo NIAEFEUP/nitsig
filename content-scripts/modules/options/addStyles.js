@@ -1,4 +1,4 @@
-import removeElement from "./removeElement";
+import removeElement from "../utilities/removeElement";
 
 // Utility function to inject CSS into page
 export default function addStyles(id, css) {
