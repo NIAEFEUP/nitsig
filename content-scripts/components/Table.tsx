@@ -1,5 +1,5 @@
 import jsx from "texsaur";
-import { isDate, reverseDate } from "../utilities/date.js";
+import { isDate, reverseDate } from "../modules/utilities/date.js";
 
 // Props for the Table component
 interface TableProps {
