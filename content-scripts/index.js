@@ -4,7 +4,7 @@ import {
   currentAccountPage,
   addSortTableActions
 } from "./modules/initialize";
-import { injectAllChanges, userPreferences } from "./modules/options/all";
+import { injectAllChanges, userPreferences } from "./modules/options";
 import constructNewData from "./modules/utilities/constructNewData";
 import { getStorage, setStorage } from "./modules/utilities/storage";
 import { rememberLogin } from "./modules/login";
@@ -48,21 +48,19 @@ const functionsToExecute = [
   { name: "classPage", func: classPage },
   { name: "courseUnitPage", func: courseUnitPage },
   { name: "injectOverrideFunctions", func: injectOverrideFunctions },
-  { name: "addStarIconToCard", func: addStarIconToCard}
+  { name: "addStarIconToCard", func: addStarIconToCard }
 ]
 
 const init = async () => {
 
-  // // Watch for resize events
-  // addResizeListener();
-  // // Inject user preferences
+  // Inject user preferences
   const data = await getStorage(userPreferences);
   injectAllChanges(data);
 
-  if(!(await getStorage('favorite_courses'))){
-    await setStorage({'favorite_courses': '{}'}) //Insert empty object
+  if (!(await getStorage('favorite_courses'))) {
+    await setStorage({ 'favorite_courses': '{}' }) //Insert empty object
   }
-  
+
   functionsToExecute.forEach(f => {
     try {
       f.func();

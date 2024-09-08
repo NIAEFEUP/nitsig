@@ -1,7 +1,6 @@
-import addStyles from "../utilities/addStyles";
+import addStyles from "./addStyles";
 import removeElement from "../utilities/removeElement";
 
-// Function to hide shortcuts 
 export const hideShortcuts = async (shortcuts) => {
   switch (shortcuts) {
     case "on":
@@ -41,17 +40,17 @@ export const changeFont = async (font) => {
 };
 
 export const useNavBar = async (navbar) => {
-    switch (navbar) {
-        case "on":
-            addStyles("se-use-navbar", `
-                #colunaprincipal {
+  switch (navbar) {
+    case "on":
+      addStyles("se-use-navbar", `
+                #colunaprincipal, #rodape,  #ferramentas{
                     display: none !important;
                 }
             `);
-            removeElement("#se-dont-use-navbar");
-            break;
-        case "off":
-            addStyles("se-dont-use-navbar", `
+      removeElement("#se-dont-use-navbar");
+      break;
+    case "off":
+      addStyles("se-dont-use-navbar", `
                 #se-header-links {
                     display: none !important;
                 }
@@ -59,7 +58,7 @@ export const useNavBar = async (navbar) => {
                     display: none !important;
                 }
             `);
-            removeElement("#se-use-navbar");
-            break;
-    }
+      removeElement("#se-use-navbar");
+      break;
+  }
 };
