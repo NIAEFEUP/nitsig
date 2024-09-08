@@ -18,8 +18,8 @@ export const Table:JSX.Component<TableProps> = ({ name, headers, data }) => {
         const rows = Array.from(table.querySelectorAll("tbody tr"));
         
         let el = event.target as HTMLElement;
-        // Checking if a button within the th was clicked
-        if (el.parentElement?.tagName != "TH" && el.tagName == "BUTTON") return;
+        // Checking if a button/anchor within the th was clicked
+        if (el.parentElement?.tagName != "TH" && (el.tagName == "BUTTON" || el.tagName == "A")) return;
         // It was not a button therefore we need to find the original button
         if (el.tagName !== "TH") el = el.closest(".se-sort-button")!;
 
