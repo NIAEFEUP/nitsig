@@ -37,6 +37,10 @@
         {
             "matches": ["*://sigarra.up.pt/*/web_page.inicial"],
             "css": ["css/homepage.css"]
+        },
+        {
+            "matches": ["*://sigarra.up.pt/*/components"],
+            "css": ["css/componentsPage.css"]
         }
     ],
     "web_accessible_resources": [
@@ -49,7 +53,8 @@
                 "css/icons.css",
                 "images/publicationWebsiteLogo/*",
                 "images/FEUP.svg",
-                "images/feup-map.svg"
+                "images/feup-map.svg",
+                "images/logo/*"
             ],
             "matches": ["https://sigarra.up.pt/*"]
         }
