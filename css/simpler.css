@@ -1354,3 +1354,76 @@ center:first-of-type > img, .encaixar {
   object-fit: cover;
 }
 
+.se-table {
+  width: 100%;
+  border-collapse: collapse !important;
+}
+
+.se-sort-button {
+  background: none !important;
+  border: none !important;
+  display: inline-block !important;
+  width: 100% !important;
+  height: 100% !important;
+  outline: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.se-sort-button:hover {
+  background: none !important;
+}
+
+.se-table-header {
+  background: none !important;
+  color: #676767;
+  padding: 0 !important;
+  margin: 0;
+  width: auto;
+  height: 100%;
+}
+
+.se-table-header::after {
+  display: none;
+}
+
+.se-sort-button::after {
+  font-family: "remixicon";
+  vertical-align: middle;
+  padding-left: 0.3rem;
+}
+
+.se-sort-button[aria-sort="asc"]::after {
+  content: "\f160";
+  font-weight: bold;
+}
+
+.se-sort-button[aria-sort="desc"]::after {
+  content: "\f15f";
+  font-weight: bold;
+}
+
+.se-sort-button,
+.se-table td {
+  padding: 0.6rem 1rem !important;
+  border-bottom: 1.4px solid #f3f3f3;
+  text-align: left !important;
+}
+
+.se-table tr td:first-child,
+.se-table tr th:first-child .se-sort-button{
+  text-align: left;
+  padding-left: 0 !important;
+}
+
+.se-table tr td:last-child,
+.se-table tr th:last-child .se-sort-button{
+  text-align: right !important;
+  padding-right: 0 !important;
+}
+
+.se-table thead tr {
+  border-bottom: 1.4px solid #f3f3f3 !important;
+}
