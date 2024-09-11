@@ -1,7 +1,8 @@
 let manifest = {
     name: "NitSig: Sigarra, but Neater",
     short_name: "NitSig",
-    description: "A Neater Sigarra by improving its UI/UX experience and adding new features",
+    description:
+        "A Neater Sigarra by improving its UI/UX experience and adding new features",
     version: "1.0.4",
     manifest_version: 3,
     icons: {
@@ -11,7 +12,7 @@ let manifest = {
         128: "images/logo/logo-128.png",
     },
     content_security_policy: {
-        extension_pages: "script-src 'self'; object-src 'self';"
+        extension_pages: "script-src 'self'; object-src 'self';",
     },
     content_scripts: [
         {
@@ -25,7 +26,7 @@ let manifest = {
                 "css/classPage.css",
                 "css/profilePage.css",
                 "css/card.css",
-                "css/expandableCard.css"
+                "css/expandableCard.css",
             ],
         },
         {
@@ -36,7 +37,7 @@ let manifest = {
         {
             matches: ["*://sigarra.up.pt/*/web_page.inicial"],
             css: ["css/homepage.css"],
-        }
+        },
     ],
     web_accessible_resources: [
         {
@@ -71,7 +72,7 @@ export const MANIFEST_CHROME = {
     background: {
         service_worker: "background.js",
         type: "module",
-    }
+    },
 };
 
 export const MANIFEST_FIREFOX = {
@@ -84,5 +85,5 @@ export const MANIFEST_FIREFOX = {
     },
     background: {
         scripts: ["background.js"],
-    }
+    },
 };

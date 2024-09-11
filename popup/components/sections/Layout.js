@@ -1,4 +1,4 @@
-import LayoutContent from './LayoutContent'
+import LayoutContent from "./LayoutContent"
 
 const Layout = () => (
   <section className="flex flex-col gap-y-2">

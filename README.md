@@ -19,7 +19,9 @@ Choose your favorite browser and start developing:
 ```sh
 yarn run dev:firefox
 ```
+
 or
+
 ```sh
 yarn run dev:chrome
 ```

@@ -1,14 +1,17 @@
-import {groupSectionTitleAndContent, groupChildrenBySelector, moveChildrenToAncestor, removeTwoColumnTable} from "../modules/utilities/pageUtils"
-
+import {
+    groupSectionTitleAndContent,
+    groupChildrenBySelector,
+    moveChildrenToAncestor,
+    removeTwoColumnTable,
+} from "../modules/utilities/pageUtils";
 
 const publicationWebsites = {
     "authenticus.pt": { icon: "authenticusID.png", text: "Authenticus ID" },
     "orcid.org": { icon: "orcid.png", text: "ORCID" },
     "cienciavitae.pt": { icon: "cienciaID.png", text: "Ciência ID" },
     "publons.com": { icon: "researchID.png", text: "Research-ID" },
-    "scopus.com": { icon: "scopus.png", text: "Scopus" }
-}
-
+    "scopus.com": { icon: "scopus.png", text: "Scopus" },
+};
 
 export const teacherPage = () => {
     if (!document.location.href.toLowerCase().includes("func_geral.formview")) {
@@ -28,147 +31,163 @@ export const teacherPage = () => {
     moveChildrenToAncestor(".informacao-pessoal-dados");
     moveChildrenToAncestor(".informacao-pessoal-funcoes");
 
-
     //we group the page contents to be easier to style to
-    groupChildrenBySelector([".se-teacher-title-bar", ".tabelasz", ".se-website-button"],
-        ["se-main-info-content"]);
-    
-    groupChildrenBySelector([".informacao-pessoal-dados-foto", ".se-main-info-content"], 
-        ["se-main-info-row"]);
-        
-    groupChildrenBySelector([".se-contact-info", ".se-roles", ".se-publication-website-list"],
-        ["se-extra-information-row"]);
+    groupChildrenBySelector(
+        [".se-teacher-title-bar", ".tabelasz", ".se-website-button"],
+        ["se-main-info-content"],
+    );
 
+    groupChildrenBySelector(
+        [".informacao-pessoal-dados-foto", ".se-main-info-content"],
+        ["se-main-info-row"],
+    );
+
+    groupChildrenBySelector(
+        [".se-contact-info", ".se-roles", ".se-publication-website-list"],
+        ["se-extra-information-row"],
+    );
 
     const sectionClasses = [
-        ".se-contact-info", 
-        ".se-roles", 
-        ".se-positions", 
-        ".informacao-pessoal-outras"
-    ]
+        ".se-contact-info",
+        ".se-roles",
+        ".se-positions",
+        ".informacao-pessoal-outras",
+    ];
 
     //i hate sigarra, for some reason it nests one table inside each other
     sectionClasses.forEach(reformatTables);
 };
 
-function reformatTables(parentSelector){
+function reformatTables(parentSelector) {
     let parentElement = document.querySelector(parentSelector);
-    if (parentElement === null || 
-        parentElement.children.length === 0) return;
-    const tableList = parentElement.querySelectorAll("table > tbody > tr > td > table");
-    
+    if (parentElement === null || parentElement.children.length === 0) return;
+    const tableList = parentElement.querySelectorAll(
+        "table > tbody > tr > td > table",
+    );
+
     if (tableList.length !== 0) {
-        parentElement.querySelector('table').remove();
+        parentElement.querySelector("table").remove();
         if (tableList.length > 1) {
             const container = document.createElement("div");
             container.classList.add("se-container");
             parentElement.appendChild(container);
             parentElement = container;
-        };
-        for (table of tableList) {
-            document.querySelector(parentSelector).appendChild(table);
-            removeTwoColumnTable(`${parentSelector} > table`, true, parentElement);
         }
-    }
-    else {
+        for (let table of tableList) {
+            document.querySelector(parentSelector).appendChild(table);
+            removeTwoColumnTable(
+                `${parentSelector} > table`,
+                true,
+                parentElement,
+            );
+        }
+    } else {
         const tableSelector = `${parentSelector} > table`;
-        table = document.querySelector(tableSelector);
+        const table = document.querySelector(tableSelector);
         parentElement.appendChild(table);
         removeTwoColumnTable(tableSelector, true, parentElement);
     }
 }
 
-function tagGroupedElements(){
-    let contacts = document.querySelector(".informacao-pessoal-dados-dados > div:not(.se-website-button)");
-    if(contacts !== null){
-        contacts.classList.add("se-contact-info")
+function tagGroupedElements() {
+    let contacts = document.querySelector(
+        ".informacao-pessoal-dados-dados > div:not(.se-website-button)",
+    );
+    if (contacts !== null) {
+        contacts.classList.add("se-contact-info");
     } else {
-        contacts = document.querySelector(".informacao-pessoal-dados-dados > table:not(.tabelasz)")
-        const div = document.createElement("div")
-        const informacao_pessoal = document.querySelector(".informacao-pessoal-dados-dados")
-        const h3 = document.createElement("h3")
-        h3.textContent = "Contactos"
-        div.append(h3, contacts)
-        div.classList.add("se-contact-info")
-        informacao_pessoal.appendChild(div)
+        contacts = document.querySelector(
+            ".informacao-pessoal-dados-dados > table:not(.tabelasz)",
+        );
+        const div = document.createElement("div");
+        const informacao_pessoal = document.querySelector(
+            ".informacao-pessoal-dados-dados",
+        );
+        const h3 = document.createElement("h3");
+        h3.textContent = "Contactos";
+        div.append(h3, contacts);
+        div.classList.add("se-contact-info");
+        informacao_pessoal.appendChild(div);
     }
     const roles = document.querySelector(".informacao-pessoal-funcoes");
-    if(roles !== null){
-        if(roles.childElementCount === 1){
+    if (roles !== null) {
+        if (roles.childElementCount === 1) {
             roles.children[0].classList.add("se-roles");
-        } else if (roles.childElementCount > 1){
+        } else if (roles.childElementCount > 1) {
             roles.children[0].classList.add("se-roles");
             roles.children[1].classList.add("se-positions");
         }
     }
-
 }
 
-
-
-function makeWebsiteButtonIfExists(){
-    const websiteIcon = document
-        .querySelector(".informacao-pessoal-dados-dados > table > tbody > tr:nth-child(1) > td:nth-child(2) > a");
-    const informationElement = document.querySelector(".informacao-pessoal-dados-dados")
-    if(websiteIcon === null) return;
+function makeWebsiteButtonIfExists() {
+    const websiteIcon = document.querySelector(
+        ".informacao-pessoal-dados-dados > table > tbody > tr:nth-child(1) > td:nth-child(2) > a",
+    );
+    const informationElement = document.querySelector(
+        ".informacao-pessoal-dados-dados",
+    );
+    if (websiteIcon === null) return;
 
     const websiteLink = websiteIcon.href;
     const websiteButton = document.createElement("a");
     websiteButton.classList.add("se-website-button");
-    websiteButton.href = websiteLink
+    websiteButton.href = websiteLink;
     websiteButton.textContent = "Website";
 
     informationElement.append(websiteButton);
     websiteIcon.remove();
-
-
 }
 
-
-
 function makePublicationWebsiteButtons() {
-    const tabelasz = document.querySelector(".tabelasz > tbody")
-    const informacaoPessoal = document.querySelector(".informacao-pessoal-dados");
-    const websiteList = document.createElement("div")
-    websiteList.classList.add("se-publication-website-list")
-    const listOfRows = [...tabelasz.children]
+    const tabelasz = document.querySelector(".tabelasz > tbody");
+    const informacaoPessoal = document.querySelector(
+        ".informacao-pessoal-dados",
+    );
+    const websiteList = document.createElement("div");
+    websiteList.classList.add("se-publication-website-list");
+    const listOfRows = [...tabelasz.children];
     listOfRows.forEach((row) => {
-        const linkElement = row.querySelector("td:nth-child(2) > a")
+        const linkElement = row.querySelector("td:nth-child(2) > a");
         if (linkElement === null) {
             return;
         }
-        const link = linkElement.href
+        const link = linkElement.href;
         let found = false;
-        for (website of Object.keys(publicationWebsites)) {
+        for (let website of Object.keys(publicationWebsites)) {
             if (link.includes(website)) {
-                found = true
-                const image = document.createElement("img")
-                image.src = chrome.runtime.getURL("images/publicationWebsiteLogo/" +
-                    publicationWebsites[website].icon);
-                const text = document.createElement("p")
-                text.textContent = publicationWebsites[website].text
+                found = true;
+                const image = document.createElement("img");
+                image.src = chrome.runtime.getURL(
+                    "images/publicationWebsiteLogo/" +
+                        publicationWebsites[website].icon,
+                );
+                const text = document.createElement("p");
+                text.textContent = publicationWebsites[website].text;
 
-                const a = document.createElement("a")
-                a.appendChild(image)
-                a.appendChild(text)
-                a.classList.add("se-publication-website-button")
-                a.href = link
-                websiteList.appendChild(a)
+                const a = document.createElement("a");
+                a.appendChild(image);
+                a.appendChild(text);
+                a.classList.add("se-publication-website-button");
+                a.href = link;
+                websiteList.appendChild(a);
                 break;
             }
         }
 
-        if (found) row.remove()
-    })
+        if (found) row.remove();
+    });
 
-
-    informacaoPessoal.appendChild(websiteList)
-
+    informacaoPessoal.appendChild(websiteList);
 }
 
 function moveResearchSection() {
-    const researchSection = document.querySelector(".informacao-pessoal-outras");
-    const informacaoPessoal = document.querySelector(".informacao-pessoal-dados");
+    const researchSection = document.querySelector(
+        ".informacao-pessoal-outras",
+    );
+    const informacaoPessoal = document.querySelector(
+        ".informacao-pessoal-dados",
+    );
     researchSection.remove();
     const rolesSection = document.querySelector(".informacao-pessoal-funcoes");
     informacaoPessoal.insertBefore(researchSection, rolesSection);
@@ -180,9 +199,12 @@ function makeTitleBar() {
     const titleElement = document.querySelectorAll("#conteudoinner > h1")[1];
     const title = titleElement.textContent;
     titleElement.remove();
-    const siglaRow = document.querySelector(".tabelasz > tbody:nth-child(1) > tr:nth-child(2)");
-    const sigla = document.querySelector(".tabelasz > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > b:nth-child(1)")
-        .textContent;
+    const siglaRow = document.querySelector(
+        ".tabelasz > tbody:nth-child(1) > tr:nth-child(2)",
+    );
+    const sigla = document.querySelector(
+        ".tabelasz > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > b:nth-child(1)",
+    ).textContent;
     siglaRow.remove();
 
     const titleBar = document.createElement("div");
@@ -196,7 +218,6 @@ function makeTitleBar() {
 
     titleBar.appendChild(newTitle);
     titleBar.appendChild(newSigla);
-
 
     informacaoPessoal.prepend(titleBar);
 }

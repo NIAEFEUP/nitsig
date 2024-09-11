@@ -5,17 +5,14 @@ import { useEffect, useState } from "react"
 
 import { getStorage, setStorage } from "../../utilities/chromeStorage"
 
-function CheckboxControl({
-  label,
-  storageKey,
-  defaultState = false
-}) {
+function CheckboxControl({ label, storageKey, defaultState = false }) {
   const [localState, setLocalState] = useState(defaultState)
 
   useEffect(() => {
     const getDefaultState = async () => {
       try {
         const userSetting = await getStorage(storageKey)
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         userSetting && setLocalState(userSetting === "on" ? true : false)
       } catch (error) {
         console.warn(error)

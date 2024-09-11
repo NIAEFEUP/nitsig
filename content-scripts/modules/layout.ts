@@ -4,7 +4,6 @@ import { fetchSigarraPage } from "./utilities/pageUtils";
 import Button from "../components/Button";
 
 export const changeLayout = async () => {
-
     // Move all scripts and styles to head
     const scripts = document.querySelectorAll("script, link, style");
     document.head.append(...Array.from(scripts));
@@ -33,10 +32,9 @@ const replaceHeader = () => {
     if (!autenticacao) return;
 
     if (autenticacao.classList.contains("autenticado")) {
-
-        let auth: AuthSession = {
-            name: autenticacao.querySelector(".nome")?.textContent!,
-            number: autenticacao.querySelector("img")?.src.slice(-9)!,
+        const auth: AuthSession = {
+            name: autenticacao.querySelector(".nome")!.textContent!,
+            number: autenticacao.querySelector("img")!.src.slice(-9)!,
             hasNotifications: oldHeader.querySelector(".notificacao") !== null,
         };
 
@@ -44,7 +42,7 @@ const replaceHeader = () => {
         oldHeader.replaceWith(newHeader);
 
         const notificationsButton = newHeader.querySelector(
-            "#se-auth-notifications-button"
+            "#se-auth-notifications-button",
         );
 
         if (notificationsButton) {
@@ -57,7 +55,7 @@ const replaceHeader = () => {
     }
 
     oldHeader.replaceWith(Header({}));
-}
+};
 
 const removeLeftColumn = () => {
     const leftColumn = document.querySelector("#colunaprincipal");
@@ -80,7 +78,7 @@ const removeLeftColumn = () => {
 
 const loadNotifications = async (): Promise<void> => {
     const notificationsList = document.querySelector<HTMLUListElement>(
-        "#se-auth-notifications-list"
+        "#se-auth-notifications-list",
     );
 
     if (!notificationsList) return;
@@ -90,10 +88,10 @@ const loadNotifications = async (): Promise<void> => {
     notificationsList.classList.add("se-loading");
 
     const newNotifications = document.querySelector<HTMLUListElement>(
-        "#se-auth-new-notifications"
+        "#se-auth-new-notifications",
     );
     const readNotifications = document.querySelector<HTMLUListElement>(
-        "#se-auth-read-notifications"
+        "#se-auth-read-notifications",
     );
 
     const dateFormatter = new Intl.DateTimeFormat("pt-PT", {
@@ -109,14 +107,16 @@ const loadNotifications = async (): Promise<void> => {
             if (!list) return;
 
             const response = await fetchSigarraPage(
-                `gnots_ajax.show_lista_notifs?pv_estado=${type}`
+                `gnots_ajax.show_lista_notifs?pv_estado=${type}`,
             );
 
             response.querySelectorAll("tr.d").forEach((notification) => {
-                const date = notification.querySelector("td:nth-child(3)")?.textContent;
-                const title = notification.querySelector("td:nth-child(4)")?.textContent;
+                const date =
+                    notification.querySelector("td:nth-child(3)")?.textContent;
+                const title =
+                    notification.querySelector("td:nth-child(4)")?.textContent;
                 const answer = notification.querySelector<HTMLInputElement>(
-                    "td:nth-child(7) input"
+                    "td:nth-child(7) input",
                 );
 
                 //TODO(thePeras): Could be a jsx component
@@ -144,7 +144,7 @@ const loadNotifications = async (): Promise<void> => {
                         e.stopPropagation();
 
                         await fetchSigarraPage(
-                            `gnots_geral.nots_list_sub?${answer.name}=${answer.value}`
+                            `gnots_geral.nots_list_sub?${answer.name}=${answer.value}`,
                         );
 
                         const targetElement = e.target as HTMLElement;
@@ -152,20 +152,22 @@ const loadNotifications = async (): Promise<void> => {
 
                         readNotifications?.insertBefore(
                             li,
-                            readNotifications.firstChild
+                            readNotifications.firstChild,
                         );
                     };
 
-                    li.append(Button({
-                        icon: "ri-check-line",
-                        className: "se-notification-button",
-                        onclick: markAsRead,
-                    }));
+                    li.append(
+                        Button({
+                            icon: "ri-check-line",
+                            className: "se-notification-button",
+                            onclick: markAsRead,
+                        }),
+                    );
                 }
 
                 list.append(li);
             });
-        })
+        }),
     );
 
     notificationsList.classList.remove("se-loading");

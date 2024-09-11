@@ -11,6 +11,7 @@ import throttle from "lodash.throttle"
 - Don't need to throttle
 */
 export const getStorage = async (k) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const promise = new Promise((resolve, _reject) => {
     const storageKey = Array.isArray(k) ? k : [k]
     chrome?.storage?.local.get(storageKey, (data) => {
@@ -29,6 +30,7 @@ export const getStorage = async (k) => {
   - 60000 ms / 120 operations = 500 ms/operation
 --*/
 export const setStorage = throttle(async (kv) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const promise = new Promise((resolve, _reject) => {
     chrome?.storage?.local.set(kv, () => {
       return resolve(kv)

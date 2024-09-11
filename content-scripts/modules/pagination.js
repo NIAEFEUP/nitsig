@@ -3,15 +3,15 @@
  */
 const replacePagination = (pagination) => {
     const prevLinks = pagination.querySelectorAll(
-        ".paginar-paginas-anteriores a"
+        ".paginar-paginas-anteriores a",
     );
     const nextLinks = pagination.querySelectorAll(
-        ".paginar-paginas-posteriores a"
+        ".paginar-paginas-posteriores a",
     );
     const current = pagination.querySelector(".paginar-paginas-atual span");
 
     const icons = pagination.querySelector(
-        ".paginar-saltar-barra-posicao"
+        ".paginar-saltar-barra-posicao",
     )?.children;
 
     const first = icons?.[0]?.querySelector("a");

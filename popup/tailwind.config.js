@@ -14,11 +14,11 @@ module.exports = {
         accentThree: "#993333",
         accentFour: "#e04a4a",
         accentFive: "#e04a4a",
-        
+
         bgOneDark: "#231012",
         bgTwoDark: "#402629",
         accentOneDark: "#e9dde0",
-        accentTwoDark: "#c78f8f",
+        accentTwoDark: "#c78f8f"
       }
     }
   },

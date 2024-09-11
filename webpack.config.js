@@ -21,8 +21,8 @@ const transformManifests = (data) =>
                 ...acc,
                 ...JSON.parse(curr.data.toString()),
             }),
-            {}
-        )
+            {},
+        ),
     );
 
 let lastChangedFiles = new Map();
@@ -30,8 +30,8 @@ const loadLastChangedFiles = async () => {
     if (await pathExists(CHANGES_FILENAME)) {
         lastChangedFiles = new Map(
             Object.entries(
-                JSON.parse((await readFile(CHANGES_FILENAME)).toString())
-            )
+                JSON.parse((await readFile(CHANGES_FILENAME)).toString()),
+            ),
         );
     }
 };
@@ -40,7 +40,7 @@ let newChangedFiles = new Map();
 const writeNewChangedFiles = async () => {
     await writeFile(
         CHANGES_FILENAME,
-        JSON.stringify(Object.fromEntries(newChangedFiles))
+        JSON.stringify(Object.fromEntries(newChangedFiles)),
     );
 };
 
@@ -106,13 +106,13 @@ const config = {
         // Add support for TypeScripts fully qualified ESM imports.
         extensionAlias: {
             ".js": [".js", ".ts"],
-        }
+        },
     },
     entry: {
         "base/content-scripts": "./content-scripts/index.js",
         "base/background": "./background.js",
     },
-    output: { path: path.resolve("dist"), filename: "[name].js"},
+    output: { path: path.resolve("dist"), filename: "[name].js" },
     watchOptions: {
         ignored: ["**/node_modules", "**/dist"],
     },
@@ -124,7 +124,7 @@ const config = {
                 loader: "ts-loader",
                 resolve: {
                     fullySpecified: false,
-                }
+                },
             },
             {
                 test: /\.[j]sx?/,
@@ -132,7 +132,7 @@ const config = {
                 loader: "esbuild-loader",
                 resolve: {
                     fullySpecified: false,
-                }
+                },
             },
         ],
     },
@@ -146,7 +146,7 @@ const config = {
 
             // To Build Extension:
             // just on build
-            onBeforeNormalRun: { 
+            onBeforeNormalRun: {
                 scripts: [buildPopup],
                 blocking: true,
                 parallel: false,

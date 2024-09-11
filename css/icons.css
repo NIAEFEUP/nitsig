@@ -35,11 +35,11 @@
 }
 
 #infopessoalh:not(.expandido) .colapsar {
-    display: none
+    display: none;
 }
 
 #infopessoalh.expandido .expandir {
-    display: none
+    display: none;
 }
 
 th:after {
@@ -49,12 +49,12 @@ th:after {
     padding-left: 0.3rem;
 }
 
-th.asc:after{
+th.asc:after {
     content: "\f160";
     font-weight: bold;
 }
 
-th.desc:after{
+th.desc:after {
     content: "\f15f";
     font-weight: bold;
 }

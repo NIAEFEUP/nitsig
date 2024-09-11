@@ -1,22 +1,22 @@
-.se-card-header{
+.se-card-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.se-card-expand-button{
+.se-card-expand-button {
     background: inherit !important;
     border: none !important;
     padding: none !important;
     margin: none !important;
 }
 
-.se-card-expand-button:hover{
+.se-card-expand-button:hover {
     background: inherit !important;
 }
 
-.se-expandable-card-wrapper{
+.se-expandable-card-wrapper {
     overflow: hidden;
     transition: max-height 300ms ease-in-out;
 }

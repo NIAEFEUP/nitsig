@@ -4,17 +4,14 @@ import { useEffect, useState } from "react"
 
 import { getStorage, setStorage } from "../../utilities/chromeStorage"
 
-function SwitchControl({
-  label,
-  storageKey,
-  defaultState = false
-}) {
+function SwitchControl({ label, storageKey, defaultState = false }) {
   const [localState, setLocalState] = useState(defaultState)
 
   useEffect(() => {
     const getDefaultState = async () => {
       try {
         const userDefault = await getStorage(storageKey)
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         userDefault && setLocalState(userDefault === "on" ? true : false)
       } catch (error) {
         console.warn(error)

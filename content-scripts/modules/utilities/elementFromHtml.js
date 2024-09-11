@@ -1,2 +1,2 @@
-export const elementFromHtml =
-    (html) => document.createRange().createContextualFragment(html);
+export const elementFromHtml = (html) =>
+    document.createRange().createContextualFragment(html);
