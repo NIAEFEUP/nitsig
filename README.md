@@ -34,6 +34,34 @@ This command will initialize a browser window and load the extension, watching f
 yarn build
 ```
 
+## Linting and formatting
+
+In order to maintain our codebase we are using [Prettier](https://prettier.io/) for formatting and [ESLint](https://eslint.org/) for linting.
+
+If you only want to check for formatting issues run:
+
+```sh
+yarn format
+```
+
+Or if you want to have Prettier fix them:
+
+```sh
+yarn format:fix
+```
+
+Similarly, to check for linting issues run:
+
+```sh
+yarn lint
+```
+
+And, if you wish to fix the warnings that ESLint picks up, run:
+
+```sh
+yarn lint:fix
+```
+
 ## Loading a bundle
 
 <table>
