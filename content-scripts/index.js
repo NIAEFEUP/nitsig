@@ -17,6 +17,7 @@ import { courseUnitPage } from "./pages/course_unit_page";
 import { fixPagination } from "./modules/pagination";
 import { changeLayout } from "./modules/layout";
 import { addStarIconToCard } from "./modules/favorite-course";
+import { createComponentsPage } from "./pages/components_page";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates
@@ -50,6 +51,7 @@ const functionsToExecute = [
     { name: "injectOverrideFunctions", func: injectOverrideFunctions },
     { name: "addStarIconToCard", func: addStarIconToCard },
 ];
+
 
 const init = async () => {
     // Inject user preferences
