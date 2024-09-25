@@ -19,7 +19,6 @@ const CLASS_ABBR_TO_ABBR = {
     P: "P",
     PL: "PL",
     OT: "OT",
-    PL: "PL",
     TC: "TC",
     S: "S",
     O: "O",
@@ -116,6 +115,7 @@ const fixScheduleTable = (table) => {
         rows[i] ??= defaultRows.slice();
 
         // Add column info to cells (useful later)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         e.querySelectorAll("td").forEach((c, j) => {
             const weekday = rows[i].shift();
             c.dataset.seWeekday = weekday;
@@ -123,7 +123,7 @@ const fixScheduleTable = (table) => {
 
             for (let k = i + 1; k < i + c.rowSpan; ++k) {
                 rows[k] = (rows[k] ?? defaultRows.slice()).filter(
-                    (x) => x != weekday
+                    (x) => x != weekday,
                 );
                 c.dataset.seRows += ` ${k}`;
             }
@@ -172,18 +172,18 @@ const createClass = (name, clazz, room, teacher, reservation) => {
 const fixClasses = (table) => {
     /** @type {NodeListOf<HTMLTableCellElement>} */
     const classes = table.querySelectorAll(
-        "td:is(.TP, .TE, .P, .O, .OT, .PL, .TC, .S, .existeexames)"
+        "td:is(.TP, .TE, .P, .O, .OT, .PL, .TC, .S, .existeexames)",
     );
 
     classes.forEach((e) => {
         const className = e.querySelector(":scope b a");
         const classClass = e.querySelector(
-            ":scope span.textopequenoc"
+            ":scope span.textopequenoc",
         )?.firstChild;
         const classRoom = e.querySelector(":scope table td:first-of-type a");
         const classTeacher = e.querySelector(":scope table td:last-of-type a");
         const classReservation = e.querySelector(
-            ":scope acronym > a.acao.detalhar"
+            ":scope acronym > a.acao.detalhar",
         )?.parentElement?.title;
 
         e.replaceChildren(
@@ -192,8 +192,8 @@ const fixClasses = (table) => {
                 classClass,
                 classRoom,
                 classTeacher,
-                classReservation
-            )
+                classReservation,
+            ),
         );
     });
 };
@@ -210,7 +210,7 @@ const getClassDuration = async (url) => {
     const ret = new Map();
 
     html.querySelectorAll(
-        ".horario :is(.TP, .TE, .O, .OT, .PL, .TC, .S, .existeexames)"
+        ".horario :is(.TP, .TE, .O, .OT, .PL, .TC, .S, .existeexames)",
     ).forEach((/** @type {HTMLTableCellElement} */ e) => {
         const className = e.querySelector("b a").innerText;
         const classClass = e.querySelector("span > a").innerText;
@@ -248,7 +248,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
             /** @type {HTMLAnchorElement} */
             const className = e.querySelector("[headers=t1] a");
             const classType = /\((.+)\)/.exec(
-                e.querySelector("[headers=t1]").innerText
+                e.querySelector("[headers=t1]").innerText,
             )[1];
             /** @type {string} */
             const weekday =
@@ -260,16 +260,16 @@ const fixOverlappingClasses = async (table, overlapping) => {
             const classClass = e.querySelector("[headers=t6] a");
 
             let classDuration = durationCache.get(
-                `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`
+                `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`,
             );
 
             if (!classDuration) {
                 (await getClassDuration(classClass.href)).forEach(
-                    (duration, k) => durationCache.set(k, duration)
+                    (duration, k) => durationCache.set(k, duration),
                 );
                 classDuration =
                     durationCache.get(
-                        `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`
+                        `${className.innerText},${CLASS_ABBR_TO_ABBR[classType]},${classClass.innerText}`,
                     ) ?? 1;
             }
 
@@ -285,7 +285,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
             cell.rowSpan = classDuration;
             cell.classList.add(CLASS_ABBR_TO_ABBR[classType]);
             cell.append(
-                createClass(className, classClass, classRoom, classTeacher)
+                createClass(className, classClass, classRoom, classTeacher),
             );
             cell.dataset.seWeekday = weekday;
             cell.dataset.seRows = row;
@@ -302,7 +302,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
             }
 
             tr.insertBefore(cell, next);
-        })
+        }),
     );
 
     // Find the number of columns needed per weekday
@@ -310,7 +310,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
             const o = table.querySelectorAll(
-                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`,
             );
             set.add(o.length);
         }
@@ -327,10 +327,10 @@ const fixOverlappingClasses = async (table, overlapping) => {
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
             const o = table.querySelectorAll(
-                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`,
             );
             o.forEach(
-                (c) => (c.colSpan = Math.min(span / o.length, c.colSpan))
+                (c) => (c.colSpan = Math.min(span / o.length, c.colSpan)),
             );
         }
     }
@@ -342,7 +342,7 @@ const fixOverlappingClasses = async (table, overlapping) => {
     for (let i = 1; i < 7; ++i) {
         for (let j = 0; j < 30; ++j) {
             const o = table.querySelectorAll(
-                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`
+                `[data-se-weekday="${i}"][data-se-rows~="${j}"]`,
             );
             let s = 0;
             o.forEach((c) => (s += c.colSpan));
@@ -438,6 +438,7 @@ const fixForm = async () => {
         e.id = e.name;
         e.querySelector("option:empty")?.remove();
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         e.addEventListener("change", (_) => form.submit());
     });
 

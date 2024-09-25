@@ -1,8 +1,8 @@
 import {
-  injectOverrideFunctions,
-  reverseDateDirection,
-  currentAccountPage,
-  addSortTableActions
+    injectOverrideFunctions,
+    reverseDateDirection,
+    currentAccountPage,
+    addSortTableActions,
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options";
 import constructNewData from "./modules/utilities/constructNewData";
@@ -25,9 +25,9 @@ import { createComponentsPage } from "./pages/components_page";
 - Inject styles in respond to changes
 --*/
 chrome.storage.onChanged.addListener((changes) => {
-  const newChangesData = constructNewData(changes);
-  rememberLogin();
-  injectAllChanges(newChangesData);
+    const newChangesData = constructNewData(changes);
+    rememberLogin();
+    injectAllChanges(newChangesData);
 });
 
 /*--
@@ -36,45 +36,44 @@ chrome.storage.onChanged.addListener((changes) => {
 --*/
 
 const functionsToExecute = [
-  { name: "changeLayout", func: changeLayout },
-  { name: "reverseDateDirection", func: reverseDateDirection },
-  { name: "currentAccountPage", func: currentAccountPage },
-  { name: "addSortTableActions", func: addSortTableActions },
-  { name: "replaceIcons", func: replaceIcons },
-  { name: "improveSchedule", func: improveSchedule },
-  { name: "changeProfileRow", func: changeProfileRow },
-  { name: "changeCourseCards", func: changeCourseCards },
-  { name: "fixPagination", func: fixPagination },
-  { name: "teacherPage", func: teacherPage },
-  { name: "classPage", func: classPage },
-  { name: "courseUnitPage", func: courseUnitPage },
-  { name: "injectOverrideFunctions", func: injectOverrideFunctions },
-  { name: "addStarIconToCard", func: addStarIconToCard },
-  { name: "componentsPage", func: createComponentsPage }
-]
+    { name: "changeLayout", func: changeLayout },
+    { name: "reverseDateDirection", func: reverseDateDirection },
+    { name: "currentAccountPage", func: currentAccountPage },
+    { name: "addSortTableActions", func: addSortTableActions },
+    { name: "replaceIcons", func: replaceIcons },
+    { name: "improveSchedule", func: improveSchedule },
+    { name: "changeProfileRow", func: changeProfileRow },
+    { name: "changeCourseCards", func: changeCourseCards },
+    { name: "fixPagination", func: fixPagination },
+    { name: "teacherPage", func: teacherPage },
+    { name: "classPage", func: classPage },
+    { name: "courseUnitPage", func: courseUnitPage },
+    { name: "injectOverrideFunctions", func: injectOverrideFunctions },
+    { name: "addStarIconToCard", func: addStarIconToCard },
+];
+
 
 const init = async () => {
+    // Inject user preferences
+    const data = await getStorage(userPreferences);
+    injectAllChanges(data);
 
-  // Inject user preferences
-  const data = await getStorage(userPreferences);
-  injectAllChanges(data);
-
-  if (!(await getStorage('favorite_courses'))) {
-    await setStorage({ 'favorite_courses': '{}' }) //Insert empty object
-  }
-
-  functionsToExecute.forEach(f => {
-    try {
-      f.func();
-    } catch (error) {
-      console.error(`Error running ${f.name} init function!\n`)
-      console.error(error);
+    if (!(await getStorage("favorite_courses"))) {
+        await setStorage({ favorite_courses: "{}" }); //Insert empty object
     }
-  });
-  // we run rememberLogin at last, because it's async
-  // TODO (luisd): make a better mechanism for functions that depend on previous
-  // steps and might be async
-  await rememberLogin(data);
+
+    functionsToExecute.forEach((f) => {
+        try {
+            f.func();
+        } catch (error) {
+            console.error(`Error running ${f.name} init function!\n`);
+            console.error(error);
+        }
+    });
+    // we run rememberLogin at last, because it's async
+    // TODO (luisd): make a better mechanism for functions that depend on previous
+    // steps and might be async
+    await rememberLogin(data);
 };
 
 init();

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 import { isDate, reverseDate } from "../modules/utilities/date.js";
 
@@ -5,21 +6,25 @@ import { isDate, reverseDate } from "../modules/utilities/date.js";
 interface TableProps {
     // content may be a JSX component or a string
     name: string;
-    headers: [string, (string | Element)][];
+    headers: [string, string | Element][];
     data: (string | Element)[][];
 }
 
 export const Table: JSX.Component<TableProps> = ({ name, headers, data }) => {
     const headerKeys = headers.map((header) => header[0]);
 
-    const sortHeader = (event: any) => {
+    const sortHeader = (event: Event) => {
         const states = ["asc", "desc"];
-        let table = document.querySelector(`[aria-name=${name}]`)!;
+        const table = document.querySelector(`[aria-name=${name}]`)!;
         const rows = Array.from(table.querySelectorAll("tbody tr"));
 
         let el = event.target as HTMLElement;
         // Checking if a button/anchor within the th was clicked
-        if (el.parentElement?.tagName != "TH" && (el.tagName == "BUTTON" || el.tagName == "A")) return;
+        if (
+            el.parentElement?.tagName != "TH" &&
+            (el.tagName == "BUTTON" || el.tagName == "A")
+        )
+            return;
         // It was not a button therefore we need to find the original button
         if (el.tagName !== "TH") el = el.closest(".se-sort-button")!;
 
@@ -30,7 +35,8 @@ export const Table: JSX.Component<TableProps> = ({ name, headers, data }) => {
             el.setAttribute("aria-sort", "asc");
             currentState = "asc";
         } else {
-            const nextState = states[(states.indexOf(currentState || "") + 1) % 2];
+            const nextState =
+                states[(states.indexOf(currentState || "") + 1) % 2];
             el.setAttribute("aria-sort", nextState);
             currentState = nextState;
         }
@@ -53,14 +59,14 @@ export const Table: JSX.Component<TableProps> = ({ name, headers, data }) => {
             // Alphabetical order
             return aValue.localeCompare(bValue, undefined, {
                 numeric: true,
-                sensitivity: 'base'
+                sensitivity: "base",
             });
         });
 
         rows.forEach((row) => {
             table.querySelector("tbody")!.appendChild(row);
         });
-    }
+    };
 
     return (
         <table class="se-table" aria-name={name}>
@@ -68,7 +74,12 @@ export const Table: JSX.Component<TableProps> = ({ name, headers, data }) => {
                 <tr>
                     {headers.map(([key, value]) => (
                         <th class="se-table-header" key={key}>
-                            <button class="se-sort-button" aria-key={key} aria-sort="none" onclick={sortHeader}>
+                            <button
+                                class="se-sort-button"
+                                aria-key={key}
+                                aria-sort="none"
+                                onclick={sortHeader}
+                            >
                                 {value}
                             </button>
                         </th>
@@ -86,4 +97,4 @@ export const Table: JSX.Component<TableProps> = ({ name, headers, data }) => {
             </tbody>
         </table>
     );
-}
+};

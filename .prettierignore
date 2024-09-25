@@ -1,0 +1,13 @@
+.DS_Store
+/node_modules
+/dist
+/.yarn
+/.github
+/popup/.next
+/popup/.yarn
+/popup/.node_modules
+/popup/out
+
+.changes.json
+package-lock.json
+yarn.lock

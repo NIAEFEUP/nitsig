@@ -4,8 +4,7 @@ export const togglePopover = (popoverId: string) => {
 
     const menuDivs = document.querySelectorAll('div[id$="-menu"]');
     menuDivs.forEach((div) => {
-        if (div !== popover)
-            div.classList.remove("se-popover-open");
+        if (div !== popover) div.classList.remove("se-popover-open");
     });
 
     if (popover.classList.contains("se-popover-open")) {
@@ -14,4 +13,4 @@ export const togglePopover = (popoverId: string) => {
         popover.classList.add("se-popover-open");
     }
     return;
-}
+};

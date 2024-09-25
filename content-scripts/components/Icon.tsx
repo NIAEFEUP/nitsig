@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 
 interface IconProps {
@@ -5,9 +6,7 @@ interface IconProps {
 }
 
 const Icon: JSX.Component<IconProps> = ({ name }) => {
-    return (
-        <span className={"se-icon " + name}></span>
-    );
-}
+    return <span className={"se-icon " + name}></span>;
+};
 
 export default Icon;
