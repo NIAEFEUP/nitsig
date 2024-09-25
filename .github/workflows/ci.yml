@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push: # Run on pushes to "develop"
+    branches: 
+      - develop
+  pull_request: # Run on PRs to "develop"
+    branches: 
+      - develop
+    types: [opened, reopened, synchronize, ready_for_review]
+
+jobs:
+  prettier:
+    if: ${{ github.event.pull_request.draft == false }} 
+
+    name: Check Javascript code style
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Prettier
+        run: yarn format
+
+  eslint:
+    if: ${{ github.event.pull_request.draft == false }} 
+
+    name: Lint Javascript code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run Eslint
+        run: yarn lint
