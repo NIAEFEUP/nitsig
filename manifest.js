@@ -38,6 +38,10 @@ let manifest = {
             matches: ["*://sigarra.up.pt/*/web_page.inicial"],
             css: ["css/homepage.css"],
         },
+        {
+            matches: ["*://sigarra.up.pt/*/components"],
+            css: ["css/componentsPage.css"],
+        },
     ],
     web_accessible_resources: [
         {
@@ -50,6 +54,7 @@ let manifest = {
                 "images/publicationWebsiteLogo/*",
                 "images/FEUP.svg",
                 "images/feup-map.svg",
+                "images/logo/*",
             ],
             matches: ["https://sigarra.up.pt/*"],
         },
