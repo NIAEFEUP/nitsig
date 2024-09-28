@@ -50,8 +50,8 @@ const functionsToExecute = [
     { name: "courseUnitPage", func: courseUnitPage },
     { name: "injectOverrideFunctions", func: injectOverrideFunctions },
     { name: "addStarIconToCard", func: addStarIconToCard },
+    { name: "componentsPage", func: createComponentsPage },
 ];
-
 
 const init = async () => {
     // Inject user preferences
