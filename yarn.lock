@@ -3858,7 +3858,7 @@ __metadata:
     spdy: "npm:^4.0.2"
     uglify-js: "npm:^3.15.1"
   bin:
-    serve: index.js
+    serve: index.ts
   checksum: 10c0/7d713b8eac69222f7987929db844277948deb2684b39e96712c890165a34d5d76d96cd3690f7cfd7c4b68720b1f9e61b68daacb63994f2077140e9bbb8ce25d0
   languageName: node
   linkType: hard
