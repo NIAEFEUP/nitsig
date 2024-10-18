@@ -77,6 +77,12 @@ const Authentication = ({ auth }: Props) => {
                             Perfil
                         </a>
                         <a
+                            href={`hor_geral.estudantes_view?pv_num_unico=${auth.number}`}
+                        >
+                            <Icon name="ri-calendar-line" />
+                            Horário
+                        </a>
+                        <a
                             href={`gpag_ccorrente_geral.conta_corrente_view?pct_cod=${auth.number}`}
                         >
                             <Icon name="ri-money-euro-circle-line" />
