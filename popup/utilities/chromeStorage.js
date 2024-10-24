@@ -1,4 +1,4 @@
-import throttle from "lodash.throttle"
+import throttle from "lodash.throttle";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/
@@ -11,14 +11,15 @@ import throttle from "lodash.throttle"
 - Don't need to throttle
 */
 export const getStorage = async (k) => {
-  const promise = new Promise((resolve, _reject) => {
-    const storageKey = Array.isArray(k) ? k : [k]
-    chrome?.storage?.local.get(storageKey, (data) => {
-      return resolve(Array.isArray(k) ? data : data[k])
-    })
-  })
-  return promise
-}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const promise = new Promise((resolve, _reject) => {
+        const storageKey = Array.isArray(k) ? k : [k];
+        chrome?.storage?.local.get(storageKey, (data) => {
+            return resolve(Array.isArray(k) ? data : data[k]);
+        });
+    });
+    return promise;
+};
 
 /*--
 - Set storage with storage.local
@@ -29,10 +30,11 @@ export const getStorage = async (k) => {
   - 60000 ms / 120 operations = 500 ms/operation
 --*/
 export const setStorage = throttle(async (kv) => {
-  const promise = new Promise((resolve, _reject) => {
-    chrome?.storage?.local.set(kv, () => {
-      return resolve(kv)
-    })
-  })
-  return promise
-}, 500)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const promise = new Promise((resolve, _reject) => {
+        chrome?.storage?.local.set(kv, () => {
+            return resolve(kv);
+        });
+    });
+    return promise;
+}, 500);

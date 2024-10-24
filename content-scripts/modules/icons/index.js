@@ -41,7 +41,10 @@ const replaceImages = () => {
             copyEvents(i, span);
         }
 
-        size = Math.max(Math.round(Math.max(i.width, i.height) / 24) * 24, 24);
+        let size = Math.max(
+            Math.round(Math.max(i.width, i.height) / 24) * 24,
+            24,
+        );
 
         copyAttrs(i, span);
         span.classList.add(`ri-${icon}-line`, `ri-${icon}`);
@@ -59,7 +62,7 @@ const replaceImages = () => {
                     else if (n instanceof HTMLElement)
                         n.querySelectorAll("img").forEach(handleImage);
                 });
-        })
+        }),
     ).observe(document, {
         subtree: true,
         childList: true,

@@ -16,7 +16,7 @@ p.flex-caption a {
     font-weight: bold;
     text-align: center;
     word-spacing: 0.7em;
-    font-family: 'Kanit', sans-serif !important;
+    font-family: "Kanit", sans-serif !important;
 }
 
 .ajuda-contextual {
@@ -70,15 +70,18 @@ p.flex-caption a {
     width: 85%;
 }
 
-.col-md-7 .novo-portlet-noticias p a>span {
+.col-md-7 .novo-portlet-noticias p a > span {
     float: right;
-    background-image: linear-gradient(rgb(110, 110, 110), rgb(130, 130, 130)) !important;
+    background-image: linear-gradient(
+        rgb(110, 110, 110),
+        rgb(130, 130, 130)
+    ) !important;
     background-size: 100% 200% !important;
     background-position: initial !important;
     transition: background-position 0.3s;
 }
 
-.col-md-7 .novo-portlet-noticias p a>span:hover {
+.col-md-7 .novo-portlet-noticias p a > span:hover {
     background-position: 0 -100% !important;
 }
 
@@ -89,7 +92,6 @@ p.flex-caption a {
     background-size: 100% 200%;
     transition: background-position 0.3s;
     border-radius: 8px !important;
-
 }
 
 .mais-noticias a:link {
@@ -110,7 +112,6 @@ p.mais-noticias a:hover {
     background-position: 0 -100%;
 }
 
-
 /* Calendar and Events*/
 
 .calendario-inicio input[type="submit"] {
@@ -118,7 +119,10 @@ p.mais-noticias a:hover {
     margin: 0;
     text-transform: uppercase;
     color: white !important;
-    background-image: linear-gradient(rgb(140, 45, 25), rgb(165, 45, 25)) !important;
+    background-image: linear-gradient(
+        rgb(140, 45, 25),
+        rgb(165, 45, 25)
+    ) !important;
     background-size: 100% 200%;
     transition: background-position 0.3s;
     border-radius: 8px;
@@ -221,12 +225,12 @@ p.mais-eventos a:hover {
     }
 }
 
-.row>div.col-md-7,
-.row>div.col-md-5 {
-    width: auto
+.row > div.col-md-7,
+.row > div.col-md-5 {
+    width: auto;
 }
 
-.row>div.col-md-7 {
+.row > div.col-md-7 {
     min-width: 450px;
 }
 

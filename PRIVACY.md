@@ -1,4 +1,5 @@
 TODO:
+
 # Privacy Policy
 
 NitSig does not store or collect any personal information. All user prefences are stored on the user's device in local storage.
