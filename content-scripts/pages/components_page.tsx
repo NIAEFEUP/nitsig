@@ -7,6 +7,7 @@ import Icon from "../components/Icon";
 const components = ["Icon", "Button", "Table"];
 
 export function createComponentsPage() {
+    // TODO: remove this check
     if (!document.location.href.toLowerCase().includes("components")) {
         return;
     }
