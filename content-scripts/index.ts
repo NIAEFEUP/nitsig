@@ -42,92 +42,90 @@ chrome.storage.onChanged.addListener((changes) => {
 - Get Chrome Storage and inject respective styles
 --*/
 
-const functionsToExecute: Array<{
-    name: string;
-    func: () => void;
-    regex: RegExp;
-}> = [
-    {
-        name: "changeLayout",
-        func: changeLayout,
-        regex: new RegExp(BASE_SIGARRA_URL + ".*$"),
-    },
-    {
-        name: "reverseDateDirection",
-        func: reverseDateDirection,
-        regex: new RegExp(BASE_SIGARRA_URL + ".*$"),
-    },
-    {
-        name: "currentAccountPage",
-        func: currentAccountPage,
-        regex: new RegExp(
-            BASE_SIGARRA_URL +
-                "gpag_ccorrente_geral.conta_corrente_view?pct_cod=.*$",
-        ),
-    },
-    {
-        name: "addSortTableActions",
-        func: addSortTableActions,
-        regex: new RegExp(BASE_SIGARRA_URL + ".*$"),
-    },
-    {
-        name: "replaceIcons",
-        func: replaceIcons,
-        regex: new RegExp(BASE_SIGARRA_URL + ".*$"),
-    },
-    {
-        name: "improveSchedule",
-        func: improveSchedule,
-        regex: new RegExp(BASE_SIGARRA_URL + "hor_geral.estudantes_view.*$"),
-    },
-    {
-        name: "changeProfileRow",
-        func: changeProfileRow,
-        regex: new RegExp(STUDENT_PAGE_URL),
-    },
-    {
-        name: "changeCourseCards",
-        func: changeCourseCards,
-        regex: new RegExp(STUDENT_PAGE_URL),
-    },
-    {
-        name: "fixPagination",
-        func: fixPagination,
-        regex: new RegExp(BASE_SIGARRA_URL + ".*$"),
-    },
-    {
-        name: "teacherPage",
-        func: teacherPage,
-        regex: new RegExp(BASE_SIGARRA_URL + "func_geral.formview.*$"),
-    },
-    {
-        name: "classPage",
-        func: classPage,
-        regex: new RegExp(
-            BASE_SIGARRA_URL + "it_listagem.lista_turma_disciplina.*$",
-        ),
-    },
-    {
-        name: "courseUnitPage",
-        func: courseUnitPage,
-        regex: new RegExp(BASE_SIGARRA_URL + "ucurr_geral.ficha_uc_view.*$"),
-    },
-    {
-        name: "injectOverrideFunctions",
-        func: injectOverrideFunctions,
-        regex: new RegExp(BASE_SIGARRA_URL + ".*$"),
-    },
-    {
-        name: "addStarIconToCard",
-        func: addStarIconToCard,
-        regex: new RegExp(STUDENT_PAGE_URL),
-    },
-    {
-        name: "componentsPage",
-        func: createComponentsPage,
-        regex: new RegExp(COMPONENTS_URL),
-    },
-];
+const functionsToExecute: {
+    [x: string]: {
+        name: string;
+        func: () => void;
+    }[];
+} = {
+    [`${BASE_SIGARRA_URL}.*$`]: [
+        {
+            name: "changeLayout",
+            func: changeLayout,
+        },
+        {
+            name: "reverseDateDirection",
+            func: reverseDateDirection,
+        },
+        {
+            name: "addSortTableActions",
+            func: addSortTableActions,
+        },
+        {
+            name: "replaceIcons",
+            func: replaceIcons,
+        },
+        {
+            name: "fixPagination",
+            func: fixPagination,
+        },
+        {
+            name: "injectOverrideFunctions",
+            func: injectOverrideFunctions,
+        },
+    ],
+    [`${BASE_SIGARRA_URL} +
+            "gpag_ccorrente_geral.conta_corrente_view?pct_cod=.*$"`]: [
+        {
+            name: "currentAccountPage",
+            func: currentAccountPage,
+        },
+    ],
+    [`${BASE_SIGARRA_URL} + "hor_geral.estudantes_view.*$"`]: [
+        {
+            name: "improveSchedule",
+            func: improveSchedule,
+        },
+    ],
+    [`${STUDENT_PAGE_URL}`]: [
+        {
+            name: "changeProfileRow",
+            func: changeProfileRow,
+        },
+        {
+            name: "changeCourseCards",
+            func: changeCourseCards,
+        },
+        {
+            name: "addStarIconToCard",
+            func: addStarIconToCard,
+        },
+    ],
+    [`${BASE_SIGARRA_URL} + "func_geral.formview.*$"`]: [
+        {
+            name: "teacherPage",
+            func: teacherPage,
+        },
+    ],
+    [`${BASE_SIGARRA_URL} + "it_listagem.lista_turma_disciplina.*$"`]: [
+        {
+            name: "classPage",
+            func: classPage,
+        },
+    ],
+    [`${BASE_SIGARRA_URL} + "ucurr_geral.ficha_uc_view.*$"`]: [
+        {
+            name: "courseUnitPage",
+            func: courseUnitPage,
+        },
+    ],
+    [`${COMPONENTS_URL}`]: [
+        {
+            name: "componentsPage",
+            func: createComponentsPage,
+        },
+    ],
+};
 
 const init = async (): Promise<void> => {
     // Inject user preferences
@@ -138,14 +136,21 @@ const init = async (): Promise<void> => {
         await setStorage({ favorite_courses: "{}" }); //Insert empty object
     }
 
-    functionsToExecute.forEach((f) => {
-        try {
-            if (f.regex.test(document.location.href)) f.func();
-        } catch (error) {
-            console.error(`Error running ${f.name} init function!\n`);
-            console.error(error);
+    for (const key in functionsToExecute) {
+        console.log(key);
+        const keyRegex = new RegExp(key);
+        if (keyRegex.test(document.location.href)) {
+            functionsToExecute[key].forEach((f) => {
+                try {
+                    f.func();
+                } catch (error) {
+                    console.error(`Error running ${f.name} init function!\n`);
+                    console.error(error);
+                }
+            });
         }
-    });
+    }
+
     // we run rememberLogin at last, because it's async
     // TODO (luisd): make a better mechanism for functions that depend on previous
     // steps and might be async
