@@ -65,6 +65,7 @@ body:is(body) {
         "left main right" 1fr / auto 1fr auto;
 }
 
+/*
 .se-button {
     display: flex;
     flex-direction: row;
@@ -96,7 +97,7 @@ body:is(body) {
     background-color: #f0f0f0 !important;
     color: #b0b0b0 !important;
 }
-
+*/
 .se-icon-button {
     border-radius: 50% !important;
     padding: 0.5em !important;
@@ -896,8 +897,7 @@ td.i {
 /* ----------------- INPUT ----------------- */
 
 input,
-select,
-button {
+select {
     border-radius: 8px !important;
     border-color: #cfcfcf !important;
     box-sizing: border-box;
@@ -907,11 +907,6 @@ button {
     box-shadow: none !important;
     font-weight: 500 !important;
     transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-    cursor: pointer;
-    background-color: #e8e8e8 !important;
 }
 
 select {

@@ -76,7 +76,7 @@ export function createComponentsPage() {
                     description="Our button abstraction that can be used to create buttons with icons and text."
                     code={`
 <Button
-  name="my_button"
+  name="MY BUTTON"
   text="Click me"
   icon="ri-notification-line"
   onclick={() => alert("Button was clicked")}
@@ -84,8 +84,56 @@ export function createComponentsPage() {
             `}
                 >
                     <Button
-                        title="my_button"
+                        title="MY BUTTON"
                         icon="ri-notification-line"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        size="sm"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        size="md"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        size="lg"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        radius="sm"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        radius="md"
+                        onclick={() => alert("Button was clicked")}
+                    />
+                    <Button
+                        title="MY BUTTON"
+                        icon="ri-notification-line"
+                        color="primary"
+                        radius="lg"
                         onclick={() => alert("Button was clicked")}
                     />
                 </Component>

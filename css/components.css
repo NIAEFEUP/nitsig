@@ -1,0 +1,66 @@
+/* Button */
+
+.se-button {
+    background-color: #f4f4f4;
+    padding: 0.5rem 1rem;
+    text-decoration: none !important;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 400;
+    color: #333;
+
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+
+    /* Animation */
+    transition-timing-function: ease;
+    transition-duration: 0.25s;
+
+    outline: 1px solid transparent;
+    outline-offset: 1px;
+
+    &:hover {
+        background-color: #e6e6e6;
+    }
+
+    /* Rounded Borders */
+    &.rounded-sm {
+        border-radius: 8px;
+    }
+    &.rounded-md {
+        border-radius: 12px;
+    }
+    &.rounded-lg {
+        border-radius: 14px;
+    }
+
+    /* Sizes */
+    &.sm {
+        font-size: small;
+    }
+    &.md {
+        font-size: medium;
+    }
+    &.lg {
+        font-size: large;
+    }
+
+    /* Colors */
+    &.primary {
+        background-color: #8c2d19;
+        color: white;
+
+        &:hover {
+            background-color: #6f1e0e;
+        }
+
+        &:active {
+            background-color: #4f1309;
+        }
+    }
+
+    /* Variants */
+}
