@@ -10,6 +10,7 @@
     border: none !important;
     padding: none !important;
     margin: none !important;
+    box-shadow: none !important;
 }
 
 .se-card-expand-button:hover {

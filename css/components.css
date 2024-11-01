@@ -1,5 +1,10 @@
 /* Button */
 .se-button {
+    /* Reset Sigarra Styles */
+    background-image: none;
+    box-shadow: none;
+    /* Ending Reseting Sigarra Styles */
+
     background-color: #f4f4f4;
     padding: 0.5rem 1rem;
     text-decoration: none !important;
@@ -26,6 +31,7 @@
     justify-content: center;
 
     &:hover {
+        background-image: none;
         opacity: 0.9;
         scale: 0.95;
     }

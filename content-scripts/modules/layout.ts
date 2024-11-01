@@ -159,7 +159,6 @@ const loadNotifications = async (): Promise<void> => {
                     li.append(
                         Button({
                             icon: "ri-check-line",
-                            className: "se-notification-button",
                             onclick: markAsRead,
                         }),
                     );

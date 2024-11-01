@@ -3,6 +3,7 @@ import jsx from "texsaur";
 import { AuthSession } from "../types";
 import { togglePopover } from "../modules/utilities/popover";
 import Icon from "./Icon";
+import Button from "./Button";
 
 interface Props {
     auth: AuthSession | null;
@@ -12,15 +13,12 @@ const Authentication = ({ auth }: Props) => {
     if (auth)
         return (
             <div id="se-auth">
-                <button
-                    id="se-auth-notifications-button"
-                    className={`se-button se-icon-button ${
-                        auth.hasNotifications ? "se-badge" : ""
-                    }`}
+                <Button
+                    icon="ri-notification-line"
+                    radius="full"
                     onclick={() => togglePopover("se-auth-notifications-menu")}
-                >
-                    <Icon name="ri-notification-line" />
-                </button>
+                    className={auth.hasNotifications ? "se-badge" : ""}
+                />
                 <div id="se-auth-notifications-menu">
                     <input
                         type="radio"
@@ -102,13 +100,11 @@ const Authentication = ({ auth }: Props) => {
 
     return (
         <div id="se-auth">
-            <button
-                className="se-buttonn"
-                id="se-auth-button"
+            <Button
+                title="Iniciar Sessão"
+                radius="sm"
                 onclick={() => togglePopover("se-auth-form")}
-            >
-                Iniciar Sessão
-            </button>
+            />
             <form
                 id="se-auth-form"
                 action="vld_validacao.validacao"
@@ -141,10 +137,9 @@ const Authentication = ({ auth }: Props) => {
                     placeholder="Palavra-passe"
                     autoComplete="current-password"
                 />
-                <button className="se-button se-primary-button" type="submit">
-                    Iniciar Sessão
-                </button>
+                <Button title="Iniciar Sessão" color="primary" radius="sm" />
                 <span className="se-separator">ou</span>
+                {/* What to do here? It is an <a> not a button. Should the button has an href? */}
                 <a
                     href="vld_validacao.federate_login?p_redirect=web_page.Inicial"
                     id="se-auth-federate"
