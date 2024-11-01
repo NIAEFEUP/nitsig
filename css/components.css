@@ -1,5 +1,4 @@
 /* Button */
-
 .se-button {
     background-color: #f4f4f4;
     padding: 0.5rem 1rem;
@@ -15,15 +14,20 @@
     -webkit-font-smoothing: auto;
     -moz-osx-font-smoothing: auto;
 
+    /* Focus Outline */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+
     /* Animation */
     transition-timing-function: ease;
     transition-duration: 0.25s;
 
-    outline: 1px solid transparent;
-    outline-offset: 1px;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
-        background-color: #e6e6e6;
+        opacity: 0.9;
+        scale: 0.95;
     }
 
     /* Rounded Borders */
@@ -36,16 +40,35 @@
     &.rounded-lg {
         border-radius: 14px;
     }
+    &.rounded-full {
+        border-radius: 9999px;
+    }
 
     /* Sizes */
     &.sm {
         font-size: small;
+        height: 2rem;
+        min-width: 4rem;
     }
     &.md {
         font-size: medium;
+        height: 2.5rem;
+        min-width: 5rem;
+
+        font-size: 1rem;
+        line-height: 1.5rem;
     }
     &.lg {
         font-size: large;
+        height: 3rem;
+        min-width: 6rem;
+    }
+
+    &.icon-only {
+        padding: 0.5rem;
+        min-width: 2.5rem;
+        height: 2.5rem;
+        justify-content: center;
     }
 
     /* Colors */
@@ -63,4 +86,40 @@
     }
 
     /* Variants */
+    &.outline {
+        background-color: transparent;
+        border: 1.5px solid #f4f4f4;
+        color: #333;
+
+        &:hover {
+            background-color: #f4f4f4;
+        }
+
+        &.primary {
+            border-color: #8c2d19;
+            color: #8c2d19;
+
+            &:hover {
+                background-color: transparent;
+
+                background-color: #8c2d19;
+                color: white;
+            }
+        }
+    }
+
+    &.link {
+        background-color: transparent;
+        span {
+            text-decoration: underline;
+        }
+
+        &:hover {
+            background-color: #f4f4f4;
+        }
+
+        &.primary {
+            color: #8c2d19;
+        }
+    }
 }

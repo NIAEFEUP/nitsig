@@ -73,68 +73,101 @@ export function createComponentsPage() {
                 {/* Button */}
                 <Component
                     name="Button"
-                    description="Our button abstraction that can be used to create buttons with icons and text."
+                    description="Our button abstraction that can be used to create buttons with icons and text. "
                     code={`
 <Button
   name="MY BUTTON"
   text="Click me"
   icon="ri-notification-line"
-  onclick={() => alert("Button was clicked")}
+  onclick={() => console.log("Button was clicked")}
 />
             `}
                 >
                     <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        onclick={() => alert("Button was clicked")}
-                    />
-                    <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
-                        onclick={() => alert("Button was clicked")}
-                    />
-                    <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
+                        title="Small"
                         size="sm"
-                        onclick={() => alert("Button was clicked")}
+                        onclick={() => console.log("Button was clicked")}
                     />
                     <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
+                        title="Medium"
                         size="md"
-                        onclick={() => alert("Button was clicked")}
+                        onclick={() => console.log("Button was clicked")}
                     />
                     <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
+                        title="Large"
                         size="lg"
-                        onclick={() => alert("Button was clicked")}
+                        onclick={() => console.log("Button was clicked")}
                     />
                     <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
-                        radius="sm"
-                        onclick={() => alert("Button was clicked")}
+                        title="Full"
+                        radius="full"
+                        onclick={() => console.log("Button was clicked")}
                     />
                     <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
-                        radius="md"
-                        onclick={() => alert("Button was clicked")}
-                    />
-                    <Button
-                        title="MY BUTTON"
-                        icon="ri-notification-line"
-                        color="primary"
+                        title="Large"
                         radius="lg"
-                        onclick={() => alert("Button was clicked")}
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Medium"
+                        radius="md"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Small"
+                        radius="sm"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="None"
+                        radius="none"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Default"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Primary"
+                        color="primary"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Solid"
+                        variant="solid"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Outline"
+                        variant="outline"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Link"
+                        variant="link"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Outline Primary"
+                        variant="outline"
+                        color="primary"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Link Primary"
+                        variant="link"
+                        color="primary"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Icon"
+                        icon="ri-notification-line"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        icon="ri-notification-line"
+                        radius="full"
+                        onclick={() => console.log("Button was clicked")}
                     />
                 </Component>
 
@@ -196,5 +229,6 @@ const Component: JSX.Component<ComponentProps> = (
         <p>{description}</p>
         <div className="se-component-show">{children}</div>
         <pre className="se-code-block">{code}</pre>
+        {/* TODO(thePeras): Add Props field, so we can know the Component Reference and the default values */}
     </div>
 );
