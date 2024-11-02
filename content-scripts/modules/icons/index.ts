@@ -6,21 +6,33 @@ import {
     EVENTS,
 } from "./constants";
 
-const addCSS = () => {
-    if (!document.querySelector('link[href$="remixicon.css"]'))
+/**
+ * Adds a link to the Remix Icon stylesheet if it's not already included in the document.
+ */
+const addCSS = (): void => {
+    if (!document.querySelector('link[href$="remixicon.css"]')) {
+        // TODO (thePeras): Why we don't shipped the css file with the extension already?
         document.head.innerHTML +=
             '<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">';
+    }
 };
 
-const replaceImages = () => {
-    /** @type {(i: HTMLImageElement) => any} */
-    const handleImage = (i) => {
+/**
+ * Replaces <img> elements with corresponding icons based on their src attributes.
+ */
+const replaceImages = (): void => {
+    /**
+     * Handles the replacement of an individual image element with its corresponding icon.
+     * @param {HTMLImageElement} i - The image element to process.
+     */
+    const handleImage = (i: HTMLImageElement): void => {
         const icon = IMG_ICON_MAP[i.src.substring(i.src.lastIndexOf("/") + 1)];
 
-        let span = null;
+        let span: HTMLSpanElement | null = null;
 
-        if (i.nextElementSibling?.matches(".se-icon"))
-            span = i.nextElementSibling;
+        if (i.nextElementSibling?.matches(".se-icon")) {
+            span = i.nextElementSibling as HTMLSpanElement;
+        }
 
         if (icon === undefined) {
             span?.remove();
@@ -41,7 +53,7 @@ const replaceImages = () => {
             copyEvents(i, span);
         }
 
-        let size = Math.max(
+        const size = Math.max(
             Math.round(Math.max(i.width, i.height) / 24) * 24,
             24,
         );
@@ -55,13 +67,17 @@ const replaceImages = () => {
 
     new MutationObserver((ms) =>
         ms.forEach((m) => {
-            if (m.target instanceof HTMLImageElement) handleImage(m.target);
-            else if (m.addedNodes)
+            if (m.target instanceof HTMLImageElement) {
+                handleImage(m.target);
+            } else if (m.addedNodes) {
                 m.addedNodes.forEach((n) => {
-                    if (n instanceof HTMLImageElement) handleImage(n);
-                    else if (n instanceof HTMLElement)
+                    if (n instanceof HTMLImageElement) {
+                        handleImage(n);
+                    } else if (n instanceof HTMLElement) {
                         n.querySelectorAll("img").forEach(handleImage);
+                    }
                 });
+            }
         }),
     ).observe(document, {
         subtree: true,
@@ -72,42 +88,55 @@ const replaceImages = () => {
     document.querySelectorAll("img").forEach(handleImage);
 };
 
-const copyAttrs = (el1, el2) => {
-    for (const attr of el1.attributes)
-        if (!attr.name.startsWith("on"))
+/**
+ * Copies all attributes from one HTML element to another, excluding event attributes.
+ */
+const copyAttrs = (source: HTMLElement, target: HTMLElement): void => {
+    for (const attr of Array.from(source.attributes)) {
+        if (!attr.name.startsWith("on")) {
             try {
-                el2.setAttribute(attr.name, attr.value);
+                target.setAttribute(attr.name, attr.value);
             } catch (error) {
                 console.error(error);
             }
-};
-
-const copyEvents = (el1, el2) => {
-    for (const event of EVENTS)
-        el2.addEventListener(event, (e) => {
-            el1.dispatchEvent(new e.constructor(e.type, e));
-            e.stopPropagation();
-        });
+        }
+    }
 };
 
 /**
- * @param {HTMLElement} el1
- * @param {HTMLElement} el2
+ * Copies specified event listeners from one element to another.
  */
-const replaceWithKeepAttrs = (el1, el2) => {
-    for (const attr of el1.attributes)
+const copyEvents = (source: HTMLElement, target: HTMLElement): void => {
+    for (const event of EVENTS) {
+        target.addEventListener(event, (e: Event) => {
+            source.dispatchEvent(new Event(e.type, e));
+            e.stopPropagation();
+        });
+    }
+};
+
+/**
+ * Replaces one HTML element with another while preserving attributes and child nodes.
+ * @param {HTMLElement} el1 - The element to be replaced.
+ * @param {HTMLElement} el2 - The element that will replace the first element.
+ */
+const replaceWithAttrs = (el1: HTMLElement, el2: HTMLElement): void => {
+    for (const attr of Array.from(el1.attributes)) {
         try {
             el2.setAttribute(attr.name, attr.value);
         } catch (error) {
             console.error(error);
         }
+    }
 
-    el2.append(...el1.children);
-
+    el2.append(...Array.from(el1.children));
     el1.replaceWith(el2);
 };
 
-const replaceFA = () => {
+/**
+ * Replaces Font Awesome icons in the document with their corresponding Remix Icons.
+ */
+const replaceFA = (): void => {
     document.querySelectorAll(".fa").forEach((i) => {
         i.classList.remove("fa", "fa-fw");
 
@@ -123,7 +152,10 @@ const replaceFA = () => {
     });
 };
 
-const replaceBgImages = () => {
+/**
+ * Replaces background images in elements with corresponding icons based on a mapping.
+ */
+const replaceBgImages = (): void => {
     Object.entries(BG_IMAGE_ICON_MAP).forEach(([selector, icon]) => {
         document.querySelectorAll(selector).forEach((i) => {
             if (icon === "") return i.classList.add("se-hidden-icon");
@@ -134,13 +166,16 @@ const replaceBgImages = () => {
 
             i.classList.add("se-remove-icon");
 
-            if (i.tagName == "img") replaceWithKeepAttrs(i, span);
+            if (i.tagName === "img") replaceWithAttrs(i as HTMLElement, span);
             else i.insertBefore(span, i.firstChild);
         });
     });
 };
 
-const replaceBanners = () => {
+/**
+ * Replaces banners in the document with corresponding icons based on a mapping.
+ */
+const replaceBanners = (): void => {
     Object.entries(BANNER_ICON_MAP).forEach(([k, v]) => {
         document.querySelectorAll(`.${k}`).forEach((i) => {
             const span = document.createElement("span");
@@ -155,13 +190,16 @@ const replaceBanners = () => {
     });
 };
 
-// TODO (toino): handle this mess of a page
-// https://sigarra.up.pt/feup/pt/FEST_GERAL.INQ_RAIDES_EDIT
-
-export const replaceIcons = () => {
+/**
+ * Initiates the icon replacement process for the document.
+ */
+export const replaceIcons = (): void => {
     addCSS();
     replaceImages();
     replaceFA();
     replaceBgImages();
     replaceBanners();
 };
+
+// TODO (toino): handle this mess of a page
+// https://sigarra.up.pt/feup/pt/FEST_GERAL.INQ_RAIDES_EDIT

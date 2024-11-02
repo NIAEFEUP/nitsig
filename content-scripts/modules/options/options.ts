@@ -1,16 +1,16 @@
-import addStyles from "./addStyles";
+import addStyles from "./addStyle";
 import removeElement from "../utilities/removeElement";
 
-export const hideShortcuts = async (shortcuts) => {
+export const hideShortcuts = async (shortcuts: string): Promise<void> => {
     switch (shortcuts) {
         case "on":
             addStyles(
                 "se-hide-shortcuts",
                 `
-          #caixa-atalhos{
-            display: none
-          }
-        `,
+                #caixa-atalhos {
+                    display: none;
+                }
+                `,
             );
             break;
 
@@ -20,16 +20,16 @@ export const hideShortcuts = async (shortcuts) => {
     }
 };
 
-export const changeFont = async (font) => {
+export const changeFont = async (font: string): Promise<void> => {
     switch (font) {
         case "on":
             addStyles(
                 "se-change-font",
                 `
-          * {
-            font-family: Roboto, sans-serif;
-          }
-        `,
+                * {
+                    font-family: Roboto, sans-serif;
+                }
+                `,
             );
             break;
 
@@ -39,16 +39,16 @@ export const changeFont = async (font) => {
     }
 };
 
-export const useNavBar = async (navbar) => {
+export const useNavBar = async (navbar: string): Promise<void> => {
     switch (navbar) {
         case "on":
             addStyles(
                 "se-use-navbar",
                 `
-                #colunaprincipal, #rodape,  #ferramentas{
+                #colunaprincipal, #rodape, #ferramentas {
                     display: none !important;
                 }
-            `,
+                `,
             );
             removeElement("#se-dont-use-navbar");
             break;
@@ -62,7 +62,7 @@ export const useNavBar = async (navbar) => {
                 #colunaextra #caixa-campus {
                     display: none !important;
                 }
-            `,
+                `,
             );
             removeElement("#se-use-navbar");
             break;

@@ -1,11 +1,10 @@
 import {
     injectOverrideFunctions,
     reverseDateDirection,
-    currentAccountPage,
     addSortTableActions,
 } from "./modules/initialize";
 import { injectAllChanges, userPreferences } from "./modules/options";
-import constructNewData from "./modules/utilities/constructNewData";
+import constructNewData from "./modules/options/constructNewData";
 import { getStorage, setStorage } from "./modules/utilities/storage";
 import { rememberLogin } from "./modules/login";
 import { replaceIcons } from "./modules/icons";
@@ -18,6 +17,7 @@ import { fixPagination } from "./modules/pagination";
 import { changeLayout } from "./modules/layout";
 import { addStarIconToCard } from "./modules/favorite-course";
 import { createComponentsPage } from "./pages/components_page";
+import { currentAccountPage } from "./pages/current_account_page";
 
 /*--
 - Docs: https://developer.chrome.com/docs/extensions/reference/storage/#synchronous-response-to-storage-updates

@@ -6,7 +6,6 @@
 /*
 - Get storage with storage.local
 - k => "[key]" (String)
-- Don't need to throttle
 */
 export const getStorage = async (k) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -22,10 +21,6 @@ export const getStorage = async (k) => {
 /*--
 - Set storage with storage.local
 - kv => {key: value} (Single key value pair)
-- Throttle function to prevent hitting API limits
-- The maximum number of set, remove, or clear operations = 120
-  - 1 min = 60000 ms
-  - 60000 ms / 120 operations = 500 ms/operation
 --*/
 export const setStorage = async (kv) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
