@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import {
     injectOverrideFunctions,
     reverseDateDirection,
@@ -19,9 +20,12 @@ import { changeLayout } from "./modules/layout";
 import { addStarIconToCard } from "./modules/favorite-course";
 import { createComponentsPage } from "./pages/components_page";
 
-const GENERIC_SIGARRA_URL: string = "^https://sigarra.up.pt/feup/(pt|en)/";
-const BASE_SIGARRA_URL: string = GENERIC_SIGARRA_URL + "(?!.*/components)";
-const COMPONENTS_URL: string = GENERIC_SIGARRA_URL + "(?=.*/components)";
+// prettier-ignore
+const GENERIC_SIGARRA_URL: string = "^https:\/\/sigarra.up.pt\/feup\/(pt|en)\/";
+// prettier-ignore
+const BASE_SIGARRA_URL: string = GENERIC_SIGARRA_URL + "(?!.*\/components)";
+// prettier-ignore
+const COMPONENTS_URL: string = GENERIC_SIGARRA_URL + "(?=.*\/components)";
 const STUDENT_PAGE_URL: string =
     BASE_SIGARRA_URL +
     "fest_geral.(cursos_list|curso_percurso_academico_view|curso_posicao_plano_view|ucurr_inscricoes_list|estatutos_regimes_view|info_ingresso_view|info_pessoal_completa_view).*$";
@@ -74,14 +78,14 @@ const functionsToExecute: {
             func: injectOverrideFunctions,
         },
     ],
-    [`${BASE_SIGARRA_URL} +
-            "gpag_ccorrente_geral.conta_corrente_view?pct_cod=.*$"`]: [
-        {
-            name: "currentAccountPage",
-            func: currentAccountPage,
-        },
-    ],
-    [`${BASE_SIGARRA_URL} + "hor_geral.estudantes_view.*$"`]: [
+    [`${BASE_SIGARRA_URL}gpag_ccorrente_geral\\.conta_corrente_view\\?pct_cod=.*$`]:
+        [
+            {
+                name: "currentAccountPage",
+                func: currentAccountPage,
+            },
+        ],
+    [`${BASE_SIGARRA_URL}hor_geral\\.estudantes_view.*$`]: [
         {
             name: "improveSchedule",
             func: improveSchedule,
@@ -101,19 +105,19 @@ const functionsToExecute: {
             func: addStarIconToCard,
         },
     ],
-    [`${BASE_SIGARRA_URL} + "func_geral.formview.*$"`]: [
+    [`${BASE_SIGARRA_URL}func_geral\\.formview.*$`]: [
         {
             name: "teacherPage",
             func: teacherPage,
         },
     ],
-    [`${BASE_SIGARRA_URL} + "it_listagem.lista_turma_disciplina.*$"`]: [
+    [`${BASE_SIGARRA_URL}it_listagem\\.lista_turma_disciplina.*$`]: [
         {
             name: "classPage",
             func: classPage,
         },
     ],
-    [`${BASE_SIGARRA_URL} + "ucurr_geral.ficha_uc_view.*$"`]: [
+    [`${BASE_SIGARRA_URL}ucurr_geral\\.ficha_uc_view.*$`]: [
         {
             name: "courseUnitPage",
             func: courseUnitPage,
@@ -137,7 +141,6 @@ const init = async (): Promise<void> => {
     }
 
     for (const key in functionsToExecute) {
-        console.log(key);
         const keyRegex = new RegExp(key);
         if (keyRegex.test(document.location.href)) {
             functionsToExecute[key].forEach((f) => {
