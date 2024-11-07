@@ -59,6 +59,9 @@ body {
 
         .se-component-show {
             padding: 20px 0 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
         }
 
         .se-component-section {
