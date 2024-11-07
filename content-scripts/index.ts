@@ -21,11 +21,9 @@ import { addStarIconToCard } from "./modules/favorite-course";
 import { createComponentsPage } from "./pages/components_page";
 
 // prettier-ignore
-const GENERIC_SIGARRA_URL: string = "^https:\/\/sigarra.up.pt\/feup\/(pt|en)\/";
+const BASE_SIGARRA_URL: string = "^https:\/\/sigarra.up.pt\/feup\/(pt|en)\/";
 // prettier-ignore
-const BASE_SIGARRA_URL: string = GENERIC_SIGARRA_URL + "(?!.*\/components)";
-// prettier-ignore
-const COMPONENTS_URL: string = GENERIC_SIGARRA_URL + "(?=.*\/components)";
+const COMPONENTS_URL: string = BASE_SIGARRA_URL + "components";
 const STUDENT_PAGE_URL: string =
     BASE_SIGARRA_URL +
     "fest_geral.(cursos_list|curso_percurso_academico_view|curso_posicao_plano_view|ucurr_inscricoes_list|estatutos_regimes_view|info_ingresso_view|info_pessoal_completa_view).*$";
