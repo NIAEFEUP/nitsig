@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
-import { AuthSession } from "../types";
-import { togglePopover } from "../modules/utilities/popover";
-import Icon from "./Icon";
+import { AuthSession } from "../../types";
+import { togglePopover } from "../../modules/utilities/popover";
+import Icon from "../Icon";
 
 interface Props {
     auth: AuthSession | null;
