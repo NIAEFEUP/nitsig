@@ -1,5 +1,5 @@
 import { AuthSession } from "../types";
-import Header from "../components/Header";
+import Header from "../components/Navbar/Header";
 import { fetchSigarraPage } from "./utilities/pageUtils";
 import Button from "../components/Button";
 

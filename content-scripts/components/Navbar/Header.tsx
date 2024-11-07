@@ -1,10 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 
+import { AuthSession } from "../../types";
 import HeaderLinks from "./HeaderLinks";
 import Authentication from "./HeaderAuthentication";
-import { AuthSession } from "../types";
 
+//TODO(thePeras): I think we should move this to a separate file dedicated to constants or a folder like `data`
 const HEADER_LINKS = {
     Estudantes: {
         Bolsas: "web_base.gera_pagina?p_pagina=242366",

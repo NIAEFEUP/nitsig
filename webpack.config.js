@@ -49,13 +49,14 @@ const buildPopup = async () => {
     await loadLastChangedFiles();
     let shouldRunBool = false;
     for await (const file of klaw("./popup", {
-        filter: (path) => {
-            return !(
-                path.includes("out") ||
-                path.includes("node_modules") ||
-                path.includes(".next") ||
-                path.includes(".parcel-cache")
-            );
+        filter: (filePath) => {
+            const dirs = filePath.split(path.sep);
+            const shouldExclude =
+                dirs.includes("out") ||
+                dirs.includes("node_modules") ||
+                dirs.includes(".next") ||
+                dirs.includes(".parcel-cache");
+            return !shouldExclude;
         },
     })) {
         if (
