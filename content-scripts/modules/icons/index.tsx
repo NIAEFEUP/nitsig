@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import jsx from "texsaur";
+
 import {
     BANNER_ICON_MAP,
     BG_IMAGE_ICON_MAP,
@@ -160,13 +163,12 @@ const replaceBgImages = (): void => {
         document.querySelectorAll(selector).forEach((i) => {
             if (icon === "") return i.classList.add("se-hidden-icon");
 
-            const span = document.createElement("span");
-            span.classList.add("se-icon");
-            span.classList.add(`ri-${icon}-line`);
+            const span = <span className={`se-icon ri-${icon}-line`} />;
 
             i.classList.add("se-remove-icon");
 
-            if (i.tagName === "img") replaceWithAttrs(i as HTMLElement, span);
+            if (i.tagName === "img")
+                replaceWithAttrs(i as HTMLElement, span as HTMLElement);
             else i.insertBefore(span, i.firstChild);
         });
     });
@@ -178,13 +180,15 @@ const replaceBgImages = (): void => {
 const replaceBanners = (): void => {
     Object.entries(BANNER_ICON_MAP).forEach(([k, v]) => {
         document.querySelectorAll(`.${k}`).forEach((i) => {
-            const span = document.createElement("span");
-            span.innerHTML = i.innerHTML;
+            const span = <span>{i.innerHTML}</span>;
 
-            const icon = document.createElement("span");
-            icon.classList.add("se-icon", `ri-${v}-fill`);
-            icon.style.fontSize = "1.5em";
-
+            // TODO (thePeras): Use <Icon />, but you need to expand the Icon component to support fill and style
+            const icon = (
+                <span
+                    className={`se-icon ri-${v}-fill`}
+                    style={{ fontSize: "1.5em" }}
+                />
+            );
             i.replaceChildren(icon, span);
         });
     });

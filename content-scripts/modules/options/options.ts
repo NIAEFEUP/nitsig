@@ -1,6 +1,7 @@
 import addStyles from "./addStyle";
 import removeElement from "../utilities/removeElement";
 
+// TODO(thePeras & toni): These functions can be extracted singles files
 export const hideShortcuts = async (shortcuts: string): Promise<void> => {
     switch (shortcuts) {
         case "on":
