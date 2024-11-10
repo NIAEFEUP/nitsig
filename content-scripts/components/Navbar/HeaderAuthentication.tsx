@@ -10,6 +10,8 @@ interface Props {
 }
 
 const Authentication = ({ auth }: Props) => {
+    const current_year: number = new Date().getFullYear();
+
     if (auth)
         return (
             <div id="se-auth">
@@ -75,7 +77,7 @@ const Authentication = ({ auth }: Props) => {
                             Perfil
                         </a>
                         <a
-                            href={`hor_geral.estudantes_view?pv_num_unico=${auth.number}`}
+                            href={`hor_geral.estudantes_view?pv_num_unico=${auth.number}&pv_ano_lectivo=${current_year}&pv_periodos=1`}
                         >
                             <Icon name="ri-calendar-line" />
                             Horário
