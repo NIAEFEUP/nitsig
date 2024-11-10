@@ -23,7 +23,6 @@ let manifest = {
                 "css/simpler.css",
                 "css/custom.css",
                 "css/icons.css",
-                "css/teacherPage.css",
                 "css/classPage.css",
                 "css/profilePage.css",
                 "css/card.css",
