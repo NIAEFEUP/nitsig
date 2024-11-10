@@ -1,4 +1,4 @@
-import { useNavBar, hideShortcuts, changeFont } from "./options";
+import { useNavBar, changeFont } from "./options";
 
 // Array of user preferences, passed to `injectAllChanges`
 export const userPreferences: string[] = [
@@ -11,7 +11,7 @@ export const userPreferences: string[] = [
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const injectAllChanges = (data: any): void => {
     Promise.all([
-        hideShortcuts(data?.shortcuts),
+        // isto é tipo uma migalha de eu ter comido os *shortcuts* yummy
         useNavBar(data?.navbar),
         changeFont(data?.font),
     ]).catch((err) => console.error(err));

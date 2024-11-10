@@ -1,24 +1,8 @@
 import addStyles from "./addStyle";
 import removeElement from "../utilities/removeElement";
 
-// TODO(thePeras & toni): These functions can be extracted singles files
-export const hideShortcuts = async (shortcuts: string): Promise<void> => {
-    switch (shortcuts) {
-        case "on":
-            addStyles(
-                "se-hide-shortcuts",
-                `
-                #caixa-atalhos {
-                    display: none;
-                }
-                `,
-            );
-            break;
-
-        case "off":
-            removeElement("#se-hide-shortcuts");
-            break;
-    }
+export const hideShortcuts = async (): Promise<void> => {
+    // yummy comi os atalhos
 };
 
 export const changeFont = async (font: string): Promise<void> => {
