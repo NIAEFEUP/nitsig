@@ -6,6 +6,7 @@ import {
 } from "../modules/utilities/pageUtils";
 
 export const courseUnitPage = () => {
+    // TODO: remove this check
     if (
         !document.location.href
             .toLowerCase()

@@ -110,7 +110,7 @@ const config = {
         },
     },
     entry: {
-        "base/content-scripts": "./content-scripts/index.js",
+        "base/content-scripts": "./content-scripts/index.ts",
         "base/background": "./background.js",
     },
     output: { path: path.resolve("dist"), filename: "[name].js" },

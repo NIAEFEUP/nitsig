@@ -29,6 +29,7 @@ export const improveSchedule = async () => {
     const scheduleElem = document.querySelector("table.horario");
 
     // Not on the schedule page, abort
+    // TODO: remove this check
     if (!scheduleElem) return;
 
     scheduleElem.classList.add("se-loading");

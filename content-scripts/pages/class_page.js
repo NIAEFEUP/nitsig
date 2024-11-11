@@ -164,6 +164,7 @@ const groupClasses = async (enrolledTable) => {
 };
 
 export const classPage = () => {
+    // TODO: remove this check
     const path = getPath();
     if (!path.includes("it_listagem.lista_turma_disciplina")) return;
 

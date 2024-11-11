@@ -14,6 +14,7 @@ const publicationWebsites = {
 };
 
 export const teacherPage = () => {
+    // TODO: remove this check
     if (!document.location.href.toLowerCase().includes("func_geral.formview")) {
         return;
     }
