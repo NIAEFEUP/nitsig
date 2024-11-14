@@ -3,8 +3,9 @@ import jsx from "texsaur";
 import Button from "../components/Button";
 import { Table } from "../components/Table";
 import Icon from "../components/Icon";
+import { Accordion } from "../components/Accordion";
 
-const components = ["Icon", "Button", "Table"];
+const components = ["Icon", "Button", "Table", "Accordion"];
 
 export function createComponentsPage() {
     // TODO: remove this check
@@ -206,6 +207,45 @@ export function createComponentsPage() {
                             ],
                             ["Input", "A text input field", "Complete"],
                         ]}
+                    />
+                </Component>
+
+                {/* Accordion */}
+                <Component
+                    name="Accordion"
+                    description="A collapsible component that can expand to show or hide content."
+                    code={`
+<Accordion
+  id="example-accordion"
+  title="Expandable Content"
+  data={<p>This is the content of the accordion</p>}
+  max_size={200}
+/>
+                    `}
+                >
+                    <Accordion
+                        id="example-accordion"
+                        title="Expandable Content"
+                        data={[<p>This is the content of the accordion</p>,
+                            <p>This is the content of the accordion</p>,
+                            <Table
+                                name="my_table"
+                                headers={[
+                                    ["Component", "Component"],
+                                    ["Description", "Description"],
+                                    ["Status", "Status"],
+                                ]}
+                                data={[
+                                    [
+                                        "Button",
+                                        "A button that can be clicked",
+                                        "In progress",
+                                    ],
+                                    ["Input", "A text input field", "Complete"],
+                                ]}
+                            />
+                        ]}
+                        max_size={200}
                     />
                 </Component>
             </div>
