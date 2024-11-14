@@ -7,6 +7,7 @@ import Icon from "../components/Icon";
 const components = ["Icon", "Button", "Table"];
 
 export function createComponentsPage() {
+    // TODO: remove this check
     if (!document.location.href.toLowerCase().includes("components")) {
         return;
     }
@@ -73,20 +74,101 @@ export function createComponentsPage() {
                 {/* Button */}
                 <Component
                     name="Button"
-                    description="Our button abstraction that can be used to create buttons with icons and text."
+                    description="Our button abstraction that can be used to create buttons with icons and text. "
                     code={`
 <Button
-  name="my_button"
+  name="MY BUTTON"
   text="Click me"
   icon="ri-notification-line"
-  onclick={() => alert("Button was clicked")}
+  onclick={() => console.log("Button was clicked")}
 />
             `}
                 >
                     <Button
-                        title="my_button"
+                        title="Small"
+                        size="sm"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Medium"
+                        size="md"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Large"
+                        size="lg"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Full"
+                        radius="full"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Large"
+                        radius="lg"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Medium"
+                        radius="md"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Small"
+                        radius="sm"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="None"
+                        radius="none"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Default"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Primary"
+                        color="primary"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Solid"
+                        variant="solid"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Outline"
+                        variant="outline"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Link"
+                        variant="link"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Outline Primary"
+                        variant="outline"
+                        color="primary"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Link Primary"
+                        variant="link"
+                        color="primary"
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        title="Icon"
                         icon="ri-notification-line"
-                        onclick={() => alert("Button was clicked")}
+                        onclick={() => console.log("Button was clicked")}
+                    />
+                    <Button
+                        icon="ri-notification-line"
+                        radius="full"
+                        onclick={() => console.log("Button was clicked")}
                     />
                 </Component>
 
@@ -148,5 +230,6 @@ const Component: JSX.Component<ComponentProps> = (
         <p>{description}</p>
         <div className="se-component-show">{children}</div>
         <pre className="se-code-block">{code}</pre>
+        {/* TODO(thePeras): Add Props field, so we can know the Component Reference and the default values */}
     </div>
 );

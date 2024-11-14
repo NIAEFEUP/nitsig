@@ -1,26 +1,26 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
-import { AuthSession } from "../types";
-import { togglePopover } from "../modules/utilities/popover";
-import Icon from "./Icon";
+import { AuthSession } from "../../types";
+import { togglePopover } from "../../modules/utilities/popover";
+import Button from "../Button";
+import Icon from "../Icon";
 
 interface Props {
     auth: AuthSession | null;
 }
 
 const Authentication = ({ auth }: Props) => {
+    const current_year: number = new Date().getFullYear();
+
     if (auth)
         return (
             <div id="se-auth">
-                <button
-                    id="se-auth-notifications-button"
-                    className={`se-button se-icon-button ${
-                        auth.hasNotifications ? "se-badge" : ""
-                    }`}
+                <Button
+                    icon="ri-notification-line"
+                    radius="full"
                     onclick={() => togglePopover("se-auth-notifications-menu")}
-                >
-                    <Icon name="ri-notification-line" />
-                </button>
+                    className={auth.hasNotifications ? "se-badge" : ""}
+                />
                 <div id="se-auth-notifications-menu">
                     <input
                         type="radio"
@@ -77,7 +77,7 @@ const Authentication = ({ auth }: Props) => {
                             Perfil
                         </a>
                         <a
-                            href={`hor_geral.estudantes_view?pv_num_unico=${auth.number}`}
+                            href={`hor_geral.estudantes_view?pv_num_unico=${auth.number}&pv_ano_lectivo=${current_year}&pv_periodos=1`}
                         >
                             <Icon name="ri-calendar-line" />
                             Horário
@@ -102,13 +102,11 @@ const Authentication = ({ auth }: Props) => {
 
     return (
         <div id="se-auth">
-            <button
-                className="se-buttonn"
-                id="se-auth-button"
+            <Button
+                title="Iniciar Sessão"
+                radius="sm"
                 onclick={() => togglePopover("se-auth-form")}
-            >
-                Iniciar Sessão
-            </button>
+            />
             <form
                 id="se-auth-form"
                 action="vld_validacao.validacao"
@@ -141,10 +139,9 @@ const Authentication = ({ auth }: Props) => {
                     placeholder="Palavra-passe"
                     autoComplete="current-password"
                 />
-                <button className="se-button se-primary-button" type="submit">
-                    Iniciar Sessão
-                </button>
+                <Button title="Iniciar Sessão" color="primary" radius="sm" />
                 <span className="se-separator">ou</span>
+                {/* What to do here? It is an <a> not a button. Should the button has an href? */}
                 <a
                     href="vld_validacao.federate_login?p_redirect=web_page.Inicial"
                     id="se-auth-federate"

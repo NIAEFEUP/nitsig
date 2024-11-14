@@ -19,6 +19,7 @@
             "run_at": "document_start",
             "matches": ["https://sigarra.up.pt/feup/*"],
             "css": [
+                "css/components.css",
                 "css/simpler.css",
                 "css/custom.css",
                 "css/icons.css",
@@ -46,6 +47,7 @@
     "web_accessible_resources": [
         {
             "resources": [
+                "css/components.css",
                 "css/main.css",
                 "css/custom.css",
                 "css/simpler.css",

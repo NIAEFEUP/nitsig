@@ -95,3 +95,7 @@ yarn lint:fix
 		</td>
 	</tr>
 </table>
+
+## Components Page
+
+Checkout the components page by adding `/components` to the end of any Sigarra URL.

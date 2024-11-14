@@ -65,58 +65,6 @@ body:is(body) {
         "left main right" 1fr / auto 1fr auto;
 }
 
-.se-button {
-    display: flex;
-    flex-direction: row;
-    gap: 0.5em;
-    align-items: center;
-    justify-content: center;
-    background-color: white !important;
-    color: black !important;
-    padding: 0.5em 1em !important;
-    border-radius: 8px !important;
-    border: none;
-    text-decoration: none !important;
-    transition:
-        background-color 0.2s,
-        color 0.2s;
-}
-
-.se-button:is(:hover, :focus):not(:disabled) {
-    background-color: #f0f0f0 !important;
-    color: black !important;
-}
-
-.se-button:active:not(:disabled) {
-    background-color: #e0e0e0 !important;
-    color: black !important;
-}
-
-.se-button:disabled {
-    background-color: #f0f0f0 !important;
-    color: #b0b0b0 !important;
-}
-
-.se-icon-button {
-    border-radius: 50% !important;
-    padding: 0.5em !important;
-}
-
-.se-primary-button {
-    background-color: rgb(140, 45, 25) !important;
-    color: white !important;
-}
-
-.se-primary-button:is(:hover, :focus):not(:disabled) {
-    background-color: rgb(165, 45, 25) !important;
-    color: white !important;
-}
-
-.se-primary-button:active:not(:disabled) {
-    background-color: rgb(190, 45, 25) !important;
-    color: white !important;
-}
-
 .se-loading-indicator {
     display: none;
     flex-direction: column;
@@ -144,6 +92,7 @@ body:is(body) {
     }
 }
 
+/* TODO: A lot of style related to the navbar, move out from here */
 #se-auth-federate {
     background-color: #4a9cd4 !important;
     color: white !important;
@@ -220,18 +169,11 @@ body:is(body) {
     padding-inline: 1em;
 }
 
-.se-header-link > button {
+.se-header-link > span {
     font-size: 1.25em;
     font-weight: 500;
-    color: white !important;
-    padding: 0 !important;
-    border: none !important;
-    background: none !important;
-}
-
-.se-header-link > button:hover {
-    color: #f0f0f0 !important;
-    background: none !important;
+    cursor: default;
+    color: white;
 }
 
 .se-header-link-popover {
@@ -290,8 +232,7 @@ body:is(body) {
     font-size: 0.8em;
 }
 
-#se-auth-close-button,
-#se-auth-button {
+#se-auth-close-button {
     grid-area: 1 / 1;
 }
 
@@ -408,6 +349,7 @@ body:is(body) {
     border: none;
     background: none;
     padding: 0 !important;
+    box-shadow: none;
 }
 
 #se-auth-profile-button img {
@@ -478,12 +420,6 @@ body:is(body) {
 .se-notification-time {
     grid-area: time;
     font-size: 0.8em;
-}
-
-.se-notification-button {
-    grid-area: button;
-    background: none !important;
-    border: none !important;
 }
 
 #se-auth-new-notifications,
@@ -896,8 +832,7 @@ td.i {
 /* ----------------- INPUT ----------------- */
 
 input,
-select,
-button {
+select {
     border-radius: 8px !important;
     border-color: #cfcfcf !important;
     box-sizing: border-box;
@@ -907,11 +842,6 @@ button {
     box-shadow: none !important;
     font-weight: 500 !important;
     transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-    cursor: pointer;
-    background-color: #e8e8e8 !important;
 }
 
 select {

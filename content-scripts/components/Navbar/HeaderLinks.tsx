@@ -10,7 +10,7 @@ const HeaderLinks = ({ links }: Props) => {
         <nav id="se-header-links">
             {Object.entries(links).map(([key, value]) => (
                 <div className="se-header-link" key={key}>
-                    <button>{key}</button>
+                    <span>{key}</span>
                     <div className="se-header-link-popover">
                         {Object.entries(value).map(([label, url]) => (
                             <a href={url} key={label}>
