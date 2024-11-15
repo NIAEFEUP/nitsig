@@ -156,6 +156,18 @@ const init = async (): Promise<void> => {
     // TODO (luisd): make a better mechanism for functions that depend on previous
     // steps and might be async
     await rememberLogin(data);
+    await new Promise<void>((resolve) => {
+        if (document.readyState === "complete") {
+            document.getElementsByTagName("html")[0].style.display = "block";
+            resolve();
+        } else {
+            window.addEventListener("load", () => {
+                document.getElementsByTagName("html")[0].style.display =
+                    "block";
+                resolve();
+            });
+        }
+    });
 };
 
 init();
