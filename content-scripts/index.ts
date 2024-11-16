@@ -152,6 +152,13 @@ const init = async (): Promise<void> => {
         }
     }
 
+    //    registerGoogleSearchCallbacks();
+
+    // TODO (thePeras): Refactor this
+    const script = document.createElement("script");
+    script.src = chrome.runtime.getURL("js/cse.js");
+    document.body.appendChild(script);
+
     // we run rememberLogin at last, because it's async
     // TODO (luisd): make a better mechanism for functions that depend on previous
     // steps and might be async
