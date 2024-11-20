@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 
 interface AccordionProps {
@@ -7,9 +8,15 @@ interface AccordionProps {
     max_size: number;
 }
 
-export const Accordion = ({ id, title, data, max_size }: AccordionProps): JSX.Element => {
+export const Accordion = ({
+    id,
+    title,
+    data,
+    max_size,
+}: AccordionProps): JSX.Element => {
     const toggleAccordion = (event: MouseEvent) => {
-        const button = event.currentTarget as HTMLElement;
+        const button: HTMLElement = event.currentTarget as HTMLElement;
+        const icon: HTMLElement = button.querySelector("i") as HTMLElement;
         const innerContent = document.getElementById(`${id}-content`);
 
         if (!innerContent) {
@@ -22,49 +29,46 @@ export const Accordion = ({ id, title, data, max_size }: AccordionProps): JSX.El
         if (!isExpanded) {
             button.setAttribute("data-expanded", "true");
 
-            button.animate(
+            icon.animate(
                 [{ transform: "rotate(0)" }, { transform: "rotate(180deg)" }],
-                { duration: 300, fill: "forwards", easing: "ease-in" }
+                { duration: 300, fill: "forwards", easing: "ease-in" },
             );
 
             innerContent.style.maxHeight = `${max_size}px`;
         } else {
             button.setAttribute("data-expanded", "false");
 
-            button.animate(
+            icon.animate(
                 [{ transform: "rotate(180deg)" }, { transform: "rotate(0)" }],
-                { duration: 300, fill: "forwards", easing: "ease-in" }
+                { duration: 300, fill: "forwards", easing: "ease-in" },
             );
 
             innerContent.style.maxHeight = `0px`;
         }
     };
 
-    //This `setTimeout` function is used to delay attaching the event listener until after the component has rendered.
-    // Using onClick handler directly in JSX wasn't working, not sure why, maybe rendering issues in React(??)
-    setTimeout(() => {
-        const button = document.querySelector(`#${id} .se-card-expand-button`) as HTMLElement;
-        if (button) {
-            button.addEventListener("click", toggleAccordion as EventListener);
-            console.log("Event listener attached.");
-        } else {
-            console.log("Button element not found.");
-        }
-    }, 0);
-
     return (
         <div className="se-expandable-card" id={id}>
-            <div className="se-card-header">
+            <button
+                className="se-card-expand-button se-card-header"
+                data-expanded="false"
+                onclick={toggleAccordion}
+            >
                 <div className="se-card-content">
                     <h3>{title}</h3>
                 </div>
+                <i className="ri-arrow-down-s-line ri-2x"></i>
+            </button>
 
-                <button className="se-card-expand-button" data-expanded="false">
-                    <i className="ri-arrow-down-s-line ri-2x"></i>
-                </button>
-            </div>
-
-            <div className="se-expandable-card-wrapper" id={`${id}-content`} style={{ maxHeight: "0px", overflow: "hidden", transition: "max-height 0.3s ease" }}>
+            <div
+                className="se-expandable-card-wrapper"
+                id={`${id}-content`}
+                style={{
+                    maxHeight: "0px",
+                    overflow: "hidden",
+                    transition: "max-height 0.3s ease",
+                }}
+            >
                 {data}
             </div>
         </div>

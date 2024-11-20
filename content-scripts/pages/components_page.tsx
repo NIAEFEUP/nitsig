@@ -226,10 +226,11 @@ export function createComponentsPage() {
                     <Accordion
                         id="example-accordion"
                         title="Expandable Content"
-                        data={[<p>This is the content of the accordion</p>,
+                        data={[
+                            <p>This is the content of the accordion</p>,
                             <p>This is the content of the accordion</p>,
                             <Table
-                                name="my_table"
+                                name="my_table_accordion"
                                 headers={[
                                     ["Component", "Component"],
                                     ["Description", "Description"],
@@ -243,7 +244,7 @@ export function createComponentsPage() {
                                     ],
                                     ["Input", "A text input field", "Complete"],
                                 ]}
-                            />
+                            />,
                         ]}
                         max_size={200}
                     />
