@@ -15,7 +15,7 @@ const Layout = () => (
                     <Tooltip 
                         className="tooltip"
                         id="autoLogin-tooltip" 
-                        content={ <> Depois de ativada a opção, <br />o login deve ser feito pelas credenciais, <br /> não pela autenticação federada. </>} 
+                        content={ <> Depois de ativada a opção, <br />o login deve ser feito pelas credenciais <br /> não pela autenticação federada. </>} 
                         place="top"
                     />
                 </>

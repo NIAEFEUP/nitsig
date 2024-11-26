@@ -49,7 +49,7 @@ const Layout = () => (
                     <Tooltip 
                         className="tooltip"
                         id="font-tooltip" 
-                        content={ <> Muda a fonte do texto. </>} 
+                        content={ <> Muda a fonte do texto para Roboto. </>} 
                         place="top"
                     />
                 </>
