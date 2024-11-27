@@ -8,8 +8,8 @@ const Layout = () => (
             storageKey="navbar"
             tooltipContent={
                 <>
-                    Muda as opções da barra <br />
-                    lateral para a parte superior.
+                    Ativar navegação superior e esconder<br />
+                    barra de navegação da esquerda.
                 </>
             }
             tooltipId="navbar-tooltip"
@@ -17,13 +17,21 @@ const Layout = () => (
         <SwitchControl
             label="Esconder atalhos"
             storageKey="shortcuts"
-            tooltipContent={"Esconde a opção dos atalhos."}
+            tooltipContent={
+                <>
+                    Esconder a opção dos atalhos <br />da barra lateral direita.
+                </>
+            }
             tooltipId="shortcuts-tooltip"
         />
         <SwitchControl
             label="Mudar fonte de letra"
             storageKey="font"
-            tooltipContent={"Muda a fonte do texto para Roboto."}
+            tooltipContent={
+                <>
+                    Alterar a fonte do <br />texto para Roboto.
+                </>
+            }    
             tooltipId="font-tooltip"
         />
     </Section>

@@ -8,9 +8,10 @@ const Layout = () => (
             storageKey="autoLogin"
             tooltipContent={
                 <>
-                    Depois de ativada a opção, <br />
-                    o login deve ser feito pelas credenciais <br />
-                    não pela autenticação federada.
+                    Relogin automático quando a sessão for perdida. <br />
+                    Depois de ativada a opção, é necessário repetir o login. <br />
+                    Atenção, esta opção apenas funciona com login por <br />
+                    credenciais e não como autenticação federada.
                 </>
             }
             tooltipId="autoLogin-tooltip"

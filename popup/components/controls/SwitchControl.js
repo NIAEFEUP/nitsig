@@ -34,8 +34,7 @@ function SwitchControl({
         <div className="flex items-center justify-between w-full">
             <label htmlFor={storageKey} className="text-[15px] font-bold">
                 {label}
-            </label>
-            {tooltipContent && (
+                {tooltipContent && (
                 <span className="question-icon">
                     <RiQuestionLine data-tooltip-id={tooltipId} />
                     <Tooltip
@@ -46,6 +45,7 @@ function SwitchControl({
                     />
                 </span>
             )}
+            </label>
             <StyledSwitch
                 onCheckedChange={async (checked) => {
                     setLocalState(checked);
