@@ -8,7 +8,8 @@ const Layout = () => (
             storageKey="navbar"
             tooltipContent={
                 <>
-                    Ativar navegação superior e esconder<br />
+                    Ativar navegação superior e esconder
+                    <br />
                     barra de navegação da esquerda.
                 </>
             }
@@ -19,7 +20,8 @@ const Layout = () => (
             storageKey="shortcuts"
             tooltipContent={
                 <>
-                    Esconder a opção dos atalhos <br />da barra lateral direita.
+                    Esconder a opção dos atalhos <br />
+                    da barra lateral direita.
                 </>
             }
             tooltipId="shortcuts-tooltip"
@@ -29,9 +31,10 @@ const Layout = () => (
             storageKey="font"
             tooltipContent={
                 <>
-                    Alterar a fonte do <br />texto para Roboto.
+                    Alterar a fonte do <br />
+                    texto para Roboto.
                 </>
-            }    
+            }
             tooltipId="font-tooltip"
         />
     </Section>

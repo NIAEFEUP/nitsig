@@ -35,16 +35,16 @@ function SwitchControl({
             <label htmlFor={storageKey} className="text-[15px] font-bold">
                 {label}
                 {tooltipContent && (
-                <span className="question-icon">
-                    <RiQuestionLine data-tooltip-id={tooltipId} />
-                    <Tooltip
-                        className="tooltip"
-                        id={tooltipId}
-                        content={tooltipContent}
-                        place="top"
-                    />
-                </span>
-            )}
+                    <span className="question-icon">
+                        <RiQuestionLine data-tooltip-id={tooltipId} />
+                        <Tooltip
+                            className="tooltip"
+                            id={tooltipId}
+                            content={tooltipContent}
+                            place="top"
+                        />
+                    </span>
+                )}
             </label>
             <StyledSwitch
                 onCheckedChange={async (checked) => {
