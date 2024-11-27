@@ -1,10 +1,76 @@
-.se-card {
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    padding: 0.5em 1em;
-    margin: 2em 0em;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+img {
+    width: 100%;
+    border-radius: 12px;
+    height: 214px;
+    object-fit: cover;
 }
 
-.se-card :is(h2, h3, h4) {
-    margin: 0;
+#container{
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 20vh;
+}
+
+.card{
+    background-color: #eeeeee;
+    padding: 8px;
+
+    border-radius: 12px;
+    border: 1px solid #eeeeee;
+}
+
+.card:not(:has(img)):not(:has(.tag)) .name,
+.card:not(:has(img)):not(:has(.tag)) p {
+    text-align: center;
+}
+
+.subtitles{
+    padding: 4px 8px;
+    border: 1px solid #8C2D19;;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.name{
+    font-size: 24px;
+    font-weight: 600;
+    color: #8C2D19;
+    margin-top: 16px;
+}
+
+p{
+    font-size: 14px;
+    color: #000000;
+    line-height: 150%;
+}
+
+button{
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+
+    font-weight: 600;
+    color: #F6F6F6;
+
+    background-color: #8C2D19;
+
+    margin: 0 auto;
+    display: block;
+
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+}
+
+button:focus, button:hover{
+    background-color: #F6F6F6;
+
+    color: #8C2D19;
+}
+
+.card__details{
+    padding: 16px 8px 8px 8px;
 }
