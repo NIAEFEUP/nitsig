@@ -17,13 +17,13 @@ const Layout = () => (
         <SwitchControl
             label="Esconder atalhos"
             storageKey="shortcuts"
-            tooltipContent={<>Esconde a opção dos atalhos.</>}
+            tooltipContent={"Esconde a opção dos atalhos."}
             tooltipId="shortcuts-tooltip"
         />
         <SwitchControl
             label="Mudar fonte de letra"
             storageKey="font"
-            tooltipContent={<>Muda a fonte do texto para Roboto.</>}
+            tooltipContent={"Muda a fonte do texto para Roboto."}
             tooltipId="font-tooltip"
         />
     </Section>
