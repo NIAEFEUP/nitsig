@@ -7,14 +7,15 @@ interface AccordionProps {
     max_size: number;
 }
 
-export const Accordion = ({
-    id,
-    header,
-    max_size,
-}: AccordionProps, ...children : (string | JSX.Element)[]): JSX.Element => {
+export const Accordion = (
+    { id, header, max_size }: AccordionProps,
+    ...children: (string | JSX.Element)[]
+): JSX.Element => {
     const toggleAccordion = (event: MouseEvent) => {
         const button: HTMLElement = event.currentTarget as HTMLElement;
-        const icon: HTMLElement = button.querySelector(`#${id} .se-card-header i`) as HTMLElement;
+        const icon: HTMLElement = button.querySelector(
+            `#${id} .se-card-header i`,
+        ) as HTMLElement;
         const innerContent = document.getElementById(`${id}-content`);
 
         if (!innerContent || !icon) {
@@ -52,9 +53,7 @@ export const Accordion = ({
                 data-expanded="false"
                 onclick={toggleAccordion}
             >
-                <div className="se-card-content">
-                    {header}
-                </div>
+                <div className="se-card-content">{header}</div>
                 <i className="ri-arrow-down-s-line ri-2x"></i>
             </button>
 
