@@ -15,14 +15,9 @@ interface CardProps{
 
 const Card: JSX.Component<CardProps> = ({title, description, imgSrc, subtitles, button, id, className}) =>{
     let finalClassName = "se-card";
-    if(description && imgSrc && subtitles){finalClassName += " default"}
-    if(imgSrc && !subtitles && description){finalClassName += " imgdesconly"}
-    if(!imgSrc && subtitles && description){finalClassName += " subdesconly"}
-    if(imgSrc && subtitles && !description){finalClassName += " imgsubonly"}
     if(imgSrc && !subtitles && !description){finalClassName += " imgonly"}
-    if(!imgSrc && !subtitles && description){finalClassName += " desconly"}
     if(!imgSrc && !subtitles && !description){finalClassName += " titlebutton"}
-
+    else{finalClassName += " default"}
     return(<div class="se-card default" id="card-id">
         <img src="" alt="Card Image" class="se-card__image" />
         <h2 class="se-card__title">Card Title</h2>
@@ -35,7 +30,7 @@ const Card: JSX.Component<CardProps> = ({title, description, imgSrc, subtitles, 
           description
         </p>
         <button class="se-card__button">
-          read more
+          button
         </button>
       </div>) 
 };
