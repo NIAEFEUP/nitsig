@@ -16,12 +16,10 @@ const titleClick = (table, title) => {
     }
 };
 
-const createPhotosDialog = async (title, index) => {
+const createPhotosDialog = async (url, index) => {
     const dialog = document.createElement("dialog");
     const wrapper = document.createElement("div");
     const closeButton = document.createElement("span");
-
-    const url = getPhotosLink(title);
 
     const html = await fetchSigarraPage(url);
     const table = html.querySelector("#layout0 > table");
@@ -41,16 +39,16 @@ const createPhotosDialog = async (title, index) => {
     return dialog;
 };
 
-const createPhotosButton = (icon, title, classIndex) => {
+const createPhotosButton = (icon, url, classIndex) => {
     const button = document.createElement("span");
     button.appendChild(icon);
     button.classList.add("photosButton");
 
     button.addEventListener("click", async (event) => {
         event.stopPropagation();
-        // HERE
-        const dialog = await createPhotosDialog(title, classIndex);
-
+        // TODO: THIS IS EXTREMELY HACKY! the url ends up here so that we are able to retrieve the page and create the dialog at the same time, only when the button is pressed. if you are refactoring this page, THERE MUST BE A BETTER WAY!
+        const dialog = await createPhotosDialog(url, classIndex);
+        document.body.appendChild(dialog);
         dialog.showModal();
     });
 
@@ -63,7 +61,14 @@ const getPhotosLink = (title) => {
     return title.children[2].href;
 };
 
-const editTitle = async (title, table, enrolled, enrolledText, classIndex) => {
+const editTitle = async (
+    title,
+    table,
+    enrolled,
+    enrolledText,
+    classIndex,
+    url,
+) => {
     const titleText = document.createElement("h3");
     const enrolledQnt = document.createElement("h3");
     const leftSide = document.createElement("div");
@@ -86,7 +91,7 @@ const editTitle = async (title, table, enrolled, enrolledText, classIndex) => {
 
     const photosButton = createPhotosButton(
         classLinks[1].children[0],
-        title,
+        url,
         classIndex,
     ); // photos button
     leftSide.appendChild(photosButton);
@@ -130,12 +135,12 @@ const groupClasses = async (enrolledTable) => {
         const groupElement = document.createElement("section");
         const tableWrapperElement = document.createElement("div");
         const titleWrapperElement = document.createElement("div");
-        const photosDialog = await createPhotosDialog(title, classIndex);
 
         parent.insertBefore(groupElement, title);
         groupElement.classList.add("classWrapper");
         tableWrapperElement.classList.add("tableWrapper");
         titleWrapperElement.classList.add("titleWrapper");
+        const url = getPhotosLink(title);
 
         title.remove();
         table.remove();
@@ -144,7 +149,6 @@ const groupClasses = async (enrolledTable) => {
         tableWrapperElement.appendChild(table);
         groupElement.appendChild(titleWrapperElement);
         groupElement.appendChild(tableWrapperElement);
-        groupElement.appendChild(photosDialog);
 
         editTitle(
             titleWrapperElement,
@@ -152,6 +156,7 @@ const groupClasses = async (enrolledTable) => {
             enrolled,
             enrolledText,
             classIndex,
+            url,
         );
         titleWrapperElement.dataset.expand = "true";
 
