@@ -217,37 +217,48 @@ export function createComponentsPage() {
                     code={`
 <Accordion
   id="example-accordion"
-  title="Expandable Content"
-  data={<p>This is the content of the accordion</p>}
+  header= 
+    { <h3>Expandable Content</h3> }
   max_size={200}
-/>
+>
+    <p>This is the content of the accordion</p>
+    <p>This is more content</p>
+    <Table
+        name="my_table_accordion"
+        headers={[
+            ["Component", "Component"],
+            ["Description", "Description"],
+            ["Status", "Status"],
+        ]}
+        data={[
+            ["Button", "A button that can be clicked", "In progress"],
+            ["Input", "A text input field", "Complete"],
+        ]}
+    />
+</Accordion>
                     `}
                 >
                     <Accordion
                         id="example-accordion"
-                        title="Expandable Content"
-                        data={[
-                            <p>This is the content of the accordion</p>,
-                            <p>This is the content of the accordion</p>,
-                            <Table
-                                name="my_table_accordion"
-                                headers={[
-                                    ["Component", "Component"],
-                                    ["Description", "Description"],
-                                    ["Status", "Status"],
-                                ]}
-                                data={[
-                                    [
-                                        "Button",
-                                        "A button that can be clicked",
-                                        "In progress",
-                                    ],
-                                    ["Input", "A text input field", "Complete"],
-                                ]}
-                            />,
-                        ]}
+                        header=
+                            { <h3>Expandable Content</h3> }
                         max_size={200}
-                    />
+                    >
+                        <p>This is the content of the accordion</p>
+                        <p>This is more content</p>
+                        <Table
+                            name="my_table_accordion"
+                            headers={[
+                                ["Component", "Component"],
+                                ["Description", "Description"],
+                                ["Status", "Status"],
+                            ]}
+                            data={[
+                                ["Button", "A button that can be clicked", "In progress"],
+                                ["Input", "A text input field", "Complete"],
+                            ]}
+                        />
+                    </Accordion>
                 </Component>
             </div>
         </div>
@@ -263,7 +274,7 @@ interface ComponentProps {
 }
 
 const Component: JSX.Component<ComponentProps> = (
-    { name, description, code },
+    {name, description, code},
     children,
 ) => (
     <div id={name} className="se-component-section">

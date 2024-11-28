@@ -3,24 +3,22 @@ import jsx from "texsaur";
 
 interface AccordionProps {
     id: string;
-    title: string;
-    data: (string | JSX.Element)[];
+    header: JSX.Element | (string | JSX.Element)[];
     max_size: number;
 }
 
 export const Accordion = ({
     id,
-    title,
-    data,
+    header,
     max_size,
-}: AccordionProps): JSX.Element => {
+}: AccordionProps, ...children : (string | JSX.Element)[]): JSX.Element => {
     const toggleAccordion = (event: MouseEvent) => {
         const button: HTMLElement = event.currentTarget as HTMLElement;
-        const icon: HTMLElement = button.querySelector("i") as HTMLElement;
+        const icon: HTMLElement = button.querySelector(`#${id} .se-card-header i`) as HTMLElement;
         const innerContent = document.getElementById(`${id}-content`);
 
-        if (!innerContent) {
-            console.log("Error: Content element not found.");
+        if (!innerContent || !icon) {
+            console.log("Error: Element not found.");
             return;
         }
 
@@ -55,7 +53,7 @@ export const Accordion = ({
                 onclick={toggleAccordion}
             >
                 <div className="se-card-content">
-                    <h3>{title}</h3>
+                    {header}
                 </div>
                 <i className="ri-arrow-down-s-line ri-2x"></i>
             </button>
@@ -69,7 +67,7 @@ export const Accordion = ({
                     transition: "max-height 0.3s ease",
                 }}
             >
-                {data}
+                {children}
             </div>
         </div>
     );
