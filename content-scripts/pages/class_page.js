@@ -41,13 +41,16 @@ const createPhotosDialog = async (title, index) => {
     return dialog;
 };
 
-const createPhotosButton = (icon, dialog) => {
+const createPhotosButton = (icon, title, classIndex) => {
     const button = document.createElement("span");
     button.appendChild(icon);
     button.classList.add("photosButton");
 
-    button.addEventListener("click", (event) => {
+    button.addEventListener("click", async (event) => {
         event.stopPropagation();
+        // HERE
+        const dialog = await createPhotosDialog(title, classIndex);
+
         dialog.showModal();
     });
 
@@ -55,10 +58,12 @@ const createPhotosButton = (icon, dialog) => {
 };
 
 const getPhotosLink = (title) => {
+    console.log(title);
+
     return title.children[2].href;
 };
 
-const editTitle = async (title, table, dialog, enrolled, enrolledText) => {
+const editTitle = async (title, table, enrolled, enrolledText, classIndex) => {
     const titleText = document.createElement("h3");
     const enrolledQnt = document.createElement("h3");
     const leftSide = document.createElement("div");
@@ -79,7 +84,11 @@ const editTitle = async (title, table, dialog, enrolled, enrolledText) => {
     titleText.innerText = className;
     leftSide.appendChild(classLinks[0]); // email button
 
-    const photosButton = createPhotosButton(classLinks[1].children[0], dialog); // photos button
+    const photosButton = createPhotosButton(
+        classLinks[1].children[0],
+        title,
+        classIndex,
+    ); // photos button
     leftSide.appendChild(photosButton);
 
     enrolledQnt.classList.add("classTitle");
@@ -140,9 +149,9 @@ const groupClasses = async (enrolledTable) => {
         editTitle(
             titleWrapperElement,
             tableWrapperElement,
-            photosDialog,
             enrolled,
             enrolledText,
+            classIndex,
         );
         titleWrapperElement.dataset.expand = "true";
 
