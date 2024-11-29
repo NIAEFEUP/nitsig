@@ -1,17 +1,43 @@
-import LayoutContent from './LayoutContent'
+import Section from "../layout/Section";
+import SwitchControl from "../controls/SwitchControl";
 
 const Layout = () => (
-  <section className="flex flex-col gap-y-2">
-    <label
-      htmlFor="user-control-interface"
-      className="text-sm font-bold dark:text-accentOneDark text-accentOne"
-    >
-      Layout
-    </label>
-    <div id="user-control-interface">
-      <LayoutContent />
-    </div>
-  </section>
-)
+    <Section title="Aspetos Visuais">
+        <SwitchControl
+            label="Ativar barra de navegação"
+            storageKey="navbar"
+            tooltipContent={
+                <>
+                    Ativar navegação superior e esconder
+                    <br />
+                    barra de navegação da esquerda.
+                </>
+            }
+            tooltipId="navbar-tooltip"
+        />
+        <SwitchControl
+            label="Esconder atalhos"
+            storageKey="shortcuts"
+            tooltipContent={
+                <>
+                    Esconder a opção dos atalhos <br />
+                    da barra lateral direita.
+                </>
+            }
+            tooltipId="shortcuts-tooltip"
+        />
+        <SwitchControl
+            label="Mudar fonte de letra"
+            storageKey="font"
+            tooltipContent={
+                <>
+                    Alterar a fonte do <br />
+                    texto para Roboto.
+                </>
+            }
+            tooltipId="font-tooltip"
+        />
+    </Section>
+);
 
-export default Layout
+export default Layout;

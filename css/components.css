@@ -1,0 +1,157 @@
+/* Button */
+.se-button {
+    /* Reset Sigarra Styles */
+    background-image: none;
+    box-shadow: none;
+    /* Ending Reseting Sigarra Styles */
+
+    background-color: #f4f4f4;
+    padding: 0.5rem 1rem;
+    text-decoration: none !important;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: 400;
+    color: #333;
+
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+
+    /* Focus Outline */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+
+    /* Animation */
+    transition-timing-function: ease;
+    transition-duration: 0.25s;
+
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-image: none;
+        opacity: 0.9;
+        scale: 0.95;
+    }
+
+    /* Rounded Borders */
+    &.rounded-sm {
+        border-radius: 8px;
+    }
+    &.rounded-md {
+        border-radius: 12px;
+    }
+    &.rounded-lg {
+        border-radius: 14px;
+    }
+    &.rounded-full {
+        border-radius: 9999px;
+    }
+
+    /* Sizes */
+    &.sm {
+        font-size: small;
+        height: 2rem;
+        min-width: 4rem;
+    }
+    &.md {
+        font-size: medium;
+        height: 2.5rem;
+        min-width: 5rem;
+
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    &.lg {
+        font-size: large;
+        height: 3rem;
+        min-width: 6rem;
+    }
+
+    &.icon-only {
+        padding: 0.5rem;
+        min-width: 2.5rem;
+        height: 2.5rem;
+        justify-content: center;
+    }
+
+    /* Colors */
+    &.primary {
+        background-color: #8c2d19;
+        color: white;
+
+        &:hover {
+            background-color: #6f1e0e;
+        }
+
+        &:active {
+            background-color: #4f1309;
+        }
+    }
+
+    /* Variants */
+    &.outline {
+        background-color: transparent;
+        border: 1.5px solid #f4f4f4;
+        color: #333;
+
+        &:hover {
+            background-color: #f4f4f4;
+        }
+
+        &.primary {
+            border-color: #8c2d19;
+            color: #8c2d19;
+
+            &:hover {
+                background-color: transparent;
+
+                background-color: #8c2d19;
+                color: white;
+            }
+        }
+    }
+
+    &.link {
+        background-color: transparent;
+        span {
+            text-decoration: underline;
+        }
+
+        &:hover {
+            background-color: #f4f4f4;
+        }
+
+        &.primary {
+            color: #8c2d19;
+        }
+    }
+}
+
+.se-card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.se-card-expand-button {
+    background: inherit !important;
+    border: none !important;
+    padding: none !important;
+    margin: none !important;
+    box-shadow: none !important;
+}
+
+.se-card-expand-button:hover {
+    background: inherit !important;
+}
+
+.se-expandable-card-wrapper {
+    overflow: hidden;
+    transition: max-height 300ms ease-in-out;
+}

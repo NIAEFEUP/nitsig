@@ -1,7 +1,8 @@
 let manifest = {
     name: "NitSig: Sigarra, but Neater",
     short_name: "NitSig",
-    description: "A Neater Sigarra by improving its UI/UX experience and adding new features",
+    description:
+        "A Neater Sigarra by improving its UI/UX experience and adding new features",
     version: "1.0.4",
     manifest_version: 3,
     icons: {
@@ -11,13 +12,14 @@ let manifest = {
         128: "images/logo/logo-128.png",
     },
     content_security_policy: {
-        extension_pages: "script-src 'self'; object-src 'self';"
+        extension_pages: "script-src 'self'; object-src 'self';",
     },
     content_scripts: [
         {
             run_at: "document_start",
             matches: ["https://sigarra.up.pt/feup/*"],
             css: [
+                "css/components.css",
                 "css/simpler.css",
                 "css/custom.css",
                 "css/icons.css",
@@ -25,7 +27,6 @@ let manifest = {
                 "css/classPage.css",
                 "css/profilePage.css",
                 "css/card.css",
-                "css/expandableCard.css"
             ],
         },
         {
@@ -36,11 +37,16 @@ let manifest = {
         {
             matches: ["*://sigarra.up.pt/*/web_page.inicial"],
             css: ["css/homepage.css"],
-        }
+        },
+        {
+            matches: ["*://sigarra.up.pt/*/components"],
+            css: ["css/componentsPage.css"],
+        },
     ],
     web_accessible_resources: [
         {
             resources: [
+                "css/components.css",
                 "css/main.css",
                 "css/custom.css",
                 "css/simpler.css",
@@ -49,6 +55,7 @@ let manifest = {
                 "images/publicationWebsiteLogo/*",
                 "images/FEUP.svg",
                 "images/feup-map.svg",
+                "images/logo/*",
             ],
             matches: ["https://sigarra.up.pt/*"],
         },
@@ -71,7 +78,7 @@ export const MANIFEST_CHROME = {
     background: {
         service_worker: "background.js",
         type: "module",
-    }
+    },
 };
 
 export const MANIFEST_FIREFOX = {
@@ -84,5 +91,5 @@ export const MANIFEST_FIREFOX = {
     },
     background: {
         scripts: ["background.js"],
-    }
+    },
 };

@@ -1,34 +1,68 @@
-## Development / Building / Bundling the Extension
+## Developing
 
 First, you must have [yarn](https://classic.yarnpkg.com/lang/en/docs/install) installed.
 
-Run
-```sh
-yarn && yarn bundle [all | firefox | chrome | safari]
-```
-at the root directory and you'll get a bundle directory that looks like this:
-
-```
-📂 bundle
-└ 📁 chrome
-└ 📁 firefox
-└ 📁 safari
-└ 🗄️ chrome.zip
-└ 🗄️ firefox.zip
-└ 🗄️ safari.zip
-```
-
-## Watch for changes
+Install dependencies:
 
 ```sh
-sudo yarn watch [firefox | chrome | safari]
+yarn install
 ```
 
-The extension polls the watch webserver for changes, if the page doesn't reload automatically, reload the extension and if that doesn't work, see the service worker/background script console for errors.
+Build for the first time:
 
-## Load Extension
+```sh
+yarn build
+```
 
-You can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
+Choose your favorite browser and start developing:
+
+```sh
+yarn run dev:firefox
+```
+
+or
+
+```sh
+yarn run dev:chrome
+```
+
+This command will initialize a browser window and load the extension, watching for changes and reloading the window automatically.
+
+## Building a bundle
+
+```sh
+yarn build
+```
+
+## Linting and formatting
+
+In order to maintain our codebase we are using [Prettier](https://prettier.io/) for formatting and [ESLint](https://eslint.org/) for linting.
+
+If you only want to check for formatting issues run:
+
+```sh
+yarn format
+```
+
+Or if you want to have Prettier fix them:
+
+```sh
+yarn format:fix
+```
+
+Similarly, to check for linting issues run:
+
+```sh
+yarn lint
+```
+
+And, if you wish to fix the warnings that ESLint picks up, run:
+
+```sh
+yarn lint:fix
+```
+
+## Loading a bundle
 
 <table>
 	<tr>
@@ -62,4 +96,6 @@ You can bundle the extension for `Chrome`, `Firefox`, and `Safari`:
 	</tr>
 </table>
 
-#### This respository was based on the [typefully/minimal-twitter](https://github.com/typefully/minimal-twitter) extension repository
+## Components Page
+
+Checkout the components page by adding `/components` to the end of any Sigarra URL.

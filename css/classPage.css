@@ -74,10 +74,11 @@ dialog[id^="photosDialog"]::backdrop {
     transform: rotate(0deg);
 }
 
-.tabela tr.k, .tabela td.k {
+.tabela tr.k,
+.tabela td.k {
     background-image: none;
 }
 
-.tabela tr:hover  {
+.tabela tr:hover {
     border: none !important;
 }
