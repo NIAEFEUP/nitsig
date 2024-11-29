@@ -19,22 +19,22 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Build
-        run: yarn release
+        run: yarn build
       - name: Upload chrome artifact
         uses: actions/upload-artifact@v4
         with:
-          path: bundle/chrome
+          path: dist/chrome
           name: chrome
       - name: Upload firefox artifact
         uses: actions/upload-artifact@v4
         with:
-          path: bundle/firefox
+          path: dist/firefox
           name: firefox
-      - name: Upload safari artifact
-        uses: actions/upload-artifact@v4
-        with:
-          path: bundle/safari
-          name: safari
+      # - name: Upload safari artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     path: bundle/safari
+      #     name: safari
   
   chrome:
     name: Deploy to Chrome
