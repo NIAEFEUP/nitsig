@@ -3,8 +3,9 @@ import jsx from "texsaur";
 import Button from "../components/Button";
 import { Table } from "../components/Table";
 import Icon from "../components/Icon";
+import { Accordion } from "../components/Accordion";
 
-const components = ["Icon", "Button", "Table"];
+const components = ["Icon", "Button", "Table", "Accordion"];
 
 export function createComponentsPage() {
     // TODO: remove this check
@@ -207,6 +208,60 @@ export function createComponentsPage() {
                             ["Input", "A text input field", "Complete"],
                         ]}
                     />
+                </Component>
+
+                {/* Accordion */}
+                <Component
+                    name="Accordion"
+                    description="A collapsible component that can expand to show or hide content."
+                    code={`
+<Accordion
+  id="example-accordion"
+  header= 
+    { <h3>Expandable Content</h3> }
+  max_size={200}
+>
+    <p>This is the content of the accordion</p>
+    <p>This is more content</p>
+    <Table
+        name="my_table_accordion"
+        headers={[
+            ["Component", "Component"],
+            ["Description", "Description"],
+            ["Status", "Status"],
+        ]}
+        data={[
+            ["Button", "A button that can be clicked", "In progress"],
+            ["Input", "A text input field", "Complete"],
+        ]}
+    />
+</Accordion>
+                    `}
+                >
+                    <Accordion
+                        id="example-accordion"
+                        header={<h3>Expandable Content</h3>}
+                        max_size={200}
+                    >
+                        <p>This is the content of the accordion</p>
+                        <p>This is more content</p>
+                        <Table
+                            name="my_table_accordion"
+                            headers={[
+                                ["Component", "Component"],
+                                ["Description", "Description"],
+                                ["Status", "Status"],
+                            ]}
+                            data={[
+                                [
+                                    "Button",
+                                    "A button that can be clicked",
+                                    "In progress",
+                                ],
+                                ["Input", "A text input field", "Complete"],
+                            ]}
+                        />
+                    </Accordion>
                 </Component>
             </div>
         </div>

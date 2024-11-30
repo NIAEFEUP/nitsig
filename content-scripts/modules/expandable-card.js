@@ -3,6 +3,7 @@
  * @param {Element} innerContent
  * @param {Number} max_size
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const toggleExpandableCard = (innerContent, max_size) => {
     function clickEvent() {
         /** @type {Keyframe[]} */
@@ -12,7 +13,7 @@ const toggleExpandableCard = (innerContent, max_size) => {
                 [{ transform: "rotate(0)" }, { transform: "rotate(180deg)" }],
                 { duration: 300, fill: "forwards", easing: "ease-in" },
             );
-            innerContent.style.maxHeight = `${max_size}px`;
+            innerContent.style.maxHeight = `9999px`;
         } else {
             this.dataset.expanded = "false";
             this.animate(

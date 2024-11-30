@@ -19,6 +19,7 @@
             "run_at": "document_start",
             "matches": ["https://sigarra.up.pt/feup/*"],
             "css": [
+                "css/loadPage.css",
                 "css/components.css",
                 "css/simpler.css",
                 "css/custom.css",
