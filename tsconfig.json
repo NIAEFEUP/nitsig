@@ -20,6 +20,6 @@
         "jsxFactory": "jsx",
         "jsxFragmentFactory": "jsx.Fragment" // optional - enables fragments (<></>)
     },
-    "include": ["./content-scripts"],
+    "include": ["./content-scripts", "js/cse.js"],
     "exclude": ["./node_modules", "./popup"]
 }

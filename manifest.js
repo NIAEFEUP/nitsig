@@ -51,6 +51,7 @@ let manifest = {
                 "css/custom.css",
                 "css/simpler.css",
                 "js/override-functions.js",
+                "js/cse.js",
                 "css/icons.css",
                 "images/publicationWebsiteLogo/*",
                 "images/FEUP.svg",

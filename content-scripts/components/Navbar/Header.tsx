@@ -2,10 +2,12 @@
 import jsx from "texsaur";
 
 import { AuthSession } from "../../types";
-import HeaderLinks from "./HeaderLinks";
+//import HeaderLinks from "./HeaderLinks";
 import Authentication from "./HeaderAuthentication";
+import SearchBar from "./SearchBar";
 
 //TODO(thePeras): I think we should move this to a separate file dedicated to constants or a folder like `data`
+/*
 const HEADER_LINKS = {
     Estudantes: {
         Bolsas: "web_base.gera_pagina?p_pagina=242366",
@@ -41,7 +43,7 @@ const HEADER_LINKS = {
         "Mais opções": "web_base.gera_pagina?p_pagina=1831",
     },
 };
-
+*/
 interface Props {
     auth?: AuthSession | null;
 }
@@ -55,7 +57,8 @@ const Header = ({ auth = null }: Props) => {
                     alt="FEUP Logo"
                 />
             </a>
-            <HeaderLinks links={HEADER_LINKS} />
+            {/*<HeaderLinks links={HEADER_LINKS} /> */}
+            <SearchBar />
             <Authentication auth={auth} />
         </header>
     );
