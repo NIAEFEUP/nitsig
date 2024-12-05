@@ -18,7 +18,7 @@ const Card: JSX.Component<CardProps> = ({title, description, imgSrc, subtitles, 
     if(imgSrc && !subtitles && !description){finalClassName += " imgonly"}
     if(!imgSrc && !subtitles && !description){finalClassName += " titlebutton"}
     else{finalClassName += " default"}
-    return(<div class="se-card default" id="card-id">
+    return(<div class="se-card" id="card-id">
         <img src="" alt="Card Image" class="se-card__image" />
         <h2 class="se-card__title">Card Title</h2>
         <ul class="se-card__subtitles">
