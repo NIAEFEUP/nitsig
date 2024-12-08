@@ -69,3 +69,21 @@ export const useNavBar = async (navbar: string): Promise<void> => {
             break;
     }
 };
+
+export const expandSections = async (expand: string): Promise<void> => {
+    const expandableCards = document.querySelectorAll<HTMLElement>(".se-expandable-card-wrapper");
+
+    switch (expand) {
+        case "on":
+            expandableCards.forEach((card) => {
+                card.style.maxHeight = `${card.scrollHeight}px`;
+            });
+            break;
+
+        case "off":
+            expandableCards.forEach((card) => {
+                card.style.maxHeight = "0px";
+            });
+            break;
+    }
+};
