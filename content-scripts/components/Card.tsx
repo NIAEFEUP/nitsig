@@ -1,39 +1,61 @@
 import jsx from "texsaur";
 import Button from "./Button";
 
-
-interface CardProps{
+interface CardProps {
     title: string;
     description?: string;
     imgSrc?: string;
     subtitles?: string[];
-    button: Button;
-    id?: string;
-    className?: string;
+    button: string;
 }
 
+const Card: JSX.Component<CardProps> = ({ title, description, imgSrc, subtitles, button }) => {
+    let finalClassName = "se_card";
 
-const Card: JSX.Component<CardProps> = ({title, description, imgSrc, subtitles, button, id, className}) =>{
-    let finalClassName = "se-card";
-    if(imgSrc && !subtitles && !description){finalClassName += " imgonly"}
-    if(!imgSrc && !subtitles && !description){finalClassName += " titlebutton"}
-    else{finalClassName += " default"}
-    return(<div class="se-card" id="card-id">
-        <img src="" alt="Card Image" class="se-card__image" />
-        <h2 class="se-card__title">Card Title</h2>
-        <ul class="se-card__subtitles">
-          <li>Subtitle 1</li>
-          <li>Subtitle 2</li>
-          <li>Subtitle 3</li>
-        </ul>
-        <p class="se-card__description">
-          description
-        </p>
-        <button class="se-card__button">
-          button
-        </button>
-      </div>) 
+    if (imgSrc && !subtitles && !description) {
+        finalClassName += " imgonly";
+        return(<div className={finalClassName} id="container">
+          {imgSrc && <img src={imgSrc} alt = "Card Image" />}
+          <div className="card__details">
+            <h2 className= "title">{title}</h2>
+          </div>
+          {button && (
+                  <Button color= "primary" size="lg" title= {button}>
+                  </Button>
+              )}
+        </div>);
+    } else if (!imgSrc && !subtitles && !description) {
+        finalClassName += " titlebutton";
+        return (<div className={finalClassName} id="container">
+          <div className="card_details">
+            <h2 className="title">{title}</h2>
+          </div>
+          {button && (
+                  <Button color= "primary" size="lg" title= {button}>
+                  </Button>
+              )}
+        </div>);
+    } else {
+        finalClassName += " default";
+        return (
+          <div className={finalClassName} id="container">
+              {imgSrc && <img src={imgSrc} alt="Card Image" />}
+              <div className="card__details">
+                  <h2 className="title">{title}</h2>
+                  {subtitles && subtitles.length > 0 && (
+                      <div className="subtitles">
+                        {subtitles[0]}
+                      </div>
+                  )}
+                  {description && <p>{description}</p>}
+              </div>
+              {button && (
+                  <Button color= "primary" size="lg" title= {button}>
+                  </Button>
+              )}
+          </div>
+      );
+    }
 };
-
 
 export default Card;

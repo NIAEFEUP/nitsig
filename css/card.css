@@ -1,97 +1,102 @@
-.se_card{
+.se_card {
     background-color: #eeeeee;
     padding: 8px;
     border-radius: 12px;
     border: 1px solid #eeeeee;
-    #container{
-        max-width: 300px;
-        margin: 0 auto;
-        margin-top: 20vh;
-    }
-
-    .card__details{
-        padding: 16px 8px 8px 8px;
-    }
-
-    button:focus, button:hover{
-        background-color: #F6F6F6;
-    
-        color: #8C2D19;
-    }
-    
-    button{
-        border: none;
-        padding: 12px 24px;
-        border-radius: 50px;
-        font-weight: 600;
-        color: #F6F6F6;
-        background-color: #8C2D19;
-        margin: 0 auto;
-        display: block;
-        transition: all 200ms ease-in-out;
-        cursor: pointer;
-    }
-
-    &.default{
-        .title{
-            font-size: 24px;
-            font-weight: 600;
-            color: #8C2D19;
-            margin-top: 16px;
-        }
-        .subtitles{
-            padding: 4px 8px;
-            border: 1px solid #8C2D19;;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #000000;
-        }
-        p{
-            font-size: 14px;
-            color: #000000;
-            line-height: 150%;
-        }
-        img{
-            width: 100%;
-            border-radius: 12px;
-            height: 214px;
-            object-fit: cover;
-        }
-
-    }
-    &.imgonly {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        img{
-            width: 100%;
-            border-radius: 12px;
-            height: 214px;
-            object-fit: cover;
-        }
-
-        .title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #8C2D19;
-            margin-top: 16px;
-            text-align: center;
-        }
-    }
-
-    &.titlebutton {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #8C2D19;
-            margin-top: 16px;
-            text-align: center;
-        }
-    }    
 }
 
+#container {
+    max-width: 300px;
+    margin: 0 auto;
+    margin-top: 20vh;
+}
+
+.card__details {
+    padding: 16px 8px 8px 8px;
+}
+
+button:focus,
+button:hover {
+    background-color: #F6F6F6;
+    color: #8C2D19;
+}
+
+button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    color: #F6F6F6;
+    background-color: #8C2D19;
+    margin: 0 auto;
+    display: block;
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+}
+
+/* Default State */
+.se_card.default .title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #8C2D19;
+    margin-top: 16px;
+}
+
+.se_card.default .subtitles {
+    padding: 4px 8px;
+    border: 1px solid #8C2D19;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.se_card.default p {
+    font-size: 14px;
+    color: #000000;
+    line-height: 150%;
+}
+
+.se_card.default img {
+    width: 100%;
+    border-radius: 12px;
+    height: 214px;
+    object-fit: cover;
+}
+
+/* Image-Only State */
+.se_card.imgonly {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.se_card.imgonly img {
+    width: 100%;
+    border-radius: 12px;
+    height: 214px;
+    object-fit: cover;
+}
+
+.se_card.imgonly .title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #8C2D19;
+    margin-top: 16px;
+    text-align: center;
+}
+
+/* Title + Button State */
+.se_card.titlebutton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.se_card.titlebutton .title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #8C2D19;
+    margin-top: 16px;
+    text-align: center;
+}

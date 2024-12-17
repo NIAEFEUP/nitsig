@@ -3,8 +3,9 @@ import jsx from "texsaur";
 import Button from "../components/Button";
 import { Table } from "../components/Table";
 import Icon from "../components/Icon";
+import Card from "../components/Card";
 
-const components = ["Icon", "Button", "Table"];
+const components = ["Icon", "Button", "Table", "Cards"];
 
 export function createComponentsPage() {
     // TODO: remove this check
@@ -208,8 +209,42 @@ export function createComponentsPage() {
                         ]}
                     />
                 </Component>
+                {/* Card */}
+                <Component
+                    name= "Card"
+                    description="Our card component, that allows the creation of cards with different styles."
+                    code={`
+<Card
+    title="Default Card"
+    description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+    subtitles={["Subtitle"]}
+    imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+    button="Click Me"
+/>
+`}>
+                    <Card
+                        title="Default Card"
+                        description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+                        subtitles={["Subtitle"]}
+                        imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+                        button="Click Me"
+                    />
+                    {/* <Card */}
+                        {/* title ="Image Only" */}
+                        {/* imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s" */}
+                        {/* button = "Click me" */}
+                   {/* /> */}
+                   {/* <Card */}
+                        {/* title ="Title Button Card" */}
+                        {/* button = "Click me" */}
+                        {/* /> */}
+                    
+                </Component>
+
             </div>
+
         </div>
+    
     );
 
     document.body.appendChild(page);
