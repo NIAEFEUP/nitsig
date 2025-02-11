@@ -71,7 +71,18 @@ export const useNavBar = async (navbar: string): Promise<void> => {
 };
 
 export const expandSections = async (expand: string): Promise<void> => {
-    await new Promise(resolve => setTimeout(resolve, 100)); // 100ms delay
+    
+    await new Promise<void>((resolve) => {
+        if (document.readyState === "complete") {
+            document.getElementsByTagName("html")[0].style.display = "block";
+            resolve();
+        } else {
+            window.addEventListener("load", () => {
+                document.getElementsByTagName("html")[0].style.display = "block";
+                resolve();
+            });
+        }
+    });
 
     const expandableCards = document.querySelectorAll<HTMLElement>(".se-expandable-card");
 
