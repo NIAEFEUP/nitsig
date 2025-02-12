@@ -180,7 +180,7 @@ const replaceBgImages = (): void => {
 const replaceBanners = (): void => {
     Object.entries(BANNER_ICON_MAP).forEach(([k, v]) => {
         document.querySelectorAll(`.${k}`).forEach((i) => {
-            const span = <span>{i.innerHTML}</span>;
+            const span = <span>{i.textContent}</span>;
 
             // TODO (thePeras): Use <Icon />, but you need to expand the Icon component to support fill and style
             const icon = (
