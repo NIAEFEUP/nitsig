@@ -19,7 +19,7 @@ const HEADER_LINKS = {
     Faculdade: {
         Alumni: "web_base.gera_pagina?p_pagina=243186",
         "Calendário escolar":
-            "web_base.gera_pagina?p_pagina=página estática genérica 106",
+            "web_base.gera_pagina?p_pagina=calendário escolar",
         Cursos: "cur_geral.cur_inicio",
         Departamentos: "uni_geral.nivel_list?pv_nivel_id=1",
         Empresas: "web_base.gera_pagina?p_pagina=242380",
