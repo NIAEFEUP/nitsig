@@ -53,10 +53,6 @@ const ContactInfo = ({ contacts }: { contacts: HTMLElement }) => (
 );
 
 export const teacherPage = (): void => {
-    // TODO: remove this check
-    if (!document.location.href.toLowerCase().includes("func_geral.formview")) {
-        return;
-    }
     makeTitleBar();
     moveResearchSection();
     makePublicationWebsiteButtons();
