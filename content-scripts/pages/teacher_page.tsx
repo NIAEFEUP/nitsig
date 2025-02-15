@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import jsx from "texsaur";
 import {
     groupSectionTitleAndContent,
     groupChildrenBySelector,
@@ -12,6 +14,43 @@ const publicationWebsites: Record<string, { icon: string; text: string }> = {
     "publons.com": { icon: "researchID.png", text: "Research-ID" },
     "scopus.com": { icon: "scopus.png", text: "Scopus" },
 };
+
+const PublicationWebsiteButton = ({
+    link,
+    website,
+}: {
+    link: string;
+    website: string;
+}) => (
+    <a href={link} className="se-publication-website-button">
+        <img
+            src={chrome.runtime.getURL(
+                `images/publicationWebsiteLogo/${publicationWebsites[website].icon}`,
+            )}
+        />
+        <p>{publicationWebsites[website].text}</p>
+    </a>
+);
+
+const WebsiteButton = ({ link }: { link: string }) => (
+    <a href={link} className="se-website-button">
+        Website
+    </a>
+);
+
+const TitleBar = ({ title, sigla }: { title: string; sigla: string }) => (
+    <div className="se-teacher-title-bar">
+        <h1>{title}</h1>
+        <h3>{sigla}</h3>
+    </div>
+);
+
+const ContactInfo = ({ contacts }: { contacts: HTMLElement }) => (
+    <div className="se-contact-info">
+        <h3>Contactos</h3>
+        {contacts}
+    </div>
+);
 
 export const teacherPage = (): void => {
     // TODO: remove this check
@@ -70,10 +109,9 @@ function reformatTables(parentSelector: string): void {
     if (tableList.length !== 0) {
         parentElement.querySelector("table")?.remove();
         if (tableList.length > 1) {
-            const container = document.createElement("div");
-            container.classList.add("se-container");
+            const container = <div className="se-container" />;
             parentElement.appendChild(container);
-            parentElement = container;
+            parentElement = container as HTMLElement;
         }
         for (const table of Array.from(tableList)) {
             document.querySelector(parentSelector)?.appendChild(table);
@@ -104,15 +142,11 @@ function tagGroupedElements(): void {
             ".informacao-pessoal-dados-dados > table:not(.tabelasz)",
         );
         if (contacts) {
-            const div = document.createElement("div");
             const informacao_pessoal = document.querySelector<HTMLElement>(
                 ".informacao-pessoal-dados-dados",
             );
-            const h3 = document.createElement("h3");
-            h3.textContent = "Contactos";
-            div.append(h3, contacts);
-            div.classList.add("se-contact-info");
-            informacao_pessoal?.appendChild(div);
+            const contactInfo = <ContactInfo contacts={contacts} />;
+            informacao_pessoal?.appendChild(contactInfo);
         }
     }
     const roles = document.querySelector<HTMLElement>(
@@ -138,10 +172,7 @@ function makeWebsiteButtonIfExists(): void {
     if (websiteIcon === null || !informationElement) return;
 
     const websiteLink = websiteIcon.href;
-    const websiteButton = document.createElement("a");
-    websiteButton.classList.add("se-website-button");
-    websiteButton.href = websiteLink;
-    websiteButton.textContent = "Website";
+    const websiteButton = <WebsiteButton link={websiteLink} />;
 
     informationElement.append(websiteButton);
     websiteIcon.remove();
@@ -154,8 +185,7 @@ function makePublicationWebsiteButtons(): void {
         ".informacao-pessoal-dados",
     );
     if (!tabelasz || !informacaoPessoal) return;
-    const websiteList = document.createElement("div");
-    websiteList.classList.add("se-publication-website-list");
+    const websiteList = <div className="se-publication-website-list" />;
     const listOfRows = Array.from(tabelasz.children) as HTMLElement[];
 
     listOfRows.forEach((row) => {
@@ -170,20 +200,10 @@ function makePublicationWebsiteButtons(): void {
         for (const website of Object.keys(publicationWebsites)) {
             if (link.includes(website)) {
                 found = true;
-                const image = document.createElement("img");
-                image.src = chrome.runtime.getURL(
-                    "images/publicationWebsiteLogo/" +
-                        publicationWebsites[website].icon,
+                const button = (
+                    <PublicationWebsiteButton link={link} website={website} />
                 );
-                const text = document.createElement("p");
-                text.textContent = publicationWebsites[website].text;
-
-                const a = document.createElement("a");
-                a.appendChild(image);
-                a.appendChild(text);
-                a.classList.add("se-publication-website-button");
-                a.href = link;
-                websiteList.appendChild(a);
+                websiteList.appendChild(button);
                 break;
             }
         }
@@ -219,27 +239,17 @@ function makeTitleBar(): void {
     const titleElement = document.querySelectorAll<HTMLHeadingElement>(
         "#conteudoinner > h1",
     )[1];
-    const title = titleElement.textContent;
+    const title = titleElement.textContent || "";
     titleElement.remove();
     const siglaRow = document.querySelector<HTMLTableRowElement>(
         ".tabelasz > tbody:nth-child(1) > tr:nth-child(2)",
     );
-    const sigla = document.querySelector<HTMLBRElement>(
-        ".tabelasz > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > b:nth-child(1)",
-    )?.textContent;
+    const sigla =
+        document.querySelector<HTMLBRElement>(
+            ".tabelasz > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(2) > b:nth-child(1)",
+        )?.textContent || "";
     siglaRow?.remove();
 
-    const titleBar = document.createElement("div");
-    titleBar.classList.add("se-teacher-title-bar");
-
-    const newTitle = document.createElement("h1");
-    newTitle.textContent = title || "";
-
-    const newSigla = document.createElement("h3");
-    newSigla.textContent = sigla || "";
-
-    titleBar.appendChild(newTitle);
-    titleBar.appendChild(newSigla);
-
+    const titleBar = <TitleBar title={title} sigla={sigla} />;
     informacaoPessoal?.prepend(titleBar);
 }
