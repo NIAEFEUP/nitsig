@@ -80,7 +80,7 @@ function reformatTables(parentSelector: string): void {
             removeTwoColumnTable(
                 `${parentSelector} > table`,
                 true,
-                parentElement!, // Non-null assertion here
+                parentElement,
             );
         }
     } else {
@@ -88,11 +88,7 @@ function reformatTables(parentSelector: string): void {
         const table = document.querySelector(tableSelector);
         if (table) {
             parentElement.appendChild(table);
-            removeTwoColumnTable(
-                tableSelector,
-                true,
-                parentElement!, // Non-null assertion here
-            );
+            removeTwoColumnTable(tableSelector, true, parentElement);
         }
     }
 }
