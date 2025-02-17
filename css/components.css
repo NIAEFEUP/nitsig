@@ -164,11 +164,10 @@
     --text-color: #333;
     --descriptions-color: #676767;
     --hover-color: rgb(140, 45, 25);
-    
 
     /* Fonts */
-    --font-primary: 'Poppins', sans-serif;
-    --font-secondary:'Open Sans', sans-serif;
+    --font-primary: "Poppins", sans-serif;
+    --font-secondary: "Open Sans", sans-serif;
 
     /* Font sizes */
     --header-large: 32px;
@@ -278,7 +277,7 @@
     cursor: pointer;
     color: var(--primary-color);
     padding: 12px 15px;
-    
+
     &:hover {
         color: var(--hover-color);
         opacity: 0.9;
