@@ -1,142 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NitsigSearch</title>
-    <script async src="https://cse.google.com/cse.js?cx=532f705a46f524c37"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.body.addEventListener('click', function (event) {
-                if (event.target.classList.contains('gs-title')) {
-                    event.preventDefault(); 
-                    window.open(event.target.href, '_blank'); 
-                }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NitsigSearch</title>
+        <script
+            async
+            src="https://cse.google.com/cse.js?cx=532f705a46f524c37"
+        ></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.body.addEventListener("click", function (event) {
+                    if (event.target.classList.contains("gs-title")) {
+                        event.preventDefault();
+                        window.open(event.target.href, "_blank");
+                    }
+                });
             });
-        });
-    </script>    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: rgba(140, 45, 25, 0.95);
-        }    
-        .search-container {
-            width: 85%;
-            background-color: #6f1e0e;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .gcse-search {
-            margin-top: 20px;
-        }
-        .gsc-control-cse {
-            background-color: #6f1e0e !important;
-            border: none !important;
-        }
-        .gsc-search-button-v2 {
-            background-color: #4f1309 !important;
-            border: none !important;
-            padding: 9px 27px !important;
-            transition: background-color 0.3s ease; 
-            margin-right: 5px;
-            cursor: pointer;
-        }
-        .gsc-search-button-v2:hover {
-            background-color: #3b0e06 !important; 
-        }
-        #gsc-i-id1 {
-            background: none !important;
-        }
+        </script>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: rgba(140, 45, 25, 0.95);
+            }
+            .search-container {
+                width: 85%;
+                background-color: #6f1e0e;
+                padding: 20px;
+                border-radius: 8px;
+            }
+            .gcse-search {
+                margin-top: 20px;
+            }
+            .gsc-control-cse {
+                background-color: #6f1e0e !important;
+                border: none !important;
+            }
+            .gsc-search-button-v2 {
+                background-color: #4f1309 !important;
+                border: none !important;
+                padding: 9px 27px !important;
+                transition: background-color 0.3s ease;
+                margin-right: 5px;
+                cursor: pointer;
+            }
+            .gsc-search-button-v2:hover {
+                background-color: #3b0e06 !important;
+            }
+            #gsc-i-id1 {
+                background: none !important;
+            }
 
-        .gsc-orderby-container {
-            text-align: right !important;
-            padding-right: 1%;
-        }
+            .gsc-orderby-container {
+                text-align: right !important;
+                padding-right: 1%;
+            }
 
-        .gsc-orderby-label,
-        .gsc-option-selector,
-        .gcsc-branding,
-        .gsc-option-selector,
-        .gs-web-image-box, .gs-promotion-image-box
-        {
-            display: none !important;
-        }
-        .gsc-result-info {
-            color: whitesmoke !important;
-        }
-        .gsc-results .gsc-cursor-box .gsc-cursor-page {
-            color: #d27461 !important
-        }
-        .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
-            color: whitesmoke !important
-        }
-        .gsc-above-wrapper-area {
-            border-bottom: none !important;
-        }
-        .gsst_a .gscb_a {
-            display: cursor !important;
-            color: #8c2d19 !important;
-        }
-        .gsst_a:hover .gscb_a {
-            display: cursor !important;
-            color: #3b0e06 !important;
-        }
-        .gcsc-find-more-on-google{
-            color: #d27461 !important;
-        }
-        .gcsc-find-more-on-google-magnifier {
-            fill: #8c2d19 !important;
-        }
-        .gsc-webResult.gsc-result {
-            border: 0.5px solid #d27461 !important
-        }
-        .gsc-selected-option-container {
-            padding: 5px 8px !important;
-            box-shadow: none !important;
-            cursor:  pointer !important;
-            background-color: whitesmoke;
-            transition: background-color 0.3s ease; 
-        }
-        .gsc-selected-option-container:hover {
-            background-color: #e5e5e5 !important;
-        }
-        .gsc-control-wrapper-cse{
-            max-height: 85vh;
-            overflow: auto; 
-        }
-        .gs-result .gs-title * {
-            color: whitesmoke !important;
-            font-weight: bold !important;
-        }
-        .gs-webResult .gs-snippet {
-            color:rgb(222, 222, 222) !important
-        }
-        .gs-webResult .gs-visibleUrl{
-            color: #d27461 !important;
-        }
-        table.gsc-search-box td.gsc-input {
-            padding-right: 0.5% !important;
-        }
-        .gs-no-results-result .gs-snippet, .gs-error-result .gs-snippet {
-            background-color: #6f1e0e !important;
-            border: none !important;
-        }
+            .gsc-orderby-label,
+            .gsc-option-selector,
+            .gcsc-branding,
+            .gsc-option-selector,
+            .gs-web-image-box,
+            .gs-promotion-image-box {
+                display: none !important;
+            }
+            .gsc-result-info {
+                color: whitesmoke !important;
+            }
+            .gsc-results .gsc-cursor-box .gsc-cursor-page {
+                color: #d27461 !important;
+            }
+            .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+                color: whitesmoke !important;
+            }
+            .gsc-above-wrapper-area {
+                border-bottom: none !important;
+            }
+            .gsst_a .gscb_a {
+                display: cursor !important;
+                color: #8c2d19 !important;
+            }
+            .gsst_a:hover .gscb_a {
+                display: cursor !important;
+                color: #3b0e06 !important;
+            }
+            .gcsc-find-more-on-google {
+                color: #d27461 !important;
+            }
+            .gcsc-find-more-on-google-magnifier {
+                fill: #8c2d19 !important;
+            }
+            .gsc-webResult.gsc-result {
+                border: 0.5px solid #d27461 !important;
+            }
+            .gsc-selected-option-container {
+                padding: 5px 8px !important;
+                box-shadow: none !important;
+                cursor: pointer !important;
+                background-color: whitesmoke;
+                transition: background-color 0.3s ease;
+            }
+            .gsc-selected-option-container:hover {
+                background-color: #e5e5e5 !important;
+            }
+            .gsc-control-wrapper-cse {
+                max-height: 85vh;
+                overflow: auto;
+            }
+            .gs-result .gs-title * {
+                color: whitesmoke !important;
+                font-weight: bold !important;
+            }
+            .gs-webResult .gs-snippet {
+                color: rgb(222, 222, 222) !important;
+            }
+            .gs-webResult .gs-visibleUrl {
+                color: #d27461 !important;
+            }
+            table.gsc-search-box td.gsc-input {
+                padding-right: 0.5% !important;
+            }
+            .gs-no-results-result .gs-snippet,
+            .gs-error-result .gs-snippet {
+                background-color: #6f1e0e !important;
+                border: none !important;
+            }
 
-        .gs-spelling, .gs-spelling a {
-            color: #e5e5e5 !important
-        }
-
-    </style>
-</head>
-<body>
-    <div class="search-container">
-        <div class="gcse-search"></div>
-    </div>
-</body>
+            .gs-spelling,
+            .gs-spelling a {
+                color: #e5e5e5 !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="search-container">
+            <div class="gcse-search"></div>
+        </div>
+    </body>
 </html>

@@ -15,12 +15,12 @@ const Authentication = ({ auth }: Props) => {
     if (auth)
         return (
             <div id="se-auth">
-                <Button 
-                    icon="ri-search-line" 
-                    variant="solid" 
-                    radius="full" 
-                    size="md" 
-                    className="icon-only" 
+                <Button
+                    icon="ri-search-line"
+                    variant="solid"
+                    radius="full"
+                    size="md"
+                    className="icon-only"
                     onclick={() => togglePopover("se-search")}
                 />
                 <Button
@@ -31,7 +31,10 @@ const Authentication = ({ auth }: Props) => {
                     className={auth.hasNotifications ? "se-badge" : ""}
                 />
                 <div id="se-search">
-                    <iframe id="search-iframe" src="http://127.0.0.1:5500/content-scripts/components/Navbar/search.html"></iframe>
+                    <iframe
+                        id="search-iframe"
+                        src="http://127.0.0.1:5500/content-scripts/components/Navbar/search.html"
+                    ></iframe>
                 </div>
                 <div id="se-auth-notifications-menu">
                     <input
