@@ -1,4 +1,9 @@
-import { useNavBar, hideShortcuts, changeFont, expandSections } from "./options";
+import {
+    useNavBar,
+    hideShortcuts,
+    changeFont,
+    expandSections,
+} from "./options";
 
 // Array of user preferences, passed to `injectAllChanges`
 export const userPreferences: string[] = [

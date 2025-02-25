@@ -84,16 +84,23 @@ export const expandSections = async (expand: string): Promise<void> => {
         }
     });
 
-    const expandableCards = document.querySelectorAll<HTMLElement>(".se-expandable-card");
+    const expandableCards = document.querySelectorAll<HTMLElement>(
+        ".se-expandable-card",
+    );
 
     expandableCards.forEach((card) => {
-        const content = card.querySelector<HTMLElement>(".se-expandable-card-wrapper");
+        const content = card.querySelector<HTMLElement>(
+            ".se-expandable-card-wrapper",
+        );
         const header = card.querySelector<HTMLButtonElement>(".se-card-header");
         const arrowIcon = header?.querySelector<HTMLElement>("i");
 
         if (!content || !header || !arrowIcon) return;
 
-        if ((expand === "on" && header.dataset.expanded === "true") || (expand === "off" && header.dataset.expanded === "false")) {
+        if (
+            (expand === "on" && header.dataset.expanded === "true") ||
+            (expand === "off" && header.dataset.expanded === "false")
+        ) {
             return;
         }
 
@@ -103,8 +110,11 @@ export const expandSections = async (expand: string): Promise<void> => {
                 content.style.maxHeight = "9999px";
                 header.dataset.expanded = "true";
                 arrowIcon.animate(
-                    [{ transform: "rotate(0deg)" }, { transform: "rotate(180deg)" }],
-                    { duration: 300, fill: "forwards", easing: "ease-in-out" }
+                    [
+                        { transform: "rotate(0deg)" },
+                        { transform: "rotate(180deg)" },
+                    ],
+                    { duration: 300, fill: "forwards", easing: "ease-in-out" },
                 );
                 break;
 
@@ -113,8 +123,11 @@ export const expandSections = async (expand: string): Promise<void> => {
                 content.style.maxHeight = "0px";
                 header.dataset.expanded = "false";
                 arrowIcon.animate(
-                    [{ transform: "rotate(180deg)" }, { transform: "rotate(0deg)" }],
-                    { duration: 300, fill: "forwards", easing: "ease-in-out" }
+                    [
+                        { transform: "rotate(180deg)" },
+                        { transform: "rotate(0deg)" },
+                    ],
+                    { duration: 300, fill: "forwards", easing: "ease-in-out" },
                 );
                 break;
         }
