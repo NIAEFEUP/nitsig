@@ -213,32 +213,33 @@ export function createComponentsPage() {
                 <Component
                     name= "Card"
                     description="Our card component, that allows the creation of cards with different styles."
-                    code={`
-<Card
-    title="Default Card"
-    description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
-    subtitles={["Subtitle"]}
-    imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
-    button="Click Me"
+                    code={`<Card 
+id="1"
+title="Default Card"
+description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+subtitles={["One", "Two"]}
+imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
 />
 `}>
-                    <Card
+                    <Card 
+                        id="1"
                         title="Default Card"
                         description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
-                        subtitles={["Subtitle"]}
+                        subtitles={["One", "Two"]}
                         imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
-                        button="Click Me"
+                        button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
                     />
-                    {/* <Card */}
-                        {/* title ="Image Only" */}
-                        {/* imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s" */}
-                        {/* button = "Click me" */}
-                   {/* /> */}
-                   {/* <Card */}
-                        {/* title ="Title Button Card" */}
-                        {/* button = "Click me" */}
-                        {/* /> */}
-                    
+                    <Card
+                    id="2"
+                    title="Title + Button Only"
+                    button = {<Button title="Button" variant="solid" size="sm" color="primary"
+                     />}
+                     />
+                     <Card 
+                     id="3"
+                     title="Image + Title only"
+                     imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"/>
                 </Component>
 
             </div>
