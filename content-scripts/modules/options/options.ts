@@ -71,14 +71,14 @@ export const useNavBar = async (navbar: string): Promise<void> => {
 };
 
 export const expandSections = async (expand: string): Promise<void> => {
-    
     await new Promise<void>((resolve) => {
         if (document.readyState === "complete") {
             document.getElementsByTagName("html")[0].style.display = "block";
             resolve();
         } else {
             window.addEventListener("load", () => {
-                document.getElementsByTagName("html")[0].style.display = "block";
+                document.getElementsByTagName("html")[0].style.display =
+                    "block";
                 resolve();
             });
         }
@@ -88,34 +88,38 @@ export const expandSections = async (expand: string): Promise<void> => {
 
     expandableCards.forEach((card) => {
         const content = card.querySelector<HTMLElement>(".se-expandable-card-wrapper");
-        const header = card.querySelector<HTMLElement>(".se-card-header");
+        const header = card.querySelector<HTMLButtonElement>(".se-card-header");
+        const arrowIcon = header?.querySelector<HTMLElement>("i");
 
-        if (!content || !header) return;
+        if (!content || !header || !arrowIcon) return;
 
-        const button = header.querySelector<HTMLButtonElement>(".se-card-expand-button");
-
-        if (!button) return;
-
-        content.style.transition = "none";
+        if ((expand === "on" && header.dataset.expanded === "true") || (expand === "off" && header.dataset.expanded === "false")) {
+            return;
+        }
 
         switch (expand) {
             case "on":
+                content.style.transition = "none";
                 content.style.maxHeight = "9999px";
-                button.dataset.expanded = "true";
-                button.animate(
+                header.dataset.expanded = "true";
+                arrowIcon.animate(
                     [{ transform: "rotate(0deg)" }, { transform: "rotate(180deg)" }],
                     { duration: 300, fill: "forwards", easing: "ease-in-out" }
                 );
                 break;
 
             case "off":
+                content.style.transition = "none";
                 content.style.maxHeight = "0px";
-                button.dataset.expanded = "false";
-                button.animate(
+                header.dataset.expanded = "false";
+                arrowIcon.animate(
                     [{ transform: "rotate(180deg)" }, { transform: "rotate(0deg)" }],
                     { duration: 300, fill: "forwards", easing: "ease-in-out" }
                 );
                 break;
         }
+
+        void content.offsetHeight;
+        content.style.transition = "max-height 0.3s";
     });
 };
