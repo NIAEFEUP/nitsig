@@ -231,15 +231,16 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
                         button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
                     />
                     <Card
-                    id="2"
-                    title="Title + Button Only"
-                    button = {<Button title="Button" variant="solid" size="sm" color="primary"
-                     />}
-                     />
-                     <Card 
-                     id="3"
-                     title="Image + Title only"
-                     imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"/>
+                        id="2"
+                        title="Alt Card 1"
+                        description="I don't have subtitles"
+                        imgSrc="https://preview.redd.it/i-once-found-a-silly-cat-picture-in-black-and-white-v0-tzn8uvux7vmd1.png?width=236&format=png&auto=webp&s=f17ce524ff01e70fce304712ca5bf58a194b5fbe"
+                        button = {<Button title="Button" variant="solid" size="sm" color="primary"/>}/>
+                    <Card
+                        id="3"
+                        title="Alt Card 2"
+                        description="I don't have an image nor subtitles"
+                        button = {<Button icon="ri-notification-line" radius="full" color="primary"/>}/>
                 </Component>
 
             </div>

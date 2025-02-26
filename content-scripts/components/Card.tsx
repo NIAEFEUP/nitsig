@@ -13,7 +13,7 @@ const Card: JSX.Component<CardProps> = ({id, title, description, imgSrc, subtitl
     return (
         <div className = {finalClassName} id ={id}>
             <div className = "container">
-            {title || description || imgSrc || subtitles ? 
+            {title && description && imgSrc && subtitles && button ? 
                 <div className = "details">
                     {imgSrc ?
                     <img className = "img" src ={imgSrc}>
@@ -32,10 +32,23 @@ const Card: JSX.Component<CardProps> = ({id, title, description, imgSrc, subtitl
                         {description}
                     </p> : ""
                     }
+                    {button ? button : " "}
+                </div>
+                    :<div className="detailsalt">
+                        {imgSrc ?
+                        <img className="img" src={imgSrc}></img>:" "}
+                        <div className="other">
+                            <div className="textbox">
+                                {title ? <h2 className="title">{title}</h2>:" "}
+                                {description ? <p className="description">{description}</p>:" "}
+                            </div>
+                            <div className="buttonbox">
+                                {button?button:" "}
+                            </div>
+                        </div>
                     </div>
-                : " " 
             }
-            {button ? button : " "}
+
             </div>
 
         </div>
