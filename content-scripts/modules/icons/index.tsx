@@ -180,9 +180,13 @@ const replaceBgImages = (): void => {
 const replaceBanners = (): void => {
     Object.entries(BANNER_ICON_MAP).forEach(([k, v]) => {
         document.querySelectorAll(`.${k}`).forEach((i) => {
-            const icon = document.createElement("span");
-            icon.className = `se-icon ri-${v}-fill`;
-            icon.style.fontSize = "1.5em";
+            // TODO (thePeras): Use <Icon />, but you need to expand the Icon component to support fill and style
+            const icon = (
+                <span
+                    className={`se-icon ri-${v}-fill`}
+                    style={{ fontSize: "1.5em" }}
+                />
+            );
 
             const wrapper = document.createElement("span");
             while (i.firstChild) {
