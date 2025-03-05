@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 interface CardProps {
     id: string;
