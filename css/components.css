@@ -132,11 +132,11 @@
 
 /* Card Component */
 .se-card {
-    .container{
+    .container {
         background-color: #eeeeee;
         max-width: 250px;
         border-radius: 20px;
-        color: #8C2D19;
+        color: #8c2d19;
     }
     .details {
         padding-bottom: 16px;
@@ -147,14 +147,14 @@
         .title {
             font-size: 24px;
             font-weight: 600;
-            color: #8C2D19;
+            color: #8c2d19;
             margin-top: 8px;
             margin-left: 8px;
             margin-bottom: 4px;
         }
-        .subtitles{
+        .subtitles {
             padding: 5px;
-            background-color: #8C2D19;
+            background-color: #8c2d19;
             border-radius: 12px;
             margin-left: 8px;
             font-size: 15px;
@@ -163,59 +163,59 @@
             display: inline-block;
             white-space: nowrap;
         }
-        .description{
+        .description {
             font-size: 14px;
             color: #000000;
             line-height: 150%;
             margin-left: 8px;
             margin-right: 8px;
         }
-        .img{
+        .img {
             width: 100%;
             border-radius: 12px;
             height: 214px;
             object-fit: cover;
         }
-        .se-button{
+        .se-button {
             margin: 0% auto;
         }
     }
 
-    .detailsalt{
-        .img{
-            width:100%;
+    .detailsalt {
+        .img {
+            width: 100%;
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
-            height:150px;
-            width:250px;
+            height: 150px;
+            width: 250px;
             object-fit: cover;
         }
-        .other{
-            display:flex;
-            .textbox{
-                padding:8px;
+        .other {
+            display: flex;
+            .textbox {
+                padding: 8px;
                 .title {
                     font-size: 20px;
                     font-weight: 600;
                     margin: 0% auto;
                     margin-left: 8px;
                 }
-                .description{
+                .description {
                     font-size: 14px;
                     color: grey;
                     line-height: 150%;
                     margin-top: 0px;
-                    margin-bottom:0px;
+                    margin-bottom: 0px;
                     margin-left: 8px;
                     margin-right: 8px;
                 }
             }
-            .buttonbox{
-                padding-left:0px;
-                padding-right:8px;
-                padding-top:8px;
-                padding-bottom:8px;
-                .se-button{
+            .buttonbox {
+                padding-left: 0px;
+                padding-right: 8px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                .se-button {
                     margin: 0% auto;
                     margin-top: 12px;
                 }
