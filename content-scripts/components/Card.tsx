@@ -16,7 +16,7 @@ const Card: JSX.Component<CardProps> = ({
     subtitles,
     button,
 }) => {
-    let finalClassName = "se-card";
+    const finalClassName = "se-card";
     return (
         <div className={finalClassName} id={id}>
             <div className="container">
