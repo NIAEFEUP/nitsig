@@ -5,7 +5,7 @@ import { Table } from "../components/Table";
 import Icon from "../components/Icon";
 import Card from "../components/Card";
 import { Accordion } from "../components/Accordion";
-const components = ["Icon", "Button", "Table", "Accordion", "Cards"];
+const components = ["Icon", "Button", "Table","Cards", "Accordion"];
 export function createComponentsPage() {
     // TODO: remove this check
     if (!document.location.href.toLowerCase().includes("components")) {
