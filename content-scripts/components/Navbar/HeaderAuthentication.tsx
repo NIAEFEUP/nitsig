@@ -18,6 +18,7 @@ const Authentication = ({ auth }: Props) => {
                 <Button
                     icon="ri-notification-line"
                     radius="full"
+                    id="se-auth-notifications-button"
                     onclick={() => togglePopover("se-auth-notifications-menu")}
                     className={auth.hasNotifications ? "se-badge" : ""}
                 />

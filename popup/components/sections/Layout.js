@@ -3,9 +3,40 @@ import SwitchControl from "../controls/SwitchControl";
 
 const Layout = () => (
     <Section title="Aspetos Visuais">
-        <SwitchControl label="Ativar barra de navegação" storageKey="navbar" />
-        <SwitchControl label="Esconder atalhos" storageKey="shortcuts" />
-        <SwitchControl label="Mudar fonte de letra" storageKey="font" />
+        <SwitchControl
+            label="Ativar barra de navegação"
+            storageKey="navbar"
+            tooltipContent={
+                <>
+                    Ativar navegação superior e esconder
+                    <br />
+                    barra de navegação da esquerda.
+                </>
+            }
+            tooltipId="navbar-tooltip"
+        />
+        <SwitchControl
+            label="Esconder atalhos"
+            storageKey="shortcuts"
+            tooltipContent={
+                <>
+                    Esconder a opção dos atalhos <br />
+                    da barra lateral direita.
+                </>
+            }
+            tooltipId="shortcuts-tooltip"
+        />
+        <SwitchControl
+            label="Mudar fonte de letra"
+            storageKey="font"
+            tooltipContent={
+                <>
+                    Alterar a fonte do <br />
+                    texto para Roboto.
+                </>
+            }
+            tooltipId="font-tooltip"
+        />
     </Section>
 );
 

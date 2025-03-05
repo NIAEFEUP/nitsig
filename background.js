@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
 // Add default values for each option here
@@ -63,6 +64,6 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     }
 });
 
-chrome.permissions.onRemoved.addListener((permissions) => {
+chrome.permissions.onRemoved.addListener(() => {
     //TODO:
 });

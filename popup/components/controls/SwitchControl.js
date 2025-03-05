@@ -1,10 +1,18 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { styled } from "@stitches/react";
 import { useEffect, useState } from "react";
+import { RiQuestionLine } from "@remixicon/react";
+import { Tooltip } from "react-tooltip";
 
 import { getStorage, setStorage } from "../../utilities/chromeStorage";
 
-function SwitchControl({ label, storageKey, defaultState = false }) {
+function SwitchControl({
+    label,
+    storageKey,
+    defaultState = false,
+    tooltipContent,
+    tooltipId,
+}) {
     const [localState, setLocalState] = useState(defaultState);
 
     useEffect(() => {
@@ -26,6 +34,17 @@ function SwitchControl({ label, storageKey, defaultState = false }) {
         <div className="flex items-center justify-between w-full">
             <label htmlFor={storageKey} className="text-[15px] font-bold">
                 {label}
+                {tooltipContent && (
+                    <span className="question-icon">
+                        <RiQuestionLine data-tooltip-id={tooltipId} />
+                        <Tooltip
+                            className="tooltip"
+                            id={tooltipId}
+                            content={tooltipContent}
+                            place="top"
+                        />
+                    </span>
+                )}
             </label>
             <StyledSwitch
                 onCheckedChange={async (checked) => {

@@ -3,7 +3,7 @@
     "name": "NitSig: Sigarra, but Neater",
     "short_name": "NitSig",
     "description": "A Neater Sigarra by improving its UI/UX experience and adding new features",
-    "version": "1.0.4",
+    "version": "1.1.0",
     "manifest_version": 3,
     "icons": {
         "16": "images/logo/logo-16.png",
@@ -27,8 +27,7 @@
                 "css/teacherPage.css",
                 "css/classPage.css",
                 "css/profilePage.css",
-                "css/card.css",
-                "css/expandableCard.css"
+                "css/card.css"
             ]
         },
         {

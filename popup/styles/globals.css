@@ -44,3 +44,11 @@ textarea,
 select {
     font: inherit;
 }
+
+.question-icon {
+    display: inline-block;
+    transform: scale(0.8);
+    margin-right: 4px;
+    vertical-align: top;
+    color: grey;
+}
