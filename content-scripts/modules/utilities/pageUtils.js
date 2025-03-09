@@ -53,11 +53,7 @@ export function moveChildrenToAncestor(selector) {
     element.remove();
 }
 
-export function removeTwoColumnTable(
-    tableSelector,
-    inverted = false,
-    parent = null,
-) {
+export function removeTwoColumnTable(tableSelector, inverted = false, parent) {
     const table = document.querySelector(tableSelector);
 
     if (table === null || table.tagName !== "TABLE")
