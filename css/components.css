@@ -130,28 +130,96 @@
     }
 }
 
-.se-card-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-}
+/* Card Component */
+.se-card {
+    .container {
+        background-color: #eeeeee;
+        max-width: 250px;
+        border-radius: 20px;
+        color: #8c2d19;
+    }
+    .details {
+        padding-bottom: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 16px;
 
-.se-card-expand-button {
-    background: inherit !important;
-    border: none !important;
-    padding: none !important;
-    margin: none !important;
-    box-shadow: none !important;
-}
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #8c2d19;
+            margin-top: 8px;
+            margin-left: 8px;
+            margin-bottom: 4px;
+        }
+        .subtitles {
+            padding: 5px;
+            background-color: #8c2d19;
+            border-radius: 12px;
+            margin-left: 8px;
+            font-size: 15px;
+            font-weight: 400;
+            color: #eeeeee;
+            display: inline-block;
+            white-space: nowrap;
+        }
+        .description {
+            font-size: 14px;
+            color: #000000;
+            line-height: 150%;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+        .img {
+            width: 100%;
+            border-radius: 12px;
+            height: 214px;
+            object-fit: cover;
+        }
+        .se-button {
+            margin: 0% auto;
+        }
+    }
 
-.se-card-expand-button:hover {
-    background: inherit !important;
-}
-
-.se-expandable-card-wrapper {
-    overflow: hidden;
-    transition: max-height 300ms ease-in-out;
+    .detailsalt {
+        .img {
+            width: 100%;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            height: 150px;
+            width: 250px;
+            object-fit: cover;
+        }
+        .other {
+            display: flex;
+            .textbox {
+                padding: 8px;
+                .title {
+                    font-size: 20px;
+                    font-weight: 600;
+                    margin: 0% auto;
+                    margin-left: 8px;
+                }
+                .description {
+                    font-size: 14px;
+                    color: grey;
+                    line-height: 150%;
+                    margin-top: 0px;
+                    margin-bottom: 0px;
+                    margin-left: 8px;
+                    margin-right: 8px;
+                }
+            }
+            .buttonbox {
+                padding-left: 0px;
+                padding-right: 8px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                .se-button {
+                    margin: 0% auto;
+                    margin-top: 12px;
+                }
+            }
+        }
+    }
 }

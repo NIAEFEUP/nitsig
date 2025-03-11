@@ -3,10 +3,9 @@ import jsx from "texsaur";
 import Button from "../components/Button";
 import { Table } from "../components/Table";
 import Icon from "../components/Icon";
+import Card from "../components/Card";
 import { Accordion } from "../components/Accordion";
-
-const components = ["Icon", "Button", "Table", "Accordion"];
-
+const components = ["Icon", "Button", "Table", "Cards", "Accordion"];
 export function createComponentsPage() {
     // TODO: remove this check
     if (!document.location.href.toLowerCase().includes("components")) {
@@ -207,6 +206,62 @@ export function createComponentsPage() {
                             ],
                             ["Input", "A text input field", "Complete"],
                         ]}
+                    />
+                </Component>
+                {/* Card */}
+                <Component
+                    name="Card"
+                    description="Our card component, that allows the creation of cards with different styles."
+                    code={`<Card 
+id="1"
+title="Default Card"
+description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+subtitles={["One", "Two"]}
+imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
+/>
+`}
+                >
+                    <Card
+                        id="1"
+                        title="Default Card"
+                        description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+                        subtitles={["One", "Two"]}
+                        imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+                        button={
+                            <Button
+                                title="Button"
+                                variant="solid"
+                                size="sm"
+                                color="primary"
+                            />
+                        }
+                    />
+                    <Card
+                        id="2"
+                        title="Alt Card 1"
+                        description="I don't have subtitles"
+                        imgSrc="https://preview.redd.it/i-once-found-a-silly-cat-picture-in-black-and-white-v0-tzn8uvux7vmd1.png?width=236&format=png&auto=webp&s=f17ce524ff01e70fce304712ca5bf58a194b5fbe"
+                        button={
+                            <Button
+                                title="Button"
+                                variant="solid"
+                                size="sm"
+                                color="primary"
+                            />
+                        }
+                    />
+                    <Card
+                        id="3"
+                        title="Alt Card 2"
+                        description="I don't have an image nor subtitles"
+                        button={
+                            <Button
+                                icon="ri-notification-line"
+                                radius="full"
+                                color="primary"
+                            />
+                        }
                     />
                 </Component>
 
