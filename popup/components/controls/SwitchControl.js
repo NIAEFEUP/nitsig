@@ -1,41 +1,23 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 import { styled } from "@stitches/react";
-import { useEffect, useState } from "react";
 import { RiQuestionLine } from "@remixicon/react";
 import { Tooltip } from "react-tooltip";
-
-import { getStorage, setStorage } from "../../utilities/chromeStorage";
+import { usePreference } from "../../utils/usePreference";
 
 function SwitchControl({
     label,
     storageKey,
-    defaultState = false,
     tooltipContent,
     tooltipId,
 }) {
-    const [localState, setLocalState] = useState(defaultState);
-
-    useEffect(() => {
-        const getDefaultState = async () => {
-            try {
-                const userDefault = await getStorage(storageKey);
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                userDefault &&
-                    setLocalState(userDefault === "on" ? true : false);
-            } catch (error) {
-                console.warn(error);
-            }
-        };
-
-        getDefaultState();
-    }, [storageKey]);
+    const [preference, setPreference] = usePreference(storageKey);
 
     return (
         <div className="flex items-center justify-between w-full">
             <label htmlFor={storageKey} className="text-[15px] font-bold">
                 {label}
                 {tooltipContent && (
-                    <span className="question-icon">
+                    <span className="inline-block scale-80 ml-1 align-top text-gray-500">
                         <RiQuestionLine data-tooltip-id={tooltipId} />
                         <Tooltip
                             className="tooltip"
@@ -47,17 +29,8 @@ function SwitchControl({
                 )}
             </label>
             <StyledSwitch
-                onCheckedChange={async (checked) => {
-                    setLocalState(checked);
-                    try {
-                        await setStorage({
-                            [storageKey]: checked ? "on" : "off",
-                        });
-                    } catch (error) {
-                        console.warn(error);
-                    }
-                }}
-                checked={localState}
+                onCheckedChange={setPreference}
+                checked={preference}
                 id={storageKey}
             >
                 <StyledThumb />
