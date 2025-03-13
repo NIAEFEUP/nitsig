@@ -7,7 +7,7 @@ export const usePreference = (preference) => {
 
     // Get default value from storage
     useEffect(async () => {
-        const defaultValue = await getStorage(preference) ?? "off";
+        const defaultValue = (await getStorage(preference)) ?? "off";
         setValue(defaultValue === "on");
         setFFTime(false);
     }, []);
@@ -22,4 +22,4 @@ export const usePreference = (preference) => {
     }, [value]);
 
     return [value, setValue];
-}
+};

@@ -4,12 +4,7 @@ import { RiQuestionLine } from "@remixicon/react";
 import { Tooltip } from "react-tooltip";
 import { usePreference } from "../../utils/usePreference";
 
-function SwitchControl({
-    label,
-    storageKey,
-    tooltipContent,
-    tooltipId,
-}) {
+function SwitchControl({ label, storageKey, tooltipContent, tooltipId }) {
     const [preference, setPreference] = usePreference(storageKey);
 
     return (

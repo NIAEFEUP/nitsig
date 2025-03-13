@@ -2,11 +2,11 @@
 const sigarraRegex: RegExp = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
 
 interface PopupOptions {
-    navbar: string;
-    shortcuts: string;
-    autoLogin: string;
-    font: string;
-    expand: string;
+    navbar: "on" | "off";
+    shortcuts: "on" | "off";
+    autoLogin: "on" | "off";
+    font: "on" | "off";
+    expand: "on" | "off";
 }
 
 // Add default values for each option here
@@ -50,7 +50,9 @@ chrome.runtime.onInstalled.addListener((object) => {
         for (const opt in popupOptions) {
             chrome.storage.local.get(opt, (result) => {
                 if (result[opt] == null) {
-                    chrome.storage.local.set({ [opt]: popupOptions[opt as keyof PopupOptions] });
+                    chrome.storage.local.set({
+                        [opt]: popupOptions[opt as keyof PopupOptions],
+                    });
                 }
             });
         }

@@ -12,8 +12,8 @@
         "dev": "yarn dev:firefox",
         "format": "prettier --check . ./content-scripts/* ./popup/*",
         "format:fix": "prettier --write . ./content-scripts/* ./popup/*",
-        "lint": "yarn run eslint ./content-scripts/* ./popup/components ./popup/pages ./popup/utilities",
-        "lint:fix": "yarn run eslint --fix ./content-scripts/* ./popup/components ./popup/pages ./popup/utilities"
+        "lint": "yarn run eslint ./content-scripts/* ./popup/components ./popup/pages ./popup/utils",
+        "lint:fix": "yarn run eslint --fix ./content-scripts/* ./popup/components ./popup/pages ./popup/utils"
     },
     "dependencies": {
         "fs-extra": "^11.1.0",

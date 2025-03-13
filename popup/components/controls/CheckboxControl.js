@@ -8,10 +8,7 @@ function CheckboxControl({ label, storageKey }) {
 
     return (
         <div className="flex items-center justify-between w-full py-1">
-            <label
-                htmlFor={storageKey}
-                className="text-base tracking-normal"
-            >
+            <label htmlFor={storageKey} className="text-base tracking-normal">
                 {label}
             </label>
             <div className="grid rounded-full cursor-pointer w-9 h-9 place-items-center hover:bg-accentFour">
