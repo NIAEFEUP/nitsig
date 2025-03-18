@@ -186,7 +186,7 @@
 
 /* text components  */
 /*headers */
-.se-header-large {
+#se-header-large {
     font-family: var(--font-primary);
     font-size: var(--header-large);
     color: var(--header-text-color);
@@ -196,7 +196,7 @@
     margin-bottom: 10px;
 }
 
-.se-header-medium {
+#se-header-medium {
     font-family: var(--font-primary);
     font-size: var(--header-medium);
     font-weight: var(--semibold-weight);
@@ -206,7 +206,7 @@
     margin-bottom: 10px;
 }
 
-.se-header-small {
+#se-header-small {
     font-family: var(--font-primary);
     font-size: var(--header-small);
     font-weight: var(--semibold-weight);
@@ -216,7 +216,7 @@
     margin-bottom: 10px;
 }
 
-.se-page-title {
+#se-page-title {
     font-family: var(--font-primary);
     font-size: var(--header-large);
     color: var(--primary-color);
@@ -226,7 +226,7 @@
     margin-top: 20px;
     margin-bottom: 25px;
 }
-.se-subtitle {
+#se-subtitle {
     font-family: var(--font-primary);
     font-size: var(--subtitle-size);
     font-weight: var(--bold-weight);
@@ -236,7 +236,7 @@
 }
 
 /* body text */
-.se-body-text {
+#se-body-text {
     font-family: var(--font-primary);
     font-size: var(--body-text);
     font-weight: var(--regular-weight);
@@ -246,7 +246,7 @@
     line-height: 1.8;
 }
 
-.se-small-text {
+#se-small-text {
     font-family: var(--font-primary);
     font-size: var(--small-text);
     font-weight: var(--regular-weight);
@@ -255,7 +255,7 @@
     margin-bottom: 8px;
 }
 
-.se-description {
+#se-description {
     /* code for notes or table collumns names */
     font-family: var(--font-primary);
     font-size: var( --description-size);
