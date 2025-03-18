@@ -41,7 +41,6 @@ const HEADER_LINKS = {
         "Mais opções": "web_base.gera_pagina?p_pagina=1831",
     },
 };
-
 interface Props {
     auth?: AuthSession | null;
 }
