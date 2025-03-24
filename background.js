@@ -7,6 +7,7 @@ const popupOptions = {
     shortcuts: "on",
     autoLogin: "off",
     font: "on",
+    expand: "off",
 };
 
 const reloadFEUPSigarraPages = () => {

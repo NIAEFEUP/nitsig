@@ -37,6 +37,17 @@ const Layout = () => (
             }
             tooltipId="font-tooltip"
         />
+        <SwitchControl
+            label="Expandir Secções"
+            storageKey="expand"
+            tooltipContent={
+                <>
+                    Expandir as secções <br />
+                    das fichas das uc.
+                </>
+            }
+            tooltipId="expand-tooltip"
+        />
     </Section>
 );
 
