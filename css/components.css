@@ -326,7 +326,7 @@
 #se-description {
     /* code for notes or table collumns names */
     font-family: var(--font-primary);
-    font-size: var( --description-size);
+    font-size: var(--description-size);
     font-weight: var(--regular-weight);
     color: var(--descriptions-color);
     border-radius: 5px;

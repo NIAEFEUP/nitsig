@@ -6,7 +6,14 @@ import Icon from "../components/Icon";
 import Card from "../components/Card";
 import { Accordion } from "../components/Accordion";
 
-const components = ["Icon", "Button", "Table", "Cards", "Accordion", "Text components"];
+const components = [
+    "Icon",
+    "Button",
+    "Table",
+    "Cards",
+    "Accordion",
+    "Text components",
+];
 
 export function createComponentsPage() {
     // TODO: remove this check
@@ -323,9 +330,9 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
 
                 {/* Text Components */}
                 <Component
-                name= "Text Components"
-                description="Text Components used to standardize headers, text and other text elements"
-                code={`
+                    name="Text Components"
+                    description="Text Components used to standardize headers, text and other text elements"
+                    code={`
 <div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
 
 <h1 id="se-header-large" style="color:black;">Large Header</h1>
@@ -345,20 +352,25 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
 </div>
             `}
                 >
-                <div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
-                
-                <h1 id="se-header-large" style="color:black;">Large Header</h1>
-                <h2 id="se-header-medium" style="color:black;">Medium Header</h2>
-                <h3 id="se-header-small" style="color:black;">Small Header</h3>
-                
-                <h4 id="se-page-title">Page Title</h4>
-                <h4 id="se-subtitle">Subtitle</h4>
+                    <div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+                        <h1 id="se-header-large" style="color:black;">
+                            Large Header
+                        </h1>
+                        <h2 id="se-header-medium" style="color:black;">
+                            Medium Header
+                        </h2>
+                        <h3 id="se-header-small" style="color:black;">
+                            Small Header
+                        </h3>
 
-                <p id="se-body-text">This is some text</p>
-                <p id="se-small-text">This is a small text</p>
+                        <h4 id="se-page-title">Page Title</h4>
+                        <h4 id="se-subtitle">Subtitle</h4>
 
-                <p id="se-description">This is as description text</p>
-                </div>
+                        <p id="se-body-text">This is some text</p>
+                        <p id="se-small-text">This is a small text</p>
+
+                        <p id="se-description">This is as description text</p>
+                    </div>
                 </Component>
             </div>
         </div>
