@@ -1,3 +1,6 @@
+// This script is used to sanitize the output of the Next.js build
+// for the Chrome extension.
+
 // Credit to @webbertakken for the gist:
 // https://gist.github.com/webbertakken/ed82572b50f4e166562906757aede40a
 

@@ -1,3 +1,11 @@
+/* 
+
+!! TRY NOT TO ADD ANYTHING HERE !!
+
+Use tailwindcss as the main styling solution in the Popup
+
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,12 +51,4 @@ button,
 textarea,
 select {
     font: inherit;
-}
-
-.question-icon {
-    display: inline-block;
-    transform: scale(0.8);
-    margin-right: 4px;
-    vertical-align: top;
-    color: grey;
 }

@@ -1,8 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const sigarraRegex = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
+const sigarraRegex: RegExp = /.*:\/\/sigarra\.up\.pt\/feup\/.*/;
+
+interface PopupOptions {
+    navbar: "on" | "off";
+    shortcuts: "on" | "off";
+    autoLogin: "on" | "off";
+    font: "on" | "off";
+    expand: "on" | "off";
+}
 
 // Add default values for each option here
-const popupOptions = {
+const popupOptions: PopupOptions = {
     navbar: "on",
     shortcuts: "on",
     autoLogin: "off",
@@ -10,10 +18,12 @@ const popupOptions = {
     expand: "off",
 };
 
-const reloadFEUPSigarraPages = () => {
+const reloadFEUPSigarraPages = (): void => {
     chrome.tabs.query({ url: "*://sigarra.up.pt/feup/*" }, (tabs) => {
         tabs.forEach((tab) => {
-            chrome.tabs.reload(tab.id);
+            if (tab.id !== undefined) {
+                chrome.tabs.reload(tab.id);
+            }
         });
     });
 };
@@ -22,7 +32,7 @@ chrome.runtime.onInstalled.addListener((object) => {
     if (object.reason === "install") {
         reloadFEUPSigarraPages();
 
-        if (navigator.userAgent.toLowerCase().indexOf("firefox") > -1) {
+        if (navigator.userAgent.toLowerCase().includes("firefox")) {
             chrome.tabs.create({
                 url: chrome.runtime.getURL("html/autorize.html"),
             });
@@ -38,28 +48,34 @@ chrome.runtime.onInstalled.addListener((object) => {
     if (object.reason === "update") {
         reloadFEUPSigarraPages();
         for (const opt in popupOptions) {
-            if (chrome.storage.local.get(opt) == null)
-                chrome.storage.local.set({ [opt]: popupOptions[opt] });
+            chrome.storage.local.get(opt, (result) => {
+                if (result[opt] == null) {
+                    chrome.storage.local.set({
+                        [opt]: popupOptions[opt as keyof PopupOptions],
+                    });
+                }
+            });
         }
     }
 });
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-    if (!sender.tab.active) {
+    if (!sender.tab || !sender.tab.active) {
         console.log("tab not active skipping message...");
         return;
     }
-    if (message.type == "login") {
+
+    if (message.type === "login") {
         const cookie = await chrome.cookies.get({
             name: "SI_SESSION",
-            url: sender.tab.url,
+            url: sender.tab.url!,
         });
         console.log(cookie);
-        if (cookie == null || cookie.value === "0") {
+        if (!cookie || cookie.value === "0") {
             sendResponse(false);
             return;
         }
-        message.auto_login.verifed = true;
+        message.auto_login.verified = true;
         await chrome.storage.local.set({ auto_login: message.auto_login });
         sendResponse(true);
     }
