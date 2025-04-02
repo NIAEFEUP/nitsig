@@ -3,9 +3,17 @@ import jsx from "texsaur";
 import Button from "../components/Button";
 import { Table } from "../components/Table";
 import Icon from "../components/Icon";
+import Card from "../components/Card";
 import { Accordion } from "../components/Accordion";
 
-const components = ["Icon", "Button", "Table", "Accordion"];
+const components = [
+    "Icon",
+    "Button",
+    "Table",
+    "Cards",
+    "Accordion",
+    "Text components",
+];
 
 export function createComponentsPage() {
     // TODO: remove this check
@@ -209,6 +217,62 @@ export function createComponentsPage() {
                         ]}
                     />
                 </Component>
+                {/* Card */}
+                <Component
+                    name="Card"
+                    description="Our card component, that allows the creation of cards with different styles."
+                    code={`<Card 
+id="1"
+title="Default Card"
+description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+subtitles={["One", "Two"]}
+imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
+/>
+`}
+                >
+                    <Card
+                        id="1"
+                        title="Default Card"
+                        description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
+                        subtitles={["One", "Two"]}
+                        imgSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThD4or2R-Tpyokw8NzJyn-LXt6R8YK9Sih5w&s"
+                        button={
+                            <Button
+                                title="Button"
+                                variant="solid"
+                                size="sm"
+                                color="primary"
+                            />
+                        }
+                    />
+                    <Card
+                        id="2"
+                        title="Alt Card 1"
+                        description="I don't have subtitles"
+                        imgSrc="https://preview.redd.it/i-once-found-a-silly-cat-picture-in-black-and-white-v0-tzn8uvux7vmd1.png?width=236&format=png&auto=webp&s=f17ce524ff01e70fce304712ca5bf58a194b5fbe"
+                        button={
+                            <Button
+                                title="Button"
+                                variant="solid"
+                                size="sm"
+                                color="primary"
+                            />
+                        }
+                    />
+                    <Card
+                        id="3"
+                        title="Alt Card 2"
+                        description="I don't have an image nor subtitles"
+                        button={
+                            <Button
+                                icon="ri-notification-line"
+                                radius="full"
+                                color="primary"
+                            />
+                        }
+                    />
+                </Component>
 
                 {/* Accordion */}
                 <Component
@@ -262,6 +326,51 @@ export function createComponentsPage() {
                             ]}
                         />
                     </Accordion>
+                </Component>
+
+                {/* Text Components */}
+                <Component
+                    name="Text Components"
+                    description="Text Components used to standardize headers, text and other text elements"
+                    code={`
+<div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+
+<h1 id="se-header-large" style="color:black;">Large Header</h1>
+<h2 id="se-header-medium" style="color:black;">Medium Header</h2>
+<h3 id="se-header-small" style="color:black;">Small Header</h3>
+
+<h4 id="se-page-title">Page Title</h4>
+<h4 id="se-subtitle">Subtitle</h4>
+
+<p id="se-body-text">This is some text</p>
+<p id="se-small-text">This is a small text</p>
+
+<p id="se-description">This is as description text</p>
+</div>
+</Component>
+</div>
+</div>
+            `}
+                >
+                    <div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+                        <h1 id="se-header-large" style="color:black;">
+                            Large Header
+                        </h1>
+                        <h2 id="se-header-medium" style="color:black;">
+                            Medium Header
+                        </h2>
+                        <h3 id="se-header-small" style="color:black;">
+                            Small Header
+                        </h3>
+
+                        <h4 id="se-page-title">Page Title</h4>
+                        <h4 id="se-subtitle">Subtitle</h4>
+
+                        <p id="se-body-text">This is some text</p>
+                        <p id="se-small-text">This is a small text</p>
+
+                        <p id="se-description">This is as description text</p>
+                    </div>
                 </Component>
             </div>
         </div>

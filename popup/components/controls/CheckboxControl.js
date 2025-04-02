@@ -1,60 +1,29 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { styled } from "@stitches/react";
-import { useEffect, useState } from "react";
+import { usePreference } from "../../utils/usePreference";
 
-import { getStorage, setStorage } from "../../utilities/chromeStorage";
-
-function CheckboxControl({ label, storageKey, defaultState = false }) {
-    const [localState, setLocalState] = useState(defaultState);
-
-    useEffect(() => {
-        const getDefaultState = async () => {
-            try {
-                const userSetting = await getStorage(storageKey);
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                userSetting &&
-                    setLocalState(userSetting === "on" ? true : false);
-            } catch (error) {
-                console.warn(error);
-            }
-        };
-
-        getDefaultState();
-    }, [storageKey]);
+function CheckboxControl({ label, storageKey }) {
+    const [preference, setPreference] = usePreference(storageKey);
 
     return (
-        <>
-            <div className="flex items-center justify-between w-full py-1">
-                <label
-                    htmlFor={storageKey}
-                    className="text-base tracking-normal"
+        <div className="flex items-center justify-between w-full py-1">
+            <label htmlFor={storageKey} className="text-base tracking-normal">
+                {label}
+            </label>
+            <div className="grid rounded-full cursor-pointer w-9 h-9 place-items-center hover:bg-accentFour">
+                <StyledCheckbox
+                    onCheckedChange={setPreference}
+                    checked={preference}
+                    id={storageKey}
+                    className="flex items-center justify-center w-5 h-5 rounded-[4px] bg-accentThree"
                 >
-                    {label}
-                </label>
-                <div className="grid rounded-full cursor-pointer w-9 h-9 place-items-center hover:bg-accentFour">
-                    <StyledCheckbox
-                        onCheckedChange={async (checked) => {
-                            setLocalState(checked);
-                            try {
-                                await setStorage({
-                                    [storageKey]: checked ? "on" : "off",
-                                });
-                            } catch (error) {
-                                console.warn(error);
-                            }
-                        }}
-                        checked={localState}
-                        id={storageKey}
-                        className="flex items-center justify-center w-5 h-5 rounded-[4px] bg-accentThree"
-                    >
-                        <CheckboxPrimitive.Indicator className="text-white">
-                            <CheckIcon />
-                        </CheckboxPrimitive.Indicator>
-                    </StyledCheckbox>
-                </div>
+                    <CheckboxPrimitive.Indicator className="text-white">
+                        <CheckIcon />
+                    </CheckboxPrimitive.Indicator>
+                </StyledCheckbox>
             </div>
-        </>
+        </div>
     );
 }
 

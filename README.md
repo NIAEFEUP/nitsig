@@ -8,12 +8,6 @@ Install dependencies:
 yarn install
 ```
 
-Build for the first time:
-
-```sh
-yarn build
-```
-
 Choose your favorite browser and start developing:
 
 ```sh
@@ -28,7 +22,7 @@ yarn run dev:chrome
 
 This command will initialize a browser window and load the extension, watching for changes and reloading the window automatically.
 
-## Building a bundle
+## Building the Extension
 
 ```sh
 yarn build
@@ -62,7 +56,7 @@ And, if you wish to fix the warnings that ESLint picks up, run:
 yarn lint:fix
 ```
 
-## Loading a bundle
+## Manu Loading a bundle
 
 <table>
 	<tr>
@@ -76,14 +70,14 @@ yarn lint:fix
 				<li>Open <code>chrome://extensions</code> or <code>edge://extensions</code></li>
         <li>Turn on the <strong>Developer mode</strong> toggle</li>
 				<li>Click on the <strong>Load unpacked</strong> button</li>
-				<li>Select the folder <code>bundle/chrome</code></li>
+				<li>Select the folder <code>dist/chrome</code></li>
 			</ol>
 		</td>
 		<td width="33.33%">
 			<ol>
 				<li>Open <code>about:debugging#/runtime/this-firefox</code></li>
 				<li>Click on the <strong>Load Temporary Add-on...</strong> button</li>
-				<li>Select the file <code>bundle/firefox/manifest.json</code></li>
+				<li>Select the file <code>dist/firefox/manifest.json</code></li>
 			</ol>
 		</td>
       <td width="33.33%">
@@ -96,6 +90,6 @@ yarn lint:fix
 	</tr>
 </table>
 
-## Components Page
+## Fun Fact: We have a page to display all the components created by us
 
-Checkout the components page by adding `/components` to the end of any Sigarra URL.
+See the components page by adding `/components` to the end of any Sigarra URL.

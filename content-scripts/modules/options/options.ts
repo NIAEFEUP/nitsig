@@ -69,3 +69,70 @@ export const useNavBar = async (navbar: string): Promise<void> => {
             break;
     }
 };
+
+export const expandSections = async (expand: string): Promise<void> => {
+    await new Promise<void>((resolve) => {
+        if (document.readyState === "complete") {
+            document.getElementsByTagName("html")[0].style.display = "block";
+            resolve();
+        } else {
+            window.addEventListener("load", () => {
+                document.getElementsByTagName("html")[0].style.display =
+                    "block";
+                resolve();
+            });
+        }
+    });
+
+    const expandableCards = document.querySelectorAll<HTMLElement>(
+        ".se-expandable-card",
+    );
+
+    expandableCards.forEach((card) => {
+        const content = card.querySelector<HTMLElement>(
+            ".se-expandable-card-wrapper",
+        );
+        const header = card.querySelector<HTMLButtonElement>(".se-card-header");
+        const arrowIcon = header?.querySelector<HTMLElement>("i");
+
+        if (!content || !header || !arrowIcon) return;
+
+        if (
+            (expand === "on" && header.dataset.expanded === "true") ||
+            (expand === "off" && header.dataset.expanded === "false")
+        ) {
+            return;
+        }
+
+        switch (expand) {
+            case "on":
+                content.style.transition = "none";
+                content.style.maxHeight = "9999px";
+                header.dataset.expanded = "true";
+                arrowIcon.animate(
+                    [
+                        { transform: "rotate(0deg)" },
+                        { transform: "rotate(180deg)" },
+                    ],
+                    { duration: 300, fill: "forwards", easing: "ease-in-out" },
+                );
+                break;
+
+            case "off":
+                content.style.transition = "none";
+                content.style.maxHeight = "0px";
+                header.dataset.expanded = "false";
+                arrowIcon.animate(
+                    [
+                        { transform: "rotate(180deg)" },
+                        { transform: "rotate(0deg)" },
+                    ],
+                    { duration: 300, fill: "forwards", easing: "ease-in-out" },
+                );
+                break;
+        }
+
+        void content.offsetHeight;
+        content.style.transition = "max-height 0.3s";
+    });
+};
