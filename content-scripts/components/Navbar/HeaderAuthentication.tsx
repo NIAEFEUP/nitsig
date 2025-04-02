@@ -10,7 +10,10 @@ interface Props {
 }
 
 const Authentication = ({ auth }: Props) => {
-    const current_year: number = new Date().getFullYear();
+    const current_year: number =
+        new Date().getMonth() == 10
+            ? new Date().getFullYear()
+            : new Date().getFullYear() - 1;
 
     if (auth)
         return (
