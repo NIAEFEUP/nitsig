@@ -1,7 +1,7 @@
 // import { removeTwoColumnTable } from "../modules/utilities/pageUtils";
 import { getUP } from "../modules/utilities/sigarra";
 
-//this is are all pages AFAIK that contain an profile row
+//this is are all pages AFAIK that contain a profile row
 const profileRowPages = [
     "fest_geral.cursos_list",
     "fest_geral.curso_percurso_academico_view",
@@ -13,36 +13,30 @@ const profileRowPages = [
 ];
 
 const currentSearchParams = new URL(document.URL).searchParams;
-
-/**
- *
- * @returns string
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getStudentName() {
-    return document.querySelector(".estudante-info-nome").textContent.trim();
-}
-
 /**
  *
  * @param {Element} element
  */
-function removeAtSign(element) {
+function removeAtSign(element: Element) {
     const atSign = element.querySelector(
         "span:nth-child(2) > a:nth-child(1) > span:nth-child(2)",
     );
-    atSign.parentElement.insertBefore(document.createTextNode("@"), atSign);
-    atSign.remove();
-    element
-        .querySelector("span:nth-child(2) > a:nth-child(1) > img:nth-child(1)")
-        .remove();
+    if (atSign && atSign.parentElement) {
+        atSign.parentElement.insertBefore(document.createTextNode("@"), atSign);
+        atSign.remove();
+    }
+
+    const aux = element.querySelector(
+        "span:nth-child(2) > a:nth-child(1) > img:nth-child(1)",
+    );
+    aux?.remove();
 }
 
 /**
  *
  * @param {Element} element
  */
-async function removeTitleRedudancy(element) {
+async function removeTitleRedundancy(element: Element) {
     if (
         getUP() == currentSearchParams.get("pv_num_unico") &&
         document.location.href.toLowerCase().includes("fest_geral.cursos_list")
@@ -50,7 +44,7 @@ async function removeTitleRedudancy(element) {
         element.textContent = "O teu perfil";
         return;
     }
-    element.textContent = element.textContent.split("-")[0].trim();
+    element.textContent = element.textContent?.split("-")[0].trim() || "";
 }
 
 export const changeProfileRow = () => {
@@ -63,7 +57,7 @@ export const changeProfileRow = () => {
     // first we change the h1, because it always repeats the student's full name
     const h1 = document.querySelector("#conteudoinner > h1:nth-child(3)");
     if (h1 !== null) {
-        removeTitleRedudancy(h1);
+        removeTitleRedundancy(h1);
     }
 
     const personalInfo = document.querySelector("#infopessoalh");
@@ -72,12 +66,12 @@ export const changeProfileRow = () => {
     }
 
     const studentPhoto = document.querySelector(".estudante-foto");
-    studentPhoto.classList.add("se-student-photo");
+    studentPhoto?.classList.add("se-student-photo");
 
     const studentName = document.querySelector(".estudante-info-nome");
     const studentUP = document.querySelector(".estudante-info-numero");
     const newStudentUP = document.createElement("p");
-    newStudentUP.textContent = studentUP.textContent;
+    newStudentUP.textContent = studentUP?.textContent || "";
 
     const studentInstitutionalEmail = document.querySelector(
         ".email-institucional",
@@ -87,9 +81,11 @@ export const changeProfileRow = () => {
     const studentWebPage = document.querySelector(".pagina-pessoal");
 
     const oldScheduleRow = document.querySelector(".container-fluid");
+    if (!oldScheduleRow) return;
+
     const newScheduleRow = document.createElement("div");
     newScheduleRow.classList.add("se-profile-row");
-    newScheduleRow.append(studentPhoto);
+    if (studentPhoto) newScheduleRow.append(studentPhoto);
 
     const profileInfo = document.createElement("div");
     profileInfo.classList.add("se-profile-info");
@@ -98,7 +94,7 @@ export const changeProfileRow = () => {
     firstRow.classList.add("se-profile-first-row");
 
     const userNameUPRow = document.createElement("div");
-    userNameUPRow.append(studentName, newStudentUP);
+    if (studentName) userNameUPRow.append(studentName, newStudentUP);
     userNameUPRow.classList.add("se-profile-username-row");
     firstRow.append(userNameUPRow);
 
@@ -124,13 +120,15 @@ export const changeProfileRow = () => {
 
     const emailList = document.createElement("div");
     profileInfo.append(emailList);
-    removeAtSign(studentInstitutionalEmail);
+    if (studentInstitutionalEmail) {
+        removeAtSign(studentInstitutionalEmail);
 
-    studentInstitutionalEmail
-        .querySelectorAll(".cursormao")
-        .forEach((val) => val.remove());
+        studentInstitutionalEmail
+            .querySelectorAll(".cursormao")
+            .forEach((val) => val.remove());
+        emailList.append(studentInstitutionalEmail);
+    }
 
-    emailList.append(studentInstitutionalEmail);
     if (studentAlternativeEmail != null) {
         emailList.append(studentAlternativeEmail);
         removeAtSign(studentAlternativeEmail);
@@ -138,16 +136,18 @@ export const changeProfileRow = () => {
 
     if (studentWebPage != null) {
         const webpageLink = studentWebPage.lastElementChild;
-        webpageLink.textContent = "Website";
-        webpageLink.classList.add("se-website-button");
-        webpageLink.style.margin = 0;
-        profileInfo.append(webpageLink);
+        if (webpageLink) {
+            webpageLink.textContent = "Website";
+            webpageLink.classList.add("se-website-button");
+            (webpageLink as HTMLElement).style.margin = "0";
+            profileInfo.append(webpageLink);
+        }
     }
 
     newScheduleRow.append(profileInfo);
 
     //replacement should only be done at the end just in case something fails
-    oldScheduleRow.parentElement.insertBefore(newScheduleRow, oldScheduleRow);
+    oldScheduleRow.parentElement?.insertBefore(newScheduleRow, oldScheduleRow);
     oldScheduleRow.remove();
 };
 
@@ -168,12 +168,14 @@ export const changeCourseCards = () => {
 
     const modifiedCards = cards.map((card) => {
         const active = card.classList.contains("percurso");
-        card.classList = ["se-course-card"];
+        card.classList.value = "se-course-card";
         const detailsElement = card.querySelector(
             ".estudante-lista-curso-detalhes",
         );
         if (detailsElement != null) {
-            const url = detailsElement.querySelector("a").href;
+            const link = detailsElement.querySelector("a");
+            if (!link) return card;
+            const url = link.href;
             detailsElement.remove();
             const parsedUrlParams = new URLSearchParams(url.split("?")[1]);
             let festId = parsedUrlParams.get("pv_fest_id");
@@ -184,13 +186,13 @@ export const changeCourseCards = () => {
             }
 
             const a = document.createElement("a");
-            a.classList = card.classList;
+            a.classList.value = card.classList.value;
             a.classList.add("se-course-card-clickable");
-            a.setAttribute("data-course-enrollment-id", festId);
+            if (festId) a.setAttribute("data-course-enrollment-id", festId);
             if (active || hasCardSelected == false)
                 a.classList.add("se-course-card-active");
 
-            a.append(...card.children);
+            a.append(...Array.from(card.children));
             a.href = url;
             return a;
         }
@@ -200,11 +202,12 @@ export const changeCourseCards = () => {
     const oldCardsList = document.querySelector(
         ".estudantes-caixa-lista-cursos",
     );
+    if (!oldCardsList) return;
     const newCardsList = document.createElement("div");
     newCardsList.classList.add("se-course-card-list");
 
     newCardsList.append(...modifiedCards);
 
-    oldCardsList.parentElement.insertBefore(newCardsList, oldCardsList);
+    oldCardsList.parentElement?.insertBefore(newCardsList, oldCardsList);
     oldCardsList.remove();
 };
