@@ -2,10 +2,10 @@
 import jsx from "texsaur";
 interface CardProps {
     id: string;
-    title?: string;
-    description?: string;
+    title?: Element | string;
+    description?: Element | string;
     imgSrc?: string;
-    subtitles?: string[];
+    subtitles?: (Element | string)[];
     button?: Element;
 }
 

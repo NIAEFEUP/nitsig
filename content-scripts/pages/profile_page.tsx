@@ -1,5 +1,7 @@
-// import { removeTwoColumnTable } from "../modules/utilities/pageUtils";
 import { getUP } from "../modules/utilities/sigarra";
+import Card from "../components/Card";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import jsx from "texsaur";
 
 //this is are all pages AFAIK that contain a profile row
 const profileRowPages = [
@@ -152,62 +154,106 @@ export const changeProfileRow = () => {
 };
 
 export const changeCourseCards = () => {
-    const couldHaveCards = profileRowPages
-        .map((value) => document.location.href.toLowerCase().includes(value))
-        .reduce((prev, curr) => prev || curr);
-    if (!couldHaveCards) return;
+    if (
+        !profileRowPages.some((page) =>
+            document.location.href.toLowerCase().includes(page),
+        )
+    ) {
+        return;
+    }
 
     const cards = Array.from(
         document.querySelectorAll(".estudante-lista-curso-activo"),
     );
-    if (cards.length == 0) return;
+    if (cards.length === 0) return;
 
-    const hasCardSelected = cards
-        .map((card) => card.classList.contains("percurso"))
-        .reduce((prev, curr) => prev || curr);
-
-    const modifiedCards = cards.map((card) => {
-        const active = card.classList.contains("percurso");
-        card.classList.value = "se-course-card";
-        const detailsElement = card.querySelector(
-            ".estudante-lista-curso-detalhes",
-        );
-        if (detailsElement != null) {
-            const link = detailsElement.querySelector("a");
-            if (!link) return card;
-            const url = link.href;
-            detailsElement.remove();
-            const parsedUrlParams = new URLSearchParams(url.split("?")[1]);
-            let festId = parsedUrlParams.get("pv_fest_id");
-            if (festId === null) {
-                festId = new URLSearchParams(location.href.split("?")[1]).get(
-                    "pv_fest_id",
-                );
-            }
-
-            const a = document.createElement("a");
-            a.classList.value = card.classList.value;
-            a.classList.add("se-course-card-clickable");
-            if (festId) a.setAttribute("data-course-enrollment-id", festId);
-            if (active || hasCardSelected == false)
-                a.classList.add("se-course-card-active");
-
-            a.append(...Array.from(card.children));
-            a.href = url;
-            return a;
-        }
-        return card;
-    });
-
+    const hasCardSelected = cards.some((card) =>
+        card.classList.contains("percurso"),
+    );
     const oldCardsList = document.querySelector(
         ".estudantes-caixa-lista-cursos",
     );
     if (!oldCardsList) return;
+
     const newCardsList = document.createElement("div");
     newCardsList.classList.add("se-course-card-list");
 
-    newCardsList.append(...modifiedCards);
+    cards.forEach((card) => {
+        const active = card.classList.contains("percurso");
+        const detailsElement = card.querySelector(
+            ".estudante-lista-curso-detalhes",
+        );
+        if (!detailsElement) return;
 
-    oldCardsList.parentElement?.insertBefore(newCardsList, oldCardsList);
+        const link = detailsElement.querySelector("a");
+        if (!link) return;
+
+        const url = link.href;
+        detailsElement.remove();
+
+        const urlParams = new URLSearchParams(url.split("?")[1] || "");
+        const festId =
+            urlParams.get("pv_fest_id") ||
+            new URLSearchParams(location.search).get("pv_fest_id");
+
+        const courseName =
+            card.querySelector(".estudante-lista-curso-nome a")?.textContent ||
+            "";
+        const courseInstitution =
+            card.querySelector(".estudante-lista-curso-instit")?.textContent ||
+            "";
+        const courseLink =
+            card
+                .querySelector(".estudante-lista-curso-nome a")
+                ?.getAttribute("href") || "#";
+        const courseTable = card.querySelector("table.formulario");
+
+        const cardTitle = (
+            <div>
+                <a href={courseLink} className="estudante-lista-curso-nome">
+                    {courseName}
+                </a>
+                <div className="estudante-lista-curso-instit">
+                    {courseInstitution}
+                </div>
+            </div>
+        );
+
+        const cardWrapper = document.createElement("div");
+        cardWrapper.classList.add(
+            "se-course-card-wrapper",
+            "se-course-card-clickable",
+        );
+
+        if (active || !hasCardSelected) {
+            cardWrapper.classList.add("se-course-card-active");
+        }
+
+        const cardElement = (
+            <Card
+                id={`course-card-${festId}`}
+                title={cardTitle}
+                description={courseTable || ""}
+            ></Card>
+        );
+
+        if (festId) {
+            cardElement.setAttribute("data-course-enrollment-id", festId);
+        }
+
+        cardElement.classList.add("se-course-card");
+
+        cardWrapper.appendChild(cardElement);
+
+        cardWrapper.addEventListener("click", (e) => {
+            if (!(e.target as Element).closest("a")) {
+                window.location.href = url;
+            }
+        });
+
+        newCardsList.appendChild(cardWrapper);
+    });
+
+    oldCardsList.parentNode?.insertBefore(newCardsList, oldCardsList);
     oldCardsList.remove();
 };
