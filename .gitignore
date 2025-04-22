@@ -33,6 +33,7 @@ Thumbs.db
 .DocumentRevisions*
 .TemporaryItems
 .Trashes
+.direnv
 
 # Other paths to ignore
 .parcel-cache
