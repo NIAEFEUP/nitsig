@@ -219,7 +219,9 @@ export const changeCourseCards = () => {
             </div>
         );
 
-        const cardWrapper = document.createElement("div");
+
+        // Creates the card wrapper  : se-course-card-wrapper / se-course-card-clickable / se-course-card-active 
+        /* const cardWrapper = document.createElement("div");
         cardWrapper.classList.add(
             "se-course-card-wrapper",
             "se-course-card-clickable",
@@ -227,11 +229,14 @@ export const changeCourseCards = () => {
 
         if (active || !hasCardSelected) {
             cardWrapper.classList.add("se-course-card-active");
-        }
+        } */
+        //////////////////////////////////////////////////////////////////////////
+
 
         const cardElement = (
             <Card
                 id={`course-card-${festId}`}
+                className="se-course-card"
                 title={cardTitle}
                 description={courseTable || ""}
             ></Card>
@@ -241,17 +246,22 @@ export const changeCourseCards = () => {
             cardElement.setAttribute("data-course-enrollment-id", festId);
         }
 
-        cardElement.classList.add("se-course-card");
+        cardElement.classList.add(
+            "se-course-card-clickable",
+        );
+        if (active || !hasCardSelected) {
+            cardElement.classList.add("se-course-card-active");
+        }
 
-        cardWrapper.appendChild(cardElement);
+        //cardWrapper.appendChild(cardElement);
 
-        cardWrapper.addEventListener("click", (e) => {
-            if (!(e.target as Element).closest("a")) {
+        cardElement.addEventListener("click", (e) => {
+            if (!(e.target as Element).closest("a")) {  
                 window.location.href = url;
             }
         });
 
-        newCardsList.appendChild(cardWrapper);
+        newCardsList.appendChild(cardElement);
     });
 
     oldCardsList.parentNode?.insertBefore(newCardsList, oldCardsList);

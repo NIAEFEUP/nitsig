@@ -2,6 +2,7 @@
 import jsx from "texsaur";
 interface CardProps {
     id: string;
+    className: string;
     title?: Element | string;
     description?: Element | string;
     imgSrc?: string;
@@ -11,16 +12,15 @@ interface CardProps {
 
 const Card: JSX.Component<CardProps> = ({
     id,
+    className,
     title,
     description,
     imgSrc,
     subtitles,
     button,
 }) => {
-    const finalClassName = "se-card";
     return (
-        <div className={finalClassName} id={id}>
-            <div className="container">
+        <a className={className} id={id}>
                 {title && description && imgSrc && subtitles && button ? (
                     <div className="details">
                         {imgSrc ? (
@@ -28,7 +28,7 @@ const Card: JSX.Component<CardProps> = ({
                         ) : (
                             " "
                         )}
-                        {title ? <h2 className="title">{title}</h2> : " "}
+                        {title ? <div className="title">{title}</div> : " "}
                         {subtitles && subtitles.length > 0
                             ? subtitles.map((subtitle) => {
                                   return (
@@ -39,7 +39,7 @@ const Card: JSX.Component<CardProps> = ({
                               })
                             : " "}
                         {description ? (
-                            <p className="description">{description}</p>
+                            <div className="description">{description}</div>
                         ) : (
                             ""
                         )}
@@ -55,12 +55,12 @@ const Card: JSX.Component<CardProps> = ({
                         <div className="other">
                             <div className="textbox">
                                 {title ? (
-                                    <h2 className="title">{title}</h2>
+                                    <div className="title">{title}</div>
                                 ) : (
                                     " "
                                 )}
                                 {description ? (
-                                    <p className="description">{description}</p>
+                                    <div className="description">{description}</div>
                                 ) : (
                                     " "
                                 )}
@@ -71,8 +71,7 @@ const Card: JSX.Component<CardProps> = ({
                         </div>
                     </div>
                 )}
-            </div>
-        </div>
+        </a>
     );
 };
 
