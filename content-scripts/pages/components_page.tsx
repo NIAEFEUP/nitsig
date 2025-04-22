@@ -5,6 +5,10 @@ import { Table } from "../components/Table";
 import Icon from "../components/Icon";
 import Card from "../components/Card";
 import { Accordion } from "../components/Accordion";
+import Tab from "../components/Tabs/Tab";
+import TabList from "../components/Tabs/TabList";
+import TabContent from "../components/Tabs/TabContent";
+import TabPage from "../components/Tabs/TabPage";
 
 const components = [
     "Icon",
@@ -12,7 +16,8 @@ const components = [
     "Table",
     "Cards",
     "Accordion",
-    "Text components",
+    "Text Components",
+    "Tabs",
 ];
 
 export function createComponentsPage() {
@@ -346,10 +351,6 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
 <p id="se-small-text">This is a small text</p>
 
 <p id="se-description">This is as description text</p>
-</div>
-</Component>
-</div>
-</div>
             `}
                 >
                     <div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
@@ -371,6 +372,72 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
 
                         <p id="se-description">This is as description text</p>
                     </div>
+                </Component>
+
+                {/* Tabs Component */}
+                <Component
+                    name="Tabs"
+                    description="A collection of related navigation links that allow users to switch between different pages or views."
+                    code={`
+{/* Link tabs */}
+<TabList>
+    <Tab href="hello">Hello</Tab>
+    <Tab href="world">World</Tab>
+    <Tab href="foo">Foo</Tab>
+    <Tab href="bar">Bar</Tab>
+</TabList>
+
+{/* Button tabs */}
+<TabList>
+    <Tab id="hello">Hello</Tab>
+    <Tab id="world">World</Tab>
+    <Tab id="foo">Foo</Tab>
+    <Tab id="bar">Bar</Tab>
+</TabList>
+<TabContent>
+    <TabPage id="hello">
+        <h1>Hello</h1>
+        <p>This is the hello tab</p>
+    </TabPage>
+    <TabPage id="world">
+        <h1>World</h1>
+        <p>This is the world tab</p>
+    </TabPage>
+    <TabPage id="foo">
+        <h1>Foo</h1>
+        <p>This is the foo tab</p>
+    </TabPage>
+    <TabPage id="bar">
+        <h1>Bar</h1>
+        <p>This is the bar tab</p>
+    </TabPage>
+</TabContent>
+                    `}
+                >
+                    <TabList>
+                        <Tab id="hello">Hello</Tab>
+                        <Tab id="world">World</Tab>
+                        <Tab id="foo">Foo</Tab>
+                        <Tab id="bar">Bar</Tab>
+                    </TabList>
+                    <TabContent>
+                        <TabPage id="hello">
+                            <h1>Hello</h1>
+                            <p>This is the hello tab</p>
+                        </TabPage>
+                        <TabPage id="world">
+                            <h1>World</h1>
+                            <p>This is the world tab</p>
+                        </TabPage>
+                        <TabPage id="foo">
+                            <h1>Foo</h1>
+                            <p>This is the foo tab</p>
+                        </TabPage>
+                        <TabPage id="bar">
+                            <h1>Bar</h1>
+                            <p>This is the bar tab</p>
+                        </TabPage>
+                    </TabContent>
                 </Component>
             </div>
         </div>

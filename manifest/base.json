@@ -28,7 +28,8 @@
                 "css/classPage.css",
                 "css/profilePage.css",
                 "css/expandableCard.css",
-                "css/card.css"
+                "css/card.css",
+                "css/tabs.css"
             ]
         },
         {
