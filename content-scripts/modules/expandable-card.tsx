@@ -21,7 +21,7 @@ export const makeSigarraExpandableCard = (contentSelectors: string[]): void => {
       { 
         id: accordionId,
         header: headerElements,
-        max_size: container.offsetHeight
+        max_size: 9999
       },
       ...bodyElements
     );
