@@ -209,19 +209,16 @@ export const changeCourseCards = () => {
         const courseTable = card.querySelector("table.formulario");
 
         const cardTitle = (
-            <div>
-                <a href={courseLink} className="estudante-lista-curso-nome">
-                    {courseName}
-                </a>
+            <div className={"estudante-lista-curso-nome"}>
+                <a href={courseLink}>{courseName}</a>
+
                 <div className="estudante-lista-curso-instit">
                     {courseInstitution}
                 </div>
             </div>
         );
 
-
-        // Creates the card wrapper  : se-course-card-wrapper / se-course-card-clickable / se-course-card-active 
-        /* const cardWrapper = document.createElement("div");
+        const cardWrapper = document.createElement("div");
         cardWrapper.classList.add(
             "se-course-card-wrapper",
             "se-course-card-clickable",
@@ -229,9 +226,7 @@ export const changeCourseCards = () => {
 
         if (active || !hasCardSelected) {
             cardWrapper.classList.add("se-course-card-active");
-        } */
-        //////////////////////////////////////////////////////////////////////////
-
+        }
 
         const cardElement = (
             <Card
@@ -246,22 +241,15 @@ export const changeCourseCards = () => {
             cardElement.setAttribute("data-course-enrollment-id", festId);
         }
 
-        cardElement.classList.add(
-            "se-course-card-clickable",
-        );
-        if (active || !hasCardSelected) {
-            cardElement.classList.add("se-course-card-active");
-        }
+        cardWrapper.appendChild(cardElement);
 
-        //cardWrapper.appendChild(cardElement);
-
-        cardElement.addEventListener("click", (e) => {
-            if (!(e.target as Element).closest("a")) {  
+        cardWrapper.addEventListener("click", (e) => {
+            if (!(e.target as Element).closest("a")) {
                 window.location.href = url;
             }
         });
 
-        newCardsList.appendChild(cardElement);
+        newCardsList.appendChild(cardWrapper);
     });
 
     oldCardsList.parentNode?.insertBefore(newCardsList, oldCardsList);

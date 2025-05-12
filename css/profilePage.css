@@ -72,27 +72,26 @@
     gap: 1rem;
 }
 
-.se-course-card > .estudante-lista-curso-nome > .se-course-star {
+.estudante-lista-curso-nome > .se-course-star {
     font-size: 1.5rem;
 }
 
-.se-course-card
-    > .estudante-lista-curso-nome
-    > .se-course-star.se-favorite-course:hover {
-    color: rgb(219, 146, 9);
+.estudante-lista-curso-nome > .se-course-star.ri-star-fill {
+    color: rgb(236, 156, 7);
 }
 
-.se-course-card > .estudante-lista-curso-nome > .se-course-star.ri-star-fill {
-    color: rgb(236, 156, 7);
+.estudante-lista-curso-nome > .se-course-star.se-favorite-course:hover {
+    color: rgb(219, 146, 9);
 }
 
 .se-course-card-clickable > .estudante-lista-curso-nome > a {
     display: block;
 }
 
-.se-course-card-clickable:hover,
-.se-course-card-clickable:active,
-.se-course-card-clickable:focus {
+.se-course-card:hover,
+.se-course-card:active,
+.se-course-card:focus {
+    cursor: pointer;
     color: inherit !important;
     background-color: #dddada;
     opacity: 1 !important;
