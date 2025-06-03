@@ -8,16 +8,27 @@
 .se-card-expand-button {
     background: inherit !important;
     border: none !important;
-    padding: none !important;
-    margin: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
     box-shadow: none !important;
 }
 
-.se-card-expand-button:hover {
-    background: inherit !important;
+.se-group-title {
+  margin: 0;
 }
 
 .se-expandable-card-wrapper {
     overflow: hidden;
     transition: max-height 300ms ease-in-out;
+}
+
+.se-card-expand-button{
+    margin-top: 40px !important;
+    background-color: #f4f4f4 !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    padding-left: 20px !important;
+    padding-right: 30px !important;
+    border-radius: 10px !important;
+    width: 100% !important;
 }

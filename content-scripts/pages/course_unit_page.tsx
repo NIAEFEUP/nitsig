@@ -15,11 +15,11 @@ export const courseUnitPage = (): void => {
         return;
     }
     makeTextNodesElements("#conteudoinner");
-    groupSectionTitleAndContent("#conteudoinner", [ // funcao agrupa as secções
+    groupSectionTitleAndContent("#conteudoinner", [
         "se-card",
         "se-expandable-card",
     ]);
-    makeSigarraExpandableCard([".se-group-title"]); // esta funcao cria os "accordions"
+    makeSigarraExpandableCard([".se-group-title"]);
 
     //TODO (luisd): make removeTwoColumnTable return an element and maybe add an class/id
     //in order to order it later
