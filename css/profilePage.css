@@ -66,33 +66,41 @@
     color: inherit !important;
 }
 
-.se-course-card > .estudante-lista-curso-nome {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
+.estudante-lista-curso-nome {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr auto;
 }
 
-.se-course-card > .estudante-lista-curso-nome > .se-course-star {
+.estudante-lista-curso-nome > a {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.estudante-lista-curso-nome > .estudante-lista-curso-instit {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.estudante-lista-curso-nome > .se-course-star {
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 1em;
     font-size: 1.5rem;
 }
 
-.se-course-card
-    > .estudante-lista-curso-nome
-    > .se-course-star.se-favorite-course:hover {
-    color: rgb(219, 146, 9);
-}
-
-.se-course-card > .estudante-lista-curso-nome > .se-course-star.ri-star-fill {
+.estudante-lista-curso-nome > .se-course-star.ri-star-fill {
     color: rgb(236, 156, 7);
 }
 
-.se-course-card-clickable > .estudante-lista-curso-nome > a {
-    display: block;
+.estudante-lista-curso-nome > .se-course-star.se-favorite-course:hover {
+    color: rgb(219, 146, 9);
 }
 
-.se-course-card-clickable:hover,
-.se-course-card-clickable:active,
-.se-course-card-clickable:focus {
+.se-course-card:hover,
+.se-course-card:active,
+.se-course-card:focus {
+    cursor: pointer;
     color: inherit !important;
     background-color: #dddada;
     opacity: 1 !important;

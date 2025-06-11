@@ -238,6 +238,7 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
                 >
                     <Card
                         id="1"
+                        className="se-card"
                         title="Default Card"
                         description="I have all attributes possible (i.e; image, title, description, subtitles and a button)"
                         subtitles={["One", "Two"]}
@@ -253,6 +254,7 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
                     />
                     <Card
                         id="2"
+                        className="se-card"
                         title="Alt Card 1"
                         description="I don't have subtitles"
                         imgSrc="https://preview.redd.it/i-once-found-a-silly-cat-picture-in-black-and-white-v0-tzn8uvux7vmd1.png?width=236&format=png&auto=webp&s=f17ce524ff01e70fce304712ca5bf58a194b5fbe"
@@ -267,6 +269,7 @@ button ={<Button title="Button" variant="solid" size="sm" color="primary"/>}
                     />
                     <Card
                         id="3"
+                        className="se-card"
                         title="Alt Card 2"
                         description="I don't have an image nor subtitles"
                         button={
