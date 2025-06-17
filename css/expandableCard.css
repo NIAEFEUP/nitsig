@@ -20,6 +20,8 @@
 .se-expandable-card-wrapper {
     overflow: hidden;
     transition: max-height 300ms ease-in-out;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
 }
 
 .se-card-expand-button{
@@ -29,6 +31,10 @@
     padding-bottom: 20px !important;
     padding-left: 20px !important;
     padding-right: 30px !important;
-    border-radius: 10px !important;
     width: 100% !important;
+}
+
+.se-expandable-card {
+    background-color: #f4f4f4 !important;
+    border-radius: 10px !important;
 }
