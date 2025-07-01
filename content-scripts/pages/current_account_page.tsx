@@ -1,5 +1,12 @@
 import { getPath } from "../modules/utilities/sigarra";
 
+interface StatusProperties {
+    [key: string]: {
+        class: string;
+        text: string;
+    };
+}
+
 // TODO: Use our table, create a card component for the balance and NIF and use them
 export const currentAccountPage = () => {
     if (getPath() != "gpag_ccorrente_geral.conta_corrente_view") return;
@@ -10,25 +17,33 @@ export const currentAccountPage = () => {
 
     if (!contaCorrente) return;
 
-    let tabs = contaCorrente.querySelectorAll(".tab");
+    const tabs = contaCorrente.querySelectorAll(".tab");
 
     // merge "Crédito" and "Débito" collumns and remove collumns
     tabs.forEach((tab, tab_index) => {
-        let creditColumnIndex;
-        let columnsToRemove = [];
-        let rows = [...tab.querySelectorAll("thead > tr, tbody > tr")];
+        let creditColumnIndex: number | undefined;
+        const columnsToRemove: number[] = [];
+        const rows = Array.from(
+            tab.querySelectorAll("thead > tr, tbody > tr"),
+        ) as HTMLTableRowElement[];
         if (rows.length == 0) return;
 
-        let headerTitles = document.querySelectorAll("ul.ui-tabs-nav > li > a");
-        headerTitles = [...headerTitles].map((title) => title.textContent);
-        let headerCells = rows[0].querySelectorAll("th");
+        const headerTitles = document.querySelectorAll(
+            "ul.ui-tabs-nav > li > a",
+        );
+        const headerTitlesArray = Array.from(headerTitles).map(
+            (title) => title.textContent || "",
+        );
+        const headerCells = rows[0].querySelectorAll(
+            "th",
+        ) as NodeListOf<HTMLTableCellElement>;
         headerCells.forEach((th, index) => {
             if (th.innerHTML == "Débito") {
                 th.innerHTML = "Valor";
             } else if (th.innerHTML == "Crédito") {
                 creditColumnIndex = index;
                 // Colspan
-                let colSpan = headerCells[0].colSpan;
+                const colSpan = headerCells[0].colSpan;
                 if (colSpan > 1) creditColumnIndex += colSpan;
                 th.remove();
             }
@@ -50,7 +65,7 @@ export const currentAccountPage = () => {
             if (th.innerHTML == "Juros de Mora") {
                 th.innerHTML = "Juros";
                 // Remove "Juros de Mora" Column in "Juros de mora Proprinas" tab
-                if (headerTitles[tab_index] == "Juros de mora Propinas") {
+                if (headerTitlesArray[tab_index] == "Juros de mora Propinas") {
                     columnsToRemove.push(index + headerCells[0].colSpan - 1);
                     th.remove();
                 }
@@ -78,20 +93,25 @@ export const currentAccountPage = () => {
         rows.shift();
 
         rows.forEach((row) => {
-            let cells = [...row.querySelectorAll("td")];
+            const cells = Array.from(
+                row.querySelectorAll("td"),
+            ) as HTMLTableCellElement[];
             columnsToRemove.forEach((columnIndex) => {
                 if (!cells[0].classList.contains("credito")) {
-                    cells[columnIndex].remove();
+                    cells[columnIndex]?.remove();
                 }
             });
         });
 
-        if (creditColumnIndex) {
+        if (creditColumnIndex != undefined) {
             rows.forEach((row, index) => {
-                let isGeralExtract = headerTitles[tab_index] == "Extrato Geral";
+                const isGeralExtract =
+                    headerTitlesArray[tab_index] == "Extrato Geral";
 
-                let cells = [...row.querySelectorAll("td")];
-                let debitCell = cells[creditColumnIndex - 1];
+                const cells = Array.from(
+                    row.querySelectorAll("td"),
+                ) as HTMLTableCellElement[];
+                const debitCell = cells[creditColumnIndex! - 1];
 
                 if (debitCell.innerHTML == "&nbsp;") {
                     debitCell.innerHTML = "";
@@ -100,22 +120,22 @@ export const currentAccountPage = () => {
                         debitCell.classList.add("positive");
                         debitCell.innerHTML = "+";
                     }
-                    debitCell.innerHTML += cells[creditColumnIndex].innerHTML;
+                    debitCell.innerHTML += cells[creditColumnIndex!].innerHTML;
                 } else {
                     if (isGeralExtract) {
                         debitCell.classList.add("negative");
                         debitCell.innerHTML = "-" + debitCell.innerHTML;
                     }
                 }
-                cells[creditColumnIndex].remove();
+                cells[creditColumnIndex!].remove();
                 if (cells[0].classList.contains("credito")) {
                     //remove "Multibanco - SIBS" row
                     //TODO: adicionar data a "pago em"
 
                     //change the last cell of the last row to the value of the last cell of the current row
-                    let lastRowCells = rows[index - 1].querySelectorAll("td");
+                    const lastRowCells = rows[index - 1].querySelectorAll("td");
 
-                    let document_file =
+                    const document_file =
                         cells[cells.length - 1].querySelector("a");
                     if (document_file) {
                         lastRowCells[lastRowCells.length - 1].innerHTML = "";
@@ -132,13 +152,13 @@ export const currentAccountPage = () => {
         }
     });
 
-    // Change "Data" collumn position in "Extrato Geral" tab
+    // Change "Data" column position in "Extrato Geral" tab
     const geralExtractTable = document.querySelector("#tab_extracto_geral");
     if (geralExtractTable) {
         geralExtractTable.querySelectorAll("tr").forEach((row) => {
-            let cells = [
-                ...row.querySelectorAll("td"),
-                ...row.querySelectorAll("th"),
+            const cells = [
+                ...Array.from(row.querySelectorAll("td")),
+                ...Array.from(row.querySelectorAll("th")),
             ];
             // len = cells.length;
             row.insertBefore(cells[1], cells[0]);
@@ -148,16 +168,16 @@ export const currentAccountPage = () => {
     // Switch "Refência" action button to the right
     if (tabs.length > 0) {
         tabs[0].querySelectorAll("tbody > tr").forEach((row) => {
-            let cells = [
-                ...row.querySelectorAll("td"),
-                ...row.querySelectorAll("th"),
+            const cells = [
+                ...Array.from(row.querySelectorAll("td")),
+                ...Array.from(row.querySelectorAll("th")),
             ];
-            let len = cells.length;
+            const len = cells.length;
             row.insertBefore(cells[len - 1], cells[len - 2]);
         });
     }
 
-    let statusProperties = {
+    const statusProperties: StatusProperties = {
         Pago: {
             class: "success",
             text: "Pago",
@@ -179,7 +199,7 @@ export const currentAccountPage = () => {
     // Improve the status badge
     tabs.forEach((tab) => {
         tab.querySelectorAll("tbody > tr").forEach((row) => {
-            let cells = [...row.querySelectorAll("td")];
+            const cells = Array.from(row.querySelectorAll("td"));
             if (cells.length == 0) return;
 
             // Get title atriuibute from the first cell
@@ -188,7 +208,7 @@ export const currentAccountPage = () => {
             if (cellStatus == null) return;
 
             // Creating a new status badge
-            let statusDiv = document.createElement("div");
+            const statusDiv = document.createElement("div");
             statusDiv.innerHTML = statusProperties[cellStatus].text;
             statusDiv.classList.add("badge");
             statusDiv.classList.add(
@@ -201,12 +221,15 @@ export const currentAccountPage = () => {
     });
 
     // Remove "Movimentos" h2
-    contaCorrente.previousElementSibling.remove();
+    contaCorrente.previousElementSibling?.remove();
 
     // Create Balance and NIF cards
-    const saldo = document.querySelector(
+    const saldoElement = document.querySelector(
         ".formulario #span_saldo_total",
-    ).textContent;
+    ) as HTMLElement;
+    if (!saldoElement) return;
+
+    const saldo = saldoElement.textContent || "";
     const saldoCard = document.createElement("div");
     saldoCard.classList.add("card");
     const title = document.createElement("p");
@@ -216,10 +239,13 @@ export const currentAccountPage = () => {
     saldoCard.appendChild(title);
     saldoCard.appendChild(saldoValue);
 
-    const nif = Array.from(
+    const nifElements = Array.from(
         document.querySelectorAll(".formulario .formulario-legenda"),
-    ).filter((el) => el.innerHTML.includes("N.I.F."))[0].nextElementSibling
-        .innerHTML;
+    ).filter((el) => el.innerHTML.includes("N.I.F."));
+
+    if (nifElements.length == 0) return;
+
+    const nif = nifElements[0].nextElementSibling?.innerHTML || "";
     const nifCard = document.createElement("div");
     nifCard.classList.add("card");
     const nifTitle = document.createElement("p");
@@ -229,7 +255,7 @@ export const currentAccountPage = () => {
     nifCard.appendChild(nifTitle);
     nifCard.appendChild(nifValue);
 
-    let accountDetails = document.createElement("div");
+    const accountDetails = document.createElement("div");
     accountDetails.style.display = "flex";
     accountDetails.style.gap = "1rem";
     accountDetails.style.marginBottom = "0.5rem";
