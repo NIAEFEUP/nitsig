@@ -1,4 +1,6 @@
 import { getPath } from "../modules/utilities/sigarra";
+import { Table } from "../components/Table";
+import { extractTableData } from "../modules/table";
 
 interface StatusProperties {
     [key: string]: {
@@ -218,6 +220,24 @@ export const currentAccountPage = () => {
 
             cells[0].innerHTML = statusDiv.outerHTML;
         });
+    });
+
+    // Replace original tables with Table component
+    tabs.forEach((tab, index) => {
+        const originalTable = tab.querySelector("table");
+        if (!originalTable) return;
+
+        const { headers, data } = extractTableData(originalTable);
+        const tableComponent = Table({
+            name: `account_table_${index}`,
+            headers,
+            data,
+        });
+
+        originalTable.parentNode?.replaceChild(
+            tableComponent as HTMLElement,
+            originalTable,
+        );
     });
 
     // Remove "Movimentos" h2
