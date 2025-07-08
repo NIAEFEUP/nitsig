@@ -1,5 +1,7 @@
 import { getUP } from "../modules/utilities/sigarra";
 import Card from "../components/Card";
+import { Table } from "../components/Table";
+import { extractTableData } from "../modules/table";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 
@@ -178,7 +180,7 @@ export const changeCourseCards = () => {
     const newCardsList = document.createElement("div");
     newCardsList.classList.add("se-course-card-list");
 
-    cards.forEach((card) => {
+    cards.forEach((card, cardIndex) => {
         const active = card.classList.contains("percurso");
         const detailsElement = card.querySelector(
             ".estudante-lista-curso-detalhes",
@@ -206,7 +208,20 @@ export const changeCourseCards = () => {
             card
                 .querySelector(".estudante-lista-curso-nome a")
                 ?.getAttribute("href") || "#";
-        const courseTable = card.querySelector("table.formulario");
+
+        const courseTable = card.querySelector(
+            "table.formulario",
+        ) as HTMLElement;
+        let tableComponent: Element | string = "";
+
+        if (courseTable) {
+            const { headers, data } = extractTableData(courseTable);
+            tableComponent = Table({
+                name: `course_table_${cardIndex}`,
+                headers,
+                data,
+            });
+        }
 
         const cardTitle = (
             <div className={"estudante-lista-curso-nome"}>
@@ -233,7 +248,7 @@ export const changeCourseCards = () => {
                 id={`course-card-${festId}`}
                 className="se-course-card"
                 title={cardTitle}
-                description={courseTable || ""}
+                description={tableComponent || ""}
             ></Card>
         );
 
