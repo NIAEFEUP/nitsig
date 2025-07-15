@@ -6,7 +6,6 @@ export function extractTableData(table: HTMLElement): {
     const headers: [string, string | Element][] = [];
     const data: (string | Element)[][] = [];
 
-    // Get header row (either from thead or first row)
     const headerRow =
         table.querySelector("thead tr") || table.querySelector("tr");
     if (headerRow) {
@@ -18,14 +17,11 @@ export function extractTableData(table: HTMLElement): {
         });
     }
 
-    // Get table body (either tbody or the table itself)
     const tbody = table.querySelector("tbody") || table;
     const rows = tbody.querySelectorAll("tr");
 
-    // Skip first row if there was no thead (since we used it for headers)
     const startIndex = table.querySelector("thead") ? 0 : 1;
 
-    // Process each data row
     for (let i = startIndex; i < rows.length; i++) {
         const row = rows[i];
         const cells = row.querySelectorAll("td, th");

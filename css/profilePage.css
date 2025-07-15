@@ -124,3 +124,15 @@
     text-decoration: none !important;
     color: initial !important;
 }
+
+button.se-sort-button {
+    box-shadow: none !important;
+}
+
+.se-table td {
+    border-bottom: none !important;
+}
+
+.se-table thead tr {
+    border-bottom: none !important;
+}
