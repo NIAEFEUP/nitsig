@@ -1,7 +1,7 @@
 import { getUP } from "../modules/utilities/sigarra";
 import Card from "../components/Card";
 import { Table } from "../components/Table";
-import { extractTableData } from "../modules/table";
+import { extractTableData } from "../modules/utilities/extractTable";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import jsx from "texsaur";
 

@@ -1,6 +1,6 @@
 import { getPath } from "../modules/utilities/sigarra";
 import { Table } from "../components/Table";
-import { extractTableData } from "../modules/table";
+import { extractTableData } from "../modules/utilities/extractTable";
 
 interface StatusProperties {
     [key: string]: {

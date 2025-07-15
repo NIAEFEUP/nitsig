@@ -1,7 +1,7 @@
 import { fetchSigarraPage } from "../modules/utilities/pageUtils";
 import { getPath } from "../modules/utilities/sigarra";
 import { Table } from "../components/Table";
-import { extractTableData } from "../modules/table";
+import { extractTableData } from "../modules/utilities/extractTable";
 
 const removeExtras = () => {
     const heading = document.querySelector("#conteudoinner > h2");

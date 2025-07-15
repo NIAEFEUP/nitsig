@@ -6,7 +6,7 @@ import {
     moveChildrenToAncestor,
     removeTwoColumnTable,
 } from "../modules/utilities/pageUtils";
-import { extractTableData } from "../modules/table";
+import { extractTableData } from "../modules/utilities/extractTable";
 import { Table } from "../components/Table";
 
 const publicationWebsites: Record<string, { icon: string; text: string }> = {
