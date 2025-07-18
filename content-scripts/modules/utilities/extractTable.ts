@@ -19,27 +19,62 @@ export function extractTableData(table: HTMLElement): {
 
     const tbody = table.querySelector("tbody") || table;
     const rows = tbody.querySelectorAll("tr");
-
     const startIndex = table.querySelector("thead") ? 0 : 1;
+
+    const hasDescription =
+        headerRow?.querySelector('th[colspan="3"]')?.textContent?.trim() ===
+            "Descrição" ||
+        headerRow?.querySelector('th[colspan="3"]')?.textContent?.trim() ===
+            "Description";
+
+    const processCell = (cell: Element): string | Element => {
+        if (cell.children.length === 0) {
+            return cell.textContent?.trim() || "";
+        }
+        if (cell.children.length === 1) {
+            return cell.firstElementChild!;
+        }
+        const wrapper = document.createElement("span");
+        wrapper.innerHTML = cell.innerHTML;
+        return wrapper;
+    };
 
     for (let i = startIndex; i < rows.length; i++) {
         const row = rows[i];
-        const cells = row.querySelectorAll("td, th");
+        const cells = Array.from(row.querySelectorAll("td, th"));
         const rowData: (string | Element)[] = [];
 
-        cells.forEach((cell) => {
-            if (cell.children.length > 0) {
-                if (cell.children.length === 1) {
-                    rowData.push(cell.firstElementChild!);
-                } else {
-                    const wrapper = document.createElement("span");
-                    wrapper.innerHTML = cell.innerHTML;
-                    rowData.push(wrapper);
+        if (hasDescription && cells.length > 0) {
+            const combinedContent = document.createElement("div");
+            combinedContent.style.display = "flex";
+            combinedContent.style.flexDirection = "row";
+            combinedContent.style.gap = "4em";
+            combinedContent.style.alignItems = "center";
+
+            cells.slice(0, 3).forEach((cell) => {
+                const processedCell = processCell(cell);
+                const cellWrapper = document.createElement("div");
+
+                if (processedCell instanceof Element) {
+                    cellWrapper.appendChild(processedCell);
+                } else if (processedCell) {
+                    const textElement = document.createElement("span");
+                    textElement.textContent = processedCell;
+                    cellWrapper.appendChild(textElement);
                 }
-            } else {
-                rowData.push(cell.textContent?.trim() || "");
-            }
-        });
+
+                combinedContent.appendChild(cellWrapper);
+            });
+            rowData.push(combinedContent);
+
+            cells.slice(3).forEach((cell) => {
+                rowData.push(processCell(cell));
+            });
+        } else {
+            cells.forEach((cell) => {
+                rowData.push(processCell(cell));
+            });
+        }
 
         if (rowData.length > 0) {
             data.push(rowData);

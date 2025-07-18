@@ -119,13 +119,11 @@ export const currentAccountPage = () => {
                     debitCell.innerHTML = "";
                     debitCell.classList.add("n");
                     if (isGeralExtract) {
-                        debitCell.classList.add("positive");
                         debitCell.innerHTML = "+";
                     }
                     debitCell.innerHTML += cells[creditColumnIndex!].innerHTML;
                 } else {
                     if (isGeralExtract) {
-                        debitCell.classList.add("negative");
                         debitCell.innerHTML = "-" + debitCell.innerHTML;
                     }
                 }
@@ -238,6 +236,22 @@ export const currentAccountPage = () => {
             tableComponent as HTMLElement,
             originalTable,
         );
+
+        //Detect positive/negative values in "Extrato Geral" table
+        if (index === 5) {
+            const valueCells =
+                tableComponent.querySelectorAll('td[key="col_2"]');
+
+            valueCells.forEach((cell) => {
+                const value = cell.textContent?.trim() || "";
+
+                if (value.includes("-") || value.startsWith("-")) {
+                    cell.classList.add("negative");
+                } else if (value.includes("+") || value.startsWith("+")) {
+                    cell.classList.add("positive");
+                }
+            });
+        }
     });
 
     // Remove "Movimentos" h2
