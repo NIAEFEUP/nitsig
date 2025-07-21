@@ -1,4 +1,4 @@
-// Extracts table data from an HTML table element
+// Extracts table data from an HTML table element with proper column alignment
 export function extractTableData(table: HTMLElement): {
     headers: [string, string | Element][];
     data: (string | Element)[][];
@@ -46,24 +46,35 @@ export function extractTableData(table: HTMLElement): {
 
         if (hasDescription && cells.length > 0) {
             const combinedContent = document.createElement("div");
-            combinedContent.style.display = "flex";
-            combinedContent.style.flexDirection = "row";
-            combinedContent.style.gap = "4em";
-            combinedContent.style.alignItems = "center";
+            combinedContent.style.display = "grid";
+            combinedContent.style.gridTemplateColumns =
+                "minmax(6em, max-content) minmax(6em, max-content) 1fr";
+            combinedContent.style.gap = "2em";
+            combinedContent.style.alignItems = "start";
 
-            cells.slice(0, 3).forEach((cell) => {
-                const processedCell = processCell(cell);
-                const cellWrapper = document.createElement("div");
+            const columnsToProcess = cells.slice(0, 3);
 
-                if (processedCell instanceof Element) {
-                    cellWrapper.appendChild(processedCell);
-                } else if (processedCell) {
-                    const textElement = document.createElement("span");
-                    textElement.textContent = processedCell;
-                    cellWrapper.appendChild(textElement);
+            columnsToProcess.forEach((cell) => {
+                const columnDiv = document.createElement("div");
+
+                const cellContent = cell.textContent?.trim() || "";
+                const hasContent = cellContent || cell.children.length > 0;
+
+                if (cell.children.length === 0) {
+                    columnDiv.textContent = cellContent;
+                } else if (cell.children.length === 1) {
+                    columnDiv.appendChild(
+                        cell.firstElementChild!.cloneNode(true),
+                    );
+                } else {
+                    columnDiv.innerHTML = cell.innerHTML;
                 }
 
-                combinedContent.appendChild(cellWrapper);
+                if (!hasContent) {
+                    columnDiv.style.display = "none";
+                }
+
+                combinedContent.appendChild(columnDiv);
             });
             rowData.push(combinedContent);
 
