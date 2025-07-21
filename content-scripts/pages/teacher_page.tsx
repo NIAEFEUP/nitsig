@@ -6,6 +6,8 @@ import {
     moveChildrenToAncestor,
     removeTwoColumnTable,
 } from "../modules/utilities/pageUtils";
+import { extractTableData } from "../modules/utilities/extractTable";
+import { Table } from "../components/Table";
 
 const publicationWebsites: Record<string, { icon: string; text: string }> = {
     "authenticus.pt": { icon: "authenticusID.png", text: "Authenticus ID" },
@@ -92,6 +94,19 @@ export const teacherPage = (): void => {
 
     //i hate sigarra, for some reason it nests one table inside each other
     sectionClasses.forEach(reformatTables);
+
+    const table = document.querySelector<HTMLElement>(".tabelasz");
+    if (table) {
+        const { headers, data } = extractTableData(table);
+
+        if (headers.length > 0 && data.length > 0) {
+            const newTable = (
+                <Table name="main_teacher_info" headers={headers} data={data} />
+            );
+            table.parentNode?.insertBefore(newTable, table);
+            table.remove();
+        }
+    }
 };
 
 function reformatTables(parentSelector: string): void {

@@ -746,11 +746,11 @@ section.entidade ~ .formulario {
     cursor: pointer;
 }
 
-#tab_extracto_geral .positive {
+[aria-name="account_table_5"] .positive {
     color: #5fd17f;
 }
 
-#tab_extracto_geral .negative {
+[aria-name="account_table_5"] .negative {
     color: #fa8078;
 }
 

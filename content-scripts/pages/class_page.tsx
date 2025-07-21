@@ -1,12 +1,16 @@
 import { fetchSigarraPage } from "../modules/utilities/pageUtils";
 import { getPath } from "../modules/utilities/sigarra";
+import { Table } from "../components/Table";
+import { extractTableData } from "../modules/utilities/extractTable";
 
 const removeExtras = () => {
-    document.querySelector("#conteudoinner > h2").remove();
+    const heading = document.querySelector("#conteudoinner > h2");
+    if (heading) heading.remove();
+
     document.querySelectorAll("#conteudoinner br").forEach((x) => x.remove());
 };
 
-const titleClick = (table, title) => {
+const titleClick = (table: HTMLElement, title: HTMLElement) => {
     if (title.dataset.expand == "true") {
         title.dataset.expand = "false";
         table.style.height = "0px";
@@ -16,7 +20,7 @@ const titleClick = (table, title) => {
     }
 };
 
-const createPhotosDialog = async (url, index) => {
+const createPhotosDialog = async (url: string, index: number) => {
     const dialog = document.createElement("dialog");
     const wrapper = document.createElement("div");
     const closeButton = document.createElement("span");
@@ -33,13 +37,14 @@ const createPhotosDialog = async (url, index) => {
     });
 
     wrapper.appendChild(closeButton);
-    wrapper.appendChild(table);
+
+    if (table) wrapper.appendChild(table);
     dialog.appendChild(wrapper);
 
     return dialog;
 };
 
-const createPhotosButton = (icon, url, classIndex) => {
+const createPhotosButton = (icon: Element, url: string, classIndex: number) => {
     const button = document.createElement("span");
     button.appendChild(icon);
     button.classList.add("photosButton");
@@ -55,19 +60,18 @@ const createPhotosButton = (icon, url, classIndex) => {
     return button;
 };
 
-const getPhotosLink = (title) => {
-    console.log(title);
-
-    return title.children[2].href;
+const getPhotosLink = (title: HTMLElement): string => {
+    const linkElement = title.children[2] as HTMLAnchorElement;
+    return linkElement.href;
 };
 
 const editTitle = async (
-    title,
-    table,
-    enrolled,
-    enrolledText,
-    classIndex,
-    url,
+    title: HTMLElement,
+    table: HTMLElement,
+    enrolled: string,
+    enrolledText: string,
+    classIndex: number,
+    url: string,
 ) => {
     const titleText = document.createElement("h3");
     const enrolledQnt = document.createElement("h3");
@@ -76,7 +80,7 @@ const editTitle = async (
     chevron.classList.add("ri-arrow-up-s-line", "rightChevron");
     leftSide.classList.add("titleContent");
 
-    const titleContent = title.children[0];
+    const titleContent = title.children[0] as HTMLElement;
     const className = titleContent.innerText.replaceAll(
         String.fromCharCode(160),
         "",
@@ -112,26 +116,36 @@ const editTitle = async (
  * @param {Element} enrolledTable
  *
  */
-const groupClasses = async (enrolledTable) => {
+const groupClasses = async (enrolledTable: HTMLElement) => {
     const parent = document.querySelector("#conteudoinner");
+    if (!parent) return;
+
     let titleIndex = 5,
         tableIndex = 6,
         classIndex = 0,
         enrolledIndex = 2;
+
     let title = document.querySelector(
         `#conteudoinner > h3:nth-child(${titleIndex})`,
-    );
-    let enrolled = enrolledTable.querySelector(
+    ) as HTMLElement | null;
+
+    let enrolledCell = enrolledTable.querySelector(
         `td.l:nth-child(${enrolledIndex})`,
-    ).textContent;
-    let enrolledText = enrolledTable.querySelector(
+    );
+    let enrolled = enrolledCell?.textContent || "";
+
+    const enrolledTextCell = enrolledTable.querySelector(
         "tbody > tr.d > td.k.t",
-    ).textContent;
+    );
+    const enrolledText = enrolledTextCell?.textContent || "";
+
     let table = document.querySelector(
         `#conteudoinner > table:nth-child(${tableIndex})`,
     );
 
     while (title || table) {
+        if (!title || !table) break;
+
         const groupElement = document.createElement("section");
         const tableWrapperElement = document.createElement("div");
         const titleWrapperElement = document.createElement("div");
@@ -146,11 +160,20 @@ const groupClasses = async (enrolledTable) => {
         table.remove();
 
         titleWrapperElement.appendChild(title);
-        tableWrapperElement.appendChild(table);
+
+        const { headers, data } = extractTableData(table as HTMLElement);
+        const tableComponent = Table({
+            name: `class_table_${classIndex}`,
+            headers,
+            data,
+        });
+
+        tableWrapperElement.appendChild(tableComponent as HTMLElement);
+
         groupElement.appendChild(titleWrapperElement);
         groupElement.appendChild(tableWrapperElement);
 
-        editTitle(
+        await editTitle(
             titleWrapperElement,
             tableWrapperElement,
             enrolled,
@@ -167,13 +190,15 @@ const groupClasses = async (enrolledTable) => {
 
         title = document.querySelector(
             `#conteudoinner > h3:nth-child(${titleIndex})`,
-        );
+        ) as HTMLElement | null;
         table = document.querySelector(
             `#conteudoinner > table:nth-child(${tableIndex})`,
         );
-        enrolled = enrolledTable.querySelector(
+
+        enrolledCell = enrolledTable.querySelector(
             `td.l:nth-child(${enrolledIndex})`,
-        ).textContent;
+        );
+        enrolled = enrolledCell?.textContent || "";
     }
 };
 
@@ -185,7 +210,10 @@ export const classPage = () => {
     removeExtras();
     const enrolledTable = document.querySelector(
         "#conteudoinner > table:nth-child(5)",
-    );
+    ) as HTMLTableElement;
+
+    if (!enrolledTable) return;
+
     enrolledTable.remove();
     groupClasses(enrolledTable);
 };
